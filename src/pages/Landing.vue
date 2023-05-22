@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <LandingImageCard />
+    <landing-image-card />
   </div>
 </template>
 
