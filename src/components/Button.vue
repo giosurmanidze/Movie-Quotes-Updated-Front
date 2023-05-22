@@ -1,5 +1,5 @@
 <template>
-  <button class="text-white py-2 px-3 rounded-[4px] lg:text-xl" :class="styles">{{ text }}</button>
+  <button class="text-white py-2 px-3 rounded-[4px] lg:text-xl" :class="classes">{{ $t(text) }}</button>
 </template>
 
 <script setup>
@@ -10,7 +10,7 @@ const props = defineProps({
     type: String,
     required: true
   },
-  styles: {
+  classes: {
     type: String,
     required: false
   }

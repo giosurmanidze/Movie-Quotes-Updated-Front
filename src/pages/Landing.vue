@@ -5,9 +5,9 @@
       <div class="h-[60vh] w-full flex justify-center items-center">
         <div class="flex flex-col items-center space-y-6 w-[400px] lg:w-[800px]">
           <h1 class="text-[#DDCCAA] text-2xl lg:text-6xl text-center">
-            Find any quote in millions of movie lines
+            {{ $t('find_quote') }}
           </h1>
-          <Button text="Get Started" styles="bg-[#E31221]" />
+          <Button text="get_started" classes="bg-[#E31221]" />
         </div>
       </div>
     </div>
