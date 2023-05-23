@@ -7,7 +7,7 @@
           <h1 class="text-[#DDCCAA] text-2xl lg:text-6xl text-center">
             {{ $t('find_quote') }}
           </h1>
-          <Button text="get_started" classes="bg-[#E31221]" />
+          <Button type="button" text="get_started" classes="bg-[#E31221]" />
         </div>
       </div>
     </div>
