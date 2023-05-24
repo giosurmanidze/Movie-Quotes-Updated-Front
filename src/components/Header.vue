@@ -3,32 +3,27 @@
     <span class="text-[#DDCCAA]">{{ $t('movie_quotes') }}</span>
     <div class="flex items-center gap-6 text-[#fff]">
       <lang-changer />
-      <Button
-        type="button"
-        text="sign_up"
-        classes="bg-[#E31221]"
-        @click="showSignUpModal = 'sign-up'"
-      />
+      <Button type="button" text="sign_up" classes="bg-[#E31221]" @click="showModal = 'sign-up'" />
       <Button
         type="button"
         text="log_in_btn"
         classes="border-2 border-[#fff]"
-        @click="showSignUpModal = 'login'"
+        @click="showModal = 'login'"
       />
     </div>
     <div
-      v-if="showSignUpModal === 'sign-up'"
+      v-if="showModal === 'sign-up'"
       class="fixed inset-0 flex justify-center items-center blur-bg"
-      @click="showSignUpModal = false"
+      @click="showModal = ''"
     >
-      <signup-form />
+      <signup-form :showModal="updateShowModal" />
     </div>
     <div
-      v-if="showSignUpModal === 'login'"
+      v-if="showModal === 'login'"
       class="fixed inset-0 flex justify-center items-center blur-bg"
-      @click="showSignUpModal = false"
+      @click="showModal = ''"
     >
-      <login-form />
+      <login-form :showModal="updateShowModal" />
     </div>
   </div>
 </template>
@@ -40,7 +35,11 @@ import Button from './Button.vue'
 import LangChanger from './LangChanger.vue'
 import { ref } from 'vue'
 
-const showSignUpModal = ref('')
+const showModal = ref('')
+
+const updateShowModal = (value) => {
+  showModal.value = value
+}
 </script>
 
 <style scoped>
