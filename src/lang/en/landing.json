@@ -1,9 +1,7 @@
 {
   "movie_quotes": "MOVIE QUOTES",
   "find_quote": "Find any quote in millions of movie lines",
-  "lang": "Eng",
-  "sign_up": "Sign up",
-  "login": "Log in",
-  "get_started": "Get Started",
-  "sign_up_o": "Sign up with Google"
+  "lang_choose_opt_en": "Eng",
+  "lang_choose_opt_ka": "Geo",
+  "sign_up": "Sign up"
 }

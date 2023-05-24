@@ -1,13 +1,16 @@
 <template>
   <div class="flex flex-col gap-1">
     <label :for="name" class="text-[#ffffff] text-base"
-      >{{ label }}<span class="text-[#DC3545] ml-1">*</span></label
+      >{{ $t(label) }}<span class="text-[#DC3545] ml-1">*</span></label
     >
     <Field
-      :type="type"
-      class="w-full pl-2 h-9 rounded-[4px] bg-[#CED4DA]"
-      :name="name"
       :id="name"
+      class="w-full pl-2 h-9 rounded-[4px] bg-[#CED4DA]"
+      :type="type"
+      :rules="rules"
+      :name="name"
+      :validate-on-input="true"
+      :placeholder="placeholder"
     />
   </div>
 </template>
@@ -25,9 +28,17 @@ const props = defineProps({
     type: String,
     required: true
   },
+  rules: {
+    type: String,
+    required: false
+  },
   name: {
     type: String,
     required: true
+  },
+  placeholder: {
+    type: String,
+    required: false
   }
 })
 </script>

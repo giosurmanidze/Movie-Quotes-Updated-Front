@@ -11,7 +11,7 @@
       />
       <Button
         type="button"
-        text="login"
+        text="log_in_btn"
         classes="border-2 border-[#fff]"
         @click="showSignUpModal = 'login'"
       />
