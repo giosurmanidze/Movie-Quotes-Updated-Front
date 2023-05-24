@@ -1,6 +1,6 @@
 <template>
   <div
-    class="modal-content py-8 px-10 rounded shadow-lg flex flex-col gap-4 w-[95%] max-h-90vh overflow-auto bg-[#222030]"
+    class="modal-content py-8 sm:px-16 xs:px-10 rounded shadow-lg flex flex-col gap-4 w-[95%] max-h-90vh overflow-auto bg-[#222030]"
     @click.stop
   >
     <div class="flex flex-col justify-center items-center text-[#FFFFFF]">
@@ -8,35 +8,11 @@
       <span class="text-md text-[#6C757D]">Start your journey!</span>
     </div>
     <Form @submit="submit">
-      <div class="flex flex-col justify-between gap-4 h-[50vh]">
-        <TextField
-          label="Name"
-          type="text"
-          name="name"
-          :value="signUpData.name"
-          :updateValue="updateValue"
-        />
-        <TextField
-          label="Email"
-          type="text"
-          name="email"
-          :value="signUpData.email"
-          :updateValue="updateValue"
-        />
-        <TextField
-          label="Password"
-          type="text"
-          name="password"
-          :value="signUpData.password"
-          :updateValue="updateValue"
-        />
-        <TextField
-          label="Confirm password"
-          type="text"
-          name="password_confirmation"
-          :value="signUpData.password_confirmation"
-          :updateValue="updateValue"
-        />
+      <div class="flex flex-col justify-between gap-4 h-[55vh]">
+        <TextField label="Name" type="text" name="name" />
+        <TextField label="Email" type="text" name="email" />
+        <TextField label="Password" type="text" name="password" />
+        <TextField label="Confirm password" type="text" name="password_confirmation" />
         <Button type="submit" text="get_started" classes="bg-[#E31221]" />
         <Button
           type="button"
@@ -54,22 +30,10 @@
 
 <script setup>
 import { Form } from 'vee-validate'
-import { reactive } from 'vue'
 import TextField from './TextField.vue'
 import Button from './Button.vue'
 
-const signUpData = reactive({
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: ''
-})
-
-const updateValue = (key, value) => {
-  signUpData[key] = value
-}
-
-const submit = () => {
-  console.log(signUpData)
+const submit = (values) => {
+  console.log(values)
 }
 </script>
