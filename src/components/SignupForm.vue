@@ -7,7 +7,7 @@
       <h1 class="text-3xl">{{ $t('sign_up_form_title') }}</h1>
       <span class="text-md text-[#6C757D]">{{ $t('sign_up_form_header_text') }}</span>
     </div>
-    <Form @submit="submit">
+    <Form @submit="submit" v-slot="{ errors }">
       <div class="flex flex-col justify-between h-[55vh]">
         <TextField
           label="username"
@@ -15,6 +15,7 @@
           name="name"
           rules="required|min:3|max:15|lower_alpha_num"
           :placeholder="$t('min_max_and_lower_case', { min: 3, max: 15 })"
+          :hasError="errors.name"
         />
         <TextField
           label="email"
@@ -22,20 +23,23 @@
           name="email"
           rules="required|email"
           :placeholder="$t('enter_email')"
+          :hasError="errors.email"
         />
         <TextField
           label="password"
-          type="text"
+          type="password"
           name="password"
           rules="required|min:8|max:15|lower_alpha_num"
           :placeholder="$t('min_max_and_lower_case', { min: 8, max: 15 })"
+          :hasError="errors.password"
         />
         <TextField
           label="conf_password"
-          type="text"
+          type="password"
           name="password_confirmation"
           rules="required|confirmed:@password"
           :placeholder="$t('conf_password')"
+          :hasError="errors.password_confirmation"
         />
         <Button type="submit" text="sign_up_btn_in_form" classes="bg-[#E31221]" />
         <Button
@@ -48,7 +52,9 @@
     </Form>
     <span class="text-center text-[#6C757D]"
       >{{ $t('sign_up_footer_text')
-      }}<span class="text-[#0D6EFD] underline ml-1">{{ $t('log_in_btn') }}</span></span
+      }}<span @click="showModal('login')" class="text-[#0D6EFD] underline ml-1">
+        {{ $t('log_in_btn') }}
+      </span></span
     >
   </div>
 </template>
@@ -57,6 +63,14 @@
 import { Form } from 'vee-validate'
 import TextField from './TextField.vue'
 import Button from './Button.vue'
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  showModal: {
+    type: Function,
+    requird: false
+  }
+})
 
 const submit = (values) => {
   console.log(values)
