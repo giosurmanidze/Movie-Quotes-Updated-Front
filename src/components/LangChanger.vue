@@ -7,8 +7,8 @@
       @change="changeLocale"
       @click.stop
     >
-      <option class="text-black" value="en">Eng</option>
-      <option class="text-black" value="ka">ქარ</option>
+      <option class="text-black" value="en">{{ $t('lang_choose_opt_en') }}</option>
+      <option class="text-black" value="ka">{{ $t('lang_choose_opt_ka') }}</option>
     </select>
     <img src="../assets/caret-right-fill.svg" class="mt-2" />
   </div>

@@ -1,34 +1,55 @@
 <template>
   <div
-    class="modal-content py-8 sm:px-16 xs:px-10 rounded shadow-lg flex flex-col gap-2 w-[30%] max-h-90vh overflow-auto bg-[#222030]"
+    class="modal-content py-8 sm:px-16 xs:px-10 rounded shadow-lg flex flex-col gap-2 xs:w-[95%] lg:w-[40%] max-h-90vh overflow-auto bg-[#222030]"
     @click.stop
   >
     <div class="flex flex-col justify-center items-center text-[#FFFFFF]">
-      <h1 class="text-3xl">Log in to your account</h1>
-      <span class="text-md text-[#6C757D]">Welcome back! Please enter your details.</span>
+      <h1 class="text-3xl">{{ $t('log_in_form_title') }}</h1>
+      <span class="text-md text-[#6C757D] mt-1">{{ $t('log_in_form_header_text') }}</span>
     </div>
     <Form @submit="submit">
       <div class="flex flex-col justify-between h-[35vh]">
-        <TextField label="Email" type="text" name="email" />
-        <TextField label="Password" type="text" name="password" />
+        <TextField
+          label="username"
+          type="text"
+          name="name"
+          rules="required|min:3"
+          :placeholder="
+            $t('text_in_placeholder') +
+            ' ' +
+            $t('username').toLowerCase() +
+            ' ' +
+            $t('or') +
+            ' ' +
+            $t('email').toLowerCase()
+          "
+        />
+        <TextField
+          label="password"
+          type="text"
+          name="password"
+          rules="required"
+          :placeholder="$t('password')"
+        />
         <div class="flex justify-between items-center">
           <div class="flex items-center gap-2">
             <Field id="remember" type="checkbox" name="remember" value="true" class="w-4 h-4" />
-            <label for="remember" class="text-[#FFFFFF] text-base">Remember me</label>
+            <label for="remember" class="text-[#FFFFFF] text-base">{{ $t('remember_me') }}</label>
           </div>
-          <p class="text-[#0D6EFD] underline">Forgot password</p>
+          <p class="text-[#0D6EFD] underline">{{ $t('forgot_password') }}</p>
         </div>
-        <Button type="submit" text="Sign in" classes="bg-[#E31221]" />
+        <Button type="submit" text="log_in_btn" classes="bg-[#E31221]" />
         <Button
           type="button"
-          text="Sign in with Google"
+          text="log_in_with_google"
           classes="flex justify-center items-center gap-3 border-2 pb-1 border-[#ffffff]"
           :show-icon="true"
         />
       </div>
     </Form>
     <span class="text-center text-[#6C757D]"
-      >Already have an account?<span class="text-[#0D6EFD] underline ml-1">Log in</span></span
+      >{{ $t('log_in_footer_text')
+      }}<span class="text-[#0D6EFD] underline ml-1">{{ $t('log_in_btn') }}</span></span
     >
   </div>
 </template>
