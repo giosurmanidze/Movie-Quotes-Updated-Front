@@ -63,7 +63,10 @@
 import { Form } from 'vee-validate'
 import TextField from './TextField.vue'
 import Button from './Button.vue'
+import axios from 'axios'
 import { defineProps } from 'vue'
+import { useControllDialogs } from '../stores/controlDialogs'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
   showModal: {
@@ -71,8 +74,40 @@ const props = defineProps({
     requird: false
   }
 })
+const { locale } = useI18n({ useScope: 'global' })
+const dialogStore = useControllDialogs()
 
-const submit = (values) => {
-  console.log(values)
+const submit = (values, actions) => {
+  axios
+    .post('register', {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.password_confirmation
+    })
+    .then(() => {
+      dialogStore.dialog = 'succsess'
+    })
+    .catch((error) => {
+      console.log(error.response)
+      const errors = error.response.data.errors
+      for (const key in errors) {
+        if (key === 'name') {
+          if (locale.value === 'en') {
+            actions.setFieldError('name', 'name is already taken')
+          } else if (locale.value === 'ka') {
+            actions.setFieldError('name', 'ეს სახელი უკვე არსებობს')
+          }
+        }
+
+        if (key === 'email') {
+          if (locale.value === 'en') {
+            actions.setFieldError('email', 'Email is already taken')
+          } else if (locale.value === 'ka') {
+            actions.setFieldError('email', 'ეს მეილი უკვე არსებობს')
+          }
+        }
+      }
+    })
 }
 </script>
