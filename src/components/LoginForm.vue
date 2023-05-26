@@ -1,6 +1,6 @@
 <template>
   <div
-    class="modal-content py-8 sm:px-16 xs:px-10 rounded shadow-lg flex flex-col gap-2 xs:w-[95%] lg:w-[40%] max-h-90vh overflow-auto bg-[#222030]"
+    class="modal-content py-8 sm:px-16 xs:px-10 max-w-[600px] rounded shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh overflow-auto bg-[#222030]"
     @click.stop
   >
     <div class="flex flex-col justify-center items-center text-[#FFFFFF]">
@@ -8,8 +8,8 @@
       <span class="text-md text-[#6C757D] mt-1">{{ $t('log_in_form_header_text') }}</span>
     </div>
     <Form @submit="submit" v-slot="{ errors }">
-      <div class="flex flex-col justify-between h-[35vh]">
-        <TextField
+      <div class="flex flex-col justify-between h-[40vh]">
+        <text-field
           label="username"
           type="text"
           name="name"
@@ -25,7 +25,7 @@
             $t('email').toLowerCase()
           "
         />
-        <TextField
+        <text-field
           label="password"
           type="password"
           name="password"

@@ -6,37 +6,19 @@
       <Button
         type="button"
         text="sign_up"
+        :route="'/signup'"
         classes="bg-[#E31221]"
         @click="dialogStore.dialog = 'signup'"
       />
-      <!-- <Button
+      <Button
         type="button"
         text="log_in_btn"
+        :route="'/login'"
         classes="border-2 border-[#fff]"
         @click="dialogStore.dialog = 'login'"
-      /> -->
+      />
     </div>
-    <div
-      v-if="dialogStore.dialog === 'signup'"
-      class="fixed inset-0 flex justify-center items-center blur-bg"
-      @click="dialogStore.dialog = ''"
-    >
-      <signup-form :showModal="updateShowModal" />
-    </div>
-    <!-- <div
-      v-if="dialogStore.dialog === 'login'"
-      class="fixed inset-0 flex justify-center items-center blur-bg"
-      @click="dialogStore.dialog = ''"
-    >
-      <login-form :showModal="updateShowModal" />
-    </div>
-    <div
-      v-if="dialogStore.dialog === 'success'"
-      class="fixed inset-0 flex justify-center items-center blur-bg"
-      @click="dialogStore.dialog = ''"
-    >
-      <success-verified-email :showModal="updateShowModal" />
-    </div> -->
+   
   </div>
 </template>
 
