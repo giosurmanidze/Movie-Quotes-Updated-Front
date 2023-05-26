@@ -4,12 +4,22 @@
     @click.stop
   >
     <div class="flex flex-col justify-center items-center text-[#FFFFFF]">
-      <h1 class="text-3xl">{{ $t('log_in_form_title') }}</h1>
-      <span class="text-md text-[#6C757D] mt-1">{{ $t('log_in_form_header_text') }}</span>
+      <img src="../assets/email-sent.svg" />
+      <h1 class="text-3xl">Thank you!</h1>
+      <p>Please check your email and follow the instructions to activate your account.</p>
+      <Button
+        text="Go to my email"
+        classes="bg-[#E31221]"
+        route="/login"
+        @click="dialogStore.dialog = 'login'"
+      />
     </div>
-    <span class="text-center text-[#6C757D]"
-      >{{ $t('log_in_footer_text')
-      }}<span class="text-[#0D6EFD] underline ml-1">{{ $t('sign_up') }}</span></span
-    >
   </div>
 </template>
+
+<script setup>
+import Button from './Button.vue'
+import { useControllDialogs } from '../stores/controlDialogs'
+
+const dialogStore = useControllDialogs()
+</script>

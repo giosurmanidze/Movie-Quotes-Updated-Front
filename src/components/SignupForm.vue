@@ -91,10 +91,12 @@ const submit = (values, actions) => {
       password: values.password,
       password_confirmation: values.password_confirmation
     })
-    .then(() => {
+    .then((response) => {
       loading.value = false
       dialogStore.dialog = ''
       router.push('/sent-email')
+
+      localStorage.setItem('registeredEmail', values.email)
     })
     .catch((error) => {
       loading.value = false
