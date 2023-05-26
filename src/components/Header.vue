@@ -3,28 +3,40 @@
     <span class="text-[#DDCCAA]">{{ $t('movie_quotes') }}</span>
     <div class="flex items-center gap-6 text-[#fff]">
       <lang-changer />
-      <Button type="button" text="sign_up" classes="bg-[#E31221]" @click="dialogStore.dialog = 'sign-up'" />
       <Button
+        type="button"
+        text="sign_up"
+        classes="bg-[#E31221]"
+        @click="dialogStore.dialog = 'signup'"
+      />
+      <!-- <Button
         type="button"
         text="log_in_btn"
         classes="border-2 border-[#fff]"
         @click="dialogStore.dialog = 'login'"
-      />
+      /> -->
     </div>
     <div
-      v-if="dialogStore.dialog === 'sign-up'"
+      v-if="dialogStore.dialog === 'signup'"
       class="fixed inset-0 flex justify-center items-center blur-bg"
       @click="dialogStore.dialog = ''"
     >
       <signup-form :showModal="updateShowModal" />
     </div>
-    <div
+    <!-- <div
       v-if="dialogStore.dialog === 'login'"
       class="fixed inset-0 flex justify-center items-center blur-bg"
       @click="dialogStore.dialog = ''"
     >
       <login-form :showModal="updateShowModal" />
     </div>
+    <div
+      v-if="dialogStore.dialog === 'success'"
+      class="fixed inset-0 flex justify-center items-center blur-bg"
+      @click="dialogStore.dialog = ''"
+    >
+      <success-verified-email :showModal="updateShowModal" />
+    </div> -->
   </div>
 </template>
 
@@ -34,6 +46,7 @@ import LoginForm from './LoginForm.vue'
 import Button from './Button.vue'
 import LangChanger from './LangChanger.vue'
 import { useControllDialogs } from '../stores/controlDialogs'
+import SuccessVerifiedEmail from '../pages/SuccessVerifiedEmail.vue'
 
 const dialogStore = useControllDialogs()
 
