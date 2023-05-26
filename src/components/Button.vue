@@ -1,10 +1,5 @@
 <template>
-  <button
-    class="text-white px-3 rounded-[4px] lg:text-xl h-10"
-    :type="type"
-    :class="classes"
-    @click="showModal"
-  >
+  <button class="text-white px-3 rounded-[4px] lg:text-xl h-10" type="button" :class="classes" @click="showModal">
     <router-link :to="route ? route : '/'" class="flex items-center gap-2 justify-center">
       {{ $t(text) }}
     </router-link>
@@ -16,10 +11,6 @@ import { defineProps } from 'vue'
 import { RouterLink } from 'vue-router'
 
 const props = defineProps({
-  type: {
-    type: String,
-    required: true
-  },
   text: {
     type: String,
     required: true

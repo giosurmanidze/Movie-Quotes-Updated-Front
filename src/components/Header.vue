@@ -4,21 +4,18 @@
     <div class="flex items-center gap-6 text-[#fff]">
       <lang-changer />
       <Button
-        type="button"
         text="sign_up"
         :route="'/signup'"
         classes="bg-[#E31221]"
         @click="dialogStore.dialog = 'signup'"
       />
       <Button
-        type="button"
         text="log_in_btn"
         :route="'/login'"
         classes="border-2 border-[#fff]"
         @click="dialogStore.dialog = 'login'"
       />
     </div>
-   
   </div>
 </template>
 
