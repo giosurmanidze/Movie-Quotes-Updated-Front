@@ -86,7 +86,7 @@ const submit = (values, actions) => {
       password_confirmation: values.password_confirmation
     })
     .then(() => {
-      dialogStore.dialog = 'succsess'
+      // dialogStore.dialog = 'success'
     })
     .catch((error) => {
       console.log(error.response)
