@@ -1,8 +1,8 @@
 <template>
   <message-modal
     headerText="Thank you!"
-    msg="Your account has been activated."
-    btnText="Go to my news feed"
+    msg=" Please check your email and follow the instructions to activate your account."
+    btnText="Go to my email"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
     dialogName="login"

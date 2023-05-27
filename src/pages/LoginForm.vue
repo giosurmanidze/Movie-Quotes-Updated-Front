@@ -60,8 +60,8 @@
 
 <script setup>
 import { Field, Form } from 'vee-validate'
-import TextField from './TextField.vue'
-import Button from './Button.vue'
+import TextField from '../components/TextField.vue'
+import Button from '../components/Button.vue'
 
 const props = defineProps({
   showModal: {

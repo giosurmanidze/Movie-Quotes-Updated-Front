@@ -20,18 +20,11 @@
 </template>
 
 <script setup>
-import SignupForm from '../components/SignupForm.vue'
-import LoginForm from './LoginForm.vue'
 import Button from './Button.vue'
 import LangChanger from './LangChanger.vue'
 import { useControllDialogs } from '../stores/controlDialogs'
-import SuccessVerifiedEmail from '../pages/SuccessVerifiedEmail.vue'
 
 const dialogStore = useControllDialogs()
-
-const updateShowModal = (value) => {
-  dialogStore.dialog = value
-}
 </script>
 
 <style scoped>
