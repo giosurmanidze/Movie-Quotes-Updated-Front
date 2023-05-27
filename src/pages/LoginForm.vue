@@ -1,4 +1,7 @@
 <template>
+    <div
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-filter backdrop-blur-sm"
+  >
   <div
     class="modal-content py-8 sm:px-16 xs:px-10 max-w-[600px] rounded shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh overflow-auto bg-[#222030]"
     @click.stop
@@ -55,6 +58,7 @@
         $t('sign_up')
       }}</span></span
     >
+    </div>
   </div>
 </template>
 
