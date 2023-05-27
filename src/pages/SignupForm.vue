@@ -61,14 +61,14 @@
 
 <script setup>
 import { Form } from 'vee-validate'
-import TextField from './TextField.vue'
-import SubmitButton from './SubmitButton.vue'
+import TextField from '../components/TextField.vue'
+import SubmitButton from '../components/SubmitButton.vue'
 import axios from 'axios'
 import { defineProps, ref } from 'vue'
 import { useControllDialogs } from '../stores/controlDialogs'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import Loading from './Loading.vue'
+import Loading from '../components/Loading.vue'
 
 const props = defineProps({
   showModal: {
