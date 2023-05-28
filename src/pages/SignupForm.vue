@@ -55,9 +55,9 @@
       </Form>
       <span class="text-center text-[#6C757D]"
         >{{ $t('sign_up_footer_text')
-        }}<span @click="showModal('login')" class="text-[#0D6EFD] underline ml-1">
+        }}<router-link to="login" class="text-[#0D6EFD] underline ml-1">
           {{ $t('log_in_btn') }}
-        </span></span
+        </router-link></span
       >
     </div>
   </div>
@@ -67,18 +67,12 @@
 import { Form } from 'vee-validate'
 import TextField from '@/components/TextField.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
+import { useRouter, RouterLink } from 'vue-router'
 import Loading from '@/components/Loading.vue'
 import { createUser } from '@/services/createUser'
 
-const props = defineProps({
-  showModal: {
-    type: Function,
-    requird: false
-  }
-})
 const loading = ref(false)
 const router = useRouter()
 const { t } = useI18n()

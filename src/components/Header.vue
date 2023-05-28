@@ -7,13 +7,11 @@
         text="sign_up"
         :route="'/signup'"
         classes="bg-[#E31221]"
-        @click="dialogStore.dialog = 'signup'"
       />
       <Button
         text="log_in_btn"
         :route="'/login'"
         classes="border-2 border-[#fff]"
-        @click="dialogStore.dialog = 'login'"
       />
     </div>
   </div>
@@ -22,9 +20,7 @@
 <script setup>
 import Button from './Button.vue'
 import LangChanger from './LangChanger.vue'
-import { useControllDialogs } from '@/stores/controlDialogs'
 
-const dialogStore = useControllDialogs()
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <button class="text-white px-3 rounded-[4px] lg:text-xl h-10" type="button" :class="classes" @click="showModal">
+  <button class="text-white px-3 rounded-[4px] lg:text-xl h-10" type="button" :class="classes" >
     <router-link :to="route ? route : '/'" class="flex items-center gap-2 justify-center">
       {{ $t(text) }}
     </router-link>
@@ -17,10 +17,6 @@ const props = defineProps({
   },
   classes: {
     type: String,
-    required: false
-  },
-  showModal: {
-    type: Function,
     required: false
   },
   showIcon: {

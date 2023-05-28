@@ -5,7 +5,6 @@
     btnText="Go to my email"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
-    dialogName="login"
   />
 </template>
 
