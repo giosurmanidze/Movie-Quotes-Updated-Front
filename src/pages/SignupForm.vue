@@ -75,7 +75,7 @@ import { createUser } from '@/services/createUser'
 
 const loading = ref(false)
 const router = useRouter()
-const { t } = useI18n()
+const { locale } = useI18n({ useScope: 'global' })
 
 const submit = (values, actions) => {
   loading.value = true
@@ -87,10 +87,12 @@ const submit = (values, actions) => {
         name: 'sentEmail'
       })
     })
-    .catch(() => {
+    .catch((error) => {
       loading.value = false
-      actions.setFieldError('username', t('username_already_taken'))
-      actions.setFieldError('email', t('email_already_taken'))
+      const errors = error.response?.data.errors
+      for (const key in errors) {
+        actions.setFieldError(key, errors[key][0][locale.value])
+      }
     })
 }
 </script>
