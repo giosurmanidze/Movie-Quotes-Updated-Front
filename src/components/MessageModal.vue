@@ -12,12 +12,7 @@
         <p class="text-center w-full text-md">
           {{ msg }}
         </p>
-        <Button
-          :text="btnText"
-          :classes="classes"
-          :route="route"
-          @click="dialogStore.dialog = dialogName"
-        />
+        <Button :text="btnText" :classes="classes" :route="route" />
       </div>
     </div>
   </div>
@@ -25,17 +20,13 @@
 
 <script setup>
 import Button from '@/components/Button.vue'
-import { useControllDialogs } from '@/stores/controlDialogs'
 import { defineProps } from 'vue'
-
-const dialogStore = useControllDialogs()
 
 const props = defineProps({
   headerText: String,
   msg: String,
   btnText: String,
   classes: String,
-  route: String,
-  dialogName: String
+  route: String
 })
 </script>
