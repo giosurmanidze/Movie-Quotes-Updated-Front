@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-import Button from '../components/Button.vue'
-import { useControllDialogs } from '../stores/controlDialogs'
+import Button from '@/components/Button.vue'
+import { useControllDialogs } from '@/stores/controlDialogs'
 import { defineProps } from 'vue'
 
 const dialogStore = useControllDialogs()

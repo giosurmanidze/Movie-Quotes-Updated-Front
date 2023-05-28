@@ -22,7 +22,7 @@
 <script setup>
 import Button from './Button.vue'
 import LangChanger from './LangChanger.vue'
-import { useControllDialogs } from '../stores/controlDialogs'
+import { useControllDialogs } from '@/stores/controlDialogs'
 
 const dialogStore = useControllDialogs()
 </script>

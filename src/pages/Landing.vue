@@ -44,13 +44,13 @@
 </template>
 
 <script setup>
-import Header from '../components/Header.vue'
+import Header from '@/components/Header.vue'
 import SignupForm from './SignupForm.vue'
 import LoginForm from './LoginForm.vue'
 import SuccessVerifiedEmail from './SuccessVerifiedEmail.vue'
-import Button from '../components/Button.vue'
-import LandingImageCard from '../components/LandingImageCard.vue'
-import { useControllDialogs } from '../stores/controlDialogs'
+import Button from '@/components/Button.vue'
+import LandingImageCard from '@/components/LandingImageCard.vue'
+import { useControllDialogs } from '@/stores/controlDialogs'
 import SentEmail from './SentEmail.vue'
 
 const dialogStore = useControllDialogs()
