@@ -15,10 +15,10 @@
           <text-field
             label="username"
             type="text"
-            name="name"
+            name="username"
             rules="required|min:3|max:15|lower_alpha_num"
             :placeholder="$t('min_max_and_lower_case', { min: 3, max: 15 })"
-            :hasError="errors.name"
+            :hasError="errors.username"
           />
           <text-field
             label="email"
@@ -65,14 +65,13 @@
 
 <script setup>
 import { Form } from 'vee-validate'
-import TextField from '../components/TextField.vue'
-import SubmitButton from '../components/SubmitButton.vue'
-import axios from 'axios'
+import TextField from '@/components/TextField.vue'
+import SubmitButton from '@/components/SubmitButton.vue'
 import { defineProps, ref } from 'vue'
-import { useControllDialogs } from '../stores/controlDialogs'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import Loading from '../components/Loading.vue'
+import Loading from '@/components/Loading.vue'
+import { createUser } from '@/services/createUser'
 
 const props = defineProps({
   showModal: {
@@ -82,47 +81,22 @@ const props = defineProps({
 })
 const loading = ref(false)
 const router = useRouter()
-
-const { locale } = useI18n({ useScope: 'global' })
-const dialogStore = useControllDialogs()
+const { t } = useI18n()
 
 const submit = (values, actions) => {
   loading.value = true
-  axios
-    .post('register', {
-      name: values.name,
-      email: values.email,
-      password: values.password,
-      password_confirmation: values.password_confirmation
-    })
-    .then((response) => {
-      loading.value = false
-      dialogStore.dialog = ''
-      router.push('/sent-email')
 
-      localStorage.setItem('registeredEmail', values.email)
-    })
-    .catch((error) => {
+  createUser(values)
+    .then(() => {
       loading.value = false
-      console.log(error.response)
-      const errors = error.response.data.errors
-      for (const key in errors) {
-        if (key === 'name') {
-          if (locale.value === 'en') {
-            actions.setFieldError('name', 'name is already taken')
-          } else if (locale.value === 'ka') {
-            actions.setFieldError('name', 'ეს სახელი უკვე არსებობს')
-          }
-        }
-
-        if (key === 'email') {
-          if (locale.value === 'en') {
-            actions.setFieldError('email', 'Email is already taken')
-          } else if (locale.value === 'ka') {
-            actions.setFieldError('email', 'ეს მეილი უკვე არსებობს')
-          }
-        }
-      }
+      router.push({
+        name: 'sentEmail'
+      })
+    })
+    .catch(() => {
+      loading.value = false
+      actions.setFieldError('username', t('username_already_taken'))
+      actions.setFieldError('email', t('email_already_taken'))
     })
 }
 </script>

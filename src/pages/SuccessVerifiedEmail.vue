@@ -10,5 +10,5 @@
 </template>
 
 <script setup>
-import MessageModal from '../components/MessageModal.vue'
+import MessageModal from '@/components/MessageModal.vue'
 </script>
