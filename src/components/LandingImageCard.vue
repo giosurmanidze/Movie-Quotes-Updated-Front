@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { quotes } from '../stores/quotes'
+import { quotes } from '@/stores/quotes'
 </script>
 <style scoped>
 .bg-size {

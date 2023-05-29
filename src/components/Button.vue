@@ -1,24 +1,16 @@
 <template>
-  <button
-    class="text-white px-3 rounded-[4px] lg:text-xl h-10"
-    :type="type"
-    :class="classes"
-    @click="showModal"
-  >
-    <div v-if="showIcon"><google-svg /></div>
-    {{ $t(text) }}
+  <button class="text-white px-3 rounded-[4px] lg:text-xl h-10" type="button" :class="classes" >
+    <router-link :to="route ? route : '/'" class="flex items-center gap-2 justify-center">
+      {{ $t(text) }}
+    </router-link>
   </button>
 </template>
 
 <script setup>
 import { defineProps } from 'vue'
-import GoogleSvg from '../svg/GoogleSvg.vue'
+import { RouterLink } from 'vue-router'
 
 const props = defineProps({
-  type: {
-    type: String,
-    required: true
-  },
   text: {
     type: String,
     required: true
@@ -27,12 +19,12 @@ const props = defineProps({
     type: String,
     required: false
   },
-  showModal: {
-    type: Function,
-    required: false
-  },
   showIcon: {
     type: Boolean,
+    required: false
+  },
+  route: {
+    type: String,
     required: false
   }
 })

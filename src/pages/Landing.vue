@@ -2,6 +2,34 @@
   <div class="lg:block">
     <div class="h-[80vh] bg-banner_gradient pt-8 px-8 lg:px-16">
       <Header />
+      <div
+        v-if="$route.name === 'signup'"
+        class="fixed inset-0 flex justify-center items-center blur-bg"
+        @click="$router.push('/')"
+      >
+        <signup-form />
+      </div>
+      <div
+        v-if="$route.name === 'login'"
+        class="fixed inset-0 flex justify-center items-center blur-bg"
+        @click="$router.push('/')"
+      >
+        <login-form />
+      </div>
+      <div
+        v-if="$route.name === 'success'"
+        class="fixed inset-0 flex justify-center items-center blur-bg"
+        @click="$router.push('/')"
+      >
+        <success-verified-email />
+      </div>
+      <div
+        v-if="$route.name === 'sentEmail'"
+        class="fixed inset-0 flex justify-center items-center blur-bg"
+        @click="$router.push('/')"
+      >
+        <sent-email />
+      </div>
       <div class="h-[60vh] w-full flex justify-center items-center">
         <div class="flex flex-col items-center space-y-6 w-[400px] lg:w-[800px]">
           <h1 class="text-[#DDCCAA] text-2xl lg:text-6xl text-center">
@@ -16,7 +44,11 @@
 </template>
 
 <script setup>
-import Header from '../components/Header.vue'
-import Button from '../components/Button.vue'
-import LandingImageCard from '../components/LandingImageCard.vue'
+import Header from '@/components/Header.vue'
+import SignupForm from './SignupForm.vue'
+import LoginForm from './LoginForm.vue'
+import SuccessVerifiedEmail from './SuccessVerifiedEmail.vue'
+import Button from '@/components/Button.vue'
+import LandingImageCard from '@/components/LandingImageCard.vue'
+import SentEmail from './SentEmail.vue'
 </script>

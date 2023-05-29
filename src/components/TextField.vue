@@ -5,9 +5,9 @@
     </label>
     <Field
       :id="name"
-      class="w-full pl-2 h-9 rounded-[4px] bg-[#CED4DA] outline-none"
+      class="w-full pl-2 h-[38px] rounded-[4px] bg-[#CED4DA] outline-none"
       :class="{
-        'border-2 border-red-500': hasError,
+        'border-2 border-[#E31221]': hasError,
         'border-2 border-green-500': !hasError && hasInteracted
       }"
       :type="inputType"
@@ -18,6 +18,7 @@
       @blur="hasInteracted = true"
       @input="hasInteracted = true"
     />
+    <ErrorMessage :name="name" class="text-[#E31221]" />
     <span v-if="!hasError && type !== 'password' && hasInteracted" class="absolute right-2 top-9">
       <img src="../assets/done-icon.svg" />
     </span>
@@ -36,7 +37,7 @@
 </template>
 
 <script setup>
-import { Field } from 'vee-validate'
+import { ErrorMessage, Field } from 'vee-validate'
 import { computed, defineProps, ref } from 'vue'
 
 const hasInteracted = ref(false)
