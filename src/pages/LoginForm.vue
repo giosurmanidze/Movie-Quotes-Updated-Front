@@ -15,9 +15,9 @@
           <text-field
             label="username"
             type="text"
-            name="name"
+            name="username"
             rules="required|min:3"
-            :hasError="errors.name"
+            :hasError="errors.username"
             :placeholder="
               $t('text_in_placeholder') +
               ' ' +
@@ -43,14 +43,15 @@
             </div>
             <p class="text-[#0D6EFD] underline">{{ $t('forgot_password') }}</p>
           </div>
-          <Button type="submit" text="log_in_btn" classes="bg-[#E31221]" />
-          <Button
-            type="button"
+          <submit-button text="log_in_btn" classes="bg-[#E31221]" />
+          <submit-button
             text="log_in_with_google"
             classes="flex justify-center items-center gap-3 border-2 pb-1 border-[#ffffff]"
             :show-icon="true"
           />
         </div>
+        <Loading v-if="loading" />
+        {{ user }}
       </Form>
       <span class="text-center text-[#6C757D]"
         >{{ $t('log_in_footer_text')
@@ -65,9 +66,20 @@
 <script setup>
 import { Field, Form } from 'vee-validate'
 import TextField from '@/components/TextField.vue'
-import Button from '@/components/Button.vue'
+import SubmitButton from '@/components/SubmitButton.vue'
+import { loginUser } from '@/services/loginUser'
+import axiosInstance from '@/config/axios/index'
+import Loading from '@/components/Loading.vue'
+import { ref } from 'vue'
 
-const submit = (values) => {
-  console.log(values)
+const user = ref()
+const loading = ref(false)
+
+const submit = async (values) => {
+  await axiosInstance.get('/sanctum/csrf-cookie')
+  await loginUser(values)
+
+  const { data } = await axiosInstance.get('/api/user')
+  user.value = data
 }
 </script>

@@ -1,8 +1,8 @@
 import axiosInstance from '@/config/axios/index'
 
-export const createUser = async (data) => {
+export const loginUser = async (data) => {
   try {
-    const response = await axiosInstance.post('api/register', data)
+    const response = await axiosInstance.post('api/login', data)
     return response
   } catch (error) {
     throw error

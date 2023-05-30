@@ -72,27 +72,29 @@ import { useI18n } from 'vue-i18n'
 import { useRouter, RouterLink } from 'vue-router'
 import Loading from '@/components/Loading.vue'
 import { createUser } from '@/services/createUser'
+import axiosInstance from '@/config/axios'
+
 
 const loading = ref(false)
 const router = useRouter()
 const { locale } = useI18n({ useScope: 'global' })
 
-const submit = (values, actions) => {
+const submit = async (values, actions) => {
   loading.value = true
+  await axiosInstance.get('/sanctum/csrf-cookie')
 
-  createUser(values)
-    .then(() => {
-      loading.value = false
-      router.push({
-        name: 'sentEmail'
-      })
+  try {
+    await createUser(values)
+    loading.value = false
+    router.push({
+      name: 'sentEmail'
     })
-    .catch((error) => {
-      loading.value = false
-      const errors = error.response?.data.errors
-      for (const key in errors) {
-        actions.setFieldError(key, errors[key][0][locale.value])
-      }
-    })
+  } catch (error) {
+    loading.value = false
+    const errors = error.response?.data.errors
+    for (const key in errors) {
+      actions.setFieldError(key, errors[key][0][locale.value])
+    }
+  }
 }
 </script>
