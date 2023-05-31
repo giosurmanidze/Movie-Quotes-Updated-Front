@@ -67,19 +67,29 @@
 import { Field, Form } from 'vee-validate'
 import TextField from '@/components/TextField.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
-import { loginUser } from '@/services/loginUser'
+import { loginUser } from '@/services/sendRequest'
 import axiosInstance from '@/config/axios/index'
 import Loading from '@/components/Loading.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const user = ref()
 const loading = ref(false)
+const router = useRouter()
 
 const submit = async (values) => {
+  loading.value = true
   await axiosInstance.get('/sanctum/csrf-cookie')
-  await loginUser(values)
 
-  const { data } = await axiosInstance.get('/api/user')
-  user.value = data
+  try {
+    await loginUser(values)
+    const { data } = await axiosInstance.get('/api/user')
+    user.value = data
+    loading.value = false
+    router.push({ name: 'newFeeds' })
+  } catch (error) {
+    loading.value = false
+    console.log(error)
+  }
 }
 </script>

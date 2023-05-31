@@ -71,9 +71,8 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, RouterLink } from 'vue-router'
 import Loading from '@/components/Loading.vue'
-import { createUser } from '@/services/createUser'
+import { createUser } from '@/services/sendRequest'
 import axiosInstance from '@/config/axios'
-
 
 const loading = ref(false)
 const router = useRouter()
