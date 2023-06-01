@@ -4,7 +4,7 @@ import SuccessVerifiedEmail from '../pages/SuccessVerifiedEmail.vue'
 import LoginForm from '../pages/LoginForm.vue'
 import SignupForm from '../pages/SignupForm.vue'
 import SentEmail from '../pages/SentEmail.vue'
-import NewFeeds from '../pages/Auth/NewFeeds.vue'
+import NewsFeed from '../pages/Auth/NewsFeed.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,9 +37,9 @@ const router = createRouter({
       ]
     },
     {
-      path: '/new-feeds',
-      name: 'newFeeds',
-      component: NewFeeds
+      path: '/news-feed',
+      name: 'newsFeed',
+      component: NewsFeed
     }
   ]
 })

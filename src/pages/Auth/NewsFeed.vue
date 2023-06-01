@@ -5,18 +5,16 @@
 </template>
 
 <script setup>
-import axiosInstance from '../../config/axios/index'
+import { logoutUser } from '../../services/sendRequest'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
 const logout = async () => {
-  await axiosInstance.get('/sanctum/csrf-cookie')
   try {
-    await axiosInstance.post('/api/logout')
-    router.push({ name: 'landing' })
+    await logoutUser()
+    router.push({ name: 'login' })
   } catch (error) {
-    console.error('Error logging out:', error)
+    console.log(error)
   }
 }
 </script>
