@@ -79,14 +79,12 @@ const router = useRouter()
 
 const submit = async (values) => {
   loading.value = true
-  await axiosInstance.get('/sanctum/csrf-cookie')
-
   try {
     await loginUser(values)
     const { data } = await axiosInstance.get('/api/user')
     user.value = data
     loading.value = false
-    router.push({ name: 'newFeeds' })
+    router.push({ name: 'newsFeed' })
   } catch (error) {
     loading.value = false
     console.log(error)

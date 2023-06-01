@@ -1,6 +1,7 @@
 import axiosInstance from '@/config/axios/index'
 
 const sendRequest = async (url, data) => {
+  await axiosInstance.get('/sanctum/csrf-cookie')
   try {
     const response = await axiosInstance.post(url, data)
     return response
@@ -14,4 +15,13 @@ export const createUser = async (data) => {
 }
 export const loginUser = async (data) => {
   return sendRequest('api/login', data)
+}
+export const logoutUser = async () => {
+  await axiosInstance.get('/sanctum/csrf-cookie')
+  try {
+    const response = await axiosInstance.post('/api/logout')
+    return response
+  } catch (error) {
+    console.error('Error logging out:', error)
+  }
 }
