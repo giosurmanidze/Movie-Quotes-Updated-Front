@@ -16,6 +16,7 @@ export const createUser = async (data) => {
 export const loginUser = async (data) => {
   return sendRequest('api/login', data)
 }
+
 export const logoutUser = async () => {
   await axiosInstance.get('/sanctum/csrf-cookie')
   try {

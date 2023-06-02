@@ -5,6 +5,7 @@ import LoginForm from '../pages/LoginForm.vue'
 import SignupForm from '../pages/SignupForm.vue'
 import SentEmail from '../pages/SentEmail.vue'
 import NewsFeed from '../pages/Auth/NewsFeed.vue'
+import ForgotPassword from '../pages/ForgotPassword.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
           path: '/sent-email',
           name: 'sentEmail',
           component: SentEmail
+        },
+        {
+          path: '/forgot-password',
+          name: 'forgotPassword',
+          component: ForgotPassword
         }
       ]
     },

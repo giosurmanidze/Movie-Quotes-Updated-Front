@@ -27,6 +27,7 @@ const props = defineProps({
   msg: String,
   btnText: String,
   classes: String,
-  route: String
+  route: String,
+  numberOfInputs: Number
 })
 </script>

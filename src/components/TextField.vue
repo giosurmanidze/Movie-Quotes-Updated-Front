@@ -17,7 +17,7 @@
       :placeholder="placeholder"
       :validate-on-input="true"
       @blur="hasInteracted = true"
-      @input="updateInput(name, $event.target.value)"
+      @input="updateInput ? updateInput(name, $event.target.value) : null"
     />
     <ErrorMessage :name="name" class="text-[#E31221]" />
     <span v-if="!hasError && type !== 'password' && hasInteracted" class="absolute right-2 top-9">
