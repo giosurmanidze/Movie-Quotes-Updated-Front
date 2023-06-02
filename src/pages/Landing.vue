@@ -37,6 +37,27 @@
       >
         <forgot-password />
       </div>
+      <div
+        v-if="$route.name === 'resetPassword'"
+        class="fixed inset-0 flex justify-center items-center blur-bg"
+        @click="$router.push('/')"
+      >
+        <create-password />
+      </div>
+      <div
+        v-if="$route.name === 'changedPassword'"
+        class="fixed inset-0 flex justify-center items-center blur-bg"
+        @click="$router.push('/')"
+      >
+        <changed-password />
+      </div>
+      <div
+        v-if="$route.name === 'recoverInstructions'"
+        class="fixed inset-0 flex justify-center items-center blur-bg"
+        @click="$router.push('/')"
+      >
+        <recover-instructions />
+      </div>
       <div class="h-[60vh] w-full flex justify-center items-center">
         <div class="flex flex-col items-center space-y-6 w-[400px] lg:w-[800px]">
           <h1 class="text-[#DDCCAA] text-2xl lg:text-6xl text-center">
@@ -59,4 +80,7 @@ import Button from '@/components/Button.vue'
 import LandingImageCard from '@/components/LandingImageCard.vue'
 import SentEmail from './SentEmail.vue'
 import ForgotPassword from './ForgotPassword.vue'
+import CreatePassword from './CreatePassword.vue'
+import ChangedPassword from './ChangedPassword.vue'
+import RecoverInstructions from './RecoverInstructions.vue'
 </script>

@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Landing from '../pages/Landing.vue'
-import SuccessVerifiedEmail from '../pages/SuccessVerifiedEmail.vue'
-import LoginForm from '../pages/LoginForm.vue'
-import SignupForm from '../pages/SignupForm.vue'
-import SentEmail from '../pages/SentEmail.vue'
-import NewsFeed from '../pages/Auth/NewsFeed.vue'
-import ForgotPassword from '../pages/ForgotPassword.vue'
+import Landing from '@/pages/Landing.vue'
+import SuccessVerifiedEmail from '@/pages/SuccessVerifiedEmail.vue'
+import LoginForm from '@/pages/LoginForm.vue'
+import SignupForm from '@/pages/SignupForm.vue'
+import SentEmail from '@/pages/SentEmail.vue'
+import NewsFeed from '@/pages/Auth/NewsFeed.vue'
+import ForgotPassword from '@/pages/ForgotPassword.vue'
+import RecoverInstructions from '@/pages/RecoverInstructions.vue'
+import CreatePassword from '@/pages/CreatePassword.vue'
+import ChangedPassword from '@/pages/CreatePassword.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +42,21 @@ const router = createRouter({
           path: '/forgot-password',
           name: 'forgotPassword',
           component: ForgotPassword
+        },
+        {
+          path: '/recover-instructions',
+          name: 'recoverInstructions',
+          component: RecoverInstructions
+        },
+        {
+          path: '/reset-password',
+          name: 'resetPassword',
+          component: CreatePassword
+        },
+        {
+          path: '/changed-password',
+          name: 'changedPassword',
+          component: ChangedPassword
         }
       ]
     },

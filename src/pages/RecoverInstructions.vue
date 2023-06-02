@@ -1,7 +1,8 @@
 <template>
   <message-modal
-    headerText="Thank you!"
-    msg=" Please check your email and follow the instructions to activate your account."
+    headerText="Check your email"
+    msg="We have sent a password recover instructions 
+to your email"
     btnText="Go to my email"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
