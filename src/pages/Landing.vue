@@ -30,6 +30,13 @@
       >
         <sent-email />
       </div>
+      <div
+        v-if="$route.name === 'forgotPassword'"
+        class="fixed inset-0 flex justify-center items-center blur-bg"
+        @click="$router.push('/')"
+      >
+        <forgot-password />
+      </div>
       <div class="h-[60vh] w-full flex justify-center items-center">
         <div class="flex flex-col items-center space-y-6 w-[400px] lg:w-[800px]">
           <h1 class="text-[#DDCCAA] text-2xl lg:text-6xl text-center">
@@ -51,4 +58,5 @@ import SuccessVerifiedEmail from './SuccessVerifiedEmail.vue'
 import Button from '@/components/Button.vue'
 import LandingImageCard from '@/components/LandingImageCard.vue'
 import SentEmail from './SentEmail.vue'
+import ForgotPassword from './ForgotPassword.vue'
 </script>

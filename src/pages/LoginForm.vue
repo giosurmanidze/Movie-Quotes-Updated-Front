@@ -53,7 +53,8 @@
               />
               <label for="remember" class="text-[#FFFFFF] text-base">{{ $t('remember_me') }}</label>
             </div>
-            <p class="text-[#0D6EFD] underline">{{ $t('forgot_password') }}</p>
+
+            <router-link to="/forgot-password" class="text-[#0D6EFD] underline">{{ $t('forgot_password') }} </router-link>
           </div>
           <submit-button text="log_in_btn" classes="bg-[#E31221]" />
           <submit-button
@@ -99,7 +100,6 @@ const updateInput = (key, value) => {
 
 const submit = async (values) => {
   loading.value = true
-  console.log(loginForm)
 
   try {
     await loginUser(values)
