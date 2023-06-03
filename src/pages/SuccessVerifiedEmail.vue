@@ -1,10 +1,11 @@
 <template>
   <message-modal
-    headerText="Thank you!"
-    msg="Your account has been activated."
-    btnText="Go to my news feed"
+    headerText="success_header_title"
+    msg="success_header_text"
+    btnText="success_submit_btn"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
+    img="success"
   />
 </template>
 

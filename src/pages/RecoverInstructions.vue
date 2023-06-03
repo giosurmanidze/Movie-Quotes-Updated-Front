@@ -1,9 +1,8 @@
 <template>
   <message-modal
-    headerText="Check your email"
-    msg="We have sent a password recover instructions 
-to your email"
-    btnText="Go to my email"
+    headerText="recover_instrc_header_title"
+    msg="recover_instrc_header_text"
+    btnText="recover_instrc_submit_btn"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
     img="emailSent"

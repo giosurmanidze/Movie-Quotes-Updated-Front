@@ -54,7 +54,9 @@
               <label for="remember" class="text-[#FFFFFF] text-base">{{ $t('remember_me') }}</label>
             </div>
 
-            <router-link to="/forgot-password" class="text-[#0D6EFD] underline">{{ $t('forgot_password') }} </router-link>
+            <router-link to="/forgot-password" class="text-[#0D6EFD] underline"
+              >{{ $t('forgot_password') }}
+            </router-link>
           </div>
           <submit-button text="log_in_btn" classes="bg-[#E31221]" />
           <submit-button
@@ -79,7 +81,7 @@
 import { Form } from 'vee-validate'
 import TextField from '@/components/TextField.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
-import { loginUser } from '@/services/sendRequest'
+import { loginUser } from '@/services/requests/sendRequest'
 import axiosInstance from '@/config/axios/index'
 import Loading from '@/components/Loading.vue'
 import { ref, onMounted } from 'vue'

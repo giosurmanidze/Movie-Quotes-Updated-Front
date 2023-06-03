@@ -67,31 +67,9 @@
 import { Form } from 'vee-validate'
 import TextField from '@/components/TextField.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRouter, RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import Loading from '@/components/Loading.vue'
-import { createUser } from '@/services/sendRequest'
+import useSubmitRegister from '@/services/submitForm/useSubmitRegister'
 
-const loading = ref(false)
-const router = useRouter()
-const { locale } = useI18n({ useScope: 'global' })
-
-const submit = async (values, actions) => {
-  loading.value = true
-
-  try {
-    await createUser(values)
-    loading.value = false
-    router.push({
-      name: 'sentEmail'
-    })
-  } catch (error) {
-    loading.value = false
-    const errors = error.response?.data.errors
-    for (const key in errors) {
-      actions.setFieldError(key, errors[key][0][locale.value])
-    }
-  }
-}
+const { submit, loading } = useSubmitRegister()
 </script>

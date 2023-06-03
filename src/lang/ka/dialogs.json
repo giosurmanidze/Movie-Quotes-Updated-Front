@@ -1,0 +1,19 @@
+{
+  "forgot_password_header_title": "დაგავიწყდა პაროლი?",
+  "forgot_password_header_text": "შეიყვანეთ ელფოსტა და სადაც გამოგიგზავნით ელ.ფოსტას თქვენი პაროლის აღდგენის ინსტრუქციებს",
+  "forgot_password_submit_btn": "გაგზავნეთ ინსტრუქციები",
+  "back_arrow": "დაბრუნება შესვლის გვერდზე",
+
+  "recover_instrc_header_title": "გადაამოწმეთ ელფოსტა",
+  "recover_instrc_header_text": "ჩვენ გამოგიგზავნეთ პაროლის აღდგენის ინსტრუქციები თქვენს ელფოსტაზე",
+  "recover_instrc_submit_btn": "მეილზე გადასვლა",
+  "skip_btn": "მოგვიანებით დავადასტურებ",
+
+  "sent_email_header_title": "მადლობა!",
+  "sent_email_header_text": "გთხოვთ, შეამოწმოთ თქვენი ელფოსტა და მიჰყევით ინსტრუქციას თქვენი ანგარიშის გასააქტიურებლად.",
+  "sent_email_submit_btn": "მეილზე გადასვლა",
+
+  "success_header_title": "მადლობა!",
+  "success_header_text": "თქვენი ანგარიში გააქტიურებულია",
+  "success_submit_btn": "გადადით სიახლეებზე"
+}
