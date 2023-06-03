@@ -43,30 +43,8 @@
 import { Form } from 'vee-validate'
 import SubmitButton from '@/components/SubmitButton.vue'
 import TextField from '@/components/TextField.vue'
-import { useRoute, useRouter } from 'vue-router'
-import { recoverPassword } from '@/services/sendRequest'
 import Loading from '@/components/Loading.vue'
-import { ref } from 'vue'
+import useSubmitCreatePassword from '@/services/submitForm/useSubmitCreatePassword'
 
-const route = useRoute()
-const router = useRouter()
-const loading = ref(false)
-
-const submit = async (values) => {
-  loading.value = true
-
-  try {
-    values.email = route.query.email
-    values.token = route.query.token
-    values['password_confirmation'] = values.password_confirmation
-    await recoverPassword(values)
-    loading.value = false
-    router.push({
-      name: 'changedPassword'
-    })
-  } catch (error) {
-    loading.value = false
-    console.log(error)
-  }
-}
+const { submit, loading } = useSubmitCreatePassword()
 </script>

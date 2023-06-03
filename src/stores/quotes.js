@@ -1,21 +1,20 @@
 export const quotes = [
   {
     img: 'https://i.postimg.cc/4dpWbhzk/landing-page.png',
-    quote: '“You have to leave somethig behind to go forward”',
-    movie: 'Interstellar',
+    quote: 'quote_1',
+    movie: 'movie_1',
     year: '2014'
   },
   {
     img: 'https://i.postimg.cc/4dpWbhzk/landing-page.png',
-    quote:
-      'I think we’re just gonna have to be secretly in love with each other and leave it at that',
-    movie: 'Movie Name',
-    year: 'Year'
+    quote: 'quote_2',
+    movie: 'movie_2',
+    year: '1959'
   },
   {
     img: 'https://i.postimg.cc/4dpWbhzk/landing-page.png',
-    quote: '“You have to leave somethig behind to go forward”',
-    movie: 'Another Movie',
-    year: 'Another Year'
+    quote: 'quote_3',
+    movie: 'movie_3',
+    year: '1977'
   }
 ]

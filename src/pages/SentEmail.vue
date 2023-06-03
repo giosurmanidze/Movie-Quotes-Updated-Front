@@ -1,8 +1,8 @@
 <template>
   <message-modal
-    headerText="Thank you!"
-    msg=" Please check your email and follow the instructions to activate your account."
-    btnText="Go to my email"
+    headerText="sent_email_header_title"
+    msg="sent_email_header_text"
+    btnText="sent_email_submit_btn"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
     img="emailSent"

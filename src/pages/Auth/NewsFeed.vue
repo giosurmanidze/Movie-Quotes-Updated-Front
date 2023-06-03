@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { logoutUser } from '../../services/sendRequest'
+import { logoutUser } from '../../services/requests/sendRequest'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

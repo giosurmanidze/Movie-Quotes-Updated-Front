@@ -1,0 +1,19 @@
+{
+  "forgot_password_header_title": "Forgot password?",
+  "forgot_password_header_text": "Enter the email and we’ll send an email withinstructions to reset your password",
+  "forgot_password_submit_btn": "Send instructions",
+  "back_arrow": "Back to log in",
+
+  "recover_instrc_header_title": "Check your email",
+  "recover_instrc_header_text": "We have sent a password recover instructions to your email",
+  "recover_instrc_submit_btn": "Go to my email",
+  "skip_btn": "Skip, I’ll confirm later",
+
+  "sent_email_header_title": "Thank you!",
+  "sent_email_header_text": "Please check your email and follow the instructions to activate your account.",
+  "sent_email_submit_btn": "Go to my email",
+
+  "success_header_title": "Thank you!",
+  "success_header_text": "Your account has been activated.",
+  "success_submit_btn": "Go to my news feed"
+}
