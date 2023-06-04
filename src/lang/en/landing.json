@@ -4,10 +4,10 @@
   "lang_choose_opt_en": "Eng",
   "lang_choose_opt_ka": "Geo",
 
-  "quote_1": "You have to leave somethig behind to go forward",
-  "movie_1": "Interstellar",
-  "quote_2": "Well, nobody's perfect.",
-  "movie_2": "Some Like it Hot",
-  "quote_3": "May the Force be with you",
-  "movie_3": "Star Wars"
+  "quote_from_Interstellar": "You have to leave somethig behind to go forward",
+  "movie_Interstellar": "Interstellar",
+  "quote_from_some_like_it_hot": "Well, nobody's perfect.",
+  "movie_some_like_it_hot": "Some Like it Hot",
+  "quote_from_star_wars": "May the Force be with you",
+  "movie_star_wars": "Star Wars"
 }

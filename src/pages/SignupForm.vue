@@ -51,11 +51,11 @@
             :show-icon="true"
           />
         </div>
-        <Loading v-if="loading" />
+        <Loading v-if="registerLoading" />
       </Form>
       <span class="text-center text-[#6C757D]"
         >{{ $t('sign_up_footer_text')
-        }}<router-link to="login" class="text-[#0D6EFD] underline ml-1">
+        }}<router-link :to="{ name: 'login' }" class="text-[#0D6EFD] underline ml-1">
           {{ $t('log_in_btn') }}
         </router-link></span
       >
@@ -69,7 +69,7 @@ import TextField from '@/components/TextField.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
 import { RouterLink } from 'vue-router'
 import Loading from '@/components/Loading.vue'
-import useSubmitRegister from '@/services/submitForm/useSubmitRegister'
+import { useSubmitRegister } from '../services/index'
 
-const { submit, loading } = useSubmitRegister()
+const { submit, loading: registerLoading } = useSubmitRegister()
 </script>
