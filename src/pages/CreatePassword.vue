@@ -7,9 +7,9 @@
       @click.stop
     >
       <div class="flex flex-col justify-center items-center gap-7 h-[50vh] w-full">
-        <h1 class="text-4xl text-[#FFFFFF]">Create new password</h1>
+        <h1 class="text-4xl text-[#FFFFFF] text-center">{{ $t('reset_password_header_title') }}</h1>
         <p class="text-center w-full text-md text-[#6C757D]">
-          Your new password must be different from previous used passwords
+          {{ $t('reset_password_header_text') }}
         </p>
         <Form class="w-full flex flex-col gap-5" @submit="submit">
           <text-field
@@ -26,13 +26,17 @@
             rules="required|confirmed:@password"
             :placeholder="$t('conf_password')"
           />
-          <submit-button text="Reset password" classes="bg-[#E31221] w-full" route="/login" />
+          <submit-button
+            text="reset_password_submit_btn"
+            classes="bg-[#E31221] w-full"
+            route="/login"
+          />
 
           <Loading v-if="createPasswordLoading" />
         </Form>
         <router-link :to="{ name: 'login' }" class="flex gap-2 text-[#6C757D]">
           <img src="@/assets/left-arrow.svg" />
-          Back to log in
+          {{ $t('back_arrow') }}
         </router-link>
       </div>
     </div>

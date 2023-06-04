@@ -15,5 +15,12 @@
 
   "success_header_title": "მადლობა!",
   "success_header_text": "თქვენი ანგარიში გააქტიურებულია",
-  "success_submit_btn": "გადადით სიახლეებზე"
+  "success_submit_btn": "გადადით სიახლეებზე",
+
+  "reset_password_header_title": "შექმენით ახალი პაროლი",
+  "reset_password_header_text": "თქვენი ახალი პაროლი უნდა განსხვავდებოდეს წინა გამოყენებული პაროლებისგან",
+  "reset_password_submit_btn": "პაროლის აღდგენა",
+
+  "changed_password_header_title": "პაროლი წარმატებით შეიცვალა",
+  "changed_password_header_text": "თქვენი პაროლი წარმატებით შეიცვალა"
 }

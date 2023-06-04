@@ -1,8 +1,8 @@
 <template>
   <message-modal
-    headerText="Success!"
-    msg="Your Password changed successfully"
-    btnText="Log in"
+    headerText="changed_password_header_title"
+    msg="changed_password_header_text"
+    btnText="log_in_btn"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
     img="success"
