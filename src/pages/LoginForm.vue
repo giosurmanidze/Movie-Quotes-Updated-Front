@@ -15,9 +15,11 @@
           <text-field
             label="username"
             type="text"
-            name="name"
+            name="username"
+            :updateInput="updateInput"
+            :value="loginForm.username"
             rules="required|min:3"
-            :hasError="errors.name"
+            :hasError="errors.username"
             :placeholder="
               $t('text_in_placeholder') +
               ' ' +
@@ -31,30 +33,43 @@
           <text-field
             label="password"
             type="password"
+            :updateInput="updateInput"
+            :value="loginForm.password"
             name="password"
             rules="required"
             :placeholder="$t('password')"
             :hasError="errors.password"
           />
+
           <div class="flex justify-between items-center">
             <div class="flex items-center gap-2">
-              <Field id="remember" type="checkbox" name="remember" value="true" class="w-4 h-4" />
+              <input
+                id="remember"
+                type="checkbox"
+                name="remember"
+                @input="updateInput('remember', $event.target.value)"
+                v-model="loginForm.remember"
+                class="w-4 h-4"
+              />
               <label for="remember" class="text-[#FFFFFF] text-base">{{ $t('remember_me') }}</label>
             </div>
-            <p class="text-[#0D6EFD] underline">{{ $t('forgot_password') }}</p>
+
+            <router-link :to="{ name: 'forgotPassword' }" class="text-[#0D6EFD] underline"
+              >{{ $t('forgot_password') }}
+            </router-link>
           </div>
-          <Button type="submit" text="log_in_btn" classes="bg-[#E31221]" />
-          <Button
-            type="button"
+          <submit-button text="log_in_btn" classes="bg-[#E31221]" />
+          <submit-button
             text="log_in_with_google"
             classes="flex justify-center items-center gap-3 border-2 pb-1 border-[#ffffff]"
             :show-icon="true"
           />
         </div>
+        <Loading v-if="loading" />
       </Form>
       <span class="text-center text-[#6C757D]"
         >{{ $t('log_in_footer_text')
-        }}<router-link to="signup" class="text-[#0D6EFD] underline ml-1">{{
+        }}<router-link :to="{ name: 'signup' }" class="text-[#0D6EFD] underline ml-1">{{
           $t('sign_up')
         }}</router-link></span
       >
@@ -63,11 +78,51 @@
 </template>
 
 <script setup>
-import { Field, Form } from 'vee-validate'
+import { Form } from 'vee-validate'
 import TextField from '@/components/TextField.vue'
-import Button from '@/components/Button.vue'
+import SubmitButton from '@/components/SubmitButton.vue'
+import { loginUser } from '@/services/requests/sendRequest'
+import axiosInstance from '@/config/axios/index'
+import Loading from '@/components/Loading.vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-const submit = (values) => {
-  console.log(values)
+const user = ref()
+const loading = ref(false)
+const router = useRouter()
+
+let storedLoginForm = localStorage.getItem('remember_me')
+let loginForm = storedLoginForm
+  ? JSON.parse(storedLoginForm)
+  : { remember: false, password: '', username: '' }
+
+const updateInput = (key, value) => {
+  loginForm[key] = value
 }
+
+const submit = async (values) => {
+  loading.value = true
+
+  try {
+    await loginUser(values)
+    const { data } = await axiosInstance.get('/api/user')
+    user.value = data
+    loading.value = false
+    router.push({ name: 'newsFeed' })
+
+    return loginForm.remember
+      ? localStorage.setItem('remember_me', JSON.stringify(loginForm))
+      : localStorage.removeItem('remember_me')
+  } catch (error) {
+    loading.value = false
+    console.log(error)
+  }
+}
+
+onMounted(() => {
+  const storedLoginForm = localStorage.getItem('remember_me')
+  if (storedLoginForm) {
+    loginForm = JSON.parse(storedLoginForm)
+  }
+})
 </script>

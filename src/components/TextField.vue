@@ -13,10 +13,11 @@
       :type="inputType"
       :rules="rules"
       :name="name"
+      :value="value"
       :placeholder="placeholder"
       :validate-on-input="true"
       @blur="hasInteracted = true"
-      @input="hasInteracted = true"
+      @input="updateInput ? updateInput(name, $event.target.value) : null"
     />
     <ErrorMessage :name="name" class="text-[#E31221]" />
     <span v-if="!hasError && type !== 'password' && hasInteracted" class="absolute right-2 top-9">
@@ -65,6 +66,14 @@ const props = defineProps({
     required: false
   },
   hasError: {
+    type: String,
+    required: false
+  },
+  updateInput: {
+    type: Function,
+    required: false
+  },
+  value: {
     type: String,
     required: false
   }

@@ -1,8 +1,8 @@
 <template>
   <message-modal
-    headerText="sent_email_header_title"
-    msg="sent_email_header_text"
-    btnText="sent_email_submit_btn"
+    headerText="recover_instrc_header_title"
+    msg="recover_instrc_header_text"
+    btnText="recover_instrc_submit_btn"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
     img="emailSent"
