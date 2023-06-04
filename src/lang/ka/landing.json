@@ -2,5 +2,12 @@
   "movie_quotes": "ფილმის ციტატები",
   "find_quote": "იპოვეთ ნებისმიერი ციტატა ",
   "lang_choose_opt_en": "ინგ",
-  "lang_choose_opt_ka": "ქარ"
+  "lang_choose_opt_ka": "ქარ",
+
+  "quote_from_Interstellar": "წინ წასასვლელად რაღაც უნდა დატოვო",
+  "movie_Interstellar": "ვარსკვლავთშორისი",
+  "quote_from_some_like_it_hot": "ისე, არავინ არის სრულყოფილი",
+  "movie_some_like_it_hot": "ზოგს მოსწონს ცხელი,",
+  "quote_from_star_wars": "შეიძლება ძალა იყოს თქვენთან ერთად.",
+  "movie_star_wars": "ვარსკვლავური ომები"
 }

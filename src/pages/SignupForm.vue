@@ -51,11 +51,11 @@
             :show-icon="true"
           />
         </div>
-        <Loading v-if="loading" />
+        <Loading v-if="registerLoading" />
       </Form>
       <span class="text-center text-[#6C757D]"
         >{{ $t('sign_up_footer_text')
-        }}<router-link to="login" class="text-[#0D6EFD] underline ml-1">
+        }}<router-link :to="{ name: 'login' }" class="text-[#0D6EFD] underline ml-1">
           {{ $t('log_in_btn') }}
         </router-link></span
       >
@@ -67,32 +67,9 @@
 import { Form } from 'vee-validate'
 import TextField from '@/components/TextField.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRouter, RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import Loading from '@/components/Loading.vue'
-import { createUser } from '@/services/createUser'
+import { useSubmitRegister } from '../services/index'
 
-const loading = ref(false)
-const router = useRouter()
-const { locale } = useI18n({ useScope: 'global' })
-
-const submit = (values, actions) => {
-  loading.value = true
-
-  createUser(values)
-    .then(() => {
-      loading.value = false
-      router.push({
-        name: 'sentEmail'
-      })
-    })
-    .catch((error) => {
-      loading.value = false
-      const errors = error.response?.data.errors
-      for (const key in errors) {
-        actions.setFieldError(key, errors[key][0][locale.value])
-      }
-    })
-}
+const { submit, loading: registerLoading } = useSubmitRegister()
 </script>

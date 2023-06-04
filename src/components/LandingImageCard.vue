@@ -10,11 +10,9 @@
             <div class="w-3 lg:w-14 xs:h-[1px] md:h-1 bg-white"></div>
           </div>
           <div>
-            <blockquote class="text-white text-sm lg:text-5xl">
-              {{ item.quote }}
-            </blockquote>
+            <blockquote class="text-white text-sm lg:text-5xl">“{{ $t(item.quote) }}”</blockquote>
             <address class="text-white text-xs lg:text-3xl mt-4">
-              {{ item.movie }}, {{ item.year }}
+              {{ $t(item.movie) }}, {{ item.year }}
             </address>
           </div>
         </div>

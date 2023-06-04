@@ -1,11 +1,11 @@
 <template>
   <message-modal
-    headerText="sent_email_header_title"
-    msg="sent_email_header_text"
-    btnText="sent_email_submit_btn"
+    headerText="changed_password_header_title"
+    msg="changed_password_header_text"
+    btnText="log_in_btn"
     classes="bg-[#E31221] w-full h-[5vh]"
     route="/login"
-    img="emailSent"
+    img="success"
   />
 </template>
 
