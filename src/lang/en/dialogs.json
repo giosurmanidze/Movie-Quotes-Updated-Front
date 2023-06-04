@@ -15,5 +15,12 @@
 
   "success_header_title": "Thank you!",
   "success_header_text": "Your account has been activated.",
-  "success_submit_btn": "Go to my news feed"
+  "success_submit_btn": "Go to my news feed",
+
+  "reset_password_header_title": "Create new password",
+  "reset_password_header_text": "Your new password must be different from previous used passwords",
+  "reset_password_submit_btn": "Reset password",
+
+  "changed_password_header_title": "Success!",
+  "changed_password_header_text": "Your Password changed successfully"
 }
