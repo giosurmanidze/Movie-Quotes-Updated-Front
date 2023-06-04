@@ -28,9 +28,9 @@
           />
           <submit-button text="Reset password" classes="bg-[#E31221] w-full" route="/login" />
 
-          <Loading v-if="loading" />
+          <Loading v-if="createPasswordLoading" />
         </Form>
-        <router-link to="login" class="flex gap-2 text-[#6C757D]">
+        <router-link :to="{ name: 'login' }" class="flex gap-2 text-[#6C757D]">
           <img src="@/assets/left-arrow.svg" />
           Back to log in
         </router-link>
@@ -44,7 +44,7 @@ import { Form } from 'vee-validate'
 import SubmitButton from '@/components/SubmitButton.vue'
 import TextField from '@/components/TextField.vue'
 import Loading from '@/components/Loading.vue'
-import useSubmitCreatePassword from '@/services/submitForm/useSubmitCreatePassword'
+import { useSubmitCreatePassword } from '../services/index'
 
-const { submit, loading } = useSubmitCreatePassword()
+const { submit, loading: createPasswordLoading } = useSubmitCreatePassword()
 </script>

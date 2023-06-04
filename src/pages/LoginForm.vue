@@ -54,7 +54,7 @@
               <label for="remember" class="text-[#FFFFFF] text-base">{{ $t('remember_me') }}</label>
             </div>
 
-            <router-link to="/forgot-password" class="text-[#0D6EFD] underline"
+            <router-link :to="{ name: 'forgotPassword' }" class="text-[#0D6EFD] underline"
               >{{ $t('forgot_password') }}
             </router-link>
           </div>
@@ -69,7 +69,7 @@
       </Form>
       <span class="text-center text-[#6C757D]"
         >{{ $t('log_in_footer_text')
-        }}<router-link to="signup" class="text-[#0D6EFD] underline ml-1">{{
+        }}<router-link :to="{ name: 'signup' }" class="text-[#0D6EFD] underline ml-1">{{
           $t('sign_up')
         }}</router-link></span
       >

@@ -25,9 +25,9 @@
             classes="bg-[#E31221] w-full"
             route="/forgot-password-email-sent"
           />
-          <Loading v-if="loading" />
+          <Loading v-if="forgotLoading" />
         </Form>
-        <router-link to="login" class="flex gap-2 text-[#6C757D]">
+        <router-link :to="{ name: 'login' }" class="flex gap-2 text-[#6C757D]">
           <img src="@/assets/left-arrow.svg" />
           {{ $t('back_arrow') }}
         </router-link>
@@ -42,7 +42,7 @@ import { RouterLink } from 'vue-router'
 import TextField from '@/components/TextField.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
 import Loading from '@/components/Loading.vue'
-import useSubmitForgotPassword from '@/services/submitForm/useSubmitForgotPassword'
+import { useSubmitForgotPassword } from '../services/index'
 
-const { submit, loading } = useSubmitForgotPassword()
+const { submit, loading: forgotLoading } = useSubmitForgotPassword()
 </script>
