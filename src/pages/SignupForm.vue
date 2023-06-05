@@ -45,11 +45,12 @@
             :hasError="errors.password_confirmation"
           />
           <submit-button text="sign_up_btn_in_form" classes="bg-[#E31221]" />
-          <submit-button
-            text="sign_up_with_google"
-            classes="flex justify-center items-center gap-3 border-2 pb-1 border-[#ffffff]"
-            :show-icon="true"
-          />
+          <a
+            href="http://localhost:8000/api/auth/google/redirect"
+            class="text-white text-center px-3 rounded-[4px] lg:text-xl h-10 flex justify-center items-center gap-2 border-2 pb-1 border-[#ffffff]"
+            ><img src="../assets/Google.svg" />
+            {{ $t('sign_up_with_google') }}
+          </a>
         </div>
         <Loading v-if="registerLoading" />
       </Form>
