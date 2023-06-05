@@ -9,6 +9,8 @@ import ForgotPassword from '@/pages/ForgotPassword.vue'
 import RecoverInstructions from '@/pages/RecoverInstructions.vue'
 import CreatePassword from '@/pages/CreatePassword.vue'
 import ChangedPassword from '@/pages/CreatePassword.vue'
+import { useAuthStore } from '@/stores/auth'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,9 +65,25 @@ const router = createRouter({
     {
       path: '/news-feed',
       name: 'newsFeed',
-      component: NewsFeed
+      component: NewsFeed,
+      meta: { requiresAuth: true }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore() 
+  const isAuthenticated = authStore.isAuthenticated
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!isAuthenticated) {
+      next({ name: 'login' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
