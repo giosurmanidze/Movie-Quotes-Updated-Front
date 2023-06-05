@@ -59,11 +59,12 @@
             </router-link>
           </div>
           <submit-button text="log_in_btn" classes="bg-[#E31221]" />
-          <submit-button
-            text="log_in_with_google"
-            classes="flex justify-center items-center gap-3 border-2 pb-1 border-[#ffffff]"
-            :show-icon="true"
-          />
+          <a
+            href="http://localhost:8000/api/auth/google/redirect"
+            class="text-white px-3 rounded-[4px] lg:text-xl h-10 flex justify-center items-center gap-3 border-2 pb-1 border-[#ffffff]"
+            ><img src="../assets/Google.svg" />
+            {{ $t('sign_up_with_google') }}
+          </a>
         </div>
         <Loading v-if="loading" />
       </Form>
@@ -86,10 +87,12 @@ import axiosInstance from '@/config/axios/index'
 import Loading from '@/components/Loading.vue'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 const user = ref()
 const loading = ref(false)
 const router = useRouter()
+const { t } = useI18n()
 
 let storedLoginForm = localStorage.getItem('remember_me')
 let loginForm = storedLoginForm
@@ -100,7 +103,7 @@ const updateInput = (key, value) => {
   loginForm[key] = value
 }
 
-const submit = async (values) => {
+const submit = async (values, actions) => {
   loading.value = true
 
   try {
@@ -115,7 +118,7 @@ const submit = async (values) => {
       : localStorage.removeItem('remember_me')
   } catch (error) {
     loading.value = false
-    console.log(error)
+    actions.setFieldError('username', t('incorrect_credentials'))
   }
 }
 
