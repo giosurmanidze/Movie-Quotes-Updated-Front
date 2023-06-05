@@ -88,8 +88,10 @@ import Loading from '@/components/Loading.vue'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useAuthStore } from '../stores/auth'
 
 const user = ref()
+const authStore = useAuthStore()
 const loading = ref(false)
 const router = useRouter()
 const { t } = useI18n()
@@ -110,6 +112,7 @@ const submit = async (values, actions) => {
     await loginUser(values)
     const { data } = await axiosInstance.get('/api/user')
     user.value = data
+    authStore.setIsAuthenticated(true)
     loading.value = false
     router.push({ name: 'newsFeed' })
 
