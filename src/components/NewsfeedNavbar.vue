@@ -11,20 +11,13 @@
         <h1 class="text-[#DDCCAA] text-base font-medium">{{ $t('movie_quotes') }}</h1>
       </section>
       <div v-if="navbarState" class="md:hidden flex text-start">
-        <button @click="toggleNavbar" class="flex items-center text-blue-600 p-3">
-          <svg
-            class="block h-4 w-4 fill-current"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Mobile menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
-          </svg>
+        <button @click="showSidebar = !showSidebar" class="flex items-center text-blue-600 p-3">
+          <burger-icon />
         </button>
       </div>
       <div v-if="navbarState" class="text-sm text-gray-400 items-center flex hover:text-gray-500">
         <language-dropdown />
-        <search-icon @click="showSearch" class="mr-5 block md:hidden" />
+        <search-icon @click="navbarState = !navbarState" class="mr-5 block md:hidden" />
         <notifications-dropdown />
         <button
           @click="logout"
@@ -37,7 +30,7 @@
         v-else
         class="flex items-center text-white w-full h-full border-b border-[#EFEFEF] p-4 bg-[#12101A]"
       >
-        <back-arrow-icon @click="showSearch" class="mr-3" />
+        <back-arrow-icon @click="navbarState = !navbarState" class="mr-3" />
         <Form @submit="submitForm" class="w-full">
           <search-input
             :placeholder="placeholderText"
@@ -55,36 +48,23 @@
           <a class="mr-auto text-3xl font-bold leading-none" href="#">
             <img src="@/assets/video-player.png" />
           </a>
-          <button @click="toggleNavbar">
-            <svg
-              class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
+          <button @click="showSidebar = !showSidebar">
+            <hide-burger-menu-icon />
           </button>
         </div>
         <div></div>
         <div class="mt-auto flex flex-col justify-between h-full">
           <section class="mt-8 ml-2">
-            <section @click="switchToNewsfeed()" class="flex items-center cursor-pointer">
+            <router-link :to="{ name: 'newsFeed' }" class="flex items-center cursor-pointer">
               <home-icon />
               <p class="ml-4 md:text-sm lg:text-lg text-white">{{ $t('news_feed') }}</p>
-            </section>
-            <section class="flex items-center mt-8 cursor-pointer" @click="switchToMovies()">
+            </router-link>
+            <router-link :to="{ name: 'movieList' }" class="flex items-center mt-8 cursor-pointer">
               <movies-list-icon />
               <p class="ml-4 truncate md:text-sm lg:text-lg text-white">
                 {{ $t('list_of_movies') }}
               </p>
-            </section>
+            </router-link>
           </section>
 
           <div class="pt-6">
@@ -111,32 +91,16 @@ import LanguageDropdown from '@/components/LangChanger.vue'
 import NotificationsDropdown from '@/components/NotificationsDropdown.vue'
 import SearchIcon from '@/assets/icons/SearchIcon.vue'
 import BackArrowIcon from '@/assets/icons/BackArrow.vue'
-import NewsfeedSidebar from './NewsfeedNavbar.vue'
 import { useI18n } from 'vue-i18n'
 import HomeIcon from '@/assets/icons/HomeIcon.vue'
 import MoviesListIcon from '@/assets/icons/ChooseMovieIcon.vue'
+import { RouterLink } from 'vue-router'
+import BurgerIcon from '@/assets/icons/BurgerIcon.vue'
+import HideBurgerMenuIcon from '@/assets/icons/HideBurgerMenuIcon.vue'
+
 const { t } = useI18n({ useScope: 'global' })
-
 const showSidebar = ref(false)
-
-function toggleNavbar() {
-  showSidebar.value = !showSidebar.value
-}
-
 const navbarState = ref(true)
-
-function showSearch() {
-  navbarState.value = !navbarState.value
-}
-
-function switchToNewsfeed() {
-  router.push({ name: 'newsFeed' })
-}
-
-function switchToMovies() {
-  router.push({ name: 'movieList' })
-}
-
 const router = useRouter()
 
 const logout = async () => {
@@ -150,12 +114,12 @@ const logout = async () => {
 
 const placeholderText = computed(() => {
   return (
-    t('placeholders.enter_to_search') +
+    t('enter_to_search') +
     ' @ ' +
-    t('placeholders.enter_to_search_two') +
+    t('enter_to_search_two') +
     ' , ' +
     ' # - ' +
-    t('placeholders.enter_to_search_three')
+    t('enter_to_search_three')
   )
 })
 

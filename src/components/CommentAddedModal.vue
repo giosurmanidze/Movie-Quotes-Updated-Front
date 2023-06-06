@@ -14,7 +14,7 @@
     <template v-slot:body>
       <section class="items-center text-center my-5">
         <p class="text-green-600 mb-5">{{ $t('comment_added_successfully') }} !</p>
-        <button class="text-center bg-red-600 p-2" @click="goBack()">
+        <button class="text-center bg-red-600 p-2" @click="store.toggleCommentAddedModal()">
           {{ $t('go_back') }}
         </button>
       </section>
@@ -27,8 +27,4 @@ import CrudModal from '@/components/CrudModal.vue'
 import { useModalStore } from '@/stores/useModalStore'
 
 const store = useModalStore()
-
-function goBack() {
-  store.toggleCommentAddedModal()
-}
 </script>

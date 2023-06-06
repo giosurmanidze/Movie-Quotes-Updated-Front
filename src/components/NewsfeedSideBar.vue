@@ -4,7 +4,7 @@
       <img
         src="https://lh3.googleusercontent.com/a/AAcHTtcdndkxRbXa3BWtY3pZVHyjRMWWvMKk1aE4t6iuJw=s96-c"
         class="h-[40px] md:h-[45px] lg:h-[60px] max-w-[60px] rounded-full"
-        :class="currentRoute ? 'border-2 border-red-600' : ''"
+        :class="$route.name === 'profile' ? 'border-2 border-red-600' : ''"
       />
       <section class="flex-col ml-3 lg:mt-1">
         <p class="text-base">Username</p>
@@ -14,36 +14,26 @@
       </section>
     </section>
     <section class="mt-8 ml-2">
-      <section @click="switchToNewsfeed()" class="flex items-center cursor-pointer">
+      <router-link :to="{ name: 'newsFeed' }" class="flex items-center cursor-pointer">
         <home-icon />
         <p class="ml-4 md:text-sm lg:text-lg">{{ $t('news_feed') }}</p>
-      </section>
-      <section class="flex items-center mt-8 cursor-pointer" @click="switchToMovies()">
+      </router-link>
+      <router-link
+        :to="{ name: 'movieList' }"
+        class="flex items-center mt-8 cursor-pointer"
+        @click="switchToMovies()"
+      >
         <movies-list-icon />
         <p class="ml-4 truncate md:text-sm lg:text-lg">
           {{ $t('list_of_movies') }}
         </p>
-      </section>
+      </router-link>
     </section>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import HomeIcon from '@/assets/icons/HomeIcon.vue'
 import MoviesListIcon from '@/assets/icons/ChooseMovieIcon.vue'
-import { useRouter, useRoute } from 'vue-router'
-
-const router = useRouter()
-const route = useRoute()
-
-function switchToNewsfeed() {
-  router.push({ name: 'newsFeed' })
-}
-
-function switchToMovies() {
-  router.push({ name: 'movieList' })
-}
-
-const currentRoute = computed(() => (route.path.includes('/profile') ? true : false))
+import { RouterLink } from 'vue-router'
 </script>

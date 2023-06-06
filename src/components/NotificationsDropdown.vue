@@ -80,7 +80,7 @@ import LikedQuoteIcon from '@/assets/icons/LikeIcon.vue'
 const dropdownState = ref(false)
 const unreadNotifications = ref(0)
 
-function toggleDropdown() {
+const toggleDropdown = () => {
   dropdownState.value = !dropdownState.value
 }
 
@@ -90,7 +90,7 @@ const notifications = [
     thumbnail: 'https://avatars.githubusercontent.com/u/91054978?v=4',
     read: true,
     type: 'comment',
-    created_at:"06/06/2023"
+    created_at: '06/06/2023'
   }
 ]
 </script>

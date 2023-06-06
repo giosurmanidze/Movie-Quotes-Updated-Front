@@ -3,7 +3,7 @@
     <section class="flex text-white pl-6 md:pl-10">
       <button class="flex md:bg-[#24222F] p-2 rounded-md">
         <add-quote-modal />
-        <div @click="toggleAddQuotesModal()" class="flex">
+        <div @click="store.toggleAddQuotesModal()" class="flex">
           <add-quote-icon />
           <p class="ml-2 text-base font-normal">{{ $t('write_new_quote') }}</p>
         </div>
@@ -37,10 +37,6 @@ import { useModalStore } from '@/stores/useModalStore'
 const { t } = useI18n({ useScope: 'global' })
 
 const store = useModalStore()
-
-function toggleAddQuotesModal() {
-  store.toggleAddQuotesModal()
-}
 
 const placeholderText = computed(() => {
   return (
