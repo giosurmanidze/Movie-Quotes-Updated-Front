@@ -23,7 +23,7 @@
               <div v-if="showSelectPlaceholder" class="absolute top-5 px-3">
                 <section class="flex items-center">
                   <choose-movie-icon />
-                  <p class="text-xl ml-3">Choose movie</p>
+                  <p class="text-xl ml-3">{{ $t('choose_movie') }}</p>
                 </section>
               </div>
               <Field
