@@ -5,6 +5,8 @@ import * as authEn from './en/auth.json'
 import * as authka from './ka/auth.json'
 import * as dialogsEn from './en/dialogs.json'
 import * as dialogsKa from './ka/dialogs.json'
+import * as newsFeedEn from './en/newsFeed.json'
+import * as newsFeedKa from './ka/newsFeed.json'
 
 const i18n = createI18n({
   locale: localStorage.getItem('lang') || 'en',
@@ -14,12 +16,14 @@ const i18n = createI18n({
     en: {
       ...landingEn,
       ...authEn,
-      ...dialogsEn
+      ...dialogsEn,
+      ...newsFeedEn
     },
     ka: {
       ...landingKa,
       ...authka,
-      ...dialogsKa
+      ...dialogsKa,
+      ...newsFeedKa
     }
   }
 })
