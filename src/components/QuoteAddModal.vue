@@ -11,7 +11,7 @@
     <template v-slot:body>
       <section class="items-center text-center my-5">
         <p class="text-green-600 mb-5">{{ $t('quote_added_successfully') }} !</p>
-        <button class="text-center bg-red-600 p-2" @click="goBack()">
+        <button class="text-center bg-red-600 p-2" @click=" store.toggleQuoteAddedModal(false)">
           {{ $t('go_back') }}
         </button>
       </section>
@@ -25,8 +25,4 @@ import CloseIcon from '@/assets/icons/CloseIcon.vue'
 import { useModalStore } from '@/stores/useModalStore'
 
 const store = useModalStore()
-
-function goBack() {
-  store.toggleQuoteAddedModal(false)
-}
 </script>
