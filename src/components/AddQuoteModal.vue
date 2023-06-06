@@ -1,8 +1,8 @@
 <template>
-  <crud-modal @click="toggleAddQuoteModal()" :showModal="store.showAddQuotesModal">
+  <crud-modal @click="store.toggleAddQuotesModal(false)" :showModal="store.showAddQuotesModal">
     <template v-slot:header
       >{{ $t('write_new_quote') }}
-      <div @click="toggleAddQuoteModal()" class="absolute right-10 top-7">
+      <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10 top-7">
         <close-icon /></div
     ></template>
     <template v-slot:body>
@@ -30,7 +30,7 @@
                 class="w-full p-6 mb-5 bg-[#000000] cursor-pointer"
                 name="movie"
                 as="select"
-                @click="handlePlaceholder"
+                @click="showSelectPlaceholder = false"
                 rules="required"
               >
                 <option v-for="(movie, index) in quotes" :key="index" :value="index">
@@ -68,16 +68,7 @@ import DragAndDrop from '@/components/DragAndDrop.vue'
 import { quotes } from '@/stores/quotes'
 
 const store = useModalStore()
-
-function toggleAddQuoteModal() {
-  store.toggleAddQuotesModal(false)
-}
-
 const showSelectPlaceholder = ref(true)
-
-function handlePlaceholder() {
-  showSelectPlaceholder.value = false
-}
 
 const onSubmit = (values) => {
   console.log(values)
