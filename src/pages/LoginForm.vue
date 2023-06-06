@@ -60,7 +60,7 @@
           </div>
           <submit-button text="log_in_btn" classes="bg-[#E31221]" />
           <a
-            href="http://localhost:8000/api/auth/google/redirect"
+            :href="`${BASE_URL}/api/auth/google/redirect`"
             class="text-white px-3 rounded-[4px] lg:text-xl h-10 flex justify-center items-center gap-3 border-2 pb-1 border-[#ffffff]"
             ><img src="../assets/Google.svg" />
             {{ $t('sign_up_with_google') }}
@@ -88,13 +88,12 @@ import Loading from '@/components/Loading.vue'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { useAuthStore } from '../stores/auth'
 
 const user = ref()
-const authStore = useAuthStore()
 const loading = ref(false)
 const router = useRouter()
 const { t } = useI18n()
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 let storedLoginForm = localStorage.getItem('remember_me')
 let loginForm = storedLoginForm
@@ -112,7 +111,6 @@ const submit = async (values, actions) => {
     await loginUser(values)
     const { data } = await axiosInstance.get('/api/user')
     user.value = data
-    authStore.setIsAuthenticated(true)
     loading.value = false
     router.push({ name: 'newsFeed' })
 
