@@ -4,7 +4,7 @@ import SuccessVerifiedEmail from '@/pages/SuccessVerifiedEmail.vue'
 import LoginForm from '@/pages/LoginForm.vue'
 import SignupForm from '@/pages/SignupForm.vue'
 import SentEmail from '@/pages/SentEmail.vue'
-import NewsFeed from '@/pages/Auth/NewsFeed.vue'
+import NewsFeedPage from '@/pages/Auth/NewsFeedPage.vue'
 import ForgotPassword from '@/pages/ForgotPassword.vue'
 import RecoverInstructions from '@/pages/RecoverInstructions.vue'
 import CreatePassword from '@/pages/CreatePassword.vue'
@@ -63,7 +63,7 @@ const router = createRouter({
     {
       path: '/news-feed',
       name: 'newsFeed',
-      component: NewsFeed
+      component: NewsFeedPage
     }
   ]
 })
