@@ -46,7 +46,7 @@
           />
           <submit-button text="sign_up_btn_in_form" classes="bg-[#E31221]" />
           <a
-            href="http://localhost:8000/api/auth/google/redirect"
+            :href="`${BASE_URL}/api/auth/google/redirect`"
             class="text-white text-center px-3 rounded-[4px] lg:text-xl h-10 flex justify-center items-center gap-2 border-2 pb-1 border-[#ffffff]"
             ><img src="../assets/Google.svg" />
             {{ $t('sign_up_with_google') }}
@@ -71,6 +71,8 @@ import SubmitButton from '@/components/SubmitButton.vue'
 import { RouterLink } from 'vue-router'
 import Loading from '@/components/Loading.vue'
 import { useSubmitRegister } from '../services/index'
+
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const { submit, loading: registerLoading } = useSubmitRegister()
 </script>
