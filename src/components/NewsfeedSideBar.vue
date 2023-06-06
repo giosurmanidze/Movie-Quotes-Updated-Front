@@ -15,11 +15,11 @@
     </section>
     <section class="mt-8 ml-2">
       <section @click="switchToNewsfeed()" class="flex items-center cursor-pointer">
-        <!-- <NewsfeedIcon /> -->
+        <home-icon />
         <p class="ml-4 md:text-sm lg:text-lg">{{ $t('news_feed') }}</p>
       </section>
       <section class="flex items-center mt-8 cursor-pointer" @click="switchToMovies()">
-        <!-- <MoviesListIcon /> -->
+        <movies-list-icon />
         <p class="ml-4 truncate md:text-sm lg:text-lg">
           {{ $t('list_of_movies') }}
         </p>
@@ -29,18 +29,20 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
+import HomeIcon from '@/assets/icons/HomeIcon.vue'
+import MoviesListIcon from '@/assets/icons/ChooseMovieIcon.vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
 
 function switchToNewsfeed() {
-  router.push({ name: 'news-feed' })
+  router.push({ name: 'newsFeed' })
 }
 
 function switchToMovies() {
-  router.push({ name: 'list-of-movies' })
+  router.push({ name: 'movieList' })
 }
 
 const currentRoute = computed(() => (route.path.includes('/profile') ? true : false))

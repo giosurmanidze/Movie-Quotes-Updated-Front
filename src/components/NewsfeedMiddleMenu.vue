@@ -26,10 +26,10 @@
 
 <script setup>
 import { Form } from 'vee-validate'
-import AddQuoteIcon from '../assets/icons/AddQuote.vue'
-import SearchIcon from '../assets/icons/SearchIcon.vue'
-import AddQuoteModal from '../components/AddQuoteModal.vue'
-import SearchInput from '../components/SearchInput.vue'
+import AddQuoteIcon from '@/assets/icons/AddQuote.vue'
+import SearchIcon from '@/assets/icons/SearchIcon.vue'
+import AddQuoteModal from '@/components/AddQuoteModal.vue'
+import SearchInput from '@/components/SearchInput.vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useModalStore } from '@/stores/useModalStore'
@@ -44,12 +44,12 @@ function toggleAddQuotesModal() {
 
 const placeholderText = computed(() => {
   return (
-    t('placeholders.enter_to_search') +
-    ' @ ' +
-    t('placeholders.enter_to_search_two') +
+    t('enter_to_search') +
+    ' @ - ' +
+    t('enter_to_search_two') +
     ' , ' +
     ' # - ' +
-    t('placeholders.enter_to_search_three')
+    t('enter_to_search_three')
   )
 })
 

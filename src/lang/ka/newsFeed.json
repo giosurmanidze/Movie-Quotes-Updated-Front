@@ -1,5 +1,11 @@
 {
   "edit_your_profile": "შეცვალეთ თქვენი პროფილი",
   "news_feed": "სიახლეები",
-  "list_of_movies": "ფილმები"
+  "list_of_movies": "ფილმები",
+  "write_new_quote": "შექმენით ახალი ციტატა",
+  "enter_to_search": "შეიყვანეთ",
+  "enter_to_search_two": "ფილმებისთვის, შეიყვანეთ",
+  "enter_to_search_three": "ციტატებისთვის",
+  "write_comment": "დაწერეთ კომენტარი"
+
 }

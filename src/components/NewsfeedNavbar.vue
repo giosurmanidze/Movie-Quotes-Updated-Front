@@ -97,14 +97,14 @@
 
 <script setup>
 import { Form } from 'vee-validate'
-import { logoutUser } from '../services/requests/sendRequest'
-import SearchInput from '../components/SearchInput.vue'
+import { logoutUser } from '@/services/requests/sendRequest'
+import SearchInput from '@/components/SearchInput.vue'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import LanguageDropdown from '../components/LangChanger.vue'
-import NotificationsDropdown from '../components/NotificationsDropdown.vue'
-import SearchIcon from '../assets/icons/SearchIcon.vue'
-import BackArrowIcon from '../assets/icons/BackArrow.vue'
+import LanguageDropdown from '@/components/LangChanger.vue'
+import NotificationsDropdown from '@/components/NotificationsDropdown.vue'
+import SearchIcon from '@/assets/icons/SearchIcon.vue'
+import BackArrowIcon from '@/assets/icons/BackArrow.vue'
 import NewsfeedSidebar from './NewsfeedNavbar.vue'
 import { useI18n } from 'vue-i18n'
 
