@@ -4,7 +4,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import LikeIcon from '../assets/icons/LikeIcon.vue'
+import LikeIcon from '@/assets/icons/LikeIcon.vue'
 
 const props = defineProps({ quoteId: { type: Number, required: true } })
 

@@ -57,15 +57,15 @@
 
 <script setup>
 import { ref } from 'vue'
-import CrudModal from '../components/CrudModal.vue'
-import CrudInput from '../components/CrudInput.vue'
+import CrudModal from '@/components/CrudModal.vue'
+import CrudInput from '@/components/CrudInput.vue'
 import { useModalStore } from '@/stores/useModalStore.js'
 import { Form } from 'vee-validate'
-import CloseIcon from '../assets/icons/CloseIcon.vue'
+import CloseIcon from '@/assets/icons/CloseIcon.vue'
 import { Field, ErrorMessage } from 'vee-validate'
-import ChooseMovieIcon from '../assets/icons/ChooseMovieIcon.vue'
-import DragAndDrop from '../components/DragAndDrop.vue'
-import { quotes } from '../stores/quotes'
+import ChooseMovieIcon from '@/assets/icons/ChooseMovieIcon.vue'
+import DragAndDrop from '@/components/DragAndDrop.vue'
+import { quotes } from '@/stores/quotes'
 
 const store = useModalStore()
 

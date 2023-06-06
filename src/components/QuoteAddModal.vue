@@ -21,7 +21,7 @@
 
 <script setup>
 import CrudModal from '@/components/CrudModal.vue'
-import CloseIcon from '../assets/icons/CloseIcon.vue'
+import CloseIcon from '@/assets/icons/CloseIcon.vue'
 import { useModalStore } from '@/stores/useModalStore'
 
 const store = useModalStore()

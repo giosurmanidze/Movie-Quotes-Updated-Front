@@ -57,7 +57,7 @@
           <comment-input
             name="comment"
             classes="w-full py-2 px-3 rounded bg-[#24222F]"
-            :placeholder="$t('placeholders.write_comment')"
+            :placeholder="$t('write_comment')"
           />
         </Form>
       </section>
@@ -66,13 +66,10 @@
 </template>
 
 <script setup>
-import { logoutUser } from '../services/requests/sendRequest'
 import QuoteAddedModal from './QuoteAddModal.vue'
 import CommentAddedModal from './CommentAddedModal.vue'
 import CommentInput from './CommentInput.vue'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
 const quotes = [
   {
     id: 14,
@@ -80,12 +77,12 @@ const quotes = [
     avatar: 'https://avatars.githubusercontent.com/u/91054978?v=4',
     body: {
       bodyKa: '“Follow your dream.”',
-      bodyKa: '“Follow your dream.”'
+      bodyKa: '“გაჰყევი შენის ოცნებებს”'
     },
     movie: {
       name: {
         nameKa: '“Follow your dream.”',
-        nameEn: '“Follow your dream.”'
+        nameEn: '“გაჰყევი შენის ოცნებებს.”'
       },
       release_date: 1920
     },

@@ -1,5 +1,10 @@
 {
   "edit_your_profile": "Edit your profile",
   "news_feed": "News feed",
-  "list_of_movies": "List of movies"
+  "list_of_movies": "List of movies",
+  "write_new_quote": "Write new quote",
+  "enter_to_search": "Enter",
+  "enter_to_search_two": "to search movies, Enter",
+  "enter_to_search_three": "to search quotes",
+  "write_comment": "Write a comment"
 }
