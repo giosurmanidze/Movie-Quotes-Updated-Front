@@ -48,7 +48,7 @@
           <p>{{ comment.body }}</p>
         </div>
       </section>
-      <section @click="getQuoteId(quote.id)">
+      <section>
         <Form class="flex items-center py-3 w-full">
           <img
             src="https://avatars.githubusercontent.com/u/91054978?v=4"

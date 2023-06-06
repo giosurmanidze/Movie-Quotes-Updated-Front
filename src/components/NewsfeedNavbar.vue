@@ -8,7 +8,7 @@
       "
     >
       <section class="hidden md:flex">
-        <h1 class="text-[#DDCCAA] text-base font-medium">MOVIE QUOTES</h1>
+        <h1 class="text-[#DDCCAA] text-base font-medium">{{ $t('movie_quotes') }}</h1>
       </section>
       <div v-if="navbarState" class="md:hidden flex text-start">
         <button @click="toggleNavbar" class="flex items-center text-blue-600 p-3">
@@ -30,7 +30,7 @@
           @click="logout"
           class="hidden md:block bg-transparent text-center text-white py-1.5 px-4 items-center border-white border rounded"
         >
-          Log out
+          {{ $t('logout_btn') }}
         </button>
       </div>
       <div
@@ -86,7 +86,7 @@
               @click="logout"
               class="block px-4 py-3 mb-2 leading-loose text-base text-center text-white font-semibold bg-red-500 opacity-90 hover:bg-red-700 hover:scale-110 duration-300 rounded-xl"
               href="#"
-              >Log out
+              >{{ $t('logout_btn') }}
             </a>
           </div>
         </div>
