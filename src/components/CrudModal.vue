@@ -20,7 +20,7 @@
             :class="props.showModal ? 'absolute top-14' : 'hidden'"
             class="transform max-w-3xl overflow-hidden rounded-lg bg-[#11101A] text-left shadow-xl transition-all sm:my-8 sm:w-full md:w-2/3"
           >
-            <section class="">
+            <section >
               <div
                 class="flex justify-center items-center border-b border-[#656464] py-5"
               >
