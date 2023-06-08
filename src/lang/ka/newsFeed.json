@@ -15,5 +15,7 @@
   "commented_to_your_movie_quote": "დააკომენტარა თქვენს ციტატაზე",
   "reacted_to_your_quote": "მოიწონა თქვენი ციტატა",
   "min_ago": "წუთის წინ",
-  "comment_added_successfully": "კომენტარი დაემატა"
+  "comment_added_successfully": "კომენტარი დაემატა",
+  "drag_and_drop": "ჩააგდეთ თქვენი სურათი აქ ან",
+  "choose_file": "აირჩიე ფაილი"
 }
