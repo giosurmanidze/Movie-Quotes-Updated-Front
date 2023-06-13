@@ -1,0 +1,21 @@
+{
+  "edit_your_profile": "შეცვალეთ თქვენი პროფილი",
+  "news_feed": "სიახლეები",
+  "list_of_movies": "ფილმები",
+  "write_new_quote": "შექმენით ახალი ციტატა",
+  "enter_to_search": "შეიყვანეთ",
+  "enter_to_search_two": "ფილმებისთვის, შეიყვანეთ",
+  "enter_to_search_three": "ციტატებისთვის",
+  "write_comment": "დაწერეთ კომენტარი",
+  "choose_movie": "აირჩიე ფილმი",
+  "quote_added_successfully": "ციტატა დაემატა",
+  "add_quote": "ციტატის დამატება",
+  "notifications": "შეტყობინებები",
+  "mark_as_read": "მონიშნე, როგორც ყველა წაკითხული",
+  "commented_to_your_movie_quote": "დააკომენტარა თქვენს ციტატაზე",
+  "reacted_to_your_quote": "მოიწონა თქვენი ციტატა",
+  "min_ago": "წუთის წინ",
+  "comment_added_successfully": "კომენტარი დაემატა",
+  "drag_and_drop": "ჩააგდეთ თქვენი სურათი აქ ან",
+  "choose_file": "აირჩიე ფაილი"
+}
