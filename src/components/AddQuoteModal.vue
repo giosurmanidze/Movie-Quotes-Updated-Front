@@ -9,7 +9,7 @@
         <close-icon /></div
     ></template>
     <template v-slot:body>
-      <Form @submit="onSubmit">
+      <Form @submit="submit">
         <section class="flex-col py-5">
           <div class="flex items-center">
             <img
@@ -69,38 +69,9 @@ import { Field, ErrorMessage } from "vee-validate";
 import ChooseMovieIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import DragAndDrop from "@/components/DragAndDrop.vue";
 import { quotes } from "@/stores/quotes";
-import { useQuotesStore } from "@/stores/useQuotesStore";
-import axios from "@/config/axios/auth-index";
+import { useCreateQuote } from "../services/index";
 
 const store = useModalStore();
-const quotesStore = useQuotesStore();
-
 const showSelectPlaceholder = ref(true);
-const imgValue = ref(true);
-
-function onSubmit(values, { resetForm }) {
-  imgValue.value = true;
-  let data = {
-    body_en: values.bodyEn,
-    body_ka: values.bodyKa,
-    thumbnail: values.thumbnail,
-    movie_id: values.movie,
-  };
-  const config = {
-    headers: { "Content-Type": "multipart/form-data" },
-  };
-
-  axios
-    .post("api/quotes", data, config)
-    .then((response) => {
-      store.toggleAddQuotesModal();
-      store.toggleQuoteAddedModal();
-      quotesStore.quotes.unshift(response.data);
-      resetForm();
-      imgValue.value = false;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+const { submit, imgValue } = useCreateQuote();
 </script>

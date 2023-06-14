@@ -4,6 +4,8 @@
     "my_movies_list":"ჩემი ფილმების სია",
     "total":"სულ",
     "budget":"ბიუჯეტი",
-    "release_date":"გამოშვების წელი"
+    "release_date":"გამოშვების წელი",
+    "movie_added_successfully": "ფილმი წარმატებით დაემატა!",
+    "go_back":"უკან დაბრუნება"
 
 }

@@ -2,6 +2,10 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { recoverPassword, createUser, sendForgotPassword } from '../services/requests/sendRequest'
 import { useI18n } from 'vue-i18n'
+import {useModalStore} from '@/stores/useModalStore'
+import {useMoviesStore} from '@/stores/useMoviesStore'
+import {useQuotesStore} from '@/stores/useQuotesStore'
+import axios from '@/config/axios/auth-index'
 
 export function useSubmitCreatePassword() {
   const route = useRoute()
@@ -57,6 +61,92 @@ export function useSubmitForgotPassword() {
     loading
   }
 }
+
+
+
+export function useCreateMovie() {
+  const store = useModalStore();
+const array = ref([]);
+const moviesStore = useMoviesStore();
+const imgValue = ref(true);
+const errorMessage = ref("");
+
+ function submit(values, { resetForm }) {
+    errorMessage.value = "";
+    imgValue.value = true;
+  
+    let data = {
+      name_en: values.nameEn,
+      name_ka: values.nameKa,
+      genre: values.genre,
+      director_en: values.directorEn,
+      director_ka: values.directorKa,
+      description_en: values.descriptionEn,
+      description_ka: values.descriptionKa,
+      budget: values.budget,
+      release_date: values.releaseDate,
+      thumbnail: values.thumbnail,
+    };
+  
+    const config = {
+      headers: { "Content-Type": "multipart/form-data" },
+    };
+    axios
+      .post("api/movies", data, config)
+      .then((response) => {
+        store.toggleAddMoviesModal();
+        store.toggleMovieAddedModal();
+        moviesStore.movies.unshift(response.data);
+        resetForm();
+        array.value = [];
+        imgValue.value = false;
+      })
+      .catch((error) => {
+        errorMessage.value = error.response.data.message;
+      });
+  }
+
+  return {
+    submit,array,imgValue,errorMessage
+  }
+}
+
+export function useCreateQuote() {
+
+const quotesStore = useQuotesStore();
+const imgValue = ref(true);
+const store = useModalStore();
+
+  function submit(values, { resetForm }) {
+    imgValue.value = true;
+    let data = {
+      body_en: values.bodyEn,
+      body_ka: values.bodyKa,
+      thumbnail: values.thumbnail,
+      movie_id: values.movie,
+    };
+    const config = {
+      headers: { "Content-Type": "multipart/form-data" },
+    };
+  
+    axios
+      .post("api/quotes", data, config)
+      .then((response) => {
+        store.toggleAddQuotesModal();
+        store.toggleQuoteAddedModal();
+        quotesStore.quotes.unshift(response.data);
+        resetForm();
+        imgValue.value = false;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  return {
+    submit, imgValue
+  }
+}
+ 
 
 export function useSubmitRegister() {
   const { locale } = useI18n({ useScope: 'global' })

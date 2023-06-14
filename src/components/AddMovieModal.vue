@@ -9,7 +9,7 @@
         <CloseIcon /></div
     ></template>
     <template v-slot:body>
-      <Form @submit="onSubmit">
+      <Form @submit="submit">
         <section class="flex-col py-5">
           <div class="flex items-center">
             <img
@@ -65,7 +65,7 @@
               :placeholder="$t('release_date')"
             />
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />
-            <button class="w-full bg-red-600 py-2">
+            <button class="w-full bg-red-600 py-2" type="submit">
               {{ $t("add_movie") }}
             </button>
           </section>
@@ -76,65 +76,20 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import CrudModal from "../components/CrudModal.vue";
-import CrudInput from "../components/CrudInput.vue";
-import DragAndDrop from "../components/DragAndDrop.vue";
-import axios from "../config/axios/auth-index";
+import CrudModal from "@/components/CrudModal.vue";
+import CrudInput from "@/components/CrudInput.vue";
+import DragAndDrop from "@/components/DragAndDrop.vue";
 import { useModalStore } from "@/stores/useModalStore.js";
-import { useMoviesStore } from "@/stores/useMoviesStore.js";
 import { Form } from "vee-validate";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/useUserStore";
-import CloseIcon from "../assets/icons/CloseIcon.vue";
-import GenreInput from "../components/GenreInput.vue";
+import CloseIcon from "@/assets/icons/CloseIcon.vue";
+import GenreInput from "@/components/GenreInput.vue";
+import { useCreateMovie } from "../services";
 
 const { user } = storeToRefs(useUserStore());
-
 const { userThumbnail } = storeToRefs(useUserStore());
-
 const store = useModalStore();
 
-const errorMessage = ref("");
-
-const moviesStore = useMoviesStore();
-
-const array = ref([]);
-
-const imgValue = ref(true);
-
-function onSubmit(values, { resetForm }) {
-  errorMessage.value = "";
-  imgValue.value = true;
-
-  let data = {
-    name_en: values.nameEn,
-    name_ka: values.nameKa,
-    genre: values.genre,
-    director_en: values.directorEn,
-    director_ka: values.directorKa,
-    description_en: values.descriptionEn,
-    description_ka: values.descriptionKa,
-    budget: values.budget,
-    release_date: values.releaseDate,
-    thumbnail: values.thumbnail,
-  };
-
-  const config = {
-    headers: { "Content-Type": "multipart/form-data" },
-  };
-  axios
-    .post("api/movies", data, config)
-    .then((response) => {
-      store.toggleAddMoviesModal();
-      store.toggleMovieAddedModal();
-      moviesStore.movies.unshift(response.data);
-      resetForm();
-      array.value = [];
-      imgValue.value = false;
-    })
-    .catch((error) => {
-      errorMessage.value = error.response.data.message;
-    });
-}
+const { submit, array, imgValue, errorMessage } = useCreateMovie();
 </script>

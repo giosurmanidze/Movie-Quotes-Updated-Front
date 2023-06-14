@@ -4,6 +4,8 @@
     "my_movies_list":"My list of movies",
     "total":"Total",
     "budget":"budget",
-    "release_date":"release date"
+    "release_date":"release date",
+    "movie_added_successfully":"Movie added succesfully!",
+    "go_back":"Go back"
 
 }
