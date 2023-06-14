@@ -1,7 +1,10 @@
 <template>
-  <crud-modal @click="store.toggleAddQuotesModal(false)" :showModal="store.showAddQuotesModal">
+  <crud-modal
+    @click="store.toggleAddQuotesModal(false)"
+    :showModal="store.showAddQuotesModal"
+  >
     <template v-slot:header
-      >{{ $t('write_new_quote') }}
+      >{{ $t("write_new_quote") }}
       <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10 top-7">
         <close-icon /></div
     ></template>
@@ -18,12 +21,12 @@
           <section class="mt-5">
             <crud-input lang="en" name="bodyEn" placeholder="Create new quote" />
             <crud-input lang="ka" name="bodyKa" placeholder="ახალი ციტატა" />
-            <drag-and-drop />
+            <drag-and-drop name="thumbnail" rules="required" :imgValue="imgValue" />
             <div class="text-white items-center text-center relative cursor-default">
               <div v-if="showSelectPlaceholder" class="absolute top-5 px-3">
                 <section class="flex items-center">
                   <choose-movie-icon />
-                  <p class="text-xl ml-3">{{ $t('choose_movie') }}</p>
+                  <p class="text-xl ml-3">{{ $t("choose_movie") }}</p>
                 </section>
               </div>
               <Field
@@ -42,8 +45,8 @@
               </div>
             </div>
 
-            <button class="w-full bg-red-600 py-2">
-              {{ $t('add_quote') }}
+            <button class="w-full bg-red-600 py-2" type="submit">
+              {{ $t("add_quote") }}
             </button>
           </section>
         </section>
@@ -56,21 +59,48 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import CrudModal from '@/components/CrudModal.vue'
-import CrudInput from '@/components/CrudInput.vue'
-import { useModalStore } from '@/stores/useModalStore.js'
-import { Form } from 'vee-validate'
-import CloseIcon from '@/assets/icons/CloseIcon.vue'
-import { Field, ErrorMessage } from 'vee-validate'
-import ChooseMovieIcon from '@/assets/icons/ChooseMovieIcon.vue'
-import DragAndDrop from '@/components/DragAndDrop.vue'
-import { quotes } from '@/stores/quotes'
+import { ref } from "vue";
+import CrudModal from "@/components/CrudModal.vue";
+import CrudInput from "@/components/CrudInput.vue";
+import { useModalStore } from "@/stores/useModalStore.js";
+import { Form } from "vee-validate";
+import CloseIcon from "@/assets/icons/CloseIcon.vue";
+import { Field, ErrorMessage } from "vee-validate";
+import ChooseMovieIcon from "@/assets/icons/ChooseMovieIcon.vue";
+import DragAndDrop from "@/components/DragAndDrop.vue";
+import { quotes } from "@/stores/quotes";
+import { useQuotesStore } from "@/stores/useQuotesStore";
+import axios from "@/config/axios/auth-index";
 
-const store = useModalStore()
-const showSelectPlaceholder = ref(true)
+const store = useModalStore();
+const quotesStore = useQuotesStore();
 
-const onSubmit = (values) => {
-  console.log(values)
+const showSelectPlaceholder = ref(true);
+const imgValue = ref(true);
+
+function onSubmit(values, { resetForm }) {
+  imgValue.value = true;
+  let data = {
+    body_en: values.bodyEn,
+    body_ka: values.bodyKa,
+    thumbnail: values.thumbnail,
+    movie_id: values.movie,
+  };
+  const config = {
+    headers: { "Content-Type": "multipart/form-data" },
+  };
+
+  axios
+    .post("api/quotes", data, config)
+    .then((response) => {
+      store.toggleAddQuotesModal();
+      store.toggleQuoteAddedModal();
+      quotesStore.quotes.unshift(response.data);
+      resetForm();
+      imgValue.value = false;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 </script>

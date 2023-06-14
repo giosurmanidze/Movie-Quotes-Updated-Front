@@ -1,6 +1,6 @@
 <template>
     <Field :name="name" type="text" :placeholder="placeholder" :class="classes" />
-  </template>
+</template>
   
   <script setup>
   import { Field } from "vee-validate";
