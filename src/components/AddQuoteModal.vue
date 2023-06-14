@@ -9,7 +9,7 @@
         <close-icon /></div
     ></template>
     <template v-slot:body>
-      <Form @submit="submit">
+      <Form @submit="submit" v-if="movies.length !== 0">
         <section class="flex-col py-5">
           <div class="flex items-center">
             <img
@@ -36,8 +36,8 @@
                 @click="showSelectPlaceholder = false"
                 rules="required"
               >
-                <option v-for="(movie, index) in quotes" :key="index" :value="index">
-                  {{ movie.movie }}
+                <option v-for="(movie, index) in movies" :key="index" :value="index">
+                  {{ movie?.name[locale] }}
                 </option>
               </Field>
               <div class="text-left mt-[-2px] mb-2">
@@ -51,9 +51,9 @@
           </section>
         </section>
       </Form>
-      <!-- <p class="my-3 text-red-500 text-center" v-else>
-        {{ $t('no_movies_yet') }}
-      </p> -->
+      <p class="my-3 text-red-500 text-center" v-else>
+        {{ $t("no_quotes_yet") }}
+      </p>
     </template>
   </crud-modal>
 </template>
@@ -68,10 +68,19 @@ import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import { Field, ErrorMessage } from "vee-validate";
 import ChooseMovieIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import DragAndDrop from "@/components/DragAndDrop.vue";
-import { quotes } from "@/stores/quotes";
 import { useCreateQuote } from "../services/index";
+import { useMoviesStore } from "../stores/useMoviesStore";
+import { storeToRefs } from "pinia";
+import { useI18n } from "vue-i18n";
 
 const store = useModalStore();
 const showSelectPlaceholder = ref(true);
+const { locale } = useI18n();
+
+const { getMovies } = useMoviesStore();
+getMovies();
+
+const { movies } = storeToRefs(useMoviesStore());
+
 const { submit, imgValue } = useCreateQuote();
 </script>

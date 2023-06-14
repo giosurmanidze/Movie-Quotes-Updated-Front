@@ -17,6 +17,7 @@
   "comment_added_successfully": "Comment added succesfully",
   "notifications": "notifications",
   "drag_and_drop": "Drag & drop your image here or",
-  "choose_file": "Choose file"
+  "choose_file": "Choose file",
+  "no_quotes_yet":"No quotes found"
 
 }
