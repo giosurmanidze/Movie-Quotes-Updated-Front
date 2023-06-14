@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import NewsfeedMiddleMenu from '../../components/NewsfeedMiddleMenu.vue'
-import NewsfeedContent from '../../components/NewsfeedContent.vue'
-import NewsfeedSideBar from '../../components/NewsfeedSideBar.vue'
+import NewsfeedMiddleMenu from "../../components/NewsfeedMiddleMenu.vue";
+import NewsfeedContent from "../../components/NewsfeedContent.vue";
+import NewsfeedSideBar from "../../components/NewsfeedSideBar.vue";
 </script>
