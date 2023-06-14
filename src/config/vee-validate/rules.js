@@ -16,3 +16,19 @@ defineRule('lower_alpha_num', (value) => {
   }
   return true
 })
+
+defineRule("geo", (value) => {
+  const regex = /^[ა-ჰა-ჰ0-9-_\';?!:.,"\s]*$/;
+  if (!regex.test(value)) {
+    return false;
+  }
+  return true;
+});
+
+defineRule("en", (value) => {
+  const regex = /^[a-zA-Z0-9-_\';?!:.,"\s]*$/;
+  if (!regex.test(value)) {
+    return false;
+  }
+  return true;
+});

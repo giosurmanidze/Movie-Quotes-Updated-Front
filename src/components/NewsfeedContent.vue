@@ -2,7 +2,7 @@
   <div class="px-4 md:ml-5 mt-10 text-white">
     <quote-added-modal />
     <comment-added-modal />
-    <div v-for="(quote, index) in quotes" :key="quote.id" class="p-3 mb-5 bg-[#11101A] rounded-lg">
+    <div v-for="(quote, index) in quotes2" :key="quote.id" class="p-3 mb-5 bg-[#11101A] rounded-lg">
       <section class="flex items-center">
         <img
           :src="
@@ -69,8 +69,14 @@
 import QuoteAddedModal from './QuoteAddModal.vue'
 import CommentAddedModal from './CommentAddedModal.vue'
 import CommentInput from './CommentInput.vue'
+import { storeToRefs } from "pinia";
+import {useQuotesStore} from '@/stores/useQuotesStore'
 
-const quotes = [
+const { quotes } = storeToRefs(useQuotesStore());
+
+console.log(quotes)
+
+const quotes2 = [
   {
     id: 14,
     username: 'beqa',
