@@ -2,7 +2,7 @@
   <menu-layout>
     <div class="px-4 md:pr-16 md:ml-10 text-white" @click="hideSearch">
       <AddMoviesModal />
-      <!-- <MovieAddedModal /> -->
+      <MovieAddedModal />
       <div class="flex justify-between items-center">
         <section class="flex">
           {{ $t("my_movies_list") }} ({{ $t("total") }} {{ moviesTotal }})
@@ -19,7 +19,7 @@
             </Form>
 
             <button
-              @click="toggleAddMoviesModal()"
+              @click="store.toggleAddMoviesModal()"
               class="text-white bg-red-600 px-3 rounded-[4px] lg:text-xl h-10"
             >
               {{ $t("add_movie") }}
@@ -50,7 +50,7 @@ import { computed, ref } from "vue";
 import FindIcon from "../../assets/icons/SearchIcon.vue";
 import MovieCard from "../../components/MovieCard.vue";
 import AddMoviesModal from "../../components/AddMovieModal.vue";
-// import MovieAddedModal from "@/components/modals/MovieAddedModal.vue";
+import MovieAddedModal from "../../components/MovieAddedModal.vue";
 import { useModalStore } from "@/stores/useModalStore.js";
 import { useMoviesStore } from "@/stores/useMoviesStore.js";
 import MenuLayout from "../../components/MenuLayout.vue";
@@ -61,18 +61,12 @@ const { getUser } = useUserStore();
 getUser();
 
 const { locale } = useI18n();
-
 const store = useModalStore();
-
-function toggleAddMoviesModal() {
-  store.toggleAddMoviesModal();
-}
 
 const { getMovies } = useMoviesStore();
 getMovies();
 
 const { movies } = storeToRefs(useMoviesStore());
-
 const searchValue = ref(null);
 
 function submitSearch(values) {

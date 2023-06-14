@@ -7,8 +7,8 @@
       @click.stop
     >
       <div class="flex flex-col justify-center items-center text-[#FFFFFF] gap-1">
-        <h1 class="text-3xl">{{ $t('sign_up_form_title') }}</h1>
-        <span class="text-md text-[#6C757D]">{{ $t('sign_up_form_header_text') }}</span>
+        <h1 class="text-3xl">{{ $t("sign_up_form_title") }}</h1>
+        <span class="text-md text-[#6C757D]">{{ $t("sign_up_form_header_text") }}</span>
       </div>
       <Form @submit="submit" v-slot="{ errors }">
         <div class="flex flex-col justify-between h-[55vh]">
@@ -49,15 +49,15 @@
             :href="`${BASE_URL}/api/auth/google/redirect`"
             class="text-white text-center px-3 rounded-[4px] lg:text-xl h-10 flex justify-center items-center gap-2 border-2 pb-1 border-[#ffffff]"
             ><img src="../assets/Google.svg" />
-            {{ $t('sign_up_with_google') }}
+            {{ $t("sign_up_with_google") }}
           </a>
         </div>
         <Loading v-if="registerLoading" />
       </Form>
       <span class="text-center text-[#6C757D]"
-        >{{ $t('sign_up_footer_text')
+        >{{ $t("sign_up_footer_text")
         }}<router-link :to="{ name: 'login' }" class="text-[#0D6EFD] underline ml-1">
-          {{ $t('log_in_btn') }}
+          {{ $t("log_in_btn") }}
         </router-link></span
       >
     </div>
@@ -65,14 +65,14 @@
 </template>
 
 <script setup>
-import { Form } from 'vee-validate'
-import TextField from '@/components/TextField.vue'
-import SubmitButton from '@/components/SubmitButton.vue'
-import { RouterLink } from 'vue-router'
-import Loading from '@/components/Loading.vue'
-import { useSubmitRegister } from '../services/index'
+import { Form } from "vee-validate";
+import TextField from "@/components/TextField.vue";
+import SubmitButton from "@/components/SubmitButton.vue";
+import { RouterLink } from "vue-router";
+import Loading from "@/components/Loading.vue";
+import { useSubmitRegister } from "../services/index";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const { submit, loading: registerLoading } = useSubmitRegister()
+const { submit, loading: registerLoading } = useSubmitRegister();
 </script>
