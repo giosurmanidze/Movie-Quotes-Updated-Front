@@ -70,7 +70,7 @@ import TextField from "@/components/TextField.vue";
 import SubmitButton from "@/components/SubmitButton.vue";
 import { RouterLink } from "vue-router";
 import Loading from "@/components/Loading.vue";
-import { useSubmitRegister } from "../services/index";
+import { useSubmitRegister } from "@/services/index";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 

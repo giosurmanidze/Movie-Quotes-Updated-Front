@@ -44,16 +44,16 @@
 
 <script setup>
 import { Form } from "vee-validate";
-import SearchInput from "../../components/SearchInput.vue";
+import SearchInput from "@/components/SearchInput.vue";
 import { storeToRefs } from "pinia";
 import { computed, ref } from "vue";
-import FindIcon from "../../assets/icons/SearchIcon.vue";
-import MovieCard from "../../components/MovieCard.vue";
-import AddMoviesModal from "../../components/AddMovieModal.vue";
-import MovieAddedModal from "../../components/MovieAddedModal.vue";
+import FindIcon from "@/assets/icons/SearchIcon.vue";
+import MovieCard from "@/components/MovieCard.vue";
+import AddMoviesModal from "@/components/AddMovieModal.vue";
+import MovieAddedModal from "@/components/MovieAddedModal.vue";
 import { useModalStore } from "@/stores/useModalStore.js";
 import { useMoviesStore } from "@/stores/useMoviesStore.js";
-import MenuLayout from "../../components/MenuLayout.vue";
+import MenuLayout from "@/components/MenuLayout.vue";
 import { useI18n } from "vue-i18n";
 import { useUserStore } from "@/stores/useUserStore";
 

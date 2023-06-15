@@ -1,15 +1,10 @@
 <template>
-  <Field
-    v-slot="{ handleChange, meta }"
-    :rules="rules"
-    :name="name"
-    v-model="fileModel"
-  >
+  <Field v-slot="{ handleChange, meta }" :rules="rules" :name="name" v-model="fileModel">
     <div
       id="container"
       @drop.prevent="dragFile"
       @dragover.prevent
-      class="relative flex flex-row items-center gap-3 rounded-[0.25rem] border border-[#6C757D] p-3 my-4"
+      class="relative flex flex-row items-center gap-3 rounded-[0.25rem] border border-gray_color p-3 my-4"
       :class="[
         !meta.valid && meta.touched ? 'border-[#DC3545]' : '',
         meta.valid && meta.touched ? 'border-[#198754]' : '',
