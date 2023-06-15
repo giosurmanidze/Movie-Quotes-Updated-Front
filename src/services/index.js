@@ -66,10 +66,10 @@ export function useSubmitForgotPassword() {
 
 export function useCreateMovie() {
   const store = useModalStore();
-const array = ref([]);
-const moviesStore = useMoviesStore();
-const imgValue = ref(true);
-const errorMessage = ref("");
+  const genreArray = ref([]);
+  const moviesStore = useMoviesStore();
+  const imgValue = ref(true);
+  const errorMessage = ref("");
 
  function submit(values, { resetForm }) {
     errorMessage.value = "";
@@ -98,7 +98,7 @@ const errorMessage = ref("");
         store.toggleMovieAddedModal();
         moviesStore.movies.unshift(response.data);
         resetForm();
-        array.value = [];
+        genreArray.value = [];
         imgValue.value = false;
       })
       .catch((error) => {
@@ -107,7 +107,7 @@ const errorMessage = ref("");
   }
 
   return {
-    submit,array,imgValue,errorMessage
+    submit,genreArray,imgValue,errorMessage
   }
 }
 

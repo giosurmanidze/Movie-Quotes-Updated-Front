@@ -36,7 +36,7 @@
                 @click="showSelectPlaceholder = false"
                 rules="required"
               >
-                <option v-for="(movie, index) in movies" :key="index" :value="index">
+                <option v-for="(movie, index) in movies" :key="index" :value="movie.id">
                   {{ movie?.name[locale] }}
                 </option>
               </Field>
