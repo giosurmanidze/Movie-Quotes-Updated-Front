@@ -146,6 +146,29 @@ const store = useModalStore();
     submit, imgValue
   }
 }
+
+export function fetchMovie(params) {
+  const router = useRouter();
+  const moviesStore = useMoviesStore();
+  const movie = ref();
+  const genres = ref();
+  moviesStore.edited = false;
+
+  axios
+    .get(`api/movies/${params.value}`)
+    .then((response) => {
+      movie.value = response.data;
+      moviesStore.quotes = response.data.quotes;
+      genres.value = JSON.parse(movie.value.genre);
+    })
+    .catch(() => {
+      router.back();
+    });
+
+    return {
+      movie,genres
+    }
+}
  
 
 export function useSubmitRegister() {
