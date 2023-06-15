@@ -89,6 +89,4 @@ const resultQuery = computed(() => {
 const moviesTotal = computed(() => {
   return resultQuery.value.length;
 });
-
-console.log(resultQuery);
 </script>

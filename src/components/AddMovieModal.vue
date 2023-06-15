@@ -33,7 +33,7 @@
               rules="required|geo"
               placeholder="ფილმის სახელი"
             />
-            <GenreInput name="genre" :values="array" />
+            <GenreInput name="genre" :values="genreArray" />
             <CrudInput
               lang="en"
               name="directorEn"
@@ -90,5 +90,5 @@ import { useCreateMovie } from "@/services";
 const { user } = storeToRefs(useUserStore());
 const store = useModalStore();
 
-const { submit, array, imgValue, errorMessage } = useCreateMovie();
+const { submit, genreArray, imgValue, errorMessage } = useCreateMovie();
 </script>
