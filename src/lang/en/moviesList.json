@@ -6,6 +6,11 @@
     "budget":"budget",
     "release_date":"release date",
     "movie_added_successfully":"Movie added succesfully!",
-    "go_back":"Go back"
+    "go_back":"Go back",
+    "save_changes":"Save Changes",
+    "edit_movie":"Edit movie",
+    "director":"director",
+    "movie_description":"Movie Description",
+    "quotes":"quotes"
 
 }

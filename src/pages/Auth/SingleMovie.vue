@@ -1,13 +1,14 @@
 <template>
   <menu-layout>
     <div class="text-white">
-      <h2 class="mb-4">Movie Description</h2>
+      <h2 class="mb-4">{{ $t("movie_description") }}</h2>
+      <EditMovie />
       <div class="xl:flex">
         <section class="xl:w-2/3 pr-3">
           <img :src="imagePath" alt="image poster" class="rounded-md" />
           <section class="hidden xl:flex items-center">
             <p class="my-7 pr-3 border-r border-gray-500">
-              {{ $t("quotes") }} ({{ $t("total") }} {{ moviesStore.quotes?.length }})
+              {{ $t("quotes") }} ({{ $t("total") }}) ({{ moviesStore.quotes?.length }})
             </p>
             <section class="pl-3">
               <button
@@ -27,7 +28,7 @@
             <div
               class="grid grid-cols-2 divide-x items-center bg-[#24222F] py-2 px-5 rounded"
             >
-              <section class="pr-5 cursor-pointer" @click="toggleEditModal()">
+              <section class="pr-5 cursor-pointer" @click="store.toggleEditModal()">
                 <EditIcon />
               </section>
               <section class="pl-5 cursor-pointer" @click="deleteMovieById()">
@@ -53,7 +54,7 @@
           </section>
           <section class="flex xl:hidden items-center">
             <p class="my-7 pr-3 border-r border-gray-500">
-              {{ $t("quotes") }} ({{ $t("total") }} )
+              {{ $t("quotes") }} ({{ $t("total") }} {{ moviesStore.quotes?.length }})
             </p>
             <section class="pl-3">
               <button class="bg-red-600 border-0 truncate py-2 px-3 rounded">
@@ -91,6 +92,8 @@ import { storeToRefs } from "pinia";
 import EditIcon from "@/assets/icons/EditIcon.vue";
 import DeleteIcon from "@/assets/icons/DeleteIcon.vue";
 import { fetchMovie } from "@/services";
+import EditMovie from "@/components/EditMovie.vue";
+import { useModalStore } from "@/stores/useModalStore";
 
 const { getUser } = useUserStore();
 getUser();
@@ -99,6 +102,7 @@ const route = useRoute();
 
 const { getQuote } = useQuotesStore();
 const params = ref(route.params.id);
+const store = useModalStore();
 
 const moviesStore = useMoviesStore();
 const { locale } = useI18n();

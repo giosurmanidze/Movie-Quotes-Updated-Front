@@ -199,3 +199,43 @@ export function useSubmitRegister() {
     loading
   }
 }
+
+
+export function useEditMovie(params) {
+  const { updatedMovie } = useMoviesStore();
+  const store = useModalStore()
+
+  function submit(values) {
+    let data = {
+      name_en: values.nameEn,
+      name_ka: values.nameKa,
+      genre: values.genre,
+      director_en: values.directorEn,
+      director_ka: values.directorKa,
+      description_en: values.descriptionEn,
+      description_ka: values.descriptionKa,
+      budget: values.budget,
+      release_date: values.releaseDate,
+      thumbnail: values.thumbnail1,
+    };
+  
+    const config = {
+      headers: { "Content-Type": "multipart/form-data" },
+    };
+  
+    axios
+      .post(`api/movies/${params.value}`, data, config)
+      .then((response) => {
+        updatedMovie.value = response.data;
+        store.toggleEditModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  return {
+    submit
+  }
+}
+
