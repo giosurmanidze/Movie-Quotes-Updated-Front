@@ -67,6 +67,7 @@ const { getMovies } = useMoviesStore();
 getMovies();
 
 const { movies } = storeToRefs(useMoviesStore());
+
 const searchValue = ref(null);
 
 function submitSearch(values) {
@@ -88,4 +89,6 @@ const resultQuery = computed(() => {
 const moviesTotal = computed(() => {
   return resultQuery.value.length;
 });
+
+console.log(resultQuery);
 </script>

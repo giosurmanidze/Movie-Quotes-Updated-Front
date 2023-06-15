@@ -68,8 +68,8 @@ import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import { Field, ErrorMessage } from "vee-validate";
 import ChooseMovieIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import DragAndDrop from "@/components/DragAndDrop.vue";
-import { useCreateQuote } from "../services/index";
-import { useMoviesStore } from "../stores/useMoviesStore";
+import { useCreateQuote } from "@/services/index";
+import { useMoviesStore } from "@/stores/useMoviesStore";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 

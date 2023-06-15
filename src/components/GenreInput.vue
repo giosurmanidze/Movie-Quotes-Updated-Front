@@ -81,7 +81,7 @@ watch(
   }
 );
 
-const movieGenres = ["thriller", "drama", "action", "sci-fi", "phantasy"];
+const movieGenres = ["Drama", "Comedy", "Action", "Fantasy", "Adventure", "Horror"];
 const saveChip = (e) => {
   if (!wasTouched.value) wasTouched.value = true;
   if (!chips.value.includes(e.target.id)) {
