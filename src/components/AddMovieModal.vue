@@ -14,7 +14,7 @@
           <div class="flex items-center">
             <img
               :src="user.profile_picture"
-              class="h-[40px] lg:h-[50px] rounded-full max-w-[60px]"
+              class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
             />
             <p class="ml-5">{{ user.username }}</p>
           </div>

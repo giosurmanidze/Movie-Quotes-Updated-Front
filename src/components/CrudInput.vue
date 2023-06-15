@@ -20,15 +20,15 @@
           (placeholder.length < 10 && lang === 'en' && 'pl-20') ||
           (placeholder.length <= 10 && 'pl-28') ||
           (placeholder.length >= 12 && 'pl-40') ||
-          (placeholder.length >= 11 && 'pl-[105px]') ||
+          (placeholder.length >= 11 && 'pl-[6.5rem]') ||
           (placeholder.length <= 10 && 'pl-10')
         "
       />
       <p
         class="text-[#6C757D] absolute right-10 md:right-10 mt-6"
         :class="{
-          'w-[18px]': lang === 'en',
-          'w-[21px]': lang === 'ka',
+          'w-[1.125rem]': lang === 'en',
+          'w-[1.25rem]': lang === 'ka',
         }"
       >
         <span v-if="lang === 'en'">En</span>
