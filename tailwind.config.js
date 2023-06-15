@@ -8,6 +8,9 @@ export default {
       },
       screens: {
         xs: '310px',
+      },
+      colors:{
+        gray_color:'[#6C757D]'
       }
     }
   },

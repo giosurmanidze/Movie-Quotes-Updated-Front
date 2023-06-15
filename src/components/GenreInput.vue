@@ -8,7 +8,7 @@
     <Field v-slot="{ field, meta }" :name="name" :rules="rule" v-model="chips">
       <div
         @click="toggleGenres"
-        class="flex w-full cursor-pointer flex-wrap content-between gap-y-2 rounded-[0.25rem] border border-[#6C757D] py-2 pr-12 text-base"
+        class="flex w-full cursor-pointer flex-wrap content-between gap-y-2 rounded-[0.25rem] border border-gray_color py-2 pr-12 text-base"
         :class="[
           !meta.valid && wasTouched ? 'border-[#DC3545]' : '',
           meta.valid && wasTouched ? 'border-[#198754]' : '',
