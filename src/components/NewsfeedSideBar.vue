@@ -21,14 +21,14 @@
     </section>
     <section class="mt-8 ml-2">
       <router-link :to="{ name: 'newsFeed' }" class="flex items-center cursor-pointer">
-        <home-icon />
+        <home-icon :path="$route.name" />
         <p class="ml-4 md:text-sm lg:text-lg">{{ $t("news_feed") }}</p>
       </router-link>
       <router-link
         :to="{ name: 'movieList' }"
         class="flex items-center mt-8 cursor-pointer"
       >
-        <movies-list-icon />
+        <movies-list-icon :path="$route.name" />
         <p class="ml-4 truncate md:text-sm lg:text-lg">
           {{ $t("list_of_movies") }}
         </p>
