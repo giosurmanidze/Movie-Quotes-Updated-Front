@@ -10,8 +10,8 @@
       <section class="flex items-center">
         <img
           :src="
-            quote.user.thumbnail
-              ? backendUrl + quote.user.thumbnail
+            quote.user.profile_picture
+              ? quote.user.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
           class="h-[40px] lg:h-[50px] max-w-[60px] rounded-full"
@@ -20,7 +20,7 @@
       </section>
       <section class="my-5">
         <p class="break-all">
-          "{{ quote.body[lang] }}" Movie - {{ quote.movie?.name["ka"] }}. ({{
+          "{{ quote.body[lang] }}" Movie - {{ quote.movie?.name[lang] }}. ({{
             quote.movie?.release_date
           }})
         </p>
@@ -34,7 +34,7 @@
       </section>
       <section class="flex gap-4 py-4 border-b border-[#EFEFEF]">
         <p>Comments length</p>
-        <CommentIcon />
+        <comment-icon />
         <p>Likes length</p>
         <LikedQuote :quoteId="quote.id" />
       </section>
@@ -55,7 +55,7 @@
         </div>
       </section>
       <section @click="getQuoteId(quote.id)">
-        <Form class="flex items-center py-3 w-full" @submit="submitComment">
+        <Form class="flex items-center py-3 w-full">
           <img
             :src="userThumbnail"
             class="h-[40px] lg:h-[50px] rounded-full mr-5 max-w-[60px]"
@@ -63,7 +63,7 @@
           <CommentInput
             name="comment"
             classes="w-full py-2 px-3 rounded bg-[#24222F]"
-            :placeholder="$t('placeholders.write_comment')"
+            :placeholder="$t('write_comment')"
           />
         </Form>
       </section>
@@ -73,7 +73,9 @@
 
 <script setup>
 import QuoteAddedModal from "./QuoteAddModal.vue";
+import CommentIcon from "@/assets/icons/CommentIcon.vue";
 import CommentAddedModal from "./CommentAddedModal.vue";
+import LikedQuote from "@/components/LikedQuote.vue";
 import CommentInput from "./CommentInput.vue";
 import { storeToRefs } from "pinia";
 import { useQuotesStore } from "@/stores/useQuotesStore";
@@ -87,7 +89,7 @@ const { quotes } = storeToRefs(useQuotesStore());
 
 const { userThumbnail } = storeToRefs(useUserStore());
 
-const backendUrl = import.meta.env.VITE_API_THUMBNAIL_URL;
+const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
 const lang = computed(() => {
   return locale.value;
@@ -128,6 +130,5 @@ window.onscroll = function () {
     getQuotes();
   }
 };
-
 const { getQuotes } = useQuotesStore();
 </script>

@@ -13,10 +13,10 @@
         <section class="flex-col py-5">
           <div class="flex items-center">
             <img
-              :src="userThumbnail"
+              :src="user.profile_picture"
               class="h-[40px] lg:h-[50px] rounded-full max-w-[60px]"
             />
-            <p class="ml-5">giorgi</p>
+            <p class="ml-5">{{ user.username }}</p>
           </div>
           <section class="mt-5">
             <CrudInput
@@ -85,10 +85,9 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/useUserStore";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import GenreInput from "@/components/GenreInput.vue";
-import { useCreateMovie } from "../services";
+import { useCreateMovie } from "@/services";
 
 const { user } = storeToRefs(useUserStore());
-const { userThumbnail } = storeToRefs(useUserStore());
 const store = useModalStore();
 
 const { submit, array, imgValue, errorMessage } = useCreateMovie();
