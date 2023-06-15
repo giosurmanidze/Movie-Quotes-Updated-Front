@@ -1,6 +1,6 @@
 <template>
   <menu-layout>
-    <div class="px-4 md:pr-16 md:ml-10 text-white" @click="hideSearch">
+    <div class="px-4 md:pr-16 md:ml-10 text-white">
       <AddMoviesModal />
       <MovieAddedModal />
       <div class="flex justify-between items-center">
