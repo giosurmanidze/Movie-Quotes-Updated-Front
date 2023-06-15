@@ -8,11 +8,15 @@ export const useModalStore = defineStore('useModalStore', {
     showMovieAddedModal:false,
     showAddMoviesModal:false,
     showEditQuoteModal: false,
-    showViewQuoteModal:false
+    showViewQuoteModal:false,
+    showEditMovieModal:false
   }),
   actions: {
     toggleQuoteAddedModal() {
       this.showQuoteAddedModal = !this.showQuoteAddedModal
+    },
+    toggleEditModal() {
+      this.showEditMovieModal = !this.showEditMovieModal;
     },
     toggleCommentAddedModal() {
       this.showCommentAddedModal = !this.showCommentAddedModal
