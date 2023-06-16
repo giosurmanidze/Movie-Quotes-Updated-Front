@@ -1,14 +1,14 @@
 <template>
   <div class="flex flex-col gap-1 relative">
-    <label :for="name" class="text-[#ffffff] text-base">
-      {{ $t(label) }}<span class="text-[#DC3545] ml-1">*</span>
+    <label :for="name" class="text-white text-base">
+      {{ $t(label) }}<span class="text-label_color ml-1">*</span>
     </label>
     <Field
       :id="name"
-      class="w-full pl-2 h-[38px] rounded-[4px] bg-[#CED4DA] outline-none"
+      class="w-full pl-2 h-[2.375rem] rounded bg-input_bg outline-none"
       :class="{
-        'border-2 border-[#E31221]': hasError,
-        'border-2 border-green-500': !hasError && hasInteracted
+        'border-2 border-red_border': hasError,
+        'border-2 border-green-500': !hasError && hasInteracted,
       }"
       :type="inputType"
       :rules="rules"
@@ -19,8 +19,11 @@
       @blur="hasInteracted = true"
       @input="updateInput ? updateInput(name, $event.target.value) : null"
     />
-    <ErrorMessage :name="name" class="text-[#E31221]" />
-    <span v-if="!hasError && type !== 'password' && hasInteracted" class="absolute right-2 top-9">
+    <ErrorMessage :name="name" class="text-red_border" />
+    <span
+      v-if="!hasError && type !== 'password' && hasInteracted"
+      class="absolute right-2 top-9"
+    >
       <img src="../assets/done-icon.svg" />
     </span>
     <span v-if="hasError && type !== 'password'" class="absolute right-2 top-9">
@@ -28,7 +31,7 @@
     </span>
     <span
       v-if="type === 'password'"
-      class="absolute right-2 top-[38px]"
+      class="absolute right-2 top-[2.375rem]"
       @click="togglePasswordVisibility"
     >
       <img v-if="!showPassword" src="../assets/hide-eye.svg" />
@@ -38,50 +41,50 @@
 </template>
 
 <script setup>
-import { ErrorMessage, Field } from 'vee-validate'
-import { computed, defineProps, ref } from 'vue'
+import { ErrorMessage, Field } from "vee-validate";
+import { computed, defineProps, ref } from "vue";
 
-const hasInteracted = ref(false)
-const showPassword = ref(false)
+const hasInteracted = ref(false);
+const showPassword = ref(false);
 
 const props = defineProps({
   label: {
     type: String,
-    required: true
+    required: true,
   },
   type: {
     type: String,
-    required: true
+    required: true,
   },
   rules: {
     type: String,
-    required: false
+    required: false,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   placeholder: {
     type: String,
-    required: false
+    required: false,
   },
   hasError: {
     type: String,
-    required: false
+    required: false,
   },
   updateInput: {
     type: Function,
-    required: false
+    required: false,
   },
   value: {
     type: String,
-    required: false
-  }
-})
+    required: false,
+  },
+});
 
-const inputType = computed(() => (showPassword.value ? 'text' : props.type))
+const inputType = computed(() => (showPassword.value ? "text" : props.type));
 
 function togglePasswordVisibility() {
-  showPassword.value = !showPassword.value
+  showPassword.value = !showPassword.value;
 }
 </script>

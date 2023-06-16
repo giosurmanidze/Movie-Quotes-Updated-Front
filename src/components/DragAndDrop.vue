@@ -4,10 +4,10 @@
       id="container"
       @drop.prevent="dragFile"
       @dragover.prevent
-      class="relative flex flex-row items-center gap-3 rounded-[0.25rem] border border-gray_color p-3 my-4"
+      class="relative flex flex-row items-center gap-3 rounded-[0.25rem] border p-3 my-4"
       :class="[
-        !meta.valid && meta.touched ? 'border-[#DC3545]' : '',
-        meta.valid && meta.touched ? 'border-[#198754]' : '',
+        !meta.valid && meta.touched ? 'border-red_border' : '',
+        meta.valid && meta.touched ? 'border-green_border' : '',
       ]"
     >
       <div class="flex flex-row gap-3 break-words break-all">
@@ -16,7 +16,7 @@
         <p v-else class="mt-1">{{ $t("drag_and_drop") }}</p>
       </div>
       <span
-        class="cursor-pointer rounded-[0.24rem] bg-[#462676] p-[0.4rem]"
+        class="cursor-pointer rounded-[0.24rem] bg-choose_img_btn p-[0.4rem]"
         @click="getImage"
       >
         {{ $t("choose_file") }}

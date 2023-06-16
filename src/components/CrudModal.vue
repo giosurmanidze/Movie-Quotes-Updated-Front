@@ -16,10 +16,12 @@
         <div
           @click.stop
           :class="showModal ? 'absolute top-14' : 'hidden'"
-          class="transform max-w-3xl overflow-hidden rounded-lg bg-[#11101A] text-left shadow-xl transition-all sm:my-8 sm:w-full md:w-2/3"
+          class="transform max-w-3xl overflow-hidden rounded-lg bg-modal_bg text-left shadow-xl transition-all sm:my-8 sm:w-full md:w-2/3"
         >
           <section>
-            <div class="flex justify-center items-center border-b border-[#656464] py-5">
+            <div
+              class="flex justify-center items-center border-b border-modal_header_line py-5"
+            >
               <slot name="header"></slot>
             </div>
             <div class="px-7 py-3">

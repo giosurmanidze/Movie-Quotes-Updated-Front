@@ -23,10 +23,10 @@
         <section class="xl:w-1/3 mr-3 xl:mr-16 mt-5 xl:mt-0 items-center">
           <section class="flex justify-between">
             <div>
-              <p class="text-lg text-[#DDCCAA]">{{ movieName }} ({{ releaseDate }})</p>
+              <p class="text-lg text-text_color">{{ movieName }} ({{ releaseDate }})</p>
             </div>
             <div
-              class="grid grid-cols-2 divide-x items-center bg-[#24222F] py-2 px-5 rounded"
+              class="grid grid-cols-2 divide-x items-center bg-comment_input_bg py-2 px-5 rounded"
             >
               <section class="pr-5 cursor-pointer" @click="store.toggleEditModal()">
                 <EditIcon />
@@ -40,7 +40,7 @@
             <p
               v-for="genre in genres"
               :key="genre"
-              class="bg-[#6C757D] py-1 px-2 rounded font-bold"
+              class="bg-genre_text py-1 px-2 rounded font-bold"
             >
               {{ genre }}
             </p>

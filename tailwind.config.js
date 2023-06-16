@@ -10,7 +10,25 @@ export default {
         xs: '310px',
       },
       colors:{
-        gray_color:'[#6C757D]'
+        modal_bg:'#11101A',
+        modal_header_line:'#656464',
+        dots_modal_bg:'#24222F',
+        choose_img_btn:'#462676',
+        red_border:'#DC3545',
+        green_border:'#198754',
+        text_color:'#DDCCAA',
+        btn_color:'#E31221',
+        menu_layout_bg:'#181623',
+        comment_input_bg:'#24222F',
+        add_quote_btn:'#24222F',
+        input_text:'#a1a5a8',
+        navbar_bg:'#222030',
+        gold_color:"#DDCCAA",
+        quote_text:'#CED4DA',
+        label_color:'#DC3545',
+        input_bg:"#CED4DA",
+        genre_text:'#6C757D',
+        forgot_pass_text:'#0D6EFD'
       }
     }
   },

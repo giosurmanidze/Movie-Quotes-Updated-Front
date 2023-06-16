@@ -1,10 +1,10 @@
 <template>
   <div class="w-full flex justify-between items-center">
-    <span class="text-[#DDCCAA]">{{ $t("movie_quotes") }}</span>
-    <div class="flex items-center gap-6 text-[#fff]">
+    <span class="text-text_color">{{ $t("movie_quotes") }}</span>
+    <div class="flex items-center gap-6 text-white">
       <lang-changer />
-      <Button text="sign_up" :route="'/signup'" classes="bg-[#E31221]" />
-      <Button text="log_in_btn" :route="'/login'" classes="border-2 border-[#fff]" />
+      <Button text="sign_up" :route="'/signup'" classes="bg-btn_color" />
+      <Button text="log_in_btn" :route="'/login'" classes="border-2 border-white" />
     </div>
   </div>
 </template>

@@ -3,12 +3,14 @@
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-filter backdrop-blur-sm"
   >
     <div
-      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[600px] rounded shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh overflow-auto bg-[#222030]"
+      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[37.5rem] rounded shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh overflow-auto bg-navbar_bg"
       @click.stop
     >
-      <div class="flex flex-col justify-center items-center text-[#FFFFFF]">
-        <h1 class="text-3xl">{{ $t('log_in_form_title') }}</h1>
-        <span class="text-md text-[#6C757D] mt-1">{{ $t('log_in_form_header_text') }}</span>
+      <div class="flex flex-col justify-center items-center text-white">
+        <h1 class="text-3xl">{{ $t("log_in_form_title") }}</h1>
+        <span class="text-md text-genre_text mt-1">{{
+          $t("log_in_form_header_text")
+        }}</span>
       </div>
       <Form @submit="submit" v-slot="{ errors }">
         <div class="flex flex-col justify-between h-[40vh]">
@@ -51,82 +53,88 @@
                 v-model="loginForm.remember"
                 class="w-4 h-4"
               />
-              <label for="remember" class="text-[#FFFFFF] text-base">{{ $t('remember_me') }}</label>
+              <label for="remember" class="text-white text-base">{{
+                $t("remember_me")
+              }}</label>
             </div>
 
-            <router-link :to="{ name: 'forgotPassword' }" class="text-[#0D6EFD] underline"
-              >{{ $t('forgot_password') }}
+            <router-link
+              :to="{ name: 'forgotPassword' }"
+              class="text-forgot_pass_text underline"
+              >{{ $t("forgot_password") }}
             </router-link>
           </div>
           <submit-button text="log_in_btn" classes="bg-[#E31221]" />
           <a
             :href="`${BASE_URL}/api/auth/google/redirect`"
-            class="text-white px-3 rounded-[4px] lg:text-xl h-10 flex justify-center items-center gap-3 border-2 pb-1 border-[#ffffff]"
+            class="text-white px-3 rounded lg:text-xl h-10 flex justify-center items-center gap-3 border-2 pb-1 border-white"
             ><img src="../assets/Google.svg" />
-            {{ $t('sign_up_with_google') }}
+            {{ $t("sign_up_with_google") }}
           </a>
         </div>
         <Loading v-if="loading" />
       </Form>
-      <span class="text-center text-[#6C757D]"
-        >{{ $t('log_in_footer_text')
-        }}<router-link :to="{ name: 'signup' }" class="text-[#0D6EFD] underline ml-1">{{
-          $t('sign_up')
-        }}</router-link></span
+      <span class="text-center text-genre_text"
+        >{{ $t("log_in_footer_text")
+        }}<router-link
+          :to="{ name: 'signup' }"
+          class="text-forgot_pass_text underline ml-1"
+          >{{ $t("sign_up") }}</router-link
+        ></span
       >
     </div>
   </div>
 </template>
 
 <script setup>
-import { Form } from 'vee-validate'
-import TextField from '@/components/TextField.vue'
-import SubmitButton from '@/components/SubmitButton.vue'
-import { loginUser } from '@/services/requests/sendRequest'
-import axiosInstance from '@/config/axios/index'
-import Loading from '@/components/Loading.vue'
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
+import { Form } from "vee-validate";
+import TextField from "@/components/TextField.vue";
+import SubmitButton from "@/components/SubmitButton.vue";
+import { loginUser } from "@/services/requests/sendRequest";
+import axiosInstance from "@/config/axios/index";
+import Loading from "@/components/Loading.vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
-const user = ref()
-const loading = ref(false)
-const router = useRouter()
-const { t } = useI18n()
-const BASE_URL = import.meta.env.VITE_BASE_URL
+const user = ref();
+const loading = ref(false);
+const router = useRouter();
+const { t } = useI18n();
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-let storedLoginForm = localStorage.getItem('remember_me')
+let storedLoginForm = localStorage.getItem("remember_me");
 let loginForm = storedLoginForm
   ? JSON.parse(storedLoginForm)
-  : { remember: false, password: '', username: '' }
+  : { remember: false, password: "", username: "" };
 
 const updateInput = (key, value) => {
-  loginForm[key] = value
-}
+  loginForm[key] = value;
+};
 
 const submit = async (values, actions) => {
-  loading.value = true
+  loading.value = true;
 
   try {
-    await loginUser(values)
-    const { data } = await axiosInstance.get('/api/user')
-    user.value = data
-    loading.value = false
-    router.push({ name: 'newsFeed' })
+    await loginUser(values);
+    const { data } = await axiosInstance.get("/api/user");
+    user.value = data;
+    loading.value = false;
+    router.push({ name: "newsFeed" });
 
     return loginForm.remember
-      ? localStorage.setItem('remember_me', JSON.stringify(loginForm))
-      : localStorage.removeItem('remember_me')
+      ? localStorage.setItem("remember_me", JSON.stringify(loginForm))
+      : localStorage.removeItem("remember_me");
   } catch (error) {
-    loading.value = false
-    actions.setFieldError('username', t('incorrect_credentials'))
+    loading.value = false;
+    actions.setFieldError("username", t("incorrect_credentials"));
   }
-}
+};
 
 onMounted(() => {
-  const storedLoginForm = localStorage.getItem('remember_me')
+  const storedLoginForm = localStorage.getItem("remember_me");
   if (storedLoginForm) {
-    loginForm = JSON.parse(storedLoginForm)
+    loginForm = JSON.parse(storedLoginForm);
   }
-})
+});
 </script>
