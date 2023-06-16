@@ -6,7 +6,7 @@
       </button>
       <div
         v-if="dropdownState"
-        class="origin-top-right px-10 pb-4 pt-2 absolute right-0 bg-[#24222F] w-[250px] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        class="origin-top-right px-10 pb-4 pt-2 absolute right-0 bg-dots_modal_bg w-[15.5rem] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
       >
         <div class="flex-col mt-3">
           <div class="items-center flex cursor-pointer" @click="showViewQuotesModal()">

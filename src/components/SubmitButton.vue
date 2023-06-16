@@ -1,20 +1,20 @@
 <template>
-  <button class="text-white px-3 rounded-[4px] lg:text-xl h-10" type="submit" :class="classes">
+  <button class="text-white px-3 rounded lg:text-xl h-10" type="submit" :class="classes">
     {{ $t(text) }}
   </button>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps } from "vue";
 
 const props = defineProps({
   classes: {
     type: String,
-    required: false
+    required: false,
   },
   text: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>

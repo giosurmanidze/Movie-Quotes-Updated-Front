@@ -5,9 +5,9 @@
         class="xs:h-[50vh] md:h-[100vh] bg-size pt-[30%] pl-[10%] lg:pt-[12.5rem] lg:pl-44"
         :style="{ backgroundImage: `url(${item.img})` }"
       >
-        <div class="max-w-[200px] md:max-w-[500px] lg:max-w-[900px] flex space-x-1">
+        <div class="max-w-[12.5rem] md:max-w-[31.25] lg:max-w-[56.25] flex space-x-1">
           <div class="flex items-center h-4 lg:h-12">
-            <div class="w-3 lg:w-14 xs:h-[1px] md:h-1 bg-white"></div>
+            <div class="w-3 lg:w-14 xs:h-[0.0625rem] md:h-1 bg-white"></div>
           </div>
           <div>
             <blockquote class="text-white text-sm lg:text-5xl">

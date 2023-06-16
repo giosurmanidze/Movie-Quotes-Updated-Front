@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-[#181623] pb-[80px]">
+  <div class="h-screen bg-menu_layout_bg pb-20">
     <div class="flex xl:gap-x-24 md:pt-8 h-full">
       <section class="pl-16 hidden md:flex">
         <NewsfeedSidebar />

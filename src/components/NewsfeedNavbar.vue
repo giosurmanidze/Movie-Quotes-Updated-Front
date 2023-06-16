@@ -3,12 +3,12 @@
     <nav
       :class="
         navbarState
-          ? 'flex md:px-16 px-5 py-4 h-[80px] justify-between items-center bg-[#222030]'
-          : 'flex h-[80px] justify-between items-center bg-[#222030]'
+          ? 'flex md:px-16 px-5 py-4 h-20 justify-between items-center bg-navbar_bg'
+          : 'flex h-20 justify-between items-center bg-navbar_bg'
       "
     >
       <section class="hidden md:flex">
-        <h1 class="text-[#DDCCAA] text-base font-medium">{{ $t("movie_quotes") }}</h1>
+        <h1 class="text-gold_color text-base font-medium">{{ $t("movie_quotes") }}</h1>
       </section>
       <div v-if="navbarState" class="md:hidden flex text-start">
         <button
@@ -34,7 +34,7 @@
       </div>
       <div
         v-else
-        class="flex items-center text-white w-full h-full border-b border-[#EFEFEF] p-4 bg-[#12101A]"
+        class="flex items-center text-white w-full h-full border-b border-white p-4 bg-[#12101A]"
       >
         <back-arrow-icon @click="navbarState = !navbarState" class="mr-3" />
         <Form @submit="submitForm" class="w-full">
@@ -48,7 +48,7 @@
     </nav>
     <div v-if="showSidebar" class="relative z-50">
       <nav
-        class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-[#11101A] border-r rounded-xl overflow-y-auto"
+        class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-modal_bg border-r rounded-xl overflow-y-auto"
       >
         <div class="flex items-center mb-8">
           <a class="mr-auto text-3xl font-bold leading-none" href="#">

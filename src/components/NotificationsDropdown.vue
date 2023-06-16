@@ -12,15 +12,15 @@
       </button>
       <div
         v-if="dropdownState"
-        class="overflow-y-auto max-h-[600px] origin-top-right px-10 py-3 md:p-6 absolute mt-2 right-0 md:right-5 bg-black w-screen md:w-[620px] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        class="overflow-y-auto max-h-[37.5rem] origin-top-right px-10 py-3 md:p-6 absolute mt-2 right-0 md:right-5 bg-black w-screen md:w-[38.75rem] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
       >
         <div class="flex justify-between mt-3 mb-5">
-          <p class="md:text-xl text-sm">{{ $t('notifications') }}</p>
+          <p class="md:text-xl text-sm">{{ $t("notifications") }}</p>
           <p
             @click="markAllAsReadHandler()"
             class="md:text-sm text-xs pt-1 underline underline-offset-1 cursor-pointer hover:text-red-500"
           >
-            {{ $t('mark_as_read') }}
+            {{ $t("mark_as_read") }}
           </p>
         </div>
         <div v-for="notification in notifications" :key="notification.id" class="py-2">
@@ -32,7 +32,7 @@
                     ? notification.thumbnail
                     : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
                 "
-                class="md:h-[80px] h-[50px] rounded-full border max-w-[80px]"
+                class="md:h-10 h-11 rounded-full border max-w-10"
                 :class="!notification.read ? 'border-green-500' : ''"
               />
               <section class="flex flex-col">
@@ -44,24 +44,24 @@
                   class="ml-4 md:mt-3 mt-1 md:text-base text-center flex"
                 >
                   <span class="mr-2 mt-0.5"> <commented-icon /></span>
-                  {{ $t('commented_to_your_movie_quote') }}
+                  {{ $t("commented_to_your_movie_quote") }}
                 </p>
                 <p v-else class="ml-4 md:mt-3 mt-1 md:text-base text-center flex">
                   <span class="mr-2 mt-0.5"> <liked-quote-icon /></span>
-                  {{ $t('reacted_to_your_quote') }}
+                  {{ $t("reacted_to_your_quote") }}
                 </p>
               </section>
             </section>
             <section class="flex flex-col">
               <p class="ml-4 md:mt-2 md:text-base">
                 {{ Math.ceil((Date.now() - new Date(notification.created_at)) / 60000) }}
-                {{ $t('min_ago') }}
+                {{ $t("min_ago") }}
               </p>
               <p
                 v-if="!notification.read"
-                class="ml-4 md:mt-3 mt-1 md:text-base text-end text-[#198754]"
+                class="ml-4 md:mt-3 mt-1 md:text-base text-end text-green_border"
               >
-                {{ $t('new') }}
+                {{ $t("new") }}
               </p>
             </section>
           </div>
@@ -72,25 +72,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import CommentedIcon from '@/assets/icons/CommentedIcon.vue'
-import NotificationIcon from '@/assets/icons/NotificationIcon.vue'
-import LikedQuoteIcon from '@/assets/icons/LikeIcon.vue'
+import { ref } from "vue";
+import CommentedIcon from "@/assets/icons/CommentedIcon.vue";
+import NotificationIcon from "@/assets/icons/NotificationIcon.vue";
+import LikedQuoteIcon from "@/assets/icons/LikeIcon.vue";
 
-const dropdownState = ref(false)
-const unreadNotifications = ref(0)
+const dropdownState = ref(false);
+const unreadNotifications = ref(0);
 
 const toggleDropdown = () => {
-  dropdownState.value = !dropdownState.value
-}
+  dropdownState.value = !dropdownState.value;
+};
 
 const notifications = [
   {
-    username: 'giorgi',
-    thumbnail: 'https://avatars.githubusercontent.com/u/91054978?v=4',
+    username: "giorgi",
+    thumbnail: "https://avatars.githubusercontent.com/u/91054978?v=4",
     read: true,
-    type: 'comment',
-    created_at: '06/06/2023'
-  }
-]
+    type: "comment",
+    created_at: "06/06/2023",
+  },
+];
 </script>

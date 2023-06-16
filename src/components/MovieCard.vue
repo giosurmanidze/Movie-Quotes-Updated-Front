@@ -1,7 +1,7 @@
 <template>
   <div class="text-white mb-5" @click="navigateToMovie()">
     <section>
-      <img class="rounded-md w-[320px] h-[230px]" :src="imagePath" />
+      <img class="rounded-md w-80 h-[14.375rem]" :src="imagePath" />
     </section>
     <section>
       <p class="my-3">{{ movieName }} ({{ releaseDate }})</p>

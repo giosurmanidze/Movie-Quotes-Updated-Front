@@ -5,7 +5,7 @@
     <div
       v-for="(quote, index) in resultQuery"
       :key="quote.id"
-      class="p-3 mb-5 bg-[#11101A] rounded-lg"
+      class="p-3 mb-5 bg-modal_bg rounded-lg"
     >
       <section class="flex items-center">
         <img
@@ -14,7 +14,7 @@
               ? quote.user.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
-          class="h-[40px] lg:h-[50px] max-w-[60px] rounded-full"
+          class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
         />
         <p class="ml-5">{{ quote.user.username }}</p>
       </section>
@@ -29,10 +29,10 @@
         <img
           :src="backendUrl + quote.thumbnail"
           alt="quote img"
-          class="xl:w-[890px] xl:h-[500px]"
+          class="xl:w-[55.625rem] xl:h-[31.25rem]"
         />
       </section>
-      <section class="flex gap-4 py-4 border-b border-[#EFEFEF]">
+      <section class="flex gap-4 py-4 border-b border-white">
         <p>Comments length</p>
         <comment-icon />
         <p>Likes length</p>
@@ -46,11 +46,11 @@
                 ? backendUrl + comment.thumbnail
                 : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
             "
-            class="h-[40px] lg:h-[50px] rounded-full max-w-[60px]"
+            class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
           />
           <p class="ml-5">{{ comment.username }}</p>
         </div>
-        <div class="lg:ml-[70px] pb-4 mt-3 border-b border-[#EFEFEF]">
+        <div class="lg:ml-[4.375rem] pb-4 mt-3 border-b border-white">
           <p>{{ comment.body }}</p>
         </div>
       </section>
@@ -58,11 +58,11 @@
         <Form class="flex items-center py-3 w-full">
           <img
             :src="userThumbnail"
-            class="h-[40px] lg:h-[50px] rounded-full mr-5 max-w-[60px]"
+            class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
           />
           <CommentInput
             name="comment"
-            classes="w-full py-2 px-3 rounded bg-[#24222F]"
+            classes="w-full py-2 px-3 rounded bg-comment_input_bg"
             :placeholder="$t('write_comment')"
           />
         </Form>

@@ -7,13 +7,13 @@
             ? user.profile_picture
             : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
         "
-        class="h-[40px] md:h-[45px] lg:h-[60px] max-w-[60px] rounded-full"
+        class="h-10 md:h-11 lg:h-[3.75rem] max-w-[3.75rem] rounded-full"
         :class="$route.name === 'profile' ? 'border-2 border-red-600' : ''"
       />
       <section class="flex-col ml-3 lg:mt-1">
         <p class="text-base">{{ user.username }}</p>
         <button
-          class="text-xs text-[#CED4DA] text-start sm:truncate md:w-[100px] lg:w-[150px]"
+          class="text-xs text-[#CED4DA] text-start sm:truncate md:w-[6.25rem] lg:w-[9.375rem]"
         >
           {{ $t("edit_your_profile") }}
         </button>

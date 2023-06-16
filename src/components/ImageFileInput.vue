@@ -3,10 +3,10 @@
     <label
       for="file"
       :class="[
-        !meta.valid && meta.touched ? 'border-1 border-[#DC3545]' : '',
-        meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
+        !meta.valid && meta.touched ? 'border-1 border-red_border' : '',
+        meta.valid && meta.touched ? 'border-1  border-green_border' : '',
       ]"
-      class="bg-[#11101A] text-white h-[80px] border border-white-1 px-2 items-center rounded-md hidden"
+      class="bg-modal_bg text-white h-[5.25rem] border border-white-1 px-2 items-center rounded-md hidden"
       @drop.prevent="dragFile"
       @dragover.prevent
     >
@@ -15,18 +15,18 @@
       id="file"
       name="file"
       type="file"
-      class="bg-[#11101A] border border-white-1 hidden w-full h-full"
+      class="bg-modal_bg border border-white-1 hidden w-full h-full"
       @change="setImage"
     />
   </Field>
-  <div class="relative w-full border border-white-1 min-h-[80px] rounded-lg">
+  <div class="relative w-full border border-white-1 min-h-20 rounded-lg">
     <img :src="src" alt="" class="w-auto h-auto" id="image" />
     <label
       for="file"
-      class="cursor-pointer bg-black opacity-[0.6] w-[135px] h-[84px] flex flex-col items-center justify-center rounded-xl absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]"
+      class="cursor-pointer bg-black opacity-[0.6] w-[8.5rem] h-[5.25rem] flex flex-col items-center justify-center rounded-xl absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]"
     >
-      <img src="@/assets/photocamera-icon.png" alt="" class="z-10 w-[18px] h-auto" />
-      <p class="text-white text-[16px] whitespace-nowrap">Change photo</p>
+      <img src="@/assets/photocamera-icon.png" alt="" class="z-10 w-[1.125rem] h-auto" />
+      <p class="text-white text-[1rem] whitespace-nowrap">Change photo</p>
     </label>
   </div>
 </template>
