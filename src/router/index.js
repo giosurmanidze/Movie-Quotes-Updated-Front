@@ -10,6 +10,7 @@ import RecoverInstructions from '@/pages/RecoverInstructions.vue'
 import CreatePassword from '@/pages/CreatePassword.vue'
 import ChangedPassword from '@/pages/CreatePassword.vue'
 import MovieList from '@/pages/Auth/MovieList.vue'
+import SingleMovie from '@/pages/Auth/SingleMovie.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,6 +71,11 @@ const router = createRouter({
       path: '/movie-list',
       name: 'movieList',
       component: MovieList
+    },
+    {
+      path: "/movie/:id",
+      name: 'moviePage',
+      component: SingleMovie
     }
   ]
 })

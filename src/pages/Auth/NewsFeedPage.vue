@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#181623] pb-[80px]">
+  <div class="bg-menu_layout_bg pb-20">
     <div class="flex xl:gap-x-24 md:pt-8 h-full">
       <section class="pl-16 hidden md:flex">
         <newsfeed-side-bar />
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import NewsfeedMiddleMenu from '../../components/NewsfeedMiddleMenu.vue'
-import NewsfeedContent from '../../components/NewsfeedContent.vue'
-import NewsfeedSideBar from '../../components/NewsfeedSideBar.vue'
+import NewsfeedMiddleMenu from "@/components/NewsfeedMiddleMenu.vue";
+import NewsfeedContent from "@/components/NewsfeedContent.vue";
+import NewsfeedSideBar from "@/components/NewsfeedSideBar.vue";
 </script>

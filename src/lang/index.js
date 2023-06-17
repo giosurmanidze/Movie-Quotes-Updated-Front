@@ -7,6 +7,8 @@ import * as dialogsEn from './en/dialogs.json'
 import * as dialogsKa from './ka/dialogs.json'
 import * as newsFeedEn from './en/newsFeed.json'
 import * as newsFeedKa from './ka/newsFeed.json'
+import * as movieListEn from './en/moviesList.json'
+import * as movieListKa from './ka/moviesList.json'
 
 const i18n = createI18n({
   locale: localStorage.getItem('lang') || 'en',
@@ -17,13 +19,15 @@ const i18n = createI18n({
       ...landingEn,
       ...authEn,
       ...dialogsEn,
-      ...newsFeedEn
+      ...newsFeedEn,
+      ...movieListEn
     },
     ka: {
       ...landingKa,
       ...authka,
       ...dialogsKa,
-      ...newsFeedKa
+      ...newsFeedKa,
+      ...movieListKa
     }
   }
 })

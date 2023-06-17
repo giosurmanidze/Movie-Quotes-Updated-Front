@@ -1,29 +1,32 @@
 <template>
-  <crud-modal @click="store.toggleAddQuotesModal(false)" :showModal="store.showAddQuotesModal">
+  <crud-modal
+    @click="store.toggleAddQuotesModal(false)"
+    :showModal="store.showAddQuotesModal"
+  >
     <template v-slot:header
-      >{{ $t('write_new_quote') }}
+      >{{ $t("write_new_quote") }}
       <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10 top-7">
         <close-icon /></div
     ></template>
     <template v-slot:body>
-      <Form @submit="onSubmit">
+      <Form @submit="submit" v-if="movies.length !== 0">
         <section class="flex-col py-5">
           <div class="flex items-center">
             <img
               src="https://i.postimg.cc/4dpWbhzk/landing-page.png"
-              class="h-[40px] lg:h-[50px] rounded-full max-w-[60px]"
+              class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
             />
             <p class="ml-5">Username</p>
           </div>
           <section class="mt-5">
             <crud-input lang="en" name="bodyEn" placeholder="Create new quote" />
             <crud-input lang="ka" name="bodyKa" placeholder="ახალი ციტატა" />
-            <drag-and-drop />
+            <drag-and-drop name="thumbnail" rules="required" :imgValue="imgValue" />
             <div class="text-white items-center text-center relative cursor-default">
               <div v-if="showSelectPlaceholder" class="absolute top-5 px-3">
                 <section class="flex items-center">
                   <choose-movie-icon />
-                  <p class="text-xl ml-3">{{ $t('choose_movie') }}</p>
+                  <p class="text-xl ml-3">{{ $t("choose_movie") }}</p>
                 </section>
               </div>
               <Field
@@ -33,8 +36,8 @@
                 @click="showSelectPlaceholder = false"
                 rules="required"
               >
-                <option v-for="(movie, index) in quotes" :key="index" :value="index">
-                  {{ movie.movie }}
+                <option v-for="(movie, index) in movies" :key="index" :value="movie.id">
+                  {{ movie?.name[locale] }}
                 </option>
               </Field>
               <div class="text-left mt-[-2px] mb-2">
@@ -42,35 +45,42 @@
               </div>
             </div>
 
-            <button class="w-full bg-red-600 py-2">
-              {{ $t('add_quote') }}
+            <button class="w-full bg-red-600 py-2" type="submit">
+              {{ $t("add_quote") }}
             </button>
           </section>
         </section>
       </Form>
-      <!-- <p class="my-3 text-red-500 text-center" v-else>
-        {{ $t('no_movies_yet') }}
-      </p> -->
+      <p class="my-3 text-red-500 text-center" v-else>
+        {{ $t("no_quotes_yet") }}
+      </p>
     </template>
   </crud-modal>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import CrudModal from '@/components/CrudModal.vue'
-import CrudInput from '@/components/CrudInput.vue'
-import { useModalStore } from '@/stores/useModalStore.js'
-import { Form } from 'vee-validate'
-import CloseIcon from '@/assets/icons/CloseIcon.vue'
-import { Field, ErrorMessage } from 'vee-validate'
-import ChooseMovieIcon from '@/assets/icons/ChooseMovieIcon.vue'
-import DragAndDrop from '@/components/DragAndDrop.vue'
-import { quotes } from '@/stores/quotes'
+import { ref } from "vue";
+import CrudModal from "@/components/CrudModal.vue";
+import CrudInput from "@/components/CrudInput.vue";
+import { useModalStore } from "@/stores/useModalStore.js";
+import { Form } from "vee-validate";
+import CloseIcon from "@/assets/icons/CloseIcon.vue";
+import { Field, ErrorMessage } from "vee-validate";
+import ChooseMovieIcon from "@/assets/icons/ChooseMovieIcon.vue";
+import DragAndDrop from "@/components/DragAndDrop.vue";
+import { useCreateQuote } from "@/services/index";
+import { useMoviesStore } from "@/stores/useMoviesStore";
+import { storeToRefs } from "pinia";
+import { useI18n } from "vue-i18n";
 
-const store = useModalStore()
-const showSelectPlaceholder = ref(true)
+const store = useModalStore();
+const showSelectPlaceholder = ref(true);
+const { locale } = useI18n();
 
-const onSubmit = (values) => {
-  console.log(values)
-}
+const { getMovies } = useMoviesStore();
+getMovies();
+
+const { movies } = storeToRefs(useMoviesStore());
+
+const { submit, imgValue } = useCreateQuote();
 </script>

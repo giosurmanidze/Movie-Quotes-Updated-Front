@@ -7,23 +7,23 @@
       @change="changeLocale"
       @click.stop
     >
-      <option class="text-black" value="en">{{ $t('lang_choose_opt_en') }}</option>
-      <option class="text-black" value="ka">{{ $t('lang_choose_opt_ka') }}</option>
+      <option class="text-black" value="en">{{ $t("lang_choose_opt_en") }}</option>
+      <option class="text-black" value="ka">{{ $t("lang_choose_opt_ka") }}</option>
     </select>
-    <img src="../assets/caret-right-fill.svg" class="mt-2" />
+    <img src="@/assets/caret-right-fill.svg" class="mt-2" />
   </div>
 </template>
 
 <script setup>
-import { setLocale } from '@vee-validate/i18n'
+import { setLocale } from "@vee-validate/i18n";
 
 const changeLocale = (event) => {
-  setLocale(event.target.value)
-  localStorage.setItem('lang', event.target.value)
-  event.stopPropagation()
-}
-if (localStorage.getItem('lang')) {
-  setLocale(localStorage.getItem('lang'))
+  setLocale(event.target.value);
+  localStorage.setItem("lang", event.target.value);
+  event.stopPropagation();
+};
+if (localStorage.getItem("lang")) {
+  setLocale(localStorage.getItem("lang"));
 }
 </script>
 

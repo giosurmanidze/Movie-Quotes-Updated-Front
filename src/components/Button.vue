@@ -1,5 +1,9 @@
 <template>
-  <button class="text-white px-3 rounded-[4px] lg:text-xl h-10" type="button" :class="classes" >
+  <button
+    class="text-white px-3 rounded-[0.25rem] lg:text-xl h-10"
+    type="button"
+    :class="classes"
+  >
     <router-link :to="route ? route : '/'" class="flex items-center gap-2 justify-center">
       {{ $t(text) }}
     </router-link>
@@ -7,25 +11,25 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-import { RouterLink } from 'vue-router'
+import { defineProps } from "vue";
+import { RouterLink } from "vue-router";
 
 const props = defineProps({
   text: {
     type: String,
-    required: true
+    required: true,
   },
   classes: {
     type: String,
-    required: false
+    required: false,
   },
   showIcon: {
     type: Boolean,
-    required: false
+    required: false,
   },
   route: {
     type: String,
-    required: false
-  }
-})
+    required: false,
+  },
+});
 </script>

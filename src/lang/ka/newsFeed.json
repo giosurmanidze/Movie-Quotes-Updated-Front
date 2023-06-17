@@ -8,7 +8,7 @@
   "enter_to_search_three": "ციტატებისთვის",
   "write_comment": "დაწერეთ კომენტარი",
   "choose_movie": "აირჩიე ფილმი",
-  "quote_added_successfully": "ციტატა დაემატა",
+  "quote_added_successfully": "ციტატა წარმატებით დაემატა",
   "add_quote": "ციტატის დამატება",
   "notifications": "შეტყობინებები",
   "mark_as_read": "მონიშნე, როგორც ყველა წაკითხული",
@@ -17,5 +17,6 @@
   "min_ago": "წუთის წინ",
   "comment_added_successfully": "კომენტარი დაემატა",
   "drag_and_drop": "ჩააგდეთ თქვენი სურათი აქ ან",
-  "choose_file": "აირჩიე ფაილი"
+  "choose_file": "აირჩიე ფაილი",
+  "no_quotes_yet":"ციტატები არ მოიძებნა, გთხოვთ დაამატოთ ფილმი"
 }
