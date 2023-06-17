@@ -1,8 +1,8 @@
 <template>
   <svg
     id="dots"
-    width="112px"
-    height="38px"
+    width="7rem"
+    height="2.375rem"
     class="animate-pulse"
     viewBox="0 0 132 58"
     version="1.1"

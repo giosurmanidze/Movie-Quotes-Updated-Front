@@ -1,0 +1,16 @@
+{
+    "search":"ძებნა",
+    "add_movie":"ფილმის დამატება",
+    "my_movies_list":"ჩემი ფილმების სია",
+    "total":"სულ",
+    "budget":"ბიუჯეტი",
+    "release_date":"გამოშვების წელი",
+    "movie_added_successfully": "ფილმი წარმატებით დაემატა!",
+    "go_back":"უკან დაბრუნება",
+    "save_changes":"განახლება",
+    "edit_movie":"ფილმის განახლება",
+    "director":"რეჟისორები",
+    "movie_description":"ფილმის აღწერა",
+    "quotes":"ციტატები"
+
+}

@@ -1,0 +1,16 @@
+{
+    "search":"search",
+    "add_movie":"Add movie",
+    "my_movies_list":"My list of movies",
+    "total":"Total",
+    "budget":"budget",
+    "release_date":"release date",
+    "movie_added_successfully":"Movie added succesfully!",
+    "go_back":"Go back",
+    "save_changes":"Save Changes",
+    "edit_movie":"Edit movie",
+    "director":"director",
+    "movie_description":"Movie Description",
+    "quotes":"quotes"
+
+}

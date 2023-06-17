@@ -59,11 +59,11 @@
         <recover-instructions />
       </div>
       <div class="h-[60vh] w-full flex justify-center items-center">
-        <div class="flex flex-col items-center space-y-6 w-[400px] lg:w-[800px]">
-          <h1 class="text-[#DDCCAA] text-2xl lg:text-6xl text-center">
-            {{ $t('find_quote') }}
+        <div class="flex flex-col items-center space-y-6 w-[25rem] lg:w-[50rem]">
+          <h1 class="text-text_color text-2xl lg:text-6xl text-center">
+            {{ $t("find_quote") }}
           </h1>
-          <Button type="button" text="get_started_btn" classes="bg-[#E31221]" />
+          <Button type="button" text="get_started_btn" classes="bg-btn_color" />
         </div>
       </div>
     </div>
@@ -72,15 +72,15 @@
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue'
-import SignupForm from './SignupForm.vue'
-import LoginForm from './LoginForm.vue'
-import SuccessVerifiedEmail from './SuccessVerifiedEmail.vue'
-import Button from '@/components/Button.vue'
-import LandingImageCard from '@/components/LandingImageCard.vue'
-import SentEmail from './SentEmail.vue'
-import ForgotPassword from './ForgotPassword.vue'
-import CreatePassword from './CreatePassword.vue'
-import ChangedPassword from './ChangedPassword.vue'
-import RecoverInstructions from './RecoverInstructions.vue'
+import Header from "@/components/Header.vue";
+import SignupForm from "./SignupForm.vue";
+import LoginForm from "./LoginForm.vue";
+import SuccessVerifiedEmail from "./SuccessVerifiedEmail.vue";
+import Button from "@/components/Button.vue";
+import LandingImageCard from "@/components/LandingImageCard.vue";
+import SentEmail from "./SentEmail.vue";
+import ForgotPassword from "./ForgotPassword.vue";
+import CreatePassword from "./CreatePassword.vue";
+import ChangedPassword from "./ChangedPassword.vue";
+import RecoverInstructions from "./RecoverInstructions.vue";
 </script>
