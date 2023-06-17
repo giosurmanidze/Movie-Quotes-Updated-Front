@@ -71,14 +71,16 @@ export function useCreateMovie() {
   const imgValue = ref(true);
   const errorMessage = ref("");
 
+
  function submit(values, { resetForm }) {
     errorMessage.value = "";
     imgValue.value = true;
-  
+    let genreIds = values.genre.map((genre) => genre.id);
+
     let data = {
       name_en: values.nameEn,
       name_ka: values.nameKa,
-      genre: values.genre,
+      genre: genreIds,
       director_en: values.directorEn,
       director_ka: values.directorKa,
       description_en: values.descriptionEn,
@@ -87,7 +89,6 @@ export function useCreateMovie() {
       release_date: values.releaseDate,
       thumbnail: values.thumbnail,
     };
-  
     const config = {
       headers: { "Content-Type": "multipart/form-data" },
     };
@@ -151,22 +152,20 @@ export function fetchMovie(params) {
   const router = useRouter();
   const moviesStore = useMoviesStore();
   const movie = ref();
-  const genres = ref();
   moviesStore.edited = false;
 
   axios
     .get(`api/movies/${params.value}`)
     .then((response) => {
-      movie.value = response.data;
-      moviesStore.quotes = response.data.quotes;
-      genres.value = JSON.parse(movie.value.genre);
+      movie.value = response.data[0];
+      moviesStore.quotes = response.data[0].quotes;
     })
     .catch(() => {
       router.back();
     });
 
     return {
-      movie,genres
+      movie
     }
 }
  
@@ -204,12 +203,13 @@ export function useSubmitRegister() {
 export function useEditMovie(params) {
   const { updatedMovie } = useMoviesStore();
   const store = useModalStore()
-
+  
   function submit(values) {
+    let genreIds = values.genre.map((genre) => genre.id);
     let data = {
       name_en: values.nameEn,
       name_ka: values.nameKa,
-      genre: values.genre,
+      genre: genreIds,
       director_en: values.directorEn,
       director_ka: values.directorKa,
       description_en: values.descriptionEn,
@@ -218,6 +218,7 @@ export function useEditMovie(params) {
       release_date: values.releaseDate,
       thumbnail: values.thumbnail1,
     };
+    console.log(data)
   
     const config = {
       headers: { "Content-Type": "multipart/form-data" },
