@@ -42,7 +42,7 @@
               :key="genre"
               class="bg-genre_text py-1 px-2 rounded font-bold"
             >
-              {{ genre }}
+              {{ genre.genre["en"] }}
             </p>
           </section>
           <section class="my-4">
@@ -107,7 +107,7 @@ const store = useModalStore();
 const moviesStore = useMoviesStore();
 const { locale } = useI18n();
 
-const { movie, genres } = fetchMovie(params);
+const { movie } = fetchMovie(params);
 
 watch(
   () => moviesStore.edited,
@@ -124,7 +124,6 @@ watch(
   () => updatedMovie.value,
   (state) => {
     movie.value = state;
-    genres.value = JSON.parse(state.genre);
   }
 );
 
@@ -139,7 +138,9 @@ const imagePath = computed(() => {
 const movieName = computed(() => {
   return movie.value?.name[locale.value];
 });
-
+const genres = computed(() => {
+  return movie.value?.genres;
+});
 const movieDirector = computed(() => {
   return movie.value?.director[locale.value];
 });
