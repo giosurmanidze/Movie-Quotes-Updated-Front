@@ -70,7 +70,7 @@
           :key="quote.id"
           :id="quote.id"
           :quoteId="quote.id"
-          :associatedQuote="quote.body"
+          :associatedQuote="quote.quote"
           :associatedThumbnail="quote.thumbnail"
           @click="getQuote(quote.id)"
         />
@@ -108,7 +108,6 @@ const moviesStore = useMoviesStore();
 const { locale } = useI18n();
 
 const { movie } = fetchMovie(params);
-
 watch(
   () => moviesStore.edited,
   (state) => {

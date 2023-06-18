@@ -107,7 +107,7 @@ const userData = ref();
 const genres = ref();
 
 axios.get(`api/movies/${params.value}`).then((response) => {
-  userData.value = response.data[0];
+  userData.value = response.data;
   genres.value = userData.value.genres;
 });
 
