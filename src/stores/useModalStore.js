@@ -9,7 +9,8 @@ export const useModalStore = defineStore('useModalStore', {
     showAddMoviesModal:false,
     showEditQuoteModal: false,
     showViewQuoteModal:false,
-    showEditMovieModal:false
+    showEditMovieModal:false,
+    showMovieDeletedModal:false
   }),
   actions: {
     toggleQuoteAddedModal() {
@@ -20,6 +21,9 @@ export const useModalStore = defineStore('useModalStore', {
     },
     toggleCommentAddedModal() {
       this.showCommentAddedModal = !this.showCommentAddedModal
+    },
+    toggleMovieDeletedModal() {
+      this.showMovieDeletedModal = !this.showMovieDeletedModal;
     },
     toggleAddQuotesModal() {
       this.showAddQuotesModal = !this.showAddQuotesModal
