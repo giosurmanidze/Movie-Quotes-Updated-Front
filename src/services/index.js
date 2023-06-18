@@ -80,7 +80,7 @@ export function useCreateMovie() {
     let data = {
       name_en: values.nameEn,
       name_ka: values.nameKa,
-      genre: genreIds,
+      genre: JSON.stringify(genreIds),
       director_en: values.directorEn,
       director_ka: values.directorKa,
       description_en: values.descriptionEn,
@@ -89,6 +89,7 @@ export function useCreateMovie() {
       release_date: values.releaseDate,
       thumbnail: values.thumbnail,
     };
+
     const config = {
       headers: { "Content-Type": "multipart/form-data" },
     };
@@ -209,7 +210,7 @@ export function useEditMovie(params) {
     let data = {
       name_en: values.nameEn,
       name_ka: values.nameKa,
-      genre: genreIds,
+      genre: JSON.stringify(genreIds),
       director_en: values.directorEn,
       director_ka: values.directorKa,
       description_en: values.descriptionEn,
@@ -218,8 +219,8 @@ export function useEditMovie(params) {
       release_date: values.releaseDate,
       thumbnail: values.thumbnail1,
     };
+
     console.log(data)
-  
     const config = {
       headers: { "Content-Type": "multipart/form-data" },
     };
