@@ -6,7 +6,7 @@
     <section>
       <p class="my-3">{{ movieName }} ({{ releaseDate }})</p>
       <div class="flex items-center">
-        <p class="mr-3">{{ numberOfQuotes }}</p>
+        <p class="mr-3">{{ numberOfQuotes ? numberOfQuotes : "0" }}</p>
         <QuoteIcon />
       </div>
     </section>
