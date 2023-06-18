@@ -3,6 +3,7 @@
     <div class="text-white">
       <h2 class="mb-4">{{ $t("movie_description") }}</h2>
       <EditMovie />
+      <MovieDeletedModal />
       <div class="xl:flex">
         <section class="xl:w-2/3 pr-3">
           <img :src="imagePath" alt="image poster" class="rounded-md" />
@@ -94,6 +95,7 @@ import DeleteIcon from "@/assets/icons/DeleteIcon.vue";
 import { fetchMovie } from "@/services";
 import EditMovie from "@/components/EditMovie.vue";
 import { useModalStore } from "@/stores/useModalStore";
+import MovieDeletedModal from "@/components/MovieDeletedModal.vue";
 
 const { getUser } = useUserStore();
 getUser();
@@ -127,6 +129,13 @@ watch(
 );
 
 const { quotes } = storeToRefs(useMoviesStore());
+
+const { deleteMovie } = useMoviesStore();
+
+function deleteMovieById() {
+  deleteMovie(movie.value.id);
+  store.toggleMovieDeletedModal();
+}
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
