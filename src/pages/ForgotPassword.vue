@@ -42,7 +42,7 @@ import { RouterLink } from "vue-router";
 import TextField from "@/components/TextField.vue";
 import SubmitButton from "@/components/SubmitButton.vue";
 import Loading from "@/components/Loading.vue";
-import { useSubmitForgotPassword } from "../services/index";
+import { useSubmitForgotPassword } from "@/services/index";
 
 const { submit, loading: forgotLoading } = useSubmitForgotPassword();
 </script>

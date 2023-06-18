@@ -19,9 +19,8 @@
         <div
           class="ml-2 flex w-max items-center rounded-sm bg-gray-600 pl-2"
           v-for="(chip, i) of chips"
-          :key="chip.label"
         >
-          <span class="cursor-default"> {{ chip }} </span>
+          <span class="cursor-default"> {{ chip.genre["en"] }} </span>
           <span @click="removeChip(i)" class="chip-remove cursor-pointer p-2">
             <img src="@/assets/x-icon.png" alt="x" />
           </span>
@@ -45,10 +44,10 @@
         :id="item"
         class="cursor-pointer z-50 py-1 px-3 hover:bg-slate-900"
         v-for="item in movieGenres"
-        :key="item.label"
-        @click="saveChip"
+        :key="item.genre['en']"
+        @click="saveChip(item)"
       >
-        {{ item }}
+        {{ item.genre["en"] }}
       </li>
     </ul>
   </div>
@@ -56,6 +55,7 @@
 <script setup>
 import { Field } from "vee-validate";
 import { ref, watch } from "vue";
+import axios from "@/config/axios/index";
 
 const props = defineProps({
   name: {
@@ -81,11 +81,18 @@ watch(
   }
 );
 
-const movieGenres = ["Drama", "Comedy", "Action", "Fantasy", "Adventure", "Horror"];
-const saveChip = (e) => {
+let movieGenres = [];
+
+const getGenres = () => {
+  axios.get("api/genres").then((response) => {
+    movieGenres = response.data;
+  });
+};
+getGenres();
+const saveChip = (genre) => {
   if (!wasTouched.value) wasTouched.value = true;
-  if (!chips.value.includes(e.target.id)) {
-    chips.value.push(e.target.id);
+  if (!chips.value.includes(genre)) {
+    chips.value.push(genre);
     genres.value = chips.value;
   }
 };

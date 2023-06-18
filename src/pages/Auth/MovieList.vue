@@ -33,7 +33,7 @@
           :key="movie.id"
           :id="movie.id"
           :name="movie.name"
-          :numberOfQuotes="movie.quotes.length"
+          :numberOfQuotes="movie.quotes?.length"
           :thumbnail="movie.thumbnail"
           :releaseDate="movie.release_date"
         />

@@ -108,7 +108,7 @@ const genres = ref();
 
 axios.get(`api/movies/${params.value}`).then((response) => {
   userData.value = response.data;
-  genres.value = JSON.parse(userData.value.genre);
+  genres.value = userData.value.genres;
 });
 
 const { submit } = useEditMovie(params);
