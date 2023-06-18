@@ -6,7 +6,7 @@
     <section>
       <p class="my-3">{{ movieName }} ({{ releaseDate }})</p>
       <div class="flex items-center">
-        <p class="mr-3">{{ numberOfQuotes }}</p>
+        <p class="mr-3">{{ numberOfQuotes ? numberOfQuotes : "0" }}</p>
         <QuoteIcon />
       </div>
     </section>
@@ -24,7 +24,7 @@ const props = defineProps({
   thumbnail: { type: String, required: true },
   id: { type: Number, required: true },
   releaseDate: { type: String, required: true },
-  numberOfQuotes: { type: Number, required: true },
+  numberOfQuotes: { type: Number, default: 0 },
 });
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
@@ -36,7 +36,7 @@ const imagePath = computed(() => {
 const movieName = computed(() => {
   const { locale } = useI18n();
 
-  return props.name[locale.value];
+  return props.name?.[locale.value];
 });
 
 const router = useRouter();

@@ -50,7 +50,7 @@ import { Form } from "vee-validate";
 import SubmitButton from "@/components/SubmitButton.vue";
 import TextField from "@/components/TextField.vue";
 import Loading from "@/components/Loading.vue";
-import { useSubmitCreatePassword } from "../services/index";
+import { useSubmitCreatePassword } from "@/services/index";
 
 const { submit, loading: createPasswordLoading } = useSubmitCreatePassword();
 </script>
