@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { recoverPassword, createUser, sendForgotPassword } from '../services/requests/sendRequest'
+import { recoverPassword, createUser, sendForgotPassword } from './requests/sendRequest'
 import { useI18n } from 'vue-i18n'
 import {useModalStore} from '@/stores/useModalStore'
 import {useMoviesStore} from '@/stores/useMoviesStore'
@@ -158,8 +158,8 @@ export function fetchMovie(params) {
   axios
     .get(`api/movies/${params.value}`)
     .then((response) => {
-      movie.value = response.data[0];
-      moviesStore.quotes = response.data[0].quotes;
+      movie.value = response.data;
+      moviesStore.quotes = response.data.quotes;
     })
     .catch(() => {
       router.back();
@@ -220,7 +220,7 @@ export function useEditMovie(params) {
       thumbnail: values.thumbnail1,
     };
 
-    console.log(data)
+    console.log(values.genre)
     const config = {
       headers: { "Content-Type": "multipart/form-data" },
     };

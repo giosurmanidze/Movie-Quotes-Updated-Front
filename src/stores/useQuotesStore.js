@@ -11,7 +11,7 @@ export const useQuotesStore = defineStore('useQuotesStore', {
   actions: {
     getQuotes() {
       axios.get("api/quotes?page=" + this.page++).then((response) => {
-        this.quotes.push(...response.data.data);
+        this.quotes.push(...response.data);
       });
     },
   }

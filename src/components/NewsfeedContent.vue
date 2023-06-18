@@ -10,18 +10,18 @@
       <section class="flex items-center">
         <img
           :src="
-            quote.user.profile_picture
-              ? quote.user.profile_picture
+            user.profile_picture
+              ? user.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
           class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
         />
-        <p class="ml-5">{{ quote.user.username }}</p>
+        <p class="ml-5">{{ user.username }}</p>
       </section>
       <section class="my-5">
         <p class="break-all">
-          "{{ quote.body[lang] }}" Movie - {{ quote.movie?.name[lang] }}. ({{
-            quote.movie?.release_date
+          "{{ quote.quote[lang] }}" Movie - {{ quote.movie?.name[lang] }}. ({{
+            quote.movie?.year
           }})
         </p>
       </section>
@@ -86,6 +86,7 @@ import { computed, ref } from "vue";
 const { locale } = useI18n();
 
 const { quotes } = storeToRefs(useQuotesStore());
+const { user } = storeToRefs(useUserStore());
 
 const { userThumbnail } = storeToRefs(useUserStore());
 
@@ -120,7 +121,6 @@ const resultQuery = computed(() => {
 });
 
 const quoteId = ref(null);
-
 function getQuoteId(value) {
   quoteId.value = value;
 }
@@ -131,4 +131,5 @@ window.onscroll = function () {
   }
 };
 const { getQuotes } = useQuotesStore();
+console.log(quotes);
 </script>
