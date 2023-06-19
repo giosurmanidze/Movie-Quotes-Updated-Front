@@ -3,7 +3,7 @@
     <QuoteAddedModal />
     <CommentAddedModal />
     <div
-      v-for="(quote, index) in resultQuery"
+      v-for="quote in resultQuery"
       :key="quote.id"
       class="p-3 mb-5 bg-modal_bg rounded-lg"
     >
@@ -20,9 +20,7 @@
       </section>
       <section class="my-5">
         <p class="break-all">
-          "{{ quote.quote[lang] }}" Movie - {{ quote.movie?.name[lang] }}. ({{
-            quote.movie?.year
-          }})
+          "{{ quote?.quote[lang] }}" Movie - {{ quote?.name[lang] }}. ({{ quote?.year }})
         </p>
       </section>
       <section>
@@ -82,6 +80,7 @@ import { useQuotesStore } from "@/stores/useQuotesStore";
 import { useI18n } from "vue-i18n";
 import { useUserStore } from "@/stores/useUserStore";
 import { computed, ref } from "vue";
+import { Form } from "vee-validate";
 
 const { locale } = useI18n();
 
