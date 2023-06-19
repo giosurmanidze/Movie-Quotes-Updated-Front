@@ -6,12 +6,18 @@ export const useQuotesStore = defineStore('useQuotesStore', {
     quotes: [],
     quote: [],
     page: 1,
-    searchQuery: null
+    searchQuery: null,
+    loading: false, 
   }),
   actions: {
     getQuotes() {
+      if (this.loading || this.quotes.length > 0) {
+        return;
+      }
+      this.loading = true; 
       axios.get("api/quotes?page=" + this.page++).then((response) => {
         this.quotes.push(...response.data);
+        this.loading = false; 
       });
     },
   }
