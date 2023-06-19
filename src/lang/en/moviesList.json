@@ -17,5 +17,6 @@
   "edit_quote": "Edit",
   "delete_quote": "Delete",
   "view_quote": "View quote",
-  "quote_edited_successfully": "Quote edited successfully!"
+  "quote_edited_successfully": "Quote edited successfully!",
+  "display_quote": "Display quote"
 }
