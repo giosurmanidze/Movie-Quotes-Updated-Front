@@ -19,6 +19,24 @@ export const useQuotesStore = defineStore('useQuotesStore', {
         this.quotes.push(...response.data)
         this.loading = false
       })
+    },
+    getQuote(id) {
+      axios
+        .get(`api/quotes/${id}`)
+        .then((response) => {
+          this.quote = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    deleteQuote(id) {
+      axios
+        .delete(`api/quotes/${id}`)
+        .then(() => {})
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 })

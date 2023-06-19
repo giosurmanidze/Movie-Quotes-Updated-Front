@@ -4,6 +4,8 @@
       <h2 class="mb-4">{{ $t("movie_description") }}</h2>
       <AddQuoteFromMovie :movie="movie" />
       <EditMovie />
+      <EditQuoteModalFromMovie />
+      <QuoteDeletedModal />
       <MovieDeletedModal />
       <QuoteAddedModal />
       <div class="xl:flex">
@@ -103,7 +105,8 @@ import { useModalStore } from "@/stores/useModalStore";
 import MovieDeletedModal from "@/components/MovieDeletedModal.vue";
 import AddQuoteFromMovie from "@/components/AddQuoteFromMovie.vue";
 import QuoteAddedModal from "@/components/QuoteAddModal.vue";
-
+import EditQuoteModalFromMovie from "@/components/EditQuoteModalFromMovie.vue";
+import QuoteDeletedModal from "@/components/QuoteDeletedModal.vue";
 const { getUser } = useUserStore();
 getUser();
 
