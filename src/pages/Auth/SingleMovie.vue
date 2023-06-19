@@ -8,6 +8,7 @@
       <QuoteDeletedModal />
       <MovieDeletedModal />
       <QuoteAddedModal />
+      <ViewQuoteModal />
       <div class="xl:flex">
         <section class="xl:w-2/3 pr-3">
           <img :src="imagePath" alt="image poster" class="rounded-md" />
@@ -107,6 +108,7 @@ import AddQuoteFromMovie from "@/components/AddQuoteFromMovie.vue";
 import QuoteAddedModal from "@/components/QuoteAddModal.vue";
 import EditQuoteModalFromMovie from "@/components/EditQuoteModalFromMovie.vue";
 import QuoteDeletedModal from "@/components/QuoteDeletedModal.vue";
+import ViewQuoteModal from "@/components/ViewQuoteModal.vue";
 const { getUser } = useUserStore();
 getUser();
 
