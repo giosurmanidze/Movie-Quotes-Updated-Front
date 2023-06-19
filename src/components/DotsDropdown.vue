@@ -18,11 +18,11 @@
             @click="showEditQuoteModal()"
           >
             <EditIcon />
-            <p class="ml-7">{{ $t("edit") }}</p>
+            <p class="ml-7">{{ $t("edit_quote") }}</p>
           </div>
           <div class="items-center flex cursor-pointer" @click="deleteQuoteById()">
             <DeleteIcon />
-            <p class="ml-7">{{ $t("delete") }}</p>
+            <p class="ml-7">{{ $t("delete_quote") }}</p>
           </div>
         </div>
       </div>
@@ -32,11 +32,13 @@
 
 <script setup>
 import { ref } from "vue";
+import { storeToRefs } from "pinia";
 import DotsIcon from "@/assets/icons/DotsIcon.vue";
 import ViewIcon from "@/assets/icons/ViewIcon.vue";
 import EditIcon from "@/assets/icons/EditIcon.vue";
 import DeleteIcon from "@/assets/icons/DeleteIcon.vue";
 import { useModalStore } from "@/stores/useModalStore.js";
+import { useQuotesStore } from "@/stores/useQuotesStore.js";
 
 const store = useModalStore();
 
@@ -50,5 +52,15 @@ function showViewQuotesModal() {
 function showEditQuoteModal() {
   store.toggleEditQuoteModal();
   dropdownState.value = false;
+}
+
+const { deleteQuote } = useQuotesStore();
+
+const { quote } = storeToRefs(useQuotesStore());
+
+function deleteQuoteById() {
+  const quoteId = ref(quote.value.id);
+  deleteQuote(quoteId.value);
+  store.toggleQuoteDeletedModal();
 }
 </script>

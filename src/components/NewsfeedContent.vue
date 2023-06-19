@@ -103,7 +103,7 @@ const resultQuery = computed(() => {
       return cleanString.value
         .toLowerCase()
         .split(" ")
-        .every((v) => item.body[locale.value].toLowerCase().startsWith(v));
+        .every((v) => item.quote[locale.value].toLowerCase().startsWith(v));
     });
   } else if (quotesStore.searchQuery && quotesStore.searchQuery.startsWith("@")) {
     let cleanString = ref(quotesStore.searchQuery.slice(1));
@@ -112,7 +112,7 @@ const resultQuery = computed(() => {
       return cleanString.value
         .toLowerCase()
         .split(" ")
-        .every((v) => item.movie.name[locale.value].toLowerCase().startsWith(v));
+        .every((v) => item.name[locale.value].toLowerCase().startsWith(v));
     });
   } else {
     return quotes.value;

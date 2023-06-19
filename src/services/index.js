@@ -239,3 +239,31 @@ export function useEditMovie(params) {
     submit
   }
 }
+export function useEditQuote(quote) {
+
+  const successMessage = ref(null);
+  const moviesStore = useMoviesStore()
+  function submit(values) {
+    let data = {
+      body_en: values.bodyEn,
+      body_ka: values.bodyKa,
+      thumbnail: values.thumbnail,
+    };
+    const quoteId = ref(quote.value.id);
+    const config = {
+      headers: { "Content-Type": "multipart/form-data" },
+    };
+    axios
+      .post(`api/quotes/${quoteId.value}`, data, config)
+      .then(() => {
+        successMessage.value = true;
+        moviesStore.edited = true;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  return {
+    submit,successMessage
+  }
+}
