@@ -11,6 +11,8 @@
     "edit_movie":"Edit movie",
     "director":"director",
     "movie_description":"Movie Description",
-    "quotes":"quotes"
+    "quotes":"quotes",
+    "quote_deleted_successfully":"Quotes deleted successfully!",
+    "movie_deleted_successfully":"Movie deleted successfully!"
 
 }

@@ -11,6 +11,8 @@
     "edit_movie":"ფილმის განახლება",
     "director":"რეჟისორები",
     "movie_description":"ფილმის აღწერა",
-    "quotes":"ციტატები"
+    "quotes":"ციტატები",   
+    "quote_deleted_successfully":"ციტატები წაიშალა წარმატებით!",
+    "movie_deleted_successfully":"ფილმი წაიშალა წარმატებით!"
 
 }

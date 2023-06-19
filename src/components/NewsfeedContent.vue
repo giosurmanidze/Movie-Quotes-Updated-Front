@@ -131,5 +131,4 @@ window.onscroll = function () {
   }
 };
 const { getQuotes } = useQuotesStore();
-console.log(quotes);
 </script>
