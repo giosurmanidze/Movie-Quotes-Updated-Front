@@ -20,6 +20,11 @@ export const useQuotesStore = defineStore('useQuotesStore', {
         this.loading = false
       })
     },
+    getQuotesRefresh() {
+      axios.post('api/quotes/refresh', this.quotes.length).then((response) => {
+        this.quotes = response.data
+      })
+    },
     getQuote(id) {
       axios
         .get(`api/quotes/${id}`)

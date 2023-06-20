@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 export const useModalStore = defineStore('useModalStore', {
   state: () => ({
     showQuoteAddedModal: false,
-    showCommentAddedModal: false,
     showAddQuoteFromMoviesModal: false,
     showAddQuotesModal: false,
     showMovieAddedModal: false,
@@ -21,9 +20,6 @@ export const useModalStore = defineStore('useModalStore', {
     },
     toggleEditModal() {
       this.showEditMovieModal = !this.showEditMovieModal
-    },
-    toggleCommentAddedModal() {
-      this.showCommentAddedModal = !this.showCommentAddedModal
     },
     toggleMovieDeletedModal() {
       this.showMovieDeletedModal = !this.showMovieDeletedModal
