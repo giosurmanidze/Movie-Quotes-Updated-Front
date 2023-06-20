@@ -240,30 +240,54 @@ export function useEditMovie(params) {
   }
 }
 export function useEditQuote(quote) {
-
-  const successMessage = ref(null);
+  const successMessage = ref(null)
   const moviesStore = useMoviesStore()
   function submit(values) {
     let data = {
       body_en: values.bodyEn,
       body_ka: values.bodyKa,
-      thumbnail: values.thumbnail,
-    };
-    const quoteId = ref(quote.value.id);
+      thumbnail: values.thumbnail
+    }
+    const quoteId = ref(quote.value.id)
     const config = {
-      headers: { "Content-Type": "multipart/form-data" },
-    };
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
     axios
       .post(`api/quotes/${quoteId.value}`, data, config)
       .then(() => {
-        successMessage.value = true;
-        moviesStore.edited = true;
+        successMessage.value = true
+        moviesStore.edited = true
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
   return {
-    submit,successMessage
+    submit,
+    successMessage
+  }
+}
+export function useCreateComment(quoteId) {
+  const store = useModalStore()
+
+  function submit(values, actions) {
+    let data = {
+      quote_id: quoteId.value,
+      body: values.comment
+    }
+    axios
+      .post('api/comments', data)
+      .then((response) => {
+        if (response.status === 200) {
+          actions.resetForm()
+          store.toggleCommentAddedModal()
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  return {
+    submit
   }
 }

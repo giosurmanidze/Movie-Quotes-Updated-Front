@@ -20,7 +20,7 @@
       </section>
       <section class="my-5">
         <p class="break-all">
-          "{{ quote?.quote[lang] }}" Movie - {{ quote?.name[lang] }}. ({{ quote?.year }})
+          "{{ quote?.movie[lang] }}" Movie - {{ quote?.movie[lang] }}. ({{ quote?.year }})
         </p>
       </section>
       <section>
@@ -31,19 +31,15 @@
         />
       </section>
       <section class="flex gap-4 py-4 border-b border-white">
-        <p>Comments length</p>
+        <p>{{ quote?.comments.length }}</p>
         <comment-icon />
-        <p>Likes length</p>
+        <!-- <p>{{ quote?.likes.length }}</p> -->
         <LikedQuote :quoteId="quote.id" />
       </section>
       <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
         <div class="flex items-center">
           <img
-            :src="
-              comment.thumbnail
-                ? backendUrl + comment.thumbnail
-                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-            "
+            :src="comment.user.profile_picture"
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
           />
           <p class="ml-5">{{ comment.username }}</p>
@@ -53,9 +49,9 @@
         </div>
       </section>
       <section @click="getQuoteId(quote.id)">
-        <Form class="flex items-center py-3 w-full">
+        <Form class="flex items-center py-3 w-full" @submit="submit">
           <img
-            :src="userThumbnail"
+            :src="user.profile_picture"
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
           />
           <CommentInput
@@ -81,13 +77,12 @@ import { useI18n } from "vue-i18n";
 import { useUserStore } from "@/stores/useUserStore";
 import { computed, ref } from "vue";
 import { Form } from "vee-validate";
+import { useCreateComment } from "@/services";
 
 const { locale } = useI18n();
 
 const { quotes } = storeToRefs(useQuotesStore());
 const { user } = storeToRefs(useUserStore());
-
-const { userThumbnail } = storeToRefs(useUserStore());
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
@@ -130,4 +125,5 @@ window.onscroll = function () {
   }
 };
 const { getQuotes } = useQuotesStore();
+const { submit } = useCreateComment(quoteId);
 </script>
