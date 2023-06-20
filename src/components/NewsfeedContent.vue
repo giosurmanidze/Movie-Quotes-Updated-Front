@@ -1,7 +1,6 @@
 <template>
   <div class="px-4 md:ml-5 mt-10 text-white">
     <QuoteAddedModal />
-    <CommentAddedModal />
     <div
       v-for="quote in resultQuery"
       :key="quote.id"
@@ -68,7 +67,6 @@
 <script setup>
 import QuoteAddedModal from "./QuoteAddModal.vue";
 import CommentIcon from "@/assets/icons/CommentIcon.vue";
-import CommentAddedModal from "./CommentAddedModal.vue";
 import LikedQuote from "@/components/LikedQuote.vue";
 import CommentInput from "./CommentInput.vue";
 import { storeToRefs } from "pinia";

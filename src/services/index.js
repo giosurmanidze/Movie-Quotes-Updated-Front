@@ -117,6 +117,7 @@ export function useCreateQuote() {
   const quotesStore = useQuotesStore()
   const imgValue = ref(true)
   const store = useModalStore()
+  const { getQuotesRefresh } = useQuotesStore()
 
   function submit(values, { resetForm }) {
     imgValue.value = true
@@ -137,6 +138,7 @@ export function useCreateQuote() {
         store.toggleAddQuotesModal()
         store.toggleQuoteAddedModal()
         quotesStore.quotes.unshift(response.data)
+        getQuotesRefresh()
         resetForm()
         imgValue.value = false
       })
@@ -269,7 +271,7 @@ export function useEditQuote(quote) {
 }
 export function useCreateComment(quoteId) {
   const store = useModalStore()
-  const { getQuotes } = useQuotesStore()
+  const { getQuotesRefresh } = useQuotesStore()
 
   function submit(values, actions) {
     let data = {
@@ -282,7 +284,7 @@ export function useCreateComment(quoteId) {
         if (response.status === 200) {
           actions.resetForm()
           store.toggleCommentAddedModal()
-          getQuotes()
+          getQuotesRefresh()
         }
       })
       .catch((error) => {
@@ -308,6 +310,7 @@ export function getLikesData(quoteId) {
 }
 
 export function addLike(likeable, quoteId) {
+  const { getQuotesRefresh } = useQuotesStore()
   function handleQuoteLike() {
     likeable.value = !likeable.value
 
@@ -315,9 +318,14 @@ export function addLike(likeable, quoteId) {
       like: true,
       quote_id: quoteId
     }
-    axios.post('api/like', data).catch((error) => {
-      console.log(error)
-    })
+    axios
+      .post('api/like', data)
+      .then(() => {
+        getQuotesRefresh()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return {
