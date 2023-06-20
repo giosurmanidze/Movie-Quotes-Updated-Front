@@ -20,7 +20,7 @@
       </section>
       <section class="my-5">
         <p class="break-all">
-          "{{ quote?.movie[lang] }}" Movie - {{ quote?.movie[lang] }}. ({{ quote?.year }})
+          "{{ quote?.quote[lang] }}" Movie - {{ quote?.movie[lang] }}. ({{ quote?.year }})
         </p>
       </section>
       <section>
@@ -31,15 +31,15 @@
         />
       </section>
       <section class="flex gap-4 py-4 border-b border-white">
-        <p>{{ quote?.comments.length }}</p>
+        <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
         <comment-icon />
-        <!-- <p>{{ quote?.likes.length }}</p> -->
+        <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
         <LikedQuote :quoteId="quote.id" />
       </section>
       <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
         <div class="flex items-center">
           <img
-            :src="comment.user.profile_picture"
+            :src="comment.user?.profile_picture"
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
           />
           <p class="ml-5">{{ comment.username }}</p>
@@ -107,7 +107,7 @@ const resultQuery = computed(() => {
       return cleanString.value
         .toLowerCase()
         .split(" ")
-        .every((v) => item.name[locale.value].toLowerCase().startsWith(v));
+        .every((v) => item.movie?.[locale.value].toLowerCase().startsWith(v));
     });
   } else {
     return quotes.value;

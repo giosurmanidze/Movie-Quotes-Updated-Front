@@ -269,6 +269,7 @@ export function useEditQuote(quote) {
 }
 export function useCreateComment(quoteId) {
   const store = useModalStore()
+  const { getQuotes } = useQuotesStore()
 
   function submit(values, actions) {
     let data = {
@@ -281,6 +282,7 @@ export function useCreateComment(quoteId) {
         if (response.status === 200) {
           actions.resetForm()
           store.toggleCommentAddedModal()
+          getQuotes()
         }
       })
       .catch((error) => {
@@ -289,5 +291,36 @@ export function useCreateComment(quoteId) {
   }
   return {
     submit
+  }
+}
+
+export function getLikesData(quoteId) {
+  const likeable = ref(null)
+  function getLikes() {
+    axios.post('api/likes/' + quoteId + '/likeable').then((response) => {
+      likeable.value = response.data.likeable
+    })
+  }
+  return {
+    getLikes,
+    likeable
+  }
+}
+
+export function addLike(likeable, quoteId) {
+  function handleQuoteLike() {
+    likeable.value = !likeable.value
+
+    let data = {
+      like: true,
+      quote_id: quoteId
+    }
+    axios.post('api/like', data).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  return {
+    handleQuoteLike
   }
 }
