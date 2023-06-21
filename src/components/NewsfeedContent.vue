@@ -33,12 +33,12 @@
         <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
         <comment-icon />
         <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
-        <LikedQuote :quoteId="quote.id" />
+        <LikedQuote :quotes="quotes" :quoteId="quote.id" :user="user" />
       </section>
       <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
         <div class="flex items-center">
           <img
-            :src="comment.user?.profile_picture"
+            :src="user.profile_picture"
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
           />
           <p class="ml-5">{{ comment.username }}</p>

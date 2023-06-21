@@ -296,17 +296,15 @@ export function useCreateComment(quoteId) {
   }
 }
 
-export function getLikesData(quoteId) {
-  const likeable = ref(null)
-  function getLikes() {
-    axios.post('api/likes/' + quoteId + '/likeable').then((response) => {
-      likeable.value = response.data.likeable
-    })
+export function getLikesData(quotes, quoteId, user) {
+  const likeable = ref(true)
+
+  const quote = quotes.find((quote) => quote.id === quoteId)
+  if (quote) {
+    const like = quote.likes?.find((like) => like.user.id === user.id)
+    likeable.value = !like
   }
-  return {
-    getLikes,
-    likeable
-  }
+  return { likeable }
 }
 
 export function addLike(likeable, quoteId) {
