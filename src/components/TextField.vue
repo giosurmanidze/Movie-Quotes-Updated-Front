@@ -35,7 +35,6 @@
       @click="togglePasswordVisibility"
     >
       <img v-if="!showPassword" src="../assets/hide-eye.svg" />
-      <img v-else src="../assets/view-eye.svg" />
     </span>
   </div>
 </template>
