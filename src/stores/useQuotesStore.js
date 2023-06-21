@@ -21,7 +21,7 @@ export const useQuotesStore = defineStore('useQuotesStore', {
       })
     },
     getQuotesRefresh() {
-      axios.post('api/quotes/refresh', this.quotes.length).then((response) => {
+      axios.post('api/quotes-refresh', this.quotes.length).then((response) => {
         this.quotes = response.data
       })
     },

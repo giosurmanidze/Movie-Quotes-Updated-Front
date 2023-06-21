@@ -40,8 +40,8 @@ const props = defineProps({
 
 onMounted(() => {
   axios.get(`api/quotes/${props.quoteId}`).then((response) => {
-    numberOfComments.value = 31;
-    numberOfLikes.value = 323;
+    numberOfComments.value = response.data.comments.length;
+    numberOfLikes.value = response.data.likes.length;
   });
 });
 
