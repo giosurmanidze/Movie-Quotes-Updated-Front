@@ -44,7 +44,7 @@
           <p class="ml-5">{{ comment.username }}</p>
         </div>
         <div class="lg:ml-[4.375rem] pb-4 mt-3 border-b border-white">
-          <p>{{ comment.body }}</p>
+          <p>{{ comment?.body }}</p>
         </div>
       </section>
       <section @click="getQuoteId(quote.id)">

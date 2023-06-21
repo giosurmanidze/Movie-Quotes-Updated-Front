@@ -43,10 +43,10 @@
           <img :src="imagePath" alt="quote img" class="w-full" />
         </section>
         <section class="flex gap-4 py-4 border-b border-[#EFEFEF]">
-          <p>3</p>
-          <CommentIcon />
-          <p>4</p>
-          <LikeIcon />
+          <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
+          <comment-icon />
+          <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
+          <LikedQuote :quoteId="quote.id" />
         </section>
         <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
           <div class="flex items-center">
@@ -60,8 +60,8 @@
             <p>{{ comment.body }}</p>
           </div>
         </section>
-        <section>
-          <Form class="flex items-center py-3 w-full" @submit="submitComment">
+        <section @click="getQuoteId(quote.id)">
+          <Form class="flex items-center py-3 w-full" @submit="submit">
             <img
               src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
               class="h-[40px] lg:h-[50px] rounded-full mr-5"
@@ -85,25 +85,24 @@ import CommentInput from "@/components/CommentInput.vue";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import { useModalStore } from "@/stores/useModalStore.js";
 import CommentIcon from "@/assets/icons/CommentIcon.vue";
-import LikeIcon from "@/assets/icons/LikeIcon.vue";
 import DeleteIcon from "@/assets/icons/DeleteIcon.vue";
 import EditIcon from "@/assets/icons/EditIcon.vue";
 import { useUserStore } from "@/stores/useUserStore.js";
 import { useQuotesStore } from "@/stores/useQuotesStore.js";
 import { storeToRefs } from "pinia";
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import { useCreateComment } from "@/services";
+import LikedQuote from "@/components/LikedQuote.vue";
 
 const { user } = storeToRefs(useUserStore());
 
-const { userThumbnail } = storeToRefs(useUserStore());
-
 const { quote } = storeToRefs(useQuotesStore());
-
 const store = useModalStore();
 
 const quoteEn = computed(() => {
   return quote.value.quote?.en;
 });
+``;
 
 const quoteKa = computed(() => {
   return quote.value.quote?.ka;
@@ -127,4 +126,12 @@ function deleteQuoteById() {
   store.toggleViewQuoteModal();
   store.toggleQuoteDeletedModal();
 }
+
+const quoteId = ref(null);
+function getQuoteId(value) {
+  quoteId.value = value;
+}
+
+const { submit } = useCreateComment(quoteId);
+console.log(quote);
 </script>
