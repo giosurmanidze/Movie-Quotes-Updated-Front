@@ -9,8 +9,14 @@
 import LikeIcon from "@/assets/icons/LikeIcon.vue";
 import { getLikesData, addLike } from "@/services";
 
-const props = defineProps({ quoteId: { type: Number, required: true } });
-const { getLikes, likeable } = getLikesData(props.quoteId);
-getLikes();
+const props = defineProps({
+  quotes: { type: Object, required: false },
+  quoteId: {
+    type: Number,
+    required: false,
+  },
+  user: { type: Object, required: false },
+});
+const { likeable } = getLikesData(props.quotes, props.quoteId, props.user);
 const { handleQuoteLike } = addLike(likeable, props.quoteId);
 </script>
