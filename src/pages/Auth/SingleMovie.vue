@@ -143,9 +143,11 @@ watch(
 const { quotes } = storeToRefs(useMoviesStore());
 
 const { deleteMovie } = useMoviesStore();
+const { getQuotesRefresh } = useQuotesStore();
 
 function deleteMovieById() {
   deleteMovie(movie.value.id);
+  getQuotesRefresh();
   store.toggleMovieDeletedModal();
 }
 
