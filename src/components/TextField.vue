@@ -35,7 +35,6 @@
       @click="togglePasswordVisibility"
     >
       <img v-if="!showPassword" src="../assets/hide-eye.svg" />
-      <img v-else src="../assets/view-eye.svg" />
     </span>
   </div>
 </template>
@@ -43,10 +42,8 @@
 <script setup>
 import { ErrorMessage, Field } from "vee-validate";
 import { computed, defineProps, ref } from "vue";
-
 const hasInteracted = ref(false);
 const showPassword = ref(false);
-
 const props = defineProps({
   label: {
     type: String,
@@ -81,9 +78,7 @@ const props = defineProps({
     required: false,
   },
 });
-
 const inputType = computed(() => (showPassword.value ? "text" : props.type));
-
 function togglePasswordVisibility() {
   showPassword.value = !showPassword.value;
 }

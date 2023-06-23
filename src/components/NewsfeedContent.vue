@@ -1,28 +1,25 @@
 <template>
   <div class="px-4 md:ml-5 mt-10 text-white">
     <QuoteAddedModal />
-    <CommentAddedModal />
     <div
-      v-for="(quote, index) in resultQuery"
+      v-for="quote in resultQuery"
       :key="quote.id"
       class="p-3 mb-5 bg-modal_bg rounded-lg"
     >
       <section class="flex items-center">
         <img
           :src="
-            user.profile_picture
-              ? user.profile_picture
+            quote.user.profile_picture
+              ? quote.user.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
           class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
         />
-        <p class="ml-5">{{ user.username }}</p>
+        <p class="ml-5">{{ quote.user.name }}</p>
       </section>
       <section class="my-5">
         <p class="break-all">
-          "{{ quote.quote[lang] }}" Movie - {{ quote.movie?.name[lang] }}. ({{
-            quote.movie?.year
-          }})
+          "{{ quote?.quote[lang] }}" Movie - {{ quote?.movie[lang] }}. ({{ quote?.year }})
         </p>
       </section>
       <section>
@@ -33,31 +30,35 @@
         />
       </section>
       <section class="flex gap-4 py-4 border-b border-white">
-        <p>Comments length</p>
+        <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
         <comment-icon />
-        <p>Likes length</p>
-        <LikedQuote :quoteId="quote.id" />
+        <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
+        <LikedQuote :quoteId="quote.id" :user="user" />
       </section>
       <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
         <div class="flex items-center">
           <img
             :src="
-              comment.thumbnail
-                ? backendUrl + comment.thumbnail
+              comment.user.profile_picture
+                ? comment.user.profile_picture
                 : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
             "
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
           />
-          <p class="ml-5">{{ comment.username }}</p>
+          <p class="ml-5">{{ comment.user.name }}</p>
         </div>
         <div class="lg:ml-[4.375rem] pb-4 mt-3 border-b border-white">
-          <p>{{ comment.body }}</p>
+          <p>{{ comment?.body }}</p>
         </div>
       </section>
       <section @click="getQuoteId(quote.id)">
-        <Form class="flex items-center py-3 w-full">
+        <Form class="flex items-center py-3 w-full" @submit="submit">
           <img
-            :src="userThumbnail"
+            :src="
+              user.profile_picture
+                ? user.profile_picture
+                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+            "
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
           />
           <CommentInput
@@ -74,7 +75,6 @@
 <script setup>
 import QuoteAddedModal from "./QuoteAddModal.vue";
 import CommentIcon from "@/assets/icons/CommentIcon.vue";
-import CommentAddedModal from "./CommentAddedModal.vue";
 import LikedQuote from "@/components/LikedQuote.vue";
 import CommentInput from "./CommentInput.vue";
 import { storeToRefs } from "pinia";
@@ -82,13 +82,13 @@ import { useQuotesStore } from "@/stores/useQuotesStore";
 import { useI18n } from "vue-i18n";
 import { useUserStore } from "@/stores/useUserStore";
 import { computed, ref } from "vue";
+import { Form } from "vee-validate";
+import { useCreateComment } from "@/services";
 
 const { locale } = useI18n();
 
 const { quotes } = storeToRefs(useQuotesStore());
 const { user } = storeToRefs(useUserStore());
-
-const { userThumbnail } = storeToRefs(useUserStore());
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
@@ -104,7 +104,7 @@ const resultQuery = computed(() => {
       return cleanString.value
         .toLowerCase()
         .split(" ")
-        .every((v) => item.body[locale.value].toLowerCase().startsWith(v));
+        .every((v) => item.quote[locale.value].toLowerCase().startsWith(v));
     });
   } else if (quotesStore.searchQuery && quotesStore.searchQuery.startsWith("@")) {
     let cleanString = ref(quotesStore.searchQuery.slice(1));
@@ -113,7 +113,7 @@ const resultQuery = computed(() => {
       return cleanString.value
         .toLowerCase()
         .split(" ")
-        .every((v) => item.movie.name[locale.value].toLowerCase().startsWith(v));
+        .every((v) => item.movie?.[locale.value].toLowerCase().startsWith(v));
     });
   } else {
     return quotes.value;
@@ -131,5 +131,5 @@ window.onscroll = function () {
   }
 };
 const { getQuotes } = useQuotesStore();
-console.log(quotes);
+const { submit } = useCreateComment(quoteId);
 </script>

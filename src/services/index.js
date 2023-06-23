@@ -2,10 +2,11 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { recoverPassword, createUser, sendForgotPassword } from './requests/sendRequest'
 import { useI18n } from 'vue-i18n'
-import {useModalStore} from '@/stores/useModalStore'
-import {useMoviesStore} from '@/stores/useMoviesStore'
-import {useQuotesStore} from '@/stores/useQuotesStore'
+import { useModalStore } from '@/stores/useModalStore'
+import { useMoviesStore } from '@/stores/useMoviesStore'
+import { useQuotesStore } from '@/stores/useQuotesStore'
 import axios from '@/config/axios/auth-index'
+import { storeToRefs } from 'pinia'
 
 export function useSubmitCreatePassword() {
   const route = useRoute()
@@ -62,20 +63,17 @@ export function useSubmitForgotPassword() {
   }
 }
 
-
-
 export function useCreateMovie() {
-  const store = useModalStore();
-  const genreArray = ref([]);
-  const moviesStore = useMoviesStore();
-  const imgValue = ref(true);
-  const errorMessage = ref("");
+  const store = useModalStore()
+  const genreArray = ref([])
+  const moviesStore = useMoviesStore()
+  const imgValue = ref(true)
+  const errorMessage = ref('')
 
-
- function submit(values, { resetForm }) {
-    errorMessage.value = "";
-    imgValue.value = true;
-    let genreIds = values.genre.map((genre) => genre.id);
+  function submit(values, { resetForm }) {
+    errorMessage.value = ''
+    imgValue.value = true
+    let genreIds = values.genre.map((genre) => genre.id)
 
     let data = {
       name_en: values.nameEn,
@@ -87,89 +85,94 @@ export function useCreateMovie() {
       description_ka: values.descriptionKa,
       budget: values.budget,
       release_date: values.releaseDate,
-      thumbnail: values.thumbnail,
-    };
+      thumbnail: values.thumbnail
+    }
 
     const config = {
-      headers: { "Content-Type": "multipart/form-data" },
-    };
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
     axios
-      .post("api/movies", data, config)
+      .post('api/movies', data, config)
       .then((response) => {
-        store.toggleAddMoviesModal();
-        store.toggleMovieAddedModal();
-        moviesStore.movies.unshift(response.data);
-        resetForm();
-        genreArray.value = [];
-        imgValue.value = false;
+        store.toggleAddMoviesModal()
+        store.toggleMovieAddedModal()
+        moviesStore.movies.unshift(response.data)
+        resetForm()
+        genreArray.value = []
+        imgValue.value = false
       })
       .catch((error) => {
-        errorMessage.value = error.response.data.message;
-      });
+        errorMessage.value = error.response.data.message
+      })
   }
 
   return {
-    submit,genreArray,imgValue,errorMessage
+    submit,
+    genreArray,
+    imgValue,
+    errorMessage
   }
 }
 
 export function useCreateQuote() {
-
-const quotesStore = useQuotesStore();
-const imgValue = ref(true);
-const store = useModalStore();
+  const quotesStore = useQuotesStore()
+  const imgValue = ref(true)
+  const store = useModalStore()
+  const { getQuotesRefresh } = useQuotesStore()
 
   function submit(values, { resetForm }) {
-    imgValue.value = true;
+    imgValue.value = true
     let data = {
       body_en: values.bodyEn,
       body_ka: values.bodyKa,
       thumbnail: values.thumbnail,
-      movie_id: values.movie,
-    };
+      movie_id: values.movie
+    }
+
     const config = {
-      headers: { "Content-Type": "multipart/form-data" },
-    };
-  
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+
     axios
-      .post("api/quotes", data, config)
+      .post('api/quotes', data, config)
       .then((response) => {
-        store.toggleAddQuotesModal();
-        store.toggleQuoteAddedModal();
-        quotesStore.quotes.unshift(response.data);
-        resetForm();
-        imgValue.value = false;
+        store.toggleAddQuotesModal()
+        store.toggleQuoteAddedModal()
+        quotesStore.quotes.unshift(response.data)
+        getQuotesRefresh()
+        resetForm()
+        imgValue.value = false
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
   return {
-    submit, imgValue
+    submit,
+    imgValue
   }
 }
 
 export function fetchMovie(params) {
-  const router = useRouter();
-  const moviesStore = useMoviesStore();
-  const movie = ref();
-  moviesStore.edited = false;
+  const router = useRouter()
+  const moviesStore = useMoviesStore()
+  const movie = ref()
+  moviesStore.edited = false
 
   axios
     .get(`api/movies/${params.value}`)
     .then((response) => {
-      movie.value = response.data;
-      moviesStore.quotes = response.data.quotes;
+      movie.value = response.data
+      moviesStore.quotes = response.data.quotes
     })
     .catch(() => {
-      router.back();
-    });
+      router.back()
+    })
 
-    return {
-      movie
-    }
+  return {
+    movie
+  }
 }
- 
 
 export function useSubmitRegister() {
   const { locale } = useI18n({ useScope: 'global' })
@@ -200,13 +203,12 @@ export function useSubmitRegister() {
   }
 }
 
-
 export function useEditMovie(params) {
-  const { updatedMovie } = useMoviesStore();
+  const { updatedMovie } = useMoviesStore()
   const store = useModalStore()
-  
+
   function submit(values) {
-    let genreIds = values.genre.map((genre) => genre.id);
+    let genreIds = values.genre.map((genre) => genre.id)
     let data = {
       name_en: values.nameEn,
       name_ka: values.nameKa,
@@ -217,27 +219,116 @@ export function useEditMovie(params) {
       description_ka: values.descriptionKa,
       budget: values.budget,
       release_date: values.releaseDate,
-      thumbnail: values.thumbnail1,
-    };
+      thumbnail: values.thumbnail1
+    }
 
     console.log(values.genre)
     const config = {
-      headers: { "Content-Type": "multipart/form-data" },
-    };
-  
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+
     axios
       .post(`api/movies/${params.value}`, data, config)
       .then((response) => {
-        updatedMovie.value = response.data;
-        store.toggleEditModal(false);
+        updatedMovie.value = response.data
+        store.toggleEditModal(false)
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
 
   return {
     submit
   }
 }
+export function useEditQuote(quote) {
+  const successMessage = ref(null)
+  const moviesStore = useMoviesStore()
+  function submit(values) {
+    let data = {
+      body_en: values.bodyEn,
+      body_ka: values.bodyKa,
+      thumbnail: values.thumbnail
+    }
+    const quoteId = ref(quote.value.id)
+    const config = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+    axios
+      .post(`api/quotes/${quoteId.value}`, data, config)
+      .then(() => {
+        successMessage.value = true
+        moviesStore.edited = true
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  return {
+    submit,
+    successMessage
+  }
+}
+export function useCreateComment(quoteId) {
+  const store = useModalStore()
+  const { getQuotesRefresh } = useQuotesStore()
+  const { getQuote } = useQuotesStore()
 
+  function submit(values, actions) {
+    let data = {
+      quote_id: quoteId.value,
+      body: values.comment
+    }
+    axios
+      .post('api/comments', data)
+      .then((response) => {
+        if (response.status === 200) {
+          actions.resetForm()
+          store.toggleCommentAddedModal()
+          getQuote(response.data.quote_id)
+          getQuotesRefresh()
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  return {
+    submit
+  }
+}
+
+
+export function handleQuoteLike(quoteId, user, likeable, likeId) {
+  likeable.value = !likeable.value;
+  const { getQuote, getQuotesRefresh } = useQuotesStore();
+
+  let data = {
+    quote_id: quoteId,
+  };
+
+  if (likeable.value) {
+    axios
+      .delete(`api/likes/${likeId.value}`)
+      .then(() => {
+        likeId.value = null;
+        getQuote(quoteId);
+        getQuotesRefresh();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    axios
+      .post("api/likes", data)
+      .then((response) => {
+        likeId.value = response.data.like_id;
+        getQuote(quoteId);
+        getQuotesRefresh();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}
