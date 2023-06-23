@@ -9,5 +9,10 @@
   "quote_from_some_like_it_hot": "ისე, არავინ არის სრულყოფილი",
   "movie_some_like_it_hot": "ზოგს მოსწონს ცხელი,",
   "quote_from_star_wars": "შეიძლება ძალა იყოს თქვენთან ერთად.",
-  "movie_star_wars": "ვარსკვლავური ომები"
+  "movie_star_wars": "ვარსკვლავური ომები",
+  "return_home": "მთავარზე დაბრუნება",
+  "whoops_text": "უიიიიიი!",
+  "error_page_text": "ჩვენ ვერ ვხედავთ გვერდს, რომელსაც ეძებთ",
+  "forbidden_header_text": "წვდომა უარყოფითია!",
+  "forbidden_footer_text": "უკაცრავად, მაგრამ თქვენ არ გაქვთ ამ გვერდზე წვდომის უფლება"
 }
