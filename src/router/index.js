@@ -11,6 +11,11 @@ import CreatePassword from '@/pages/CreatePassword.vue'
 import ChangedPassword from '@/pages/CreatePassword.vue'
 import MovieList from '@/pages/Auth/MovieList.vue'
 import SingleMovie from '@/pages/Auth/SingleMovie.vue'
+import { useAuthStore } from '@/stores/useAuthStore'
+import isAuthenticated from '@/router/auth-guard.js'
+import isNotAuthenticated from '@/router/unauth-guard.js'
+import Forbidden from '@/pages/ErrorPages/Forbidden.vue'
+import NotFound from '@/pages/ErrorPages/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,61 +28,97 @@ const router = createRouter({
         {
           path: '/login',
           name: 'login',
-          component: LoginForm
+          component: LoginForm,
+          beforeEnter: isNotAuthenticated
         },
         {
           path: '/signup',
           name: 'signup',
-          component: SignupForm
+          component: SignupForm,
+          beforeEnter: isNotAuthenticated
         },
         {
           path: '/success',
           name: 'success',
-          component: SuccessVerifiedEmail
+          component: SuccessVerifiedEmail,
+          beforeEnter: isNotAuthenticated
         },
         {
           path: '/sent-email',
           name: 'sentEmail',
-          component: SentEmail
+          component: SentEmail,
+          beforeEnter: isNotAuthenticated
         },
         {
           path: '/forgot-password',
           name: 'forgotPassword',
-          component: ForgotPassword
+          component: ForgotPassword,
+          beforeEnter: isNotAuthenticated
         },
         {
           path: '/recover-instructions',
           name: 'recoverInstructions',
-          component: RecoverInstructions
+          component: RecoverInstructions,
+          beforeEnter: isNotAuthenticated
         },
         {
           path: '/reset-password',
           name: 'resetPassword',
-          component: CreatePassword
+          component: CreatePassword,
+          beforeEnter: isNotAuthenticated
         },
         {
           path: '/changed-password',
           name: 'changedPassword',
-          component: ChangedPassword
+          component: ChangedPassword,
+          beforeEnter: isNotAuthenticated
         }
       ]
     },
     {
       path: '/news-feed',
       name: 'newsFeed',
-      component: NewsFeedPage
+      component: NewsFeedPage,
+      beforeEnter: isAuthenticated,
+    },
+    {
+      path: '/forbidden',
+      name: 'forbidden',
+      component: Forbidden
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFound
     },
     {
       path: '/movie-list',
       name: 'movieList',
-      component: MovieList
+      component: MovieList,
+      beforeEnter: isAuthenticated,
     },
     {
-      path: "/movie/:id",
+      path: '/movie/:id',
       name: 'moviePage',
-      component: SingleMovie
+      component: SingleMovie,
+      beforeEnter: isAuthenticated,
     }
   ]
+})
+
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore()
+  if (authStore.authenticated === null) {
+    try {
+      await axios.get(`api/${import.meta.env.VITE_BASE_URL}user`)
+      authStore.authenticated = true
+    } catch (err) {
+      authStore.authenticated = false
+    } finally {
+      return next()
+    }
+  }
+  return next()
 })
 
 export default router

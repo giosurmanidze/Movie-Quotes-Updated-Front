@@ -9,13 +9,14 @@
       <section class="flex items-center">
         <img
           :src="
-            quote.user.profile_picture
+            quote?.user?.profile_picture
               ? quote.user.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
           class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
         />
-        <p class="ml-5">{{ quote.user.name }}</p>
+        {{ quote }}
+        <p class="ml-5">{{ quote.user?.name }}</p>
       </section>
       <section class="my-5">
         <p class="break-all">
