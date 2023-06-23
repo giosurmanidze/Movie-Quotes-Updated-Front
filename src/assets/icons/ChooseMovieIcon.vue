@@ -23,6 +23,6 @@
 
 <script setup>
 const props = defineProps({
-  path: { type: String, required: true },
+  path: { type: String, required: false },
 });
 </script>

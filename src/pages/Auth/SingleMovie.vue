@@ -2,7 +2,13 @@
   <menu-layout>
     <div class="text-white">
       <h2 class="mb-4">{{ $t("movie_description") }}</h2>
+      <AddQuoteFromMovie :movie="movie" />
       <EditMovie />
+      <EditQuoteModalFromMovie />
+      <QuoteDeletedModal />
+      <MovieDeletedModal />
+      <QuoteAddedModal />
+      <ViewQuoteModal />
       <div class="xl:flex">
         <section class="xl:w-2/3 pr-3">
           <img :src="imagePath" alt="image poster" class="rounded-md" />
@@ -13,7 +19,7 @@
             <section class="pl-3">
               <button
                 class="bg-red-600 border-0 truncate py-2 px-3 rounded"
-                @click="toggleAddQuoteFromMovie()"
+                @click="store.toggleAddQuoteFromMovie()"
               >
                 {{ $t("add_quote") }}
               </button>
@@ -57,7 +63,10 @@
               {{ $t("quotes") }} ({{ $t("total") }} {{ moviesStore.quotes?.length }})
             </p>
             <section class="pl-3">
-              <button class="bg-red-600 border-0 truncate py-2 px-3 rounded">
+              <button
+                class="bg-red-600 border-0 truncate py-2 px-3 rounded"
+                @click="store.toggleAddQuoteFromMovie()"
+              >
                 {{ $t("add_quote") }}
               </button>
             </section>
@@ -94,13 +103,19 @@ import DeleteIcon from "@/assets/icons/DeleteIcon.vue";
 import { fetchMovie } from "@/services";
 import EditMovie from "@/components/EditMovie.vue";
 import { useModalStore } from "@/stores/useModalStore";
-
+import MovieDeletedModal from "@/components/MovieDeletedModal.vue";
+import AddQuoteFromMovie from "@/components/AddQuoteFromMovie.vue";
+import QuoteAddedModal from "@/components/QuoteAddModal.vue";
+import EditQuoteModalFromMovie from "@/components/EditQuoteModalFromMovie.vue";
+import QuoteDeletedModal from "@/components/QuoteDeletedModal.vue";
+import ViewQuoteModal from "@/components/ViewQuoteModal.vue";
 const { getUser } = useUserStore();
 getUser();
 
 const route = useRoute();
 
 const { getQuote } = useQuotesStore();
+
 const params = ref(route.params.id);
 const store = useModalStore();
 
@@ -108,6 +123,7 @@ const moviesStore = useMoviesStore();
 const { locale } = useI18n();
 
 const { movie } = fetchMovie(params);
+
 watch(
   () => moviesStore.edited,
   (state) => {
@@ -127,6 +143,15 @@ watch(
 );
 
 const { quotes } = storeToRefs(useMoviesStore());
+
+const { deleteMovie } = useMoviesStore();
+const { getQuotesRefresh } = useQuotesStore();
+
+function deleteMovieById() {
+  deleteMovie(movie.value.id);
+  getQuotesRefresh();
+  store.toggleMovieDeletedModal();
+}
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
