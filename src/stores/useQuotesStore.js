@@ -4,7 +4,7 @@ import axios from '@/config/axios/auth-index'
 export const useQuotesStore = defineStore('useQuotesStore', {
   state: () => ({
     quotes: [],
-    quote: [],
+    quote: null,
     page: 1,
     searchQuery: null,
     loading: false

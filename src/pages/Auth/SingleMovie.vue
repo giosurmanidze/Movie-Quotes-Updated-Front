@@ -115,6 +115,7 @@ getUser();
 const route = useRoute();
 
 const { getQuote } = useQuotesStore();
+
 const params = ref(route.params.id);
 const store = useModalStore();
 
@@ -122,6 +123,7 @@ const moviesStore = useMoviesStore();
 const { locale } = useI18n();
 
 const { movie } = fetchMovie(params);
+
 watch(
   () => moviesStore.edited,
   (state) => {

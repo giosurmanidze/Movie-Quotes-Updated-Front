@@ -84,17 +84,17 @@ const { quote } = storeToRefs(useQuotesStore());
 const quoteSuccessfullyDeleted = ref(null);
 
 const quoteEn = computed(() => {
-  return quote.value.quote?.en;
+  return quote.value?.quote?.en;
 });
 
 const quoteKa = computed(() => {
-  return quote.value.quote?.ka;
+  return quote.value?.quote?.ka;
 });
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
 const imagePath = computed(() => {
-  return backendUrl + quote.value.thumbnail;
+  return backendUrl + quote.value?.thumbnail;
 });
 
 const { submit, successMessage } = useEditQuote(quote);
@@ -107,7 +107,7 @@ function goBack() {
 const { deleteQuote } = useQuotesStore();
 
 function deleteQuoteById() {
-  const quoteId = ref(quote.value.id);
+  const quoteId = ref(quote.id);
   deleteQuote(quoteId.value);
   quoteSuccessfullyDeleted.value = true;
 }

@@ -6,6 +6,7 @@ import { useModalStore } from '@/stores/useModalStore'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useQuotesStore } from '@/stores/useQuotesStore'
 import axios from '@/config/axios/auth-index'
+import { storeToRefs } from 'pinia'
 
 export function useSubmitCreatePassword() {
   const route = useRoute()
@@ -272,6 +273,7 @@ export function useEditQuote(quote) {
 export function useCreateComment(quoteId) {
   const store = useModalStore()
   const { getQuotesRefresh } = useQuotesStore()
+  const { getQuote } = useQuotesStore()
 
   function submit(values, actions) {
     let data = {
@@ -284,6 +286,7 @@ export function useCreateComment(quoteId) {
         if (response.status === 200) {
           actions.resetForm()
           store.toggleCommentAddedModal()
+          getQuote(response.data.quote_id)
           getQuotesRefresh()
         }
       })
@@ -296,37 +299,36 @@ export function useCreateComment(quoteId) {
   }
 }
 
-export function getLikesData(quotes, quoteId, user) {
-  const likeable = ref(true)
 
-  const quote = quotes.find((quote) => quote.id === quoteId)
-  if (quote) {
-    const like = quote.likes?.find((like) => like.user.id === user.id)
-    likeable.value = !like
-  }
-  return { likeable }
-}
+export function handleQuoteLike(quoteId, user, likeable, likeId) {
+  likeable.value = !likeable.value;
+  const { getQuote, getQuotesRefresh } = useQuotesStore();
 
-export function addLike(likeable, quoteId) {
-  const { getQuotesRefresh } = useQuotesStore()
-  function handleQuoteLike() {
-    likeable.value = !likeable.value
+  let data = {
+    quote_id: quoteId,
+  };
 
-    let data = {
-      like: true,
-      quote_id: quoteId
-    }
+  if (likeable.value) {
     axios
-      .post('api/like', data)
+      .delete(`api/likes/${likeId.value}`)
       .then(() => {
-        getQuotesRefresh()
+        likeId.value = null;
+        getQuote(quoteId);
+        getQuotesRefresh();
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
+      });
+  } else {
+    axios
+      .post("api/likes", data)
+      .then((response) => {
+        likeId.value = response.data.like_id;
+        getQuote(quoteId);
+        getQuotesRefresh();
       })
-  }
-
-  return {
-    handleQuoteLike
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }

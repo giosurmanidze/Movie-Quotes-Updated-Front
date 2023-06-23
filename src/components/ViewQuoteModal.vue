@@ -22,7 +22,7 @@
       <div class="bg-[#11101A] rounded-lg">
         <section class="flex items-center">
           <img
-            :src="user.profile_picture"
+            :src="user?.profile_picture"
             class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
           />
           <p class="ml-5">{{ user.username }}</p>
@@ -43,18 +43,22 @@
           <img :src="imagePath" alt="quote img" class="w-full" />
         </section>
         <section class="flex gap-4 py-4 border-b border-[#EFEFEF]">
-          <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
+          <p>{{ quote?.comments ? quote.comments.length : 0 }}</p>
           <comment-icon />
-          <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
-          <LikedQuote :quoteId="quote.id" />
+          <p>{{ quote?.likes ? quote.likes.length : 0 }}</p>
+          <LikedQuote :quoteId="quote?.id" :user="user" v-if="quote" />
         </section>
-        <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
+        <section class="py-4" v-for="comment in quote?.comments" :key="comment.id">
           <div class="flex items-center">
             <img
-              src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-              class="h-[40px] lg:h-[50px] rounded-full"
+              :src="
+                quote.user?.profile_picture
+                  ? quote.user?.profile_picture
+                  : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+              "
+              class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
             />
-            <p class="ml-5">{{ comment.username }}</p>
+            <p class="ml-5">{{ comment.user.name }}</p>
           </div>
           <div class="lg:ml-[70px] pb-4 mt-3 border-b border-[#EFEFEF]">
             <p>{{ comment.body }}</p>
@@ -63,8 +67,12 @@
         <section @click="getQuoteId(quote.id)">
           <Form class="flex items-center py-3 w-full" @submit="submit">
             <img
-              src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-              class="h-[40px] lg:h-[50px] rounded-full mr-5"
+              :src="
+                quote?.user?.profile_picture
+                  ? quote.user.profile_picture
+                  : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+              "
+              class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
             />
             <CommentInput
               name="comment"
@@ -100,18 +108,17 @@ const { quote } = storeToRefs(useQuotesStore());
 const store = useModalStore();
 
 const quoteEn = computed(() => {
-  return quote.value.quote?.en;
+  return quote.value?.quote.en;
 });
-``;
 
 const quoteKa = computed(() => {
-  return quote.value.quote?.ka;
+  return quote.value?.quote.ka;
 });
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
 const imagePath = computed(() => {
-  return backendUrl + quote.value.thumbnail;
+  return backendUrl + quote.value?.thumbnail;
 });
 
 function switchToEditQuoteModal() {
@@ -122,7 +129,7 @@ function switchToEditQuoteModal() {
 const { deleteQuote } = useQuotesStore();
 
 function deleteQuoteById() {
-  deleteQuote(quote.value.id);
+  deleteQuote(quote?.value.id);
   store.toggleViewQuoteModal();
   store.toggleQuoteDeletedModal();
 }
@@ -130,8 +137,8 @@ function deleteQuoteById() {
 const quoteId = ref(null);
 function getQuoteId(value) {
   quoteId.value = value;
+  console.log(quoteId);
 }
 
 const { submit } = useCreateComment(quoteId);
-console.log(quote);
 </script>

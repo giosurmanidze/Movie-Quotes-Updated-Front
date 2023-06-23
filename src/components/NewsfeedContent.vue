@@ -9,13 +9,13 @@
       <section class="flex items-center">
         <img
           :src="
-            user.profile_picture
-              ? user.profile_picture
+            quote.user.profile_picture
+              ? quote.user.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
           class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
         />
-        <p class="ml-5">{{ user.username }}</p>
+        <p class="ml-5">{{ quote.user.name }}</p>
       </section>
       <section class="my-5">
         <p class="break-all">
@@ -33,15 +33,19 @@
         <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
         <comment-icon />
         <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
-        <LikedQuote :quotes="quotes" :quoteId="quote.id" :user="user" />
+        <LikedQuote :quoteId="quote.id" :user="user" />
       </section>
       <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
         <div class="flex items-center">
           <img
-            :src="user.profile_picture"
+            :src="
+              comment.user.profile_picture
+                ? comment.user.profile_picture
+                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+            "
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
           />
-          <p class="ml-5">{{ comment.username }}</p>
+          <p class="ml-5">{{ comment.user.name }}</p>
         </div>
         <div class="lg:ml-[4.375rem] pb-4 mt-3 border-b border-white">
           <p>{{ comment?.body }}</p>
@@ -50,7 +54,11 @@
       <section @click="getQuoteId(quote.id)">
         <Form class="flex items-center py-3 w-full" @submit="submit">
           <img
-            :src="user.profile_picture"
+            :src="
+              user.profile_picture
+                ? user.profile_picture
+                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+            "
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
           />
           <CommentInput
