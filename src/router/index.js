@@ -11,11 +11,12 @@ import CreatePassword from '@/pages/CreatePassword.vue'
 import ChangedPassword from '@/pages/CreatePassword.vue'
 import MovieList from '@/pages/Auth/MovieList.vue'
 import SingleMovie from '@/pages/Auth/SingleMovie.vue'
-import { useAuthStore } from '@/stores/useAuthStore'
+import { useAuthStore } from '@/stores/useAuthStore.js'
 import isAuthenticated from '@/router/auth-guard.js'
 import isNotAuthenticated from '@/router/unauth-guard.js'
 import Forbidden from '@/pages/ErrorPages/Forbidden.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
+import axios from '@/config/axios/index.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -110,7 +111,7 @@ router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
   if (authStore.authenticated === null) {
     try {
-      await axios.get(`api/${import.meta.env.VITE_BASE_URL}user`)
+      await axios.get(`api/user`)
       authStore.authenticated = true
     } catch (err) {
       authStore.authenticated = false
