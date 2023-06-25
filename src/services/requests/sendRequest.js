@@ -2,9 +2,11 @@ import axios from '@/config/axios/index'
 import { useAuthStore } from '@/stores/useAuthStore.js'
 
 const sendRequest = async (url, data) => {
+  const authStore = useAuthStore()
   await axios.get('/sanctum/csrf-cookie')
   try {
     const response = await axios.post(url, data)
+    authStore.authenticated = true
     return response
   } catch (error) {
     throw error

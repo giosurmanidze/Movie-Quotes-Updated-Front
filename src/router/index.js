@@ -10,6 +10,7 @@ import RecoverInstructions from '@/pages/RecoverInstructions.vue'
 import CreatePassword from '@/pages/CreatePassword.vue'
 import ChangedPassword from '@/pages/CreatePassword.vue'
 import MovieList from '@/pages/Auth/MovieList.vue'
+import UserProfile from '@/pages/Auth/UserProfile.vue'
 import SingleMovie from '@/pages/Auth/SingleMovie.vue'
 import { useAuthStore } from '@/stores/useAuthStore.js'
 import isAuthenticated from '@/router/auth-guard.js'
@@ -80,7 +81,7 @@ const router = createRouter({
       path: '/news-feed',
       name: 'newsFeed',
       component: NewsFeedPage,
-      beforeEnter: isAuthenticated,
+      beforeEnter: isAuthenticated
     },
     {
       path: '/forbidden',
@@ -96,13 +97,19 @@ const router = createRouter({
       path: '/movie-list',
       name: 'movieList',
       component: MovieList,
-      beforeEnter: isAuthenticated,
+      beforeEnter: isAuthenticated
     },
     {
       path: '/movie/:id',
       name: 'moviePage',
       component: SingleMovie,
-      beforeEnter: isAuthenticated,
+      beforeEnter: isAuthenticated
+    },
+    {
+      path: '/user-profile',
+      name: 'userProfile',
+      component: UserProfile,
+      beforeEnter: isAuthenticated
     }
   ]
 })
