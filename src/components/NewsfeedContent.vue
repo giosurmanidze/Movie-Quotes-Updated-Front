@@ -15,7 +15,6 @@
           "
           class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
         />
-        {{ quote }}
         <p class="ml-5">{{ quote.user?.name }}</p>
       </section>
       <section class="my-5">

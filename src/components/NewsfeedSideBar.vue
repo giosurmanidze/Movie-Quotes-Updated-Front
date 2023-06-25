@@ -1,24 +1,26 @@
 <template>
   <div class="text-white">
-    <section class="flex cursor-pointer" @click="navigateToProfilePage()">
-      <img
-        :src="
-          user.profile_picture
-            ? user.profile_picture
-            : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-        "
-        class="h-10 md:h-11 lg:h-[3.75rem] max-w-[3.75rem] rounded-full"
-        :class="$route.name === 'profile' ? 'border-2 border-red-600' : ''"
-      />
-      <section class="flex-col ml-3 lg:mt-1">
-        <p class="text-base">{{ user.username }}</p>
-        <button
-          class="text-xs text-[#CED4DA] text-start sm:truncate md:w-[6.25rem] lg:w-[9.375rem]"
-        >
-          {{ $t("edit_your_profile") }}
-        </button>
+    <router-link :to="{ name: 'userProfile' }">
+      <section class="flex cursor-pointer">
+        <img
+          :src="
+            user.profile_picture
+              ? user.profile_picture
+              : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+          "
+          class="h-10 md:h-11 lg:h-[3.75rem] max-w-[3.75rem] rounded-full"
+          :class="$route.name === 'userProfile' ? 'border-2 border-red-600' : ''"
+        />
+        <section class="flex-col ml-3 lg:mt-1">
+          <p class="text-base">{{ user.username }}</p>
+          <button
+            class="text-xs text-[#CED4DA] text-start sm:truncate md:w-[6.25rem] lg:w-[9.375rem]"
+          >
+            {{ $t("edit_your_profile") }}
+          </button>
+        </section>
       </section>
-    </section>
+    </router-link>
     <section class="mt-8 ml-2">
       <router-link :to="{ name: 'newsFeed' }" class="flex items-center cursor-pointer">
         <home-icon :path="$route.name" />
