@@ -2,13 +2,13 @@
   <Form @submit="submitHandler">
     <section v-if="!showConfirmModal">
       <section>
-        <ProfileInput name="username" rules="required" />
+        <ProfileInput name="username" rules="required" label="enter_new_username" />
         <p class="text-red-500" v-if="errorMessage">{{ errorMessage }}</p>
       </section>
       <section class="flex justify-between pt-5">
         <p class="py-2 px-1">{{ $t("cancel") }}</p>
         <button class="bg-red-600 rounded py-2 px-4">
-          {{ $t("add") }}
+          {{ $t("edit") }}
         </button>
       </section>
     </section>

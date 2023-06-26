@@ -12,11 +12,7 @@
         />
         <TickIcon v-if="verified" class="absolute top-3 right-2" />
         <WarningIcon v-if="warning" class="absolute top-3 right-2" />
-        <ShowPasswordIcon
-          @click="showPasswordHandler()"
-          v-if="type === 'password'"
-          class="absolute top-3 right-2"
-        />
+        <ShowPasswordIcon v-if="type === 'password'" class="absolute top-3 right-2" />
       </div>
     </Field>
     <ErrorMessage class="text-red-300" :name="name" />
@@ -28,10 +24,11 @@ import { Field, ErrorMessage } from "vee-validate";
 import { computed, ref, defineProps } from "vue";
 import TickIcon from "@/assets/icons/TickIcon.vue";
 import WarningIcon from "@/assets/icons/WarningIcon.vue";
+import ShowPasswordIcon from "@/assets/icons/ShowPasswordIcon.vue";
 
 const props = defineProps({
   name: { type: String, required: true },
-  label: { type: String, required: true },
+  label: { type: String, required: false },
   rules: { type: String, required: true },
   currentUser: { type: String, required: false },
   bgColor: { type: String, required: false },

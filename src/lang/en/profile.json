@@ -6,5 +6,7 @@
   "8_or_more_characters": "8 or more characters",
   "less_than_15_characters": "less than 15 characters",
   "edit": "edit",
-  "upload_new_photo": "Upload new photo"
+  "upload_new_photo": "Upload new photo",
+  "enter_new_username": "Enter new username",
+  "sure_to_make_changes": "Are you sure to make changes"
 }
