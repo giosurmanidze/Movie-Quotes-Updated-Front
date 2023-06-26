@@ -28,8 +28,8 @@ import ShowPasswordIcon from "@/assets/icons/ShowPasswordIcon.vue";
 
 const props = defineProps({
   name: { type: String, required: true },
-  label: { type: String, required: false },
-  rules: { type: String, required: true },
+  label: { type: String, required: true },
+  rules: { type: String, required: false },
   currentUser: { type: String, required: false },
   bgColor: { type: String, required: false },
   verified: { type: Boolean, required: false },
