@@ -5,10 +5,17 @@
         classes="absolute right-32 top-40 w-[400px]"
         v-if="showUserAlert"
       />
-      <img class="h-[60px] md:h-[80px] lg:h-[140px] max-w-[140px] -mt-10 rounded-full" />
+      <img
+        :src="
+          user.profile_picture
+            ? user.profile_picture
+            : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+        "
+        class="h-[60px] md:h-[80px] lg:h-[140px] max-w-[140px] -mt-10 rounded-full"
+      />
     </section>
     <Form>
-      <div class="">
+      <div>
         <section @click="showSaveChangesButtons = true" class="text-center">
           <ProfileFileInput />
         </section>
@@ -118,13 +125,12 @@ const showUserAlert = ref(false);
 const inputs = ref(0);
 const showSaveChangesButtons = ref(false);
 const disableInput = ref(true);
+const showEditPassword = ref(true);
 
 function inputToggleHandler() {
   disableInput.value = false;
   showSaveChangesButtons.value = true;
 }
-
-const showEditPassword = ref(true);
 
 function toggleEditPassword() {
   showEditPassword.value = false;

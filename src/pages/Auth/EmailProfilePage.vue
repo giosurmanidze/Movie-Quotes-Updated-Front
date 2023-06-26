@@ -1,10 +1,10 @@
 <template>
   <div class="w-full -mx-7">
-    <UpdateUserAlert v-if="userUpdated" classes=" absolute" />
+    <UserUpdatedAlert v-if="userUpdated" classes=" absolute" />
     <section class="mb-4 mt-1 pl-7">
       <LeftArrowIcon @click="goBackHandler()" />
     </section>
-    <div class="bg-[#24222F] w-screen px-7 py-10 text-white">
+    <div class="bg-[#24222F] w-screen h-[80vh] px-7 py-10 text-white">
       <section class="mb-3">
         <SuccessfullEditModal
           v-if="
@@ -34,7 +34,7 @@
           class="h-[140px] max-w-[140px]"
         />
       </section>
-      <Form @submit="submitForm">
+      <Form>
         <div v-if="profileStore.showForm">
           <section class="text-center">
             <MobileFileInput />
@@ -49,6 +49,15 @@
                 </p>
               </div>
             </div>
+            <div class="flex flex-col pt-5">
+              <p>{{ $t("email") }}</p>
+              <div class="flex justify-between">
+                <p class="mt-2">{{ user.email }}</p>
+                <p @click="editEmailHandler()" class="mt-2 text-[#CED4DA]">
+                  {{ $t("edit") }}
+                </p>
+              </div>
+            </div>
             <div class="pt-5">
               <p>{{ $t("password") }}</p>
               <div class="flex justify-between">
@@ -58,29 +67,23 @@
                 </p>
               </div>
             </div>
-            <div class="pt-5 flex justify-between">
-              <p>{{ $t("email") }}</p>
-              <RightArrowIcon @click="editEmailHandler()" />
-            </div>
+            <div></div>
           </section>
-          <button class="w-full mt-5 bg-red-600 p-2 rounded">
-            {{ $t("save") }}
-          </button>
         </div>
       </Form>
       <ChangeUsername
         :email="user.email"
         v-if="!profileStore.showForm && showUsernameInput"
       />
-      <ChangePassword
-        :email="user.email"
-        :username="user.username"
-        v-if="!profileStore.showForm && showPasswordInput"
-      />
       <ChangeEmail
         :email="user.email"
         :email_verified_at="user.email_verified_at"
         v-if="!profileStore.showForm && showEmailInput"
+      />
+      <ChangePassword
+        :email="user.email"
+        :username="user.username"
+        v-if="!profileStore.showForm && showPasswordInput"
       />
     </div>
   </div>
@@ -95,10 +98,9 @@ import ChangePassword from "@/components/ChangePassword.vue";
 import ChangeEmail from "@/components/ChangeEmail.vue";
 import MobileFileInput from "@/components/MobileFileInput.vue";
 import SuccessfullEditModal from "@/components/SuccessfullEditModal.vue";
-import RightArrowIcon from "@/assets/icons/RightArrowIcon.vue";
 import ChangeUsername from "@/components/ChangeUsername.vue";
 import { useProfilePageStore } from "@/stores/useProfilePageStore";
-import UpdateUserAlert from "@/components/UpdateUserAlert.vue";
+import UserUpdatedAlert from "@/components/UserUpdatedAlert.vue";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
@@ -107,11 +109,11 @@ const userName = computed(() => {
 });
 
 const showUsernameInput = ref(false);
+const showEmailInput = ref(false);
+const showPasswordInput = ref(false);
 
 const profileStore = useProfilePageStore();
-
 const { toggleShowForm } = useProfilePageStore();
-
 const router = useRouter();
 
 function editUsernameHandler() {
@@ -121,16 +123,12 @@ function editUsernameHandler() {
   showEmailInput.value = false;
 }
 
-const showPasswordInput = ref(false);
-
 function editPasswordHandler() {
   toggleShowForm();
   showUsernameInput.value = false;
   showPasswordInput.value = true;
   showEmailInput.value = false;
 }
-
-const showEmailInput = ref(false);
 
 function editEmailHandler() {
   toggleShowForm();
@@ -152,4 +150,6 @@ function goBackHandler() {
     showPasswordInput.value = false;
   }
 }
+
+const userUpdated = ref(false);
 </script>

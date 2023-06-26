@@ -14,17 +14,19 @@
             name="password"
             rules="required|alpha_num|min:8|max:15"
             type="password"
+            label="password"
           />
           <br />
           <ProfileInput
             name="confirm_password"
             type="password"
             rules="required|confirmed:password"
+            label="conf_password"
           />
           <section class="flex justify-between text-white pt-5">
             <p class="mt-2">{{ $t("cancel") }}</p>
             <button class="bg-red-600 rounded px-5 py-2">
-              {{ $t("add") }}
+              {{ $t("edit") }}
             </button>
           </section>
         </section>
@@ -47,7 +49,7 @@
 <script setup>
 import { Form } from "vee-validate";
 import { ref } from "vue";
-import ProfileInput from "./ProfileFIleInput.vue";
+import ProfileInput from "./ProfileInput.vue";
 
 const props = defineProps({
   email: { type: String, required: true },

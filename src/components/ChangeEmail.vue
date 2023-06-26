@@ -1,110 +1,48 @@
 <template>
-  <div>
-    <CheckEmailAlert classes="w-full" v-if="showCheckEmailAlert" />
-    <EmailAddedAlert classes="w-full" v-if="showEmailAddedAlert" />
-    <section class="flex flex-col gap-5 divide-y" v-if="!showAddEmailForm">
-      <p>{{ $t("primary_email") }}</p>
-      <section class="flex justify-between bg-green-bg p-3 rounded">
-        <p>{{ email }}</p>
-        <TickProfileIcon />
-      </section>
-      <section class="grid grid-cols-1 gap-5 divide-y">
-        <div v-for="(secondaryEmail, index) in secondaryEmails" :key="index">
-          <section>
-            <div>
-              <p class="py-3 mt-3">{{ secondaryEmail.email }}</p>
-            </div>
-            <div class="flex justify-between">
-              <section v-if="isVerified === index" class="flex items-center">
-                <WarningIcon />
-                <p class="text-sm text-[#EC9524] ml-2">
-                  {{ $t("not_verified") }}
-                </p>
-              </section>
-              <p
-                v-else
-                @click="makeEmailPrimaryHandler(secondaryEmail, index)"
-                class="rounded border border-gray-500 p-2"
-              >
-                {{ $t("make_this_primary") }}
-              </p>
-
-              <p
-                @click="removeSecondaryEmailHandler(secondaryEmail.id)"
-                class="text-[#CED4DA] p-2"
-              >
-                {{ $t("remove") }}
-              </p>
-            </div>
-          </section>
-        </div>
-      </section>
-      <section class="pt-5">
-        <div>
-          <p class="mb-5">{{ $t("add_new_email") }}</p>
-        </div>
-        <div class="w-full rounded border border-gray-500 p-2 text-center">
-          <img src="@/assets/add-icon.png" />
-          <p @click="showAddEmailFormHandler()">{{ $t("add") }}</p>
-        </div>
-      </section>
-    </section>
-    <section v-if="showAddEmailForm">
+  <Form @submit="submitHandler">
+    <section v-if="!showConfirmModal">
       <section>
-        <Form @submit="submitForm">
-          <section>
-            <ProfileInput class="lg:w-1/2 w-full" name="email" rules="required|email" />
-            <p v-if="errorMessage" class="text-red-600 my-3">
-              {{ errorMessage }}
-            </p>
-          </section>
-          <section class="flex justify-between mt-10">
-            <p @click="hideAddEmailFormHandler()" class="p-3 text-[#CED4DA]">
-              {{ $t("cancel") }}
-            </p>
-            <button class="bg-red-600 py-1 px-3 rounded">
-              {{ $t("add") }}
-            </button>
-          </section>
-        </Form>
+        <ProfileInput name="email" rules="required" label="email" />
+        <p class="text-red-500" v-if="errorMessage">{{ errorMessage }}</p>
+      </section>
+      <section class="flex justify-between pt-5">
+        <p class="py-2 px-1">{{ $t("cancel") }}</p>
+        <button class="bg-red-600 rounded py-2 px-4">
+          {{ $t("edit") }}
+        </button>
       </section>
     </section>
-  </div>
+    <div v-if="showConfirmModal" class="grid grid-cols-1 divide-y divide-gray-500">
+      <section class="text-center py-6">
+        <p>{{ $t("sure_to_make_changes") }} ?</p>
+      </section>
+      <section class="pt-5 flex justify-between">
+        <p @click="cancelHandler()" class="py-3">{{ $t("cancel") }}</p>
+        <p @click="sendData()" class="bg-red-600 p-3 rounded">
+          {{ $t("confirm") }}
+        </p>
+      </section>
+    </div>
+  </Form>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { Form } from "vee-validate";
-import TickProfileIcon from "@/assets/icons/TickProfileIcon.vue";
+import { ref } from "vue";
 import ProfileInput from "./ProfileInput.vue";
-import CheckEmailAlert from "@/components/CheckEmailAlert.vue";
-import EmailAddedAlert from "@/components/EmailAddedAlert.vue";
-import WarningIcon from "@/assets/icons/WarningIcon.vue";
 
-defineProps({
-  email: { type: String, required: true },
-  email_verified_at: { required: true },
-});
+const props = defineProps({ email: { type: String, required: true } });
 
-const secondaryEmails = ref([]);
-
-getSecondaryEmails();
-
-const showAddEmailForm = ref(false);
-
-function showAddEmailFormHandler() {
-  showAddEmailForm.value = true;
-}
-
-function hideAddEmailFormHandler() {
-  showAddEmailForm.value = false;
-}
-
+const changedUsername = ref(null);
 const errorMessage = ref(null);
+const showConfirmModal = ref(false);
 
-const showEmailAddedAlert = ref(false);
+function submitHandler(values) {
+  showConfirmModal.value = !showConfirmModal.value;
+  changedUsername.value = values.username;
+}
 
-const showCheckEmailAlert = ref(false);
-
-const isVerified = ref(null);
+function cancelHandler() {
+  showConfirmModal.value = !showConfirmModal.value;
+}
 </script>
