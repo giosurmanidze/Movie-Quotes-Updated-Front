@@ -6,7 +6,6 @@ import { useModalStore } from '@/stores/useModalStore'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useQuotesStore } from '@/stores/useQuotesStore'
 import axios from '@/config/axios/auth-index'
-import { storeToRefs } from 'pinia'
 
 export function useSubmitCreatePassword() {
   const route = useRoute()
@@ -299,36 +298,76 @@ export function useCreateComment(quoteId) {
   }
 }
 
-
-export function handleQuoteLike(quoteId, user, likeable, likeId) {
-  likeable.value = !likeable.value;
-  const { getQuote, getQuotesRefresh } = useQuotesStore();
+export function handleQuoteLike(quoteId, likeable, likeId) {
+  likeable.value = !likeable.value
+  const { getQuote, getQuotesRefresh } = useQuotesStore()
 
   let data = {
-    quote_id: quoteId,
-  };
+    quote_id: quoteId
+  }
 
   if (likeable.value) {
     axios
       .delete(`api/likes/${likeId.value}`)
       .then(() => {
-        likeId.value = null;
-        getQuote(quoteId);
-        getQuotesRefresh();
+        likeId.value = null
+        getQuote(quoteId)
+        getQuotesRefresh()
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   } else {
     axios
-      .post("api/likes", data)
+      .post('api/likes', data)
       .then((response) => {
-        likeId.value = response.data.like_id;
-        getQuote(quoteId);
-        getQuotesRefresh();
+        likeId.value = response.data.like_id
+        getQuote(quoteId)
+        getQuotesRefresh()
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
+  }
+}
+
+export function submitGoogleUserProfile(showUserUpdatedAlert,disableInput,showSaveChangesButtons,usernameErrors,sendUserName) {
+
+
+  const submit = (values) => {
+    showUserUpdatedAlert.value = false
+
+    if (sendUserName.value) {
+      axios
+        .patch('api/user/update-name', { username: values.username })
+        .then(() => {
+          getUser()
+          showUserUpdatedAlert.value = true
+          disableInput.value = true
+          showSaveChangesButtons.value = false
+          usernameErrors.value = null
+        })
+        .catch((error) => {
+          usernameErrors.value = error.response.data.errors.username[0]
+          console.log(error)
+        })
+    }
+
+    if (values.avatar) {
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+      axios
+        .post('api/user/profile-avatar', { thumbnail: values.avatar }, config)
+        .then(() => {
+          getUser()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }
+  return {
+    submit,showUserUpdatedAlert
   }
 }

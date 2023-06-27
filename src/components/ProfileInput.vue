@@ -1,7 +1,13 @@
 <template>
   <div class="flex-col">
     <label for="name" class="text-white">{{ $t(label) }}</label>
-    <Field :name="name" v-slot="{ field }" :rules="rules">
+    <Field
+      :name="name"
+      v-slot="{ field }"
+      :rules="rules"
+      :modelValue="currentUser"
+      @update:modelValue="currentUser = $event"
+    >
       <div class="relative text-black my-2">
         <input
           :disabled="disabled"

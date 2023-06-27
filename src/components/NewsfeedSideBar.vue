@@ -3,11 +3,7 @@
     <router-link :to="{ name: 'userProfile' }">
       <section class="flex cursor-pointer">
         <img
-          :src="
-            user.profile_picture
-              ? user.profile_picture
-              : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-          "
+          :src="userAvatar"
           class="h-10 md:h-11 lg:h-[3.75rem] max-w-[3.75rem] rounded-full"
           :class="$route.name === 'userProfile' ? 'border-2 border-red-600' : ''"
         />
@@ -45,6 +41,8 @@ import MoviesListIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
+
+const { userAvatar } = storeToRefs(useUserStore());
 
 const { getUser } = useUserStore();
 getUser();

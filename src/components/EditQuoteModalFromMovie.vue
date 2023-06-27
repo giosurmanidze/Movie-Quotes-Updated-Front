@@ -26,10 +26,7 @@
         v-if="!successMessage && !quoteSuccessfullyDeleted"
       >
         <section class="flex items-center">
-          <img
-            :src="user.profile_picture"
-            class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
-          />
+          <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
           <p class="ml-5">{{ user.username }}</p>
         </section>
         <Form @submit="submit">
@@ -75,7 +72,7 @@ import { storeToRefs } from "pinia";
 import { computed, ref } from "vue";
 import { useEditQuote } from "@/services";
 
-const { user } = storeToRefs(useUserStore());
+const { user, userAvatar } = storeToRefs(useUserStore());
 
 const store = useModalStore();
 
