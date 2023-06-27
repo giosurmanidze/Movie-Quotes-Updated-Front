@@ -25,14 +25,7 @@
         </SuccessfullEditModal>
       </section>
       <section v-if="profileStore.showForm" class="flex justify-center">
-        <img
-          :src="
-            user.profile_picture
-              ? user.profile_picture
-              : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-          "
-          class="h-[140px] max-w-[140px]"
-        />
+        <img :src="userAvatar" class="h-[140px] max-w-[140px]" />
       </section>
       <Form>
         <div v-if="profileStore.showForm">
@@ -101,13 +94,15 @@ import SuccessfullEditModal from "@/components/SuccessfullEditModal.vue";
 import ChangeUsername from "@/components/ChangeUsername.vue";
 import { useProfilePageStore } from "@/stores/useProfilePageStore";
 import UserUpdatedAlert from "@/components/UserUpdatedAlert.vue";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
 const userName = computed(() => {
   return props.user.username;
 });
-
+const { userAvatar } = storeToRefs(useUserStore());
 const showUsernameInput = ref(false);
 const showEmailInput = ref(false);
 const showPasswordInput = ref(false);

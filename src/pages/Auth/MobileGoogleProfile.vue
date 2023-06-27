@@ -1,19 +1,12 @@
 <template>
   <div class="text-white">
-    <UserUpdatedAlert classes="absolute right-6 left-6" />
+    <UserUpdatedAlert classes="absolute right-6 left-6" v-if="showUserUpdated" />
     <section class="mb-5">
       <LeftArrowIcon @click="hideInputHandler()" />
     </section>
     <section class="bg-[#24222F] -mx-7">
       <section v-if="disableInput" class="flex justify-center">
-        <img
-          :src="
-            user.profile_picture
-              ? user.profile_picture
-              : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-          "
-          class="h-[130px] mt-5 max-w-[140px] rounded-full"
-        />
+        <img :src="userAvatar" class="h-[130px] mt-5 max-w-[140px] rounded-full" />
       </section>
       <Form>
         <div v-if="disableInput" class="text-white px-7">
@@ -46,7 +39,7 @@
               <p class="text-[#CED4DA] cursor-pointer">
                 {{ $t("cancel") }}
               </p>
-              <button type="submit" class="bg-red-600 p-2 rounded text-white">
+              <button class="bg-red-600 p-2 rounded text-white" type="submit">
                 {{ $t("save_changes") }}
               </button>
             </section>
@@ -79,9 +72,9 @@
             <p @click="backToInputHandler()" class="py-3">
               {{ $t("cancel") }}
             </p>
-            <p type="submit" class="bg-red-600 p-3 rounded">
+            <button @click="submitUserName" type="submit" class="bg-red-600 p-3 rounded">
               {{ $t("confirm") }}
-            </p>
+            </button>
           </section>
         </div>
       </Form>
@@ -97,16 +90,20 @@ import { useRouter } from "vue-router";
 import ProfileFileInput from "@/components/ProfileFIleInput.vue";
 import ProfileInput from "@/components/ProfileInput.vue";
 import UserUpdatedAlert from "@/components/UserUpdatedAlert.vue";
+import axios from "@/config/axios/index.js";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
 const router = useRouter();
-
+const { userAvatar } = storeToRefs(useUserStore());
 const disableInput = ref(true);
+const showConfirmModal = ref(false);
+const { getUser } = useUserStore();
 const usernameError = ref(false);
 const changedUsername = ref(null);
-const showConfirmModal = ref(false);
-const thumbnail = ref(null);
+const showUserUpdated = ref(false);
 
 function hideInputHandler() {
   if (disableInput.value == true) {
@@ -124,6 +121,26 @@ function backToInputHandler() {
 function submitForm(values) {
   changedUsername.value = values.username;
   showConfirmModal.value = true;
-  thumbnail.value = values.thumbnail;
+}
+
+function submitUserName() {
+  showUserUpdated.value = false;
+  let data = {
+    username: changedUsername.value,
+  };
+
+  axios
+    .patch("api/user/update-name", data)
+    .then(() => {
+      getUser();
+      disableInput.value = true;
+      showConfirmModal.value = false;
+      showUserUpdated.value = true;
+    })
+    .catch((error) => {
+      usernameError.value = error.response.data.message;
+      disableInput.value = false;
+      showConfirmModal.value = false;
+    });
 }
 </script>

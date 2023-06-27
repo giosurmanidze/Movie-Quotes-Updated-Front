@@ -10,7 +10,7 @@
         <img
           :src="
             quote?.user?.profile_picture
-              ? quote.user.profile_picture
+              ? backendUrl + quote.user.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
           class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
@@ -40,7 +40,7 @@
           <img
             :src="
               comment.user.profile_picture
-                ? comment.user.profile_picture
+                ? backendUrl + comment.user.profile_picture
                 : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
             "
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
@@ -54,11 +54,7 @@
       <section @click="getQuoteId(quote.id)">
         <Form class="flex items-center py-3 w-full" @submit="submit">
           <img
-            :src="
-              user.profile_picture
-                ? user.profile_picture
-                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-            "
+            :src="userAvatar"
             class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
           />
           <CommentInput
@@ -88,7 +84,7 @@ import { useCreateComment } from "@/services";
 const { locale } = useI18n();
 
 const { quotes } = storeToRefs(useQuotesStore());
-const { user } = storeToRefs(useUserStore());
+const { user, userAvatar } = storeToRefs(useUserStore());
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 

@@ -21,10 +21,7 @@
     <template v-slot:body>
       <div class="bg-[#11101A] rounded-lg">
         <section class="flex items-center">
-          <img
-            :src="user?.profile_picture"
-            class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
-          />
+          <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
           <p class="ml-5">{{ user.username }}</p>
         </section>
         <section class="my-5">
@@ -53,12 +50,12 @@
             <img
               :src="
                 quote.user?.profile_picture
-                  ? quote.user?.profile_picture
+                  ? backendUrl + quote.user.profile_picture
                   : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
               "
               class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
             />
-            <p class="ml-5">{{ comment.user.name }}</p>
+            <p>{{ comment.user.name }}</p>
           </div>
           <div class="lg:ml-[70px] pb-4 mt-3 border-b border-[#EFEFEF]">
             <p>{{ comment.body }}</p>
@@ -69,7 +66,7 @@
             <img
               :src="
                 quote?.user?.profile_picture
-                  ? quote.user.profile_picture
+                  ? backendUrl + quote.user.profile_picture
                   : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
               "
               class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
@@ -102,7 +99,7 @@ import { computed, ref } from "vue";
 import { useCreateComment } from "@/services";
 import LikedQuote from "@/components/LikedQuote.vue";
 
-const { user } = storeToRefs(useUserStore());
+const { user, userAvatar } = storeToRefs(useUserStore());
 
 const { quote } = storeToRefs(useQuotesStore());
 const store = useModalStore();
