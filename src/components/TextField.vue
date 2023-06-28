@@ -34,7 +34,8 @@
       class="absolute right-2 top-[2.375rem]"
       @click="togglePasswordVisibility"
     >
-      <img v-if="!showPassword" src="../assets/hide-eye.svg" />
+      <hide-eye v-if="!showPassword" />
+      <view-eye v-if="showPassword" />
     </span>
   </div>
 </template>
@@ -42,6 +43,9 @@
 <script setup>
 import { ErrorMessage, Field } from "vee-validate";
 import { computed, defineProps, ref } from "vue";
+import ViewEye from "@/assets/icons/ViewEye.vue";
+import HideEye from "@/assets/icons/HideEye.vue";
+
 const hasInteracted = ref(false);
 const showPassword = ref(false);
 const props = defineProps({

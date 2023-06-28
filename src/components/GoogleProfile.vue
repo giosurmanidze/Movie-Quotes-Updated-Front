@@ -82,6 +82,7 @@ const usernameErrors = ref(false);
 const showUserUpdatedAlert = ref(false);
 const showSaveChangesButtons = ref(false);
 const sendUserName = ref(false);
+const showEditPassword = ref(false);
 const { userAvatar } = storeToRefs(useUserStore());
 
 function inputToggleHandler() {
@@ -100,6 +101,7 @@ const { submit } = useSendUsernameAndAvatar(
   sendUserName,
   disableInput,
   showSaveChangesButtons,
-  usernameErrors
+  usernameErrors,
+  showEditPassword
 );
 </script>
