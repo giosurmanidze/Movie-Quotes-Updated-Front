@@ -71,10 +71,9 @@ import { ref } from "vue";
 import ProfileFileInput from "./ProfileFIleInput.vue";
 import ProfileInput from "./ProfileInput.vue";
 import UserUpdatedAlert from "./UserUpdatedAlert.vue";
-import axios from "@/config/axios/index.js";
-import axiosInstance from "@/config/axios/auth-index.js";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
+import { useSendUsernameAndAvatar } from "@/services";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
@@ -85,8 +84,6 @@ const showSaveChangesButtons = ref(false);
 const sendUserName = ref(false);
 const { userAvatar } = storeToRefs(useUserStore());
 
-const { getUser } = useUserStore();
-
 function inputToggleHandler() {
   disableInput.value = false;
   showSaveChangesButtons.value = true;
@@ -94,45 +91,15 @@ function inputToggleHandler() {
     sendUserName.value = true;
   }
 }
-
 function hideChangeButtons() {
   disableInput.value = true;
   showSaveChangesButtons.value = false;
 }
-
-function submit(values) {
-  showUserUpdatedAlert.value = false;
-
-  console.log(values);
-
-  if (sendUserName.value) {
-    axios
-      .patch("api/user/update-name", { username: values.username })
-      .then(() => {
-        getUser();
-        showUserUpdatedAlert.value = true;
-        disableInput.value = true;
-        showSaveChangesButtons.value = false;
-        usernameErrors.value = null;
-      })
-      .catch((error) => {
-        usernameErrors.value = error.response.data.errors.username[0];
-        console.log(error);
-      });
-  }
-
-  if (values.avatar) {
-    const config = {
-      headers: { "Content-Type": "multipart/form-data" },
-    };
-    axiosInstance
-      .post("api/user/profile-avatar", { thumbnail: values.avatar }, config)
-      .then(() => {
-        getUser();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-}
+const { submit } = useSendUsernameAndAvatar(
+  showUserUpdatedAlert,
+  sendUserName,
+  disableInput,
+  showSaveChangesButtons,
+  usernameErrors
+);
 </script>
