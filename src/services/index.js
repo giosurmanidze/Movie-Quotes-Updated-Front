@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { useModalStore } from '@/stores/useModalStore'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useQuotesStore } from '@/stores/useQuotesStore'
+import { useUserStore } from '@/stores/useUserStore'
 import axios from '@/config/axios/auth-index'
 
 export function useSubmitCreatePassword() {
@@ -298,7 +299,7 @@ export function useCreateComment(quoteId) {
   }
 }
 
-export function handleQuoteLike(quoteId, likeable, likeId) {
+export function handleQuoteLike(quoteId, like, likeable, likeId) {
   likeable.value = !likeable.value
   const { getQuote, getQuotesRefresh } = useQuotesStore()
 
@@ -331,9 +332,13 @@ export function handleQuoteLike(quoteId, likeable, likeId) {
   }
 }
 
-export function submitGoogleUserProfile(showUserUpdatedAlert,disableInput,showSaveChangesButtons,usernameErrors,sendUserName) {
-
-
+export function submitGoogleUserProfile(
+  showUserUpdatedAlert,
+  disableInput,
+  showSaveChangesButtons,
+  usernameErrors,
+  sendUserName
+) {
   const submit = (values) => {
     showUserUpdatedAlert.value = false
 
@@ -368,6 +373,112 @@ export function submitGoogleUserProfile(showUserUpdatedAlert,disableInput,showSa
     }
   }
   return {
-    submit,showUserUpdatedAlert
+    submit,
+    showUserUpdatedAlert
+  }
+}
+
+export function useSendProfileAvatar(showUserUpdated, showSaveChangesButtons) {
+  const { getUser } = useUserStore()
+
+  const sendThumbnailData = () => {
+    showUserUpdated.value = false
+    const fileInput = document.getElementById('getFile')
+    const file = fileInput.files[0]
+
+    const config = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+
+    axios
+      .post('api/user/profile-avatar', { thumbnail: file }, config)
+      .then(() => {
+        getUser()
+        showUserUpdated.value = true
+        showSaveChangesButtons.value = false
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  return {
+    sendThumbnailData
+  }
+}
+
+export function useSendUsername(showUserUpdated, disableInput, showConfirmModal, usernameError) {
+  const { getUser } = useUserStore()
+
+  function sendData(values) {
+    showUserUpdated.value = false
+
+    axios
+      .patch('api/user/update-name', { username: values.username })
+      .then(() => {
+        getUser()
+        disableInput.value = true
+        showConfirmModal.value = false
+
+        showUserUpdated.value = true
+      })
+      .catch((error) => {
+        usernameError.value = error.response.data.message
+        disableInput.value = false
+        showConfirmModal.value = false
+      })
+  }
+
+  return {
+    sendData
+  }
+}
+
+export function useSendUsernameAndAvatar(
+  showUserUpdatedAlert,
+  sendUserName,
+  disableInput,
+  showSaveChangesButtons,
+  usernameErrors
+) {
+  const { getUser } = useUserStore()
+
+  function submit(values) {
+    showUserUpdatedAlert.value = false
+
+    if (sendUserName.value) {
+      axios
+        .patch('api/user/update-name', { username: values.username })
+        .then(() => {
+          getUser()
+          showUserUpdatedAlert.value = true
+          disableInput.value = true
+          showSaveChangesButtons.value = false
+          usernameErrors.value = null
+        })
+        .catch((error) => {
+          usernameErrors.value = error.response.data.errors.username[0]
+          console.log(error)
+        })
+    }
+
+    if (values.avatar) {
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+      axios
+        .post('api/user/profile-avatar', { thumbnail: values.avatar }, config)
+        .then(() => {
+          getUser()
+          showSaveChangesButtons.value = false
+          showUserUpdatedAlert.value = true
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }
+
+  return {
+    submit
   }
 }

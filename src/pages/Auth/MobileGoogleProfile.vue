@@ -4,13 +4,13 @@
     <section class="mb-5">
       <LeftArrowIcon @click="hideInputHandler()" />
     </section>
-    <section class="bg-[#24222F] -mx-7">
+    <section class="bg-[#24222F] -mx-7 h-[80vh]">
       <section v-if="disableInput" class="flex justify-center">
         <img :src="userAvatar" class="h-[130px] mt-5 max-w-[140px] rounded-full" />
       </section>
-      <Form>
+      <Form @submit="sendThumbnailData">
         <div v-if="disableInput" class="text-white px-7">
-          <section class="text-center">
+          <section class="text-center" @click="showSaveChangesButtons = true">
             <ProfileFileInput />
           </section>
           <section class="gird grid-cols-1 divide-y divide-gray-500">
@@ -35,7 +35,8 @@
                 <p class="text-[#CED4DA]">**********</p>
               </section>
             </section>
-            <section class="flex justify-between py-7">
+            <div></div>
+            <section class="flex justify-between py-7" v-if="showSaveChangesButtons">
               <p class="text-[#CED4DA] cursor-pointer">
                 {{ $t("cancel") }}
               </p>
@@ -46,7 +47,7 @@
           </section>
         </div>
       </Form>
-      <Form @submit="submitForm">
+      <Form @submit="sendData">
         <section v-if="!disableInput && !showConfirmModal" class="mx-7 mt-5">
           <section class="pt-10">
             <ProfileInput name="username" rules="required" label="enter_new_username" />
@@ -72,7 +73,7 @@
             <p @click="backToInputHandler()" class="py-3">
               {{ $t("cancel") }}
             </p>
-            <button @click="submitUserName" type="submit" class="bg-red-600 p-3 rounded">
+            <button @click="sendData" type="submit" class="bg-red-600 p-3 rounded">
               {{ $t("confirm") }}
             </button>
           </section>
@@ -90,9 +91,10 @@ import { useRouter } from "vue-router";
 import ProfileFileInput from "@/components/ProfileFIleInput.vue";
 import ProfileInput from "@/components/ProfileInput.vue";
 import UserUpdatedAlert from "@/components/UserUpdatedAlert.vue";
-import axios from "@/config/axios/index.js";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
+import { useSendProfileAvatar } from "@/services";
+import { useSendUsername } from "@/services";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
@@ -100,10 +102,9 @@ const router = useRouter();
 const { userAvatar } = storeToRefs(useUserStore());
 const disableInput = ref(true);
 const showConfirmModal = ref(false);
-const { getUser } = useUserStore();
 const usernameError = ref(false);
-const changedUsername = ref(null);
 const showUserUpdated = ref(false);
+const showSaveChangesButtons = ref(false);
 
 function hideInputHandler() {
   if (disableInput.value == true) {
@@ -117,30 +118,14 @@ function backToInputHandler() {
   showConfirmModal.value = false;
   disableInput.value = false;
 }
-
-function submitForm(values) {
-  changedUsername.value = values.username;
-  showConfirmModal.value = true;
-}
-
-function submitUserName() {
-  showUserUpdated.value = false;
-  let data = {
-    username: changedUsername.value,
-  };
-
-  axios
-    .patch("api/user/update-name", data)
-    .then(() => {
-      getUser();
-      disableInput.value = true;
-      showConfirmModal.value = false;
-      showUserUpdated.value = true;
-    })
-    .catch((error) => {
-      usernameError.value = error.response.data.message;
-      disableInput.value = false;
-      showConfirmModal.value = false;
-    });
-}
+const { sendData } = useSendUsername(
+  showUserUpdated,
+  disableInput,
+  showConfirmModal,
+  usernameError
+);
+const { sendThumbnailData } = useSendProfileAvatar(
+  showUserUpdated,
+  showSaveChangesButtons
+);
 </script>
