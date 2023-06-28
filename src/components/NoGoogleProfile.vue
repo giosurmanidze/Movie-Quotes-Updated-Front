@@ -3,18 +3,14 @@
     <section class="flex justify-center">
       <UpdateUserAlert
         classes="absolute right-32 top-40 w-[400px]"
-        v-if="showUserAlert"
+        v-if="showUserUpdatedAlert"
       />
       <img
-        :src="
-          user.profile_picture
-            ? user.profile_picture
-            : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-        "
+        :src="userAvatar"
         class="h-[60px] md:h-[80px] lg:h-[140px] max-w-[140px] -mt-10 rounded-full"
       />
     </section>
-    <Form>
+    <Form @submit="submit">
       <div>
         <section @click="showSaveChangesButtons = true" class="text-center">
           <ProfileFileInput />
@@ -74,7 +70,7 @@
           <section v-if="!showEditPassword" class="flex flex-col">
             <div class="border border-gray-500 w-1/2 p-5">
               <h2>{{ $t("passwords_should_contain") }} :</h2>
-              <p class="mt-4 text-[#9C9A9A]">* {{ $t("8_or_more_characters") }}</p>
+              <p class="mt-4 text-[#9C9A9A]">* {{ $t("eight_or_more_characters") }}</p>
               <p>* {{ $t("less_than_15_characters") }}</p>
             </div>
           </section>
@@ -84,15 +80,15 @@
               name="password"
               label="password"
               type="password"
-              rules="alpha_num|min:8|lowercase"
+              rules="required|lower_alpha_num|min:8|max:15|lowercase"
             />
             <br />
             <ProfileInput
               class="lg:w-1/2 w-full"
-              name="confirm_password"
+              name="password_confirmation"
               label="conf_password"
               type="password"
-              rules="alpha_num|min:8|confirmed:password|lowercase"
+              rules="confirmed:password"
             />
           </section>
         </div>
@@ -115,21 +111,29 @@ import { ref } from "vue";
 import ProfileFileInput from "./ProfileFIleInput.vue";
 import ProfileInput from "./ProfileInput.vue";
 import UpdateUserAlert from "./UpdateUserAlert.vue";
+import axios from "@/config/axios/auth-index";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
+import { useSendUsernameAndAvatar } from "@/services";
 
 defineProps({ user: { type: Object, required: true } });
 
 const emailErrors = ref(null);
 const usernameErrors = ref(null);
-const showUserAlert = ref(false);
-
+const showUserUpdatedAlert = ref(false);
+const sendUserName = ref(false);
 const inputs = ref(0);
 const showSaveChangesButtons = ref(false);
 const disableInput = ref(true);
 const showEditPassword = ref(true);
+const { userAvatar } = storeToRefs(useUserStore());
 
 function inputToggleHandler() {
   disableInput.value = false;
   showSaveChangesButtons.value = true;
+  if (!disableInput.value) {
+    sendUserName.value = true;
+  }
 }
 
 function toggleEditPassword() {
@@ -141,4 +145,13 @@ function cancelHandler() {
   showSaveChangesButtons.value = false;
   inputs.value ? inputs.value-- : "";
 }
+
+const { submit } = useSendUsernameAndAvatar(
+  showUserUpdatedAlert,
+  sendUserName,
+  disableInput,
+  showSaveChangesButtons,
+  usernameErrors,
+  showEditPassword
+);
 </script>

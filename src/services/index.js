@@ -438,46 +438,61 @@ export function useSendUsernameAndAvatar(
   sendUserName,
   disableInput,
   showSaveChangesButtons,
-  usernameErrors
+  usernameErrors,
+  showEditPassword
 ) {
   const { getUser } = useUserStore()
 
   function submit(values) {
-    showUserUpdatedAlert.value = false
-
+    showUserUpdatedAlert.value = false;
     if (sendUserName.value) {
       axios
-        .patch('api/user/update-name', { username: values.username })
+        .patch("api/user/update-name", { username: values.username })
         .then(() => {
-          getUser()
-          showUserUpdatedAlert.value = true
-          disableInput.value = true
-          showSaveChangesButtons.value = false
-          usernameErrors.value = null
+          getUser();
+          showUserUpdatedAlert.value = true;
+          disableInput.value = true;
+          showSaveChangesButtons.value = false;
+          usernameErrors.value = null;
         })
         .catch((error) => {
-          usernameErrors.value = error.response.data.errors.username[0]
-          console.log(error)
-        })
+          usernameErrors.value = error.response.data.errors.username[0];
+          console.log(error);
+        });
     }
-
     if (values.avatar) {
       const config = {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      }
+        headers: { "Content-Type": "multipart/form-data" },
+      };
       axios
-        .post('api/user/profile-avatar', { thumbnail: values.avatar }, config)
+        .post("api/user/profile-avatar", { thumbnail: values.avatar }, config)
         .then(() => {
-          getUser()
-          showSaveChangesButtons.value = false
-          showUserUpdatedAlert.value = true
+          getUser();
+          showSaveChangesButtons.value = false;
+          showUserUpdatedAlert.value = true;
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
+        });
+    }
+    const data = {
+      password: values.password,
+      password_confirmation: values.password_confirmation,
+    };
+    if (values.password) {
+      axios
+        .post("api/user/update-password", data)
+        .then(() => {
+          getUser();
+          showSaveChangesButtons.value = false;
+          showUserUpdatedAlert.value = true;
+          showEditPassword.value = true;
         })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
-
   return {
     submit
   }

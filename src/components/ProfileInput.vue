@@ -7,18 +7,26 @@
       :rules="rules"
       :modelValue="currentUser"
       @update:modelValue="currentUser = $event"
+      :validateOnInput="true"
     >
       <div class="relative text-black my-2">
         <input
           :disabled="disabled"
-          :type="typeOfInput"
+          :type="inputType"
           v-bind="field"
           class="bg-[#CED4DA] p-1.5 w-full rounded smth"
           :class="[verified ? verifiedStyles : nonVerifiedStyles, classes]"
         />
         <TickIcon v-if="verified" class="absolute top-3 right-2" />
         <WarningIcon v-if="warning" class="absolute top-3 right-2" />
-        <ShowPasswordIcon v-if="type === 'password'" class="absolute top-3 right-2" />
+        <span
+          v-if="type === 'password'"
+          class="absolute right-2 top-[0.585rem]"
+          @click="togglePasswordVisibility"
+        >
+          <hide-eye v-if="!showPassword" />
+          <view-eye v-if="showPassword" />
+        </span>
       </div>
     </Field>
     <ErrorMessage class="text-red-300" :name="name" />
@@ -30,7 +38,8 @@ import { Field, ErrorMessage } from "vee-validate";
 import { computed, ref, defineProps } from "vue";
 import TickIcon from "@/assets/icons/TickIcon.vue";
 import WarningIcon from "@/assets/icons/WarningIcon.vue";
-import ShowPasswordIcon from "@/assets/icons/ShowPasswordIcon.vue";
+import ViewEye from "@/assets/icons/ViewEye.vue";
+import HideEye from "@/assets/icons/HideEye.vue";
 
 const props = defineProps({
   name: { type: String, required: true },
@@ -45,7 +54,7 @@ const props = defineProps({
   classes: { type: String, required: false },
 });
 
-const typeOfInput = ref(props.type);
+const showPassword = ref(false);
 
 const verifiedStyles = computed(() => {
   return props.verified ? "outline outline-[#198754] bg-green-bg text-white" : "";
@@ -54,4 +63,9 @@ const verifiedStyles = computed(() => {
 const nonVerifiedStyles = computed(() => {
   return props.warning ? "outline outline-[#EC9524] bg-orange-bg text-white" : "";
 });
+
+const inputType = computed(() => (showPassword.value ? "text" : props.type));
+function togglePasswordVisibility() {
+  showPassword.value = !showPassword.value;
+}
 </script>

@@ -3,7 +3,7 @@
   "check_email_to_verify_new_adress": "გთხოვთ, შეამოწმოთ ელფოსტა ახალი მისამართის დასადასტურებლად",
   "cancel": "გაუქმება",
   "passwords_should_contain": "პაროლები უნდა შეიცავდეს",
-  "8_or_more_characters": "8 ან მეტ სიმბოლოს",
+  "eight_or_more_characters": "8 ან მეტ სიმბოლოს",
   "less_than_15_characters": "15 სიმბოლოზე ნაკლები",
   "edit": "რედაქტირება",
   "upload_new_photo": "ატვირთეთ ახალი ფოტო",
