@@ -7,6 +7,7 @@ import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useQuotesStore } from '@/stores/useQuotesStore'
 import { useUserStore } from '@/stores/useUserStore'
 import axios from '@/config/axios/auth-index'
+import { storeToRefs } from 'pinia'
 
 export function useSubmitCreatePassword() {
   const route = useRoute()
@@ -44,6 +45,7 @@ export function useSubmitForgotPassword() {
 
   const submit = async (values, actions) => {
     loading.value = true
+    console.log(values)
 
     try {
       await sendForgotPassword(values)
@@ -418,11 +420,9 @@ export function useSendUsername(showUserUpdated, disableInput, showConfirmModal,
         getUser()
         disableInput.value = true
         showConfirmModal.value = false
-
         showUserUpdated.value = true
       })
       .catch((error) => {
-        usernameError.value = error.response.data.message
         disableInput.value = false
         showConfirmModal.value = false
       })
@@ -433,66 +433,87 @@ export function useSendUsername(showUserUpdated, disableInput, showConfirmModal,
   }
 }
 
-export function useSendUsernameAndAvatar(
+export function useUpdateUserData(
   showUserUpdatedAlert,
-  sendUserName,
+  ShowEmailSentAlert,
   disableInput,
+  disableInputForEmail,
   showSaveChangesButtons,
   usernameErrors,
-  showEditPassword
+  showEditPassword,
+  sendUserName,
+  sendEmail,
+  emailErrors
 ) {
   const { getUser } = useUserStore()
+  const { locale } = useI18n({ useScope: 'global' })
+  const { user } = storeToRefs(useUserStore())
 
   function submit(values) {
-    showUserUpdatedAlert.value = false;
+    console.log(values)
+    showUserUpdatedAlert.value = false
     if (sendUserName.value) {
       axios
-        .patch("api/user/update-name", { username: values.username })
+        .post('api/user/update-name', { username: values.username })
         .then(() => {
-          getUser();
-          showUserUpdatedAlert.value = true;
-          disableInput.value = true;
-          showSaveChangesButtons.value = false;
-          usernameErrors.value = null;
+          getUser()
+          showUserUpdatedAlert.value = true
+          disableInput.value = true
+          showSaveChangesButtons.value = false
+          usernameErrors.value = null
         })
         .catch((error) => {
-          usernameErrors.value = error.response.data.errors.username[0];
-          console.log(error);
-        });
+          usernameErrors.value = error.response.data.errors.username[0][locale.value]
+        })
     }
     if (values.avatar) {
       const config = {
-        headers: { "Content-Type": "multipart/form-data" },
-      };
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
       axios
-        .post("api/user/profile-avatar", { thumbnail: values.avatar }, config)
+        .post('api/user/profile-avatar', { thumbnail: values.avatar }, config)
         .then(() => {
-          getUser();
-          showSaveChangesButtons.value = false;
-          showUserUpdatedAlert.value = true;
+          getUser()
+          showSaveChangesButtons.value = false
+          showUserUpdatedAlert.value = true
         })
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
     const data = {
       password: values.password,
-      password_confirmation: values.password_confirmation,
-    };
+      password_confirmation: values.password_confirmation
+    }
     if (values.password) {
       axios
-        .post("api/user/update-password", data)
+        .post('api/user/update-password', data)
         .then(() => {
-          getUser();
-          showSaveChangesButtons.value = false;
-          showUserUpdatedAlert.value = true;
-          showEditPassword.value = true;
+          getUser()
+          showSaveChangesButtons.value = false
+          showUserUpdatedAlert.value = true
+          showEditPassword.value = true
         })
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+        })
+    }
+    if (sendEmail.value) {
+      axios
+        .post('api/user/add-email', { email: values.email, user_id: user.value.id })
+        .then(() => {
+          getUser()
+          ShowEmailSentAlert.value = true
+          disableInputForEmail.value = true
+          showSaveChangesButtons.value = false
+          emailErrors.value = null
+        })
+        .catch((error) => {
+          emailErrors.value = error.response.data.errors.email[0][locale.value]
+        })
     }
   }
+
   return {
     submit
   }

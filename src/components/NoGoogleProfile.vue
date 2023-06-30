@@ -1,9 +1,17 @@
 <template>
   <div class="2xl:w-5/6 mt-20 px-16 bg-[#11101A]">
     <section class="flex justify-center">
-      <UpdateUserAlert
-        classes="absolute right-32 top-40 w-[400px]"
+      <alert-modal
+        classes="absolute right-12 top-40 w-[400px]"
         v-if="showUserUpdatedAlert"
+        top_locale_text="succesfully_updated"
+        bottom_locale_text="congratulations_user_is_updated"
+      />
+      <alert-modal
+        classes="absolute right-12 top-40 w-[400px]"
+        v-if="ShowEmailSentAlert"
+        top_locale_text="confirm_email"
+        bottom_locale_text="please_verify_new_email"
       />
       <img
         :src="userAvatar"
@@ -36,23 +44,27 @@
           <section v-if="usernameErrors">
             <p class="text-red-500">{{ usernameErrors }}</p>
           </section>
-          <section class="grid w-full border-y border-gray-600 py-10 grid-cols-1 gap-5">
-            <div class="flex">
-              <ProfileInput
-                class="lg:w-1/2 w-full"
-                name="email"
-                label="email"
-                :disabled="true"
-                rules="required"
-                :verified="true"
-                :currentUser="user.email"
-              />
-              <p class="mt-9 ml-7">{{ $t("edit") }}</p>
-            </div>
-            <section v-if="emailErrors">
-              <p class="text-red-500">{{ emailErrors }}</p>
-            </section>
+          <section class="flex w-full">
+            <ProfileInput
+              class="lg:w-1/2 w-full"
+              name="email"
+              label="email"
+              rules="required"
+              :currentUser="user.email"
+              :disabled="disableInputForEmail"
+            />
+            <p
+              v-if="disableInputForEmail"
+              @click="inputToggleHandlerFromEmail()"
+              class="mt-9 ml-7 cursor-pointer"
+            >
+              {{ $t("edit") }}
+            </p>
           </section>
+          <section v-if="emailErrors">
+            <p class="text-red-500">{{ emailErrors }}</p>
+          </section>
+
           <section class="flex w-full">
             <section class="flex w-full">
               <div class="lg:w-1/2 w-full h-[48px]">
@@ -110,22 +122,25 @@ import { Form } from "vee-validate";
 import { ref } from "vue";
 import ProfileFileInput from "./ProfileFIleInput.vue";
 import ProfileInput from "./ProfileInput.vue";
-import UpdateUserAlert from "./UpdateUserAlert.vue";
-import axios from "@/config/axios/auth-index";
+import AlertModal from "./AlertModal.vue";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
-import { useSendUsernameAndAvatar } from "@/services";
+import { useUpdateUserData } from "@/services";
 
 defineProps({ user: { type: Object, required: true } });
 
 const emailErrors = ref(null);
 const usernameErrors = ref(null);
 const showUserUpdatedAlert = ref(false);
-const sendUserName = ref(false);
+const ShowEmailSentAlert = ref(false);
 const inputs = ref(0);
 const showSaveChangesButtons = ref(false);
 const disableInput = ref(true);
+const disableInputForEmail = ref(true);
 const showEditPassword = ref(true);
+const sendUserName = ref(false);
+const sendEmail = ref(false);
+
 const { userAvatar } = storeToRefs(useUserStore());
 
 function inputToggleHandler() {
@@ -133,6 +148,13 @@ function inputToggleHandler() {
   showSaveChangesButtons.value = true;
   if (!disableInput.value) {
     sendUserName.value = true;
+  }
+}
+function inputToggleHandlerFromEmail() {
+  disableInputForEmail.value = false;
+  showSaveChangesButtons.value = true;
+  if (!disableInputForEmail.value) {
+    sendEmail.value = true;
   }
 }
 
@@ -143,15 +165,20 @@ function toggleEditPassword() {
 
 function cancelHandler() {
   showSaveChangesButtons.value = false;
+  showEditPassword.value = true;
   inputs.value ? inputs.value-- : "";
 }
 
-const { submit } = useSendUsernameAndAvatar(
+const { submit } = useUpdateUserData(
   showUserUpdatedAlert,
-  sendUserName,
+  ShowEmailSentAlert,
   disableInput,
+  disableInputForEmail,
   showSaveChangesButtons,
   usernameErrors,
-  showEditPassword
+  showEditPassword,
+  sendUserName,
+  sendEmail,
+  emailErrors
 );
 </script>

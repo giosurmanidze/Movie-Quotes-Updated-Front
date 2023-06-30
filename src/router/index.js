@@ -18,6 +18,7 @@ import isNotAuthenticated from '@/router/unauth-guard.js'
 import Forbidden from '@/pages/ErrorPages/Forbidden.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
 import axios from '@/config/axios/index.js'
+import SuccessUpdatedVerifiedEmail from '@/pages/Auth/SuccessUpdatedVerifiedEmail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +75,12 @@ const router = createRouter({
           name: 'changedPassword',
           component: ChangedPassword,
           beforeEnter: isNotAuthenticated
+        },
+        {
+          path: '/changed-password',
+          name: 'changedPassword',
+          component: ChangedPassword,
+          beforeEnter: isNotAuthenticated
         }
       ]
     },
@@ -106,9 +113,15 @@ const router = createRouter({
       beforeEnter: isAuthenticated
     },
     {
-      path: '/user-profile',
+      path: '/user-profile/:id',
       name: 'userProfile',
       component: UserProfile,
+      beforeEnter: isAuthenticated
+    },
+    {
+      path: '/email-verified/:id',
+      name: 'emailVerified',
+      component: SuccessUpdatedVerifiedEmail,
       beforeEnter: isAuthenticated
     }
   ]

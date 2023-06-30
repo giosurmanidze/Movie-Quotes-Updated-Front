@@ -1,5 +1,5 @@
 <template>
-  <Field name="thumbnail" type="file" v-slot="{ field }">
+  <Field name="avatar" type="file" v-slot="{ field }">
     <input type="file" id="getSecondFile" class="hidden" v-bind="field" />
     <p
       class="cursor-pointer mt-2"

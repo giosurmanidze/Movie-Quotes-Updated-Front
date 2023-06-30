@@ -1,6 +1,11 @@
 <template>
   <div class="text-white">
-    <UserUpdatedAlert classes="absolute right-6 left-6" v-if="showUserUpdated" />
+    <alert-modal
+      classes="absolute right-6 left-6"
+      v-if="showUserUpdated"
+      top_locale_text="succesfully_updated"
+      bottom_locale_text="congratulations_user_is_updated"
+    />
     <section class="mb-5">
       <LeftArrowIcon @click="hideInputHandler()" />
     </section>
@@ -90,7 +95,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import ProfileFileInput from "@/components/ProfileFIleInput.vue";
 import ProfileInput from "@/components/ProfileInput.vue";
-import UserUpdatedAlert from "@/components/UserUpdatedAlert.vue";
+import AlertModal from "@/components/AlertModal.vue";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
 import { useSendProfileAvatar } from "@/services";
