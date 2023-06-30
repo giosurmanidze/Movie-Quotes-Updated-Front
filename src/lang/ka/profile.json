@@ -11,5 +11,10 @@
   "sure_to_make_changes": "ნამდვილად გსურთ ცვლილებების შენახვა",
   "confirm": "დადასტურება",
   "succesfully_updated": "წარმატებით განახლდა",
-  "congratulations_user_is_updated": "გილოცავთ მომხმარებელი განახლებულია"
+  "congratulations_user_is_updated": "გილოცავთ მომხმარებელი განახლებულია",
+  "email_updated_successfully": "იმეილი წარმატებით შეიცვალა",
+  "email_updated_header_text": "გადადით პროფილის გვერდზე",
+  "go_profile": "პროფილზე გადასვლა",
+  "confirm_email": "დადასტურების იმეილი გაიგზავნა",
+  "please_verify_new_email": "გთხოვთ, გადაამოწმოთ ახალი ელფოსტა, რომელიც ჩვენ გამოგვიგზავნეთ"
 }

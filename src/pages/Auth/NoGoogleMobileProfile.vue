@@ -1,6 +1,17 @@
 <template>
   <div class="w-full -mx-7">
-    <UserUpdatedAlert v-if="userUpdated" classes=" absolute" />
+    <alert-modal
+      classes="right-12 top-16 absolute"
+      v-if="showUserUpdatedAlert"
+      top_locale_text="succesfully_updated"
+      bottom_locale_text="congratulations_user_is_updated"
+    />
+    <alert-modal
+      classes="right-12 top-16 absolute"
+      v-if="ShowEmailSentAlert"
+      top_locale_text="confirm_email"
+      bottom_locale_text="please_verify_new_email"
+    />
     <section class="mb-4 mt-1 pl-7">
       <LeftArrowIcon @click="goBackHandler()" />
     </section>
@@ -25,11 +36,11 @@
         </SuccessfullEditModal>
       </section>
       <section v-if="profileStore.showForm" class="flex justify-center">
-        <img :src="userAvatar" class="h-[140px] max-w-[140px]" />
+        <img :src="userAvatar" class="h-[140px] max-w-[140px] rounded-full" />
       </section>
-      <Form>
+      <Form @submit="submit">
         <div v-if="profileStore.showForm">
-          <section class="text-center">
+          <section class="text-center" @click="showSaveChangesButtons = true">
             <MobileFileInput />
           </section>
           <section class="mt-8 grid grid-cols-1 gap-2 divide-y divide-gray-500">
@@ -63,21 +74,26 @@
             <div></div>
           </section>
         </div>
+        <ChangeUsername
+          v-if="!profileStore.showForm && sendUserName"
+          :usernameErrors="usernameErrors"
+        />
+        <ChangeEmail
+          :email="user.email"
+          :email_verified_at="user.email_verified_at"
+          v-if="!profileStore.showForm && showEmailInput"
+          :usernameErrors="usernameErrors"
+        />
+        <ChangePassword v-if="!profileStore.showForm && showEditPassword" />
+        <section v-if="showSaveChangesButtons" class="flex justify-between mt-8">
+          <button type="button" class="p-2 pr-8 cursor-pointer" @click="cancelHandler()">
+            {{ $t("cancel") }}
+          </button>
+          <button class="bg-red-600 p-2 rounded" type="submit">
+            {{ $t("save_changes") }}
+          </button>
+        </section>
       </Form>
-      <ChangeUsername
-        :email="user.email"
-        v-if="!profileStore.showForm && showUsernameInput"
-      />
-      <ChangeEmail
-        :email="user.email"
-        :email_verified_at="user.email_verified_at"
-        v-if="!profileStore.showForm && showEmailInput"
-      />
-      <ChangePassword
-        :email="user.email"
-        :username="user.username"
-        v-if="!profileStore.showForm && showPasswordInput"
-      />
     </div>
   </div>
 </template>
@@ -93,9 +109,10 @@ import MobileFileInput from "@/components/MobileFileInput.vue";
 import SuccessfullEditModal from "@/components/SuccessfullEditModal.vue";
 import ChangeUsername from "@/components/ChangeUsername.vue";
 import { useProfilePageStore } from "@/stores/useProfilePageStore";
-import UserUpdatedAlert from "@/components/UserUpdatedAlert.vue";
+import AlertModal from "@/components/AlertModal.vue";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
+import { useUpdateUserData } from "@/services/index";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
@@ -103,48 +120,74 @@ const userName = computed(() => {
   return props.user.username;
 });
 const { userAvatar } = storeToRefs(useUserStore());
-const showUsernameInput = ref(false);
 const showEmailInput = ref(false);
-const showPasswordInput = ref(false);
+const inputs = ref(0);
 
 const profileStore = useProfilePageStore();
 const { toggleShowForm } = useProfilePageStore();
 const router = useRouter();
 
+function cancelHandler() {
+  showSaveChangesButtons.value = false;
+  inputs.value ? inputs.value-- : "";
+}
+
 function editUsernameHandler() {
   toggleShowForm();
-  showUsernameInput.value = true;
-  showPasswordInput.value = false;
+  showEditPassword.value = false;
+  sendUserName.value = true;
   showEmailInput.value = false;
 }
 
 function editPasswordHandler() {
   toggleShowForm();
-  showUsernameInput.value = false;
-  showPasswordInput.value = true;
+  sendUserName.value = false;
+  showEditPassword.value = true;
   showEmailInput.value = false;
 }
 
 function editEmailHandler() {
   toggleShowForm();
-  showPasswordInput.value = false;
-  showUsernameInput.value = false;
+  showEditPassword.value = false;
+  sendUserName.value = false;
   showEmailInput.value = true;
 }
 
 function goBackHandler() {
   if (
-    showUsernameInput.value == false &&
-    showPasswordInput.value == false &&
+    sendUserName.value == false &&
+    showEditPassword.value == false &&
     profileStore.showForm == true
   ) {
     router.back();
   } else {
     toggleShowForm(true);
-    showUsernameInput.value = false;
-    showPasswordInput.value = false;
+    sendUserName.value = false;
+    showEditPassword.value = false;
   }
 }
 
-const userUpdated = ref(false);
+const showUserUpdatedAlert = ref(false);
+const ShowEmailSentAlert = ref(false);
+const disableInput = ref(false);
+const showSaveChangesButtons = ref(false);
+const usernameErrors = ref("");
+const emailErrors = ref("");
+const disableInputForEmail = ref(true);
+const showEditPassword = ref(true);
+const sendUserName = ref(false);
+const sendEmail = ref(false);
+
+const { submit } = useUpdateUserData(
+  showUserUpdatedAlert,
+  ShowEmailSentAlert,
+  disableInput,
+  disableInputForEmail,
+  showSaveChangesButtons,
+  usernameErrors,
+  showEditPassword,
+  sendUserName,
+  sendEmail,
+  emailErrors
+);
 </script>

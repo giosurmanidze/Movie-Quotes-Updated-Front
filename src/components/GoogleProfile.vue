@@ -1,6 +1,11 @@
 <template>
   <div class="2xl:w-5/6 mt-20 px-16 bg-[#11101A]">
-    <UserUpdatedAlert classes="absolute right-20 w-1/3" v-if="showUserUpdatedAlert" />
+    <alert-modal
+      classes="absolute right-20 w-1/3"
+      v-if="showUserUpdatedAlert"
+      top_locale_text="succesfully_updated"
+      bottom_locale_text="congratulations_user_is_updated"
+    />
     <section class="flex justify-center text-white">
       <img
         :src="userAvatar"
@@ -70,10 +75,10 @@ import { Form } from "vee-validate";
 import { ref } from "vue";
 import ProfileFileInput from "./ProfileFIleInput.vue";
 import ProfileInput from "./ProfileInput.vue";
-import UserUpdatedAlert from "./UserUpdatedAlert.vue";
+import AlertModal from "./AlertModal.vue";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
-import { useSendUsernameAndAvatar } from "@/services";
+import { useUpdateUserData } from "@/services";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
@@ -81,7 +86,6 @@ const disableInput = ref(true);
 const usernameErrors = ref(false);
 const showUserUpdatedAlert = ref(false);
 const showSaveChangesButtons = ref(false);
-const sendUserName = ref(false);
 const showEditPassword = ref(false);
 const { userAvatar } = storeToRefs(useUserStore());
 
@@ -96,9 +100,8 @@ function hideChangeButtons() {
   disableInput.value = true;
   showSaveChangesButtons.value = false;
 }
-const { submit } = useSendUsernameAndAvatar(
+const { submit, sendUserName } = useUpdateUserData(
   showUserUpdatedAlert,
-  sendUserName,
   disableInput,
   showSaveChangesButtons,
   usernameErrors,

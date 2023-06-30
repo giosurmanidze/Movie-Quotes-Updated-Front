@@ -1,6 +1,6 @@
 <template>
   <div class="text-white">
-    <router-link :to="{ name: 'userProfile' }">
+    <div @click="navigateToProfile()">
       <section class="flex cursor-pointer">
         <img
           :src="userAvatar"
@@ -16,7 +16,7 @@
           </button>
         </section>
       </section>
-    </router-link>
+    </div>
     <section class="mt-8 ml-2">
       <router-link :to="{ name: 'newsFeed' }" class="flex items-center cursor-pointer">
         <home-icon :path="$route.name" />
@@ -38,7 +38,7 @@
 <script setup>
 import HomeIcon from "@/assets/icons/HomeIcon.vue";
 import MoviesListIcon from "@/assets/icons/ChooseMovieIcon.vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
 
@@ -47,4 +47,9 @@ const { userAvatar } = storeToRefs(useUserStore());
 const { getUser } = useUserStore();
 getUser();
 const { user } = storeToRefs(useUserStore());
+const router = useRouter();
+
+function navigateToProfile() {
+  router.push({ name: "userProfile", params: { id: user.value.id } });
+}
 </script>

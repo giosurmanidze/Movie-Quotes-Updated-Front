@@ -25,7 +25,7 @@
             label="conf_password"
             type="password"
             name="password_confirmation"
-            rules="required|confirmed:@password"
+            rules="required|confirmed:password"
             :placeholder="$t('conf_password')"
           />
           <submit-button

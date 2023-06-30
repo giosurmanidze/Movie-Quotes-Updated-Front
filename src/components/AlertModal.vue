@@ -3,14 +3,14 @@
     <section class="flex justify-between">
       <div class="flex">
         <TickProfileIcon />
-        <p class="ml-4">{{ $t("succesfully_updated") }}</p>
+        <p class="ml-4">{{ $t(top_locale_text) }}</p>
       </div>
       <div class="cursor-pointer">
-        <CrossIcon @click="showAlertHandler()" />
+        <CrossIcon @click="showAlert = false" />
       </div>
     </section>
     <section>
-      <p class="my-4 ml-10">{{ $t("congratulations_user_is_updated") }} !</p>
+      <p class="my-4 ml-10">{{ $t(bottom_locale_text) }} !</p>
     </section>
   </div>
 </template>
@@ -20,10 +20,14 @@ import { ref } from "vue";
 import CrossIcon from "@/assets/icons/CrossIcon.vue";
 import TickProfileIcon from "@/assets/icons/TickProfileIcon.vue";
 
-defineProps({ classes: { required: true, type: String } });
+defineProps({
+  classes: { required: true, type: String },
+  top_locale_text: {
+    type: String,
+  },
+  bottom_locale_text: {
+    type: String,
+  },
+});
 const showAlert = ref(true);
-
-function showAlertHandler() {
-  showAlert.value = false;
-}
 </script>
