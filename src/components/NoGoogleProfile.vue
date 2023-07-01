@@ -1,21 +1,21 @@
 <template>
-  <div class="2xl:w-5/6 mt-20 px-16 bg-[#11101A]">
+  <div class="2xl:w-5/6 mt-20 px-16 bg-modal_bg">
     <section class="flex justify-center">
       <alert-modal
-        classes="absolute right-12 top-40 w-[400px]"
+        classes="absolute right-12 top-40 w-[25rem]"
         v-if="showUserUpdatedAlert"
         top_locale_text="succesfully_updated"
         bottom_locale_text="congratulations_user_is_updated"
       />
       <alert-modal
-        classes="absolute right-12 top-40 w-[400px]"
+        classes="absolute right-12 top-40 w-[25rem]"
         v-if="ShowEmailSentAlert"
         top_locale_text="confirm_email"
         bottom_locale_text="please_verify_new_email"
       />
       <img
         :src="userAvatar"
-        class="h-[60px] md:h-[80px] lg:h-[140px] max-w-[140px] -mt-10 rounded-full"
+        class="h-[3.75rem] md:h-20 lg:h-[8.75rem] max-w-[8.75rem] -mt-10 rounded-full"
       />
     </section>
     <Form @submit="submit">
@@ -67,8 +67,8 @@
 
           <section class="flex w-full">
             <section class="flex w-full">
-              <div class="lg:w-1/2 w-full h-[48px]">
-                <p class="bg-[#CED4DA] py-1.5 pl-1 rounded text-black">**********</p>
+              <div class="lg:w-1/2 w-full h-12">
+                <p class="bg-quote_text py-1.5 pl-1 rounded text-black">**********</p>
               </div>
               <p
                 v-if="showEditPassword"

@@ -3,7 +3,7 @@
     <label
       for="file"
       :class="[
-        !meta.valid && meta.touched ? 'border-1 border-red_border' : '',
+        !meta.valid && meta.touched ? 'border-1 border-label_color' : '',
         meta.valid && meta.touched ? 'border-1  border-green_border' : '',
       ]"
       class="bg-modal_bg text-white h-[5.25rem] border border-white-1 px-2 items-center rounded-md hidden"

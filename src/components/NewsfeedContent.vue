@@ -59,7 +59,7 @@
           />
           <CommentInput
             name="comment"
-            classes="w-full py-2 px-3 rounded bg-comment_input_bg"
+            classes="w-full py-2 px-3 rounded bg-add_quote_btn"
             :placeholder="$t('write_comment')"
           />
         </Form>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!showConfirmModal">
-      <section class="bg-[#11101A] px-4 py-3">
+      <section class="bg-modal_bg px-4 py-3">
         <p>{{ $t("passwords_should_contain") }}:</p>
         <ul style="list-style-type: disc" class="px-4 py-3">
           <li class="text-sm">{{ $t("eight_or_more_characters") }}</li>

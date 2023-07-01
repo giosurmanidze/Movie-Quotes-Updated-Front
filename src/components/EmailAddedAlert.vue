@@ -3,7 +3,7 @@
     <section class="flex justify-between">
       <div class="flex">
         <TickProfileIcon />
-        <p class="ml-4 text-[#0F5132]">{{ $t("new_email_added") }} !</p>
+        <p class="ml-4 text-alert_text_color">{{ $t("new_email_added") }} !</p>
       </div>
       <div class="cursor-pointer">
         <CrossIcon @click="showAlertHandler()" />

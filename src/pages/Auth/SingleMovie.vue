@@ -32,7 +32,7 @@
               <p class="text-lg text-text_color">{{ movieName }} ({{ releaseDate }})</p>
             </div>
             <div
-              class="grid grid-cols-2 divide-x items-center bg-comment_input_bg py-2 px-5 rounded"
+              class="grid grid-cols-2 divide-x items-center bg-add_quote_btn py-2 px-5 rounded"
             >
               <section class="pr-5 cursor-pointer" @click="store.toggleEditModal()">
                 <EditIcon />

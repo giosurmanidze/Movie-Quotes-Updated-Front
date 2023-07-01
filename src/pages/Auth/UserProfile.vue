@@ -36,6 +36,6 @@ getUser();
 const { user } = storeToRefs(useUserStore());
 
 const isLoggedInWithGoogle = computed(() => {
-  return user.value.google_id ? true : false;
+  return !!user.value.google_id;
 });
 </script>

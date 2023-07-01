@@ -9,9 +9,9 @@
     <section class="mb-5">
       <LeftArrowIcon @click="hideInputHandler()" />
     </section>
-    <section class="bg-[#24222F] -mx-7 h-[80vh]">
+    <section class="bg-add_quote_btn -mx-7 h-[80vh]">
       <section v-if="disableInput" class="flex justify-center">
-        <img :src="userAvatar" class="h-[130px] mt-5 max-w-[140px] rounded-full" />
+        <img :src="userAvatar" class="h-32 mt-5 max-w-[8.75rem] rounded-full" />
       </section>
       <Form @submit="sendThumbnailData">
         <div v-if="disableInput" class="text-white px-7">
@@ -24,25 +24,28 @@
                 <p class="pb-2">{{ $t("username") }}</p>
                 <p>{{ user.username }}</p>
               </section>
-              <p class="cursor-pointer mt-7 text-[#CED4DA]" @click="disableInput = false">
+              <p
+                class="cursor-pointer mt-7 text-quote_text"
+                @click="disableInput = false"
+              >
                 {{ $t("edit") }}
               </p>
             </section>
             <section class="flex justify-between mt-7">
               <section class="flex flex-col mt-5 pb-5">
                 <p class="pb-2">{{ $t("email") }}</p>
-                <p class="text-[#CED4DA]">{{ user.email }}</p>
+                <p class="text-quote_text">{{ user.email }}</p>
               </section>
             </section>
             <section class="flex justify-between mt-4">
               <section class="flex flex-col mt-5 pb-5">
                 <p class="pb-2">{{ $t("password") }}</p>
-                <p class="text-[#CED4DA]">**********</p>
+                <p class="text-quote_text">**********</p>
               </section>
             </section>
             <div></div>
             <section class="flex justify-between py-7" v-if="showSaveChangesButtons">
-              <p class="text-[#CED4DA] cursor-pointer">
+              <p class="text-quote_text cursor-pointer">
                 {{ $t("cancel") }}
               </p>
               <button class="bg-red-600 p-2 rounded text-white" type="submit">
@@ -112,7 +115,7 @@ const showUserUpdated = ref(false);
 const showSaveChangesButtons = ref(false);
 
 function hideInputHandler() {
-  if (disableInput.value == true) {
+  if (disableInput.value === true) {
     router.back();
   } else {
     disableInput.value = true;

@@ -1,5 +1,9 @@
 <template>
-  <div v-if="showAlert" class="bg-[#BADBCC] p-3 text-[#0F5132] z-10" :class="classes">
+  <div
+    v-if="showAlert"
+    class="bg-alert_bg_color p-3 text-alert_text_color z-10"
+    :class="classes"
+  >
     <section class="flex justify-between">
       <div class="flex">
         <TickProfileIcon />

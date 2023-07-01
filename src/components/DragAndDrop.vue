@@ -6,7 +6,7 @@
       @dragover.prevent
       class="relative flex flex-row items-center gap-3 rounded-[0.25rem] border p-3 my-4"
       :class="[
-        !meta.valid && meta.touched ? 'border-red_border' : '',
+        !meta.valid && meta.touched ? 'border-label_color' : '',
         meta.valid && meta.touched ? 'border-green_border' : '',
       ]"
     >

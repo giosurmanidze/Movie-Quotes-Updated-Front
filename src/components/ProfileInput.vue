@@ -14,7 +14,7 @@
           :disabled="disabled"
           :type="inputType"
           v-bind="field"
-          class="bg-[#CED4DA] p-1.5 w-full rounded smth"
+          class="bg-quote_text p-1.5 w-full rounded smth"
           :class="[verified ? verifiedStyles : nonVerifiedStyles, classes]"
         />
         <TickIcon v-if="verified" class="absolute top-3 right-2" />
