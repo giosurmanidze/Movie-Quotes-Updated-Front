@@ -1,6 +1,6 @@
 <template>
   <div class="text-white">
-    <div @click="navigateToProfile()">
+    <router-link :to="{ name: 'userProfile' }">
       <section class="flex cursor-pointer">
         <img
           :src="userAvatar"
@@ -16,7 +16,7 @@
           </button>
         </section>
       </section>
-    </div>
+    </router-link>
     <section class="mt-8 ml-2">
       <router-link :to="{ name: 'newsFeed' }" class="flex items-center cursor-pointer">
         <home-icon :path="$route.name" />
@@ -48,8 +48,4 @@ const { getUser } = useUserStore();
 getUser();
 const { user } = storeToRefs(useUserStore());
 const router = useRouter();
-
-function navigateToProfile() {
-  router.push({ name: "userProfile", params: { id: user.value.id } });
-}
 </script>

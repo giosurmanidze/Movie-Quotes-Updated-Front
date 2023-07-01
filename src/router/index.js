@@ -113,13 +113,13 @@ const router = createRouter({
       beforeEnter: isAuthenticated
     },
     {
-      path: '/user-profile/:id',
+      path: '/user-profile',
       name: 'userProfile',
       component: UserProfile,
       beforeEnter: isAuthenticated
     },
     {
-      path: '/email-verified/:id',
+      path: '/email-verified',
       name: 'emailVerified',
       component: SuccessUpdatedVerifiedEmail,
       beforeEnter: isAuthenticated
