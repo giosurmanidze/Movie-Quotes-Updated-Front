@@ -2,10 +2,10 @@
   <section v-if="!showConfirmModal">
     <section>
       <ProfileInput name="email" rules="required" label="email" />
-      <p class="text-red-500" v-if="usernameErrors">{{ usernameErrors }}</p>
+      <p class="text-red-500" v-if="emailErrors">{{ emailErrors }}</p>
     </section>
     <section class="flex justify-between pt-5">
-      <p class="py-2 px-1">{{ $t("cancel") }}</p>
+      <div @click="setShowValue(true)" class="py-2 px-1">{{ $t("cancel") }}</div>
       <button class="bg-red-600 rounded py-2 px-4">
         {{ $t("edit") }}
       </button>
@@ -17,7 +17,7 @@
     </section>
     <section class="pt-5 flex justify-between">
       <p @click="cancelHandler()" class="py-3">{{ $t("cancel") }}</p>
-      <p @click="sendData()" class="bg-red-600 p-3 rounded">
+      <p class="bg-red-600 p-3 rounded">
         {{ $t("confirm") }}
       </p>
     </section>
@@ -27,12 +27,13 @@
 <script setup>
 import { ref } from "vue";
 import ProfileInput from "./ProfileInput.vue";
+import { useProfilePageStore } from "@/stores/useProfilePageStore";
+
+const { setShowValue } = useProfilePageStore();
 
 const props = defineProps({
-  email: { type: String, required: true },
-  usernameErrors: { type: String, required: false },
+  emailErrors: { type: String, required: false },
 });
-
 const showConfirmModal = ref(false);
 
 function cancelHandler() {

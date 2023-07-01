@@ -16,25 +16,6 @@
       <LeftArrowIcon @click="goBackHandler()" />
     </section>
     <div class="bg-add_quote_btn w-screen h-[80vh] px-7 py-10 text-white">
-      <section class="mb-3">
-        <SuccessfullEditModal
-          v-if="
-            profileStore.usernameEdited &&
-            profiUserUpdatedAlertleStore.showSuccessfullEditModal
-          "
-          ><p class="text-alert_text_color pl-3">
-            {{ $t("username_changed_successfully") }}
-          </p>
-        </SuccessfullEditModal>
-      </section>
-      <section class="mb-3">
-        <SuccessfullEditModal
-          v-if="profileStore.passwordEdited && profileStore.showSuccessfullEditModal"
-          ><p class="text-alert_text_color pl-3">
-            {{ $t("password_changed_successfully") }}
-          </p>
-        </SuccessfullEditModal>
-      </section>
       <section v-if="profileStore.showForm" class="flex justify-center">
         <img :src="userAvatar" class="h-[8.75rem] max-w-[8.75rem] rounded-full" />
       </section>
@@ -79,10 +60,8 @@
           :usernameErrors="usernameErrors"
         />
         <ChangeEmail
-          :email="user.email"
-          :email_verified_at="user.email_verified_at"
-          v-if="!profileStore.showForm && showEmailInput"
-          :usernameErrors="usernameErrors"
+          v-if="!profileStore.showForm && sendEmail"
+          :emailErrors="emailErrors"
         />
         <ChangePassword v-if="!profileStore.showForm && showEditPassword" />
         <section v-if="showSaveChangesButtons" class="flex justify-between mt-8">
@@ -106,7 +85,6 @@ import LeftArrowIcon from "@/assets/icons/LeftArrowIcon.vue";
 import ChangePassword from "@/components/ChangePassword.vue";
 import ChangeEmail from "@/components/ChangeEmail.vue";
 import MobileFileInput from "@/components/MobileFileInput.vue";
-import SuccessfullEditModal from "@/components/SuccessfullEditModal.vue";
 import ChangeUsername from "@/components/ChangeUsername.vue";
 import { useProfilePageStore } from "@/stores/useProfilePageStore";
 import AlertModal from "@/components/AlertModal.vue";
@@ -120,7 +98,6 @@ const userName = computed(() => {
   return props.user.username;
 });
 const { userAvatar } = storeToRefs(useUserStore());
-const showEmailInput = ref(false);
 const inputs = ref(0);
 
 const profileStore = useProfilePageStore();
@@ -136,21 +113,21 @@ function editUsernameHandler() {
   toggleShowForm();
   showEditPassword.value = false;
   sendUserName.value = true;
-  showEmailInput.value = false;
+  sendEmail.value = false;
 }
 
 function editPasswordHandler() {
   toggleShowForm();
   sendUserName.value = false;
   showEditPassword.value = true;
-  showEmailInput.value = false;
+  sendEmail.value = false;
 }
 
 function editEmailHandler() {
   toggleShowForm();
   showEditPassword.value = false;
   sendUserName.value = false;
-  showEmailInput.value = true;
+  sendEmail.value = true;
 }
 
 function goBackHandler() {
