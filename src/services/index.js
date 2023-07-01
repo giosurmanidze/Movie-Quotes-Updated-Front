@@ -447,7 +447,6 @@ export function useUpdateUserData(
 ) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
-  const { user } = storeToRefs(useUserStore())
 
   function submit(values) {
     console.log(values)
@@ -500,7 +499,7 @@ export function useUpdateUserData(
     }
     if (sendEmail.value) {
       axios
-        .post('api/user/add-email', { email: values.email, user_id: user.value.id })
+        .post('api/user/add-email', { email: values.email})
         .then(() => {
           getUser()
           ShowEmailSentAlert.value = true
@@ -516,5 +515,16 @@ export function useUpdateUserData(
 
   return {
     submit
+  }
+}
+
+export async function UpdateUserEmail(newEmail,userId) {
+  try {
+    const response = await axios.post(`api/confirm-account/${userId.value}`, {
+      email: newEmail.value,
+    });
+    return response
+  } catch (error) {
+    console.error(error);
   }
 }

@@ -5,7 +5,7 @@
       msg="email_updated_header_text"
       btnText="go_profile"
       classes="bg-btn_color w-full h-[5vh]"
-      :route="'/user-profile/' + userId"
+      route="/user-profile"
       img="success"
     />
   </div>
@@ -13,23 +13,16 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import axios from "@/config/axios/index";
 import MessageModal from "@/components/MessageModal.vue";
 import { useRoute } from "vue-router";
+import { UpdateUserEmail } from "@/services/index";
 
 const route = useRoute();
-const userId = ref(route.params.id);
+const params = ref(route.query);
+const newEmail = ref(params.value.email);
+const userId = ref(params.value.userId);
 
 onMounted(async () => {
-  loadData();
+  UpdateUserEmail(newEmail, userId);
 });
-
-async function loadData() {
-  try {
-    const response = await axios.get(`api/confirm-account/${userId.value}`);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
-}
 </script>
