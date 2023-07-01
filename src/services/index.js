@@ -5,9 +5,9 @@ import { useI18n } from 'vue-i18n'
 import { useModalStore } from '@/stores/useModalStore'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useQuotesStore } from '@/stores/useQuotesStore'
+import { useProfilePageStore } from '@/stores/useProfilePageStore'
 import { useUserStore } from '@/stores/useUserStore'
 import axios from '@/config/axios/auth-index'
-import { storeToRefs } from 'pinia'
 
 export function useSubmitCreatePassword() {
   const route = useRoute()
@@ -447,63 +447,56 @@ export function useUpdateUserData(
 ) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
+  const { setShowValue } = useProfilePageStore();
+
 
   function submit(values) {
-    console.log(values)
     showUserUpdatedAlert.value = false
-    if (sendUserName.value) {
-      axios
-        .post('api/user/update-name', { username: values.username })
-        .then(() => {
-          getUser()
+
+    const userData = {
+      username: sendUserName.value ? values.username : null,
+      password: values.password,
+      thumbnail: values.avatar
+    }
+    const config = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+    axios
+      .post('api/user/update', userData, config)
+      .then(() => {
+        getUser()
+        setShowValue(true)
+        if (sendUserName.value) {
           showUserUpdatedAlert.value = true
+          sendUserName.value = false
           disableInput.value = true
           showSaveChangesButtons.value = false
           usernameErrors.value = null
-        })
-        .catch((error) => {
-          usernameErrors.value = error.response.data.errors.username[0][locale.value]
-        })
-    }
-    if (values.avatar) {
-      const config = {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      }
-      axios
-        .post('api/user/profile-avatar', { thumbnail: values.avatar }, config)
-        .then(() => {
-          getUser()
+        }
+        if (userData.thumbnail) {
           showSaveChangesButtons.value = false
           showUserUpdatedAlert.value = true
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
-    const data = {
-      password: values.password,
-      password_confirmation: values.password_confirmation
-    }
-    if (values.password) {
-      axios
-        .post('api/user/update-password', data)
-        .then(() => {
-          getUser()
+        }
+        if (userData.password) {
           showSaveChangesButtons.value = false
           showUserUpdatedAlert.value = true
           showEditPassword.value = true
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
+        }
+      })
+      .catch((error) => {
+        usernameErrors.value = error.response.data.errors.username
+          ? error.response.data.errors.username[0][locale.value]
+          : null
+      })
+
     if (sendEmail.value) {
       axios
-        .post('api/user/add-email', { email: values.email})
+        .post('api/user/add-email', { email: values.email })
         .then(() => {
           getUser()
           ShowEmailSentAlert.value = true
           disableInputForEmail.value = true
+          sendEmail.value = false
           showSaveChangesButtons.value = false
           emailErrors.value = null
         })
@@ -518,13 +511,13 @@ export function useUpdateUserData(
   }
 }
 
-export async function UpdateUserEmail(newEmail,userId) {
+export async function UpdateUserEmail(newEmail, userId) {
   try {
     const response = await axios.post(`api/confirm-account/${userId.value}`, {
-      email: newEmail.value,
-    });
+      email: newEmail.value
+    })
     return response
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
 }

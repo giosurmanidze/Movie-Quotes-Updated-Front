@@ -23,7 +23,7 @@
           label="conf_password"
         />
         <section class="flex justify-between text-white pt-5">
-          <p class="mt-2">{{ $t("cancel") }}</p>
+          <div @click="setShowValue(true)" class="py-2 px-1">{{ $t("cancel") }}</div>
           <button class="bg-red-600 rounded px-5 py-2">
             {{ $t("edit") }}
           </button>
@@ -45,8 +45,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import ProfileInput from "./ProfileInput.vue";
+import { useProfilePageStore } from "@/stores/useProfilePageStore";
+
+const { setShowValue } = useProfilePageStore();
 
 function cancelHandler() {
   showConfirmModal.value = !showConfirmModal.value;
