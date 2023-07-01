@@ -22,7 +22,7 @@
     ></template>
     <template v-slot:body>
       <div
-        class="bg-[#11101A] rounded-lg"
+        class="bg-modal_bg rounded-lg"
         v-if="!successMessage && !quoteSuccessfullyDeleted"
       >
         <section class="flex items-center">

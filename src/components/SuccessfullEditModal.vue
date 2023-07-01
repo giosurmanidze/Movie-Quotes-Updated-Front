@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-[#D1E7DD] relative w-full py-3 items-center text-center rounded">
+  <div
+    class="bg-edit_modal_bg_color relative w-full py-3 items-center text-center rounded"
+  >
     <section class="flex justify-between px-3">
       <section class="flex">
         <TickProfileIcon />

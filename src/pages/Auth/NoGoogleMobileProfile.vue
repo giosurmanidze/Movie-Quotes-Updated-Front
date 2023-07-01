@@ -15,14 +15,14 @@
     <section class="mb-4 mt-1 pl-7">
       <LeftArrowIcon @click="goBackHandler()" />
     </section>
-    <div class="bg-[#24222F] w-screen h-[80vh] px-7 py-10 text-white">
+    <div class="bg-add_quote_btn w-screen h-[80vh] px-7 py-10 text-white">
       <section class="mb-3">
         <SuccessfullEditModal
           v-if="
             profileStore.usernameEdited &&
             profiUserUpdatedAlertleStore.showSuccessfullEditModal
           "
-          ><p class="text-[#0F5132] pl-3">
+          ><p class="text-alert_text_color pl-3">
             {{ $t("username_changed_successfully") }}
           </p>
         </SuccessfullEditModal>
@@ -30,13 +30,13 @@
       <section class="mb-3">
         <SuccessfullEditModal
           v-if="profileStore.passwordEdited && profileStore.showSuccessfullEditModal"
-          ><p class="text-[#0F5132] pl-3">
+          ><p class="text-alert_text_color pl-3">
             {{ $t("password_changed_successfully") }}
           </p>
         </SuccessfullEditModal>
       </section>
       <section v-if="profileStore.showForm" class="flex justify-center">
-        <img :src="userAvatar" class="h-[140px] max-w-[140px] rounded-full" />
+        <img :src="userAvatar" class="h-[8.75rem] max-w-[8.75rem] rounded-full" />
       </section>
       <Form @submit="submit">
         <div v-if="profileStore.showForm">
@@ -48,7 +48,7 @@
               <p>{{ $t("username") }}</p>
               <div class="flex justify-between">
                 <p class="mt-2">{{ userName }}</p>
-                <p @click="editUsernameHandler()" class="mt-2 text-[#CED4DA]">
+                <p @click="editUsernameHandler()" class="mt-2 text-quote_text">
                   {{ $t("edit") }}
                 </p>
               </div>
@@ -57,7 +57,7 @@
               <p>{{ $t("email") }}</p>
               <div class="flex justify-between">
                 <p class="mt-2">{{ user.email }}</p>
-                <p @click="editEmailHandler()" class="mt-2 text-[#CED4DA]">
+                <p @click="editEmailHandler()" class="mt-2 text-quote_text">
                   {{ $t("edit") }}
                 </p>
               </div>
@@ -66,7 +66,7 @@
               <p>{{ $t("password") }}</p>
               <div class="flex justify-between">
                 <p class="mt-2">*********</p>
-                <p @click="editPasswordHandler()" class="mt-2 text-[#CED4DA]">
+                <p @click="editPasswordHandler()" class="mt-2 text-quote_text">
                   {{ $t("edit") }}
                 </p>
               </div>
@@ -155,9 +155,9 @@ function editEmailHandler() {
 
 function goBackHandler() {
   if (
-    sendUserName.value == false &&
-    showEditPassword.value == false &&
-    profileStore.showForm == true
+    sendUserName.value === false &&
+    showEditPassword.value === false &&
+    profileStore.showForm === true
   ) {
     router.back();
   } else {

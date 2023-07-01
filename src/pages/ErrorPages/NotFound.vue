@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#181623] grid h-screen place-items-center text-white pb-20">
+  <div class="bg-no_page_bg_color grid h-screen place-items-center text-white pb-20">
     <section class="flex flex-col items-center">
       <not-found-page-icon />
       <h1 class="md:text-4xl text-2xl font-bold mt-10">{{ $t("whoops_text") }}</h1>
