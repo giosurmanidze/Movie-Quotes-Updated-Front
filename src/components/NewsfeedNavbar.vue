@@ -3,8 +3,8 @@
     <nav
       :class="
         navbarState
-          ? 'flex md:px-16 px-5 py-4 h-20 justify-between items-center bg-navbar_bg'
-          : 'flex h-20 justify-between items-center bg-navbar_bg'
+          ? 'flex md:px-16 px-5 py-4 h-20 justify-between items-center bg-main_bg_color'
+          : 'flex h-20 justify-between items-center bg-main_bg_color'
       "
     >
       <section class="hidden md:flex">
@@ -34,7 +34,7 @@
       </div>
       <div
         v-else
-        class="flex items-center text-white w-full h-full border-b border-white p-4 bg-[#12101A]"
+        class="flex items-center text-white w-full h-full border-b border-white p-4 bg-main_bg_color"
       >
         <back-arrow-icon @click="navbarState = !navbarState" class="mr-3" />
         <Form @submit="submitForm" class="w-full">

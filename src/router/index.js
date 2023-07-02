@@ -10,6 +10,7 @@ import RecoverInstructions from '@/pages/RecoverInstructions.vue'
 import CreatePassword from '@/pages/CreatePassword.vue'
 import ChangedPassword from '@/pages/CreatePassword.vue'
 import MovieList from '@/pages/Auth/MovieList.vue'
+import UserProfile from '@/pages/Auth/UserProfile.vue'
 import SingleMovie from '@/pages/Auth/SingleMovie.vue'
 import { useAuthStore } from '@/stores/useAuthStore.js'
 import isAuthenticated from '@/router/auth-guard.js'
@@ -17,6 +18,7 @@ import isNotAuthenticated from '@/router/unauth-guard.js'
 import Forbidden from '@/pages/ErrorPages/Forbidden.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
 import axios from '@/config/axios/index.js'
+import SuccessUpdatedVerifiedEmail from '@/pages/Auth/SuccessUpdatedVerifiedEmail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,6 +75,12 @@ const router = createRouter({
           name: 'changedPassword',
           component: ChangedPassword,
           beforeEnter: isNotAuthenticated
+        },
+        {
+          path: '/changed-password',
+          name: 'changedPassword',
+          component: ChangedPassword,
+          beforeEnter: isNotAuthenticated
         }
       ]
     },
@@ -80,7 +88,7 @@ const router = createRouter({
       path: '/news-feed',
       name: 'newsFeed',
       component: NewsFeedPage,
-      beforeEnter: isAuthenticated,
+      beforeEnter: isAuthenticated
     },
     {
       path: '/forbidden',
@@ -96,13 +104,25 @@ const router = createRouter({
       path: '/movie-list',
       name: 'movieList',
       component: MovieList,
-      beforeEnter: isAuthenticated,
+      beforeEnter: isAuthenticated
     },
     {
       path: '/movie/:id',
       name: 'moviePage',
       component: SingleMovie,
-      beforeEnter: isAuthenticated,
+      beforeEnter: isAuthenticated
+    },
+    {
+      path: '/user-profile',
+      name: 'userProfile',
+      component: UserProfile,
+      beforeEnter: isAuthenticated
+    },
+    {
+      path: '/email-verified',
+      name: 'emailVerified',
+      component: SuccessUpdatedVerifiedEmail,
+      beforeEnter: isAuthenticated
     }
   ]
 })

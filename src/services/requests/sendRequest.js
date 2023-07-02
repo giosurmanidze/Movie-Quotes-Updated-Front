@@ -15,6 +15,8 @@ export const createUser = async (data) => {
   return sendRequest('api/register', data)
 }
 export const loginUser = async (data) => {
+  const authStore = useAuthStore()
+  authStore.authenticated = true
   return sendRequest('api/login', data)
 }
 export const sendForgotPassword = async (data) => {

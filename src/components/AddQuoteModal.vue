@@ -12,11 +12,8 @@
       <Form @submit="submit" v-if="movies.length !== 0">
         <section class="flex-col py-5">
           <div class="flex items-center">
-            <img
-              src="https://i.postimg.cc/4dpWbhzk/landing-page.png"
-              class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
-            />
-            <p class="ml-5">Username</p>
+            <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
+            <p class="ml-5">{{ user.username }}</p>
           </div>
           <section class="mt-5">
             <crud-input lang="en" name="bodyEn" placeholder="Create new quote" />
@@ -70,13 +67,14 @@ import ChooseMovieIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import DragAndDrop from "@/components/DragAndDrop.vue";
 import { useCreateQuote } from "@/services/index";
 import { useMoviesStore } from "@/stores/useMoviesStore";
+import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 
 const store = useModalStore();
-const showSelectPlaceholder = ref(true);
 const { locale } = useI18n();
-
+const showSelectPlaceholder = ref(true);
+const { userAvatar, user } = storeToRefs(useUserStore());
 const { getMovies } = useMoviesStore();
 getMovies();
 
