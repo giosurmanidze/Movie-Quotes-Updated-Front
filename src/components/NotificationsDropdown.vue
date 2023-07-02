@@ -101,6 +101,10 @@ watch(
         getQuotesRefresh();
       }
     );
+    window.Echo.private(`likes.${state}`).listen("LikedQuote", ({ notification }) => {
+      notifications.value.unshift(notification);
+      getQuotesRefresh();
+    });
   }
 );
 
