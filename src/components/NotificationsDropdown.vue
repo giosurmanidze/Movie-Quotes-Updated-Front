@@ -1,18 +1,18 @@
 <template>
-  <div class="flex justify-center text-white">
+  <div class="flex justify-center text-white z-10">
     <div class="md:relative">
       <button @click="toggleDropdown" class="mr-8 inline-flex relative">
-        <notification-icon />
+        <NotificationIcon />
         <div
           v-if="unreadNotifications"
           class="inline-flex absolute -top-2 -right-2 justify-center items-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full"
         >
-          {{ unreadNotifications }}
+          {{ unreadNotifications }}4
         </div>
       </button>
       <div
         v-if="dropdownState"
-        class="overflow-y-auto max-h-[37.5rem] origin-top-right px-10 py-3 md:p-6 absolute mt-2 right-0 md:right-5 bg-black w-screen md:w-[38.75rem] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        class="overflow-y-auto max-h-[600px] origin-top-right px-10 py-3 md:p-6 absolute mt-2 right-0 md:right-5 bg-black w-screen md:w-[620px] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
       >
         <div class="flex justify-between mt-3 mb-5">
           <p class="md:text-xl text-sm">{{ $t("notifications") }}</p>
@@ -28,26 +28,26 @@
             <section class="flex">
               <img
                 :src="
-                  notification.thumbnail
-                    ? notification.thumbnail
+                  notification.sender.thumbnail
+                    ? backendUrl + notification.sender.thumbnail
                     : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
                 "
-                class="md:h-10 h-11 rounded-full border max-w-10"
+                class="md:h-[80px] h-[50px] rounded-full border max-w-[80px]"
                 :class="!notification.read ? 'border-green-500' : ''"
               />
               <section class="flex flex-col">
                 <p class="ml-4 md:mt-2 md:text-base">
-                  {{ notification.username }}
+                  {{ notification.sender.username }}
                 </p>
                 <p
                   v-if="notification.type === 'comment'"
                   class="ml-4 md:mt-3 mt-1 md:text-base text-center flex"
                 >
-                  <span class="mr-2 mt-0.5"> <commented-icon /></span>
+                  <span class="mr-2 mt-0.5"> <CommentedIcon /></span>
                   {{ $t("commented_to_your_movie_quote") }}
                 </p>
                 <p v-else class="ml-4 md:mt-3 mt-1 md:text-base text-center flex">
-                  <span class="mr-2 mt-0.5"> <liked-quote-icon /></span>
+                  <span class="mr-2 mt-0.5"> <LikedQuoteIcon /></span>
                   {{ $t("reacted_to_your_quote") }}
                 </p>
               </section>
@@ -59,7 +59,7 @@
               </p>
               <p
                 v-if="!notification.read"
-                class="ml-4 md:mt-3 mt-1 md:text-base text-end text-green_border"
+                class="ml-4 md:mt-3 mt-1 md:text-base text-end text-[#198754]"
               >
                 {{ $t("new") }}
               </p>
@@ -72,25 +72,41 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch, onMounted } from "vue";
 import CommentedIcon from "@/assets/icons/CommentedIcon.vue";
 import NotificationIcon from "@/assets/icons/NotificationIcon.vue";
 import LikedQuoteIcon from "@/assets/icons/LikeIcon.vue";
+import { useQuotesStore } from "@/stores/useQuotesStore";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
+import axios from "@/config/axios/index";
 
 const dropdownState = ref(false);
-const unreadNotifications = ref(0);
+const notifications = ref([]);
+const { getQuotesRefresh } = useQuotesStore();
+const { user } = storeToRefs(useUserStore());
 
 const toggleDropdown = () => {
   dropdownState.value = !dropdownState.value;
 };
 
-const notifications = [
-  {
-    username: "giorgi",
-    thumbnail: "https://avatars.githubusercontent.com/u/91054978?v=4",
-    read: true,
-    type: "comment",
-    created_at: "06/06/2023",
-  },
-];
+watch(
+  () => user.value.id,
+  (state) => {
+    user.value.id = state;
+    window.Echo.private(`comments.${state}`).listen(
+      "CommentedQuote",
+      ({ notification }) => {
+        notifications.value.unshift(notification);
+        getQuotesRefresh();
+      }
+    );
+  }
+);
+
+onMounted(() => {
+  axios.get("api/get-notifications").then((response) => {
+    notifications.value = response.data;
+  });
+});
 </script>

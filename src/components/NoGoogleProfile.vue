@@ -140,6 +140,7 @@ const disableInputForEmail = ref(true);
 const showEditPassword = ref(true);
 const sendUserName = ref(false);
 const sendEmail = ref(false);
+const sendAvatar = ref(false);
 
 const { userAvatar } = storeToRefs(useUserStore());
 
@@ -179,6 +180,7 @@ const { submit } = useUpdateUserData(
   showEditPassword,
   sendUserName,
   sendEmail,
-  emailErrors
+  emailErrors,
+  sendAvatar
 );
 </script>
