@@ -3,7 +3,7 @@
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-filter backdrop-blur-sm"
   >
     <div
-      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[37.5rem] rounded shadow-lg flex flex-col gap-4 w-[95%] max-h-90vh overflow-auto bg-navbar_bg"
+      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[37.5rem] rounded shadow-lg flex flex-col gap-4 w-[95%] max-h-90vh overflow-auto bg-main_bg_color"
       @click.stop
     >
       <div class="flex flex-col justify-center items-center text-white gap-1">
