@@ -7,7 +7,7 @@
           v-if="unreadNotifications"
           class="inline-flex absolute -top-2 -right-2 justify-center items-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full"
         >
-          {{ unreadNotifications }}4
+          {{ unreadNotifications }}
         </div>
       </button>
       <div
@@ -23,49 +23,7 @@
             {{ $t("mark_as_read") }}
           </p>
         </div>
-        <div v-for="notification in notifications" :key="notification.id" class="py-2">
-          <div class="flex justify-between p-5 border border-gray-600 rounded">
-            <section class="flex">
-              <img
-                :src="
-                  notification.sender.thumbnail
-                    ? backendUrl + notification.sender.thumbnail
-                    : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-                "
-                class="md:h-[80px] h-[50px] rounded-full border max-w-[80px]"
-                :class="!notification.read ? 'border-green-500' : ''"
-              />
-              <section class="flex flex-col">
-                <p class="ml-4 md:mt-2 md:text-base">
-                  {{ notification.sender.username }}
-                </p>
-                <p
-                  v-if="notification.type === 'comment'"
-                  class="ml-4 md:mt-3 mt-1 md:text-base text-center flex"
-                >
-                  <span class="mr-2 mt-0.5"> <CommentedIcon /></span>
-                  {{ $t("commented_to_your_movie_quote") }}
-                </p>
-                <p v-else class="ml-4 md:mt-3 mt-1 md:text-base text-center flex">
-                  <span class="mr-2 mt-0.5"> <LikedQuoteIcon /></span>
-                  {{ $t("reacted_to_your_quote") }}
-                </p>
-              </section>
-            </section>
-            <section class="flex flex-col">
-              <p class="ml-4 md:mt-2 md:text-base">
-                {{ Math.ceil((Date.now() - new Date(notification.created_at)) / 60000) }}
-                {{ $t("min_ago") }}
-              </p>
-              <p
-                v-if="!notification.read"
-                class="ml-4 md:mt-3 mt-1 md:text-base text-end text-[#198754]"
-              >
-                {{ $t("new") }}
-              </p>
-            </section>
-          </div>
-        </div>
+        <notification-box-content :notifications="notifications" />
       </div>
     </div>
   </div>
@@ -73,9 +31,8 @@
 
 <script setup>
 import { ref, watch, onMounted } from "vue";
-import CommentedIcon from "@/assets/icons/CommentedIcon.vue";
 import NotificationIcon from "@/assets/icons/NotificationIcon.vue";
-import LikedQuoteIcon from "@/assets/icons/LikeIcon.vue";
+import NotificationBoxContent from "@/components/NotificationBoxContent.vue";
 import { useQuotesStore } from "@/stores/useQuotesStore";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
@@ -83,6 +40,7 @@ import axios from "@/config/axios/index";
 
 const dropdownState = ref(false);
 const notifications = ref([]);
+const unreadNotifications = ref(0);
 const { getQuotesRefresh } = useQuotesStore();
 const { user } = storeToRefs(useUserStore());
 
@@ -112,5 +70,17 @@ onMounted(() => {
   axios.get("api/get-notifications").then((response) => {
     notifications.value = response.data;
   });
+  axios.get("api/get-unread-notifications").then((response) => {
+    unreadNotifications.value = response.data;
+  });
 });
+
+function markAllAsReadHandler() {
+  unreadNotifications.value = 0;
+  axios.post("api/mark-read").then((response) => {
+    notifications.value = response.data;
+  });
+}
+
+console.log(notifications);
 </script>
