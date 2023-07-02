@@ -1,0 +1,20 @@
+{
+  "my_profile": "My profile",
+  "check_email_to_verify_new_adress": "Please check email to verify new adress",
+  "cancel": "Cancel",
+  "passwords_should_contain": "Passwords should contain",
+  "eight_or_more_characters": "8 or more characters",
+  "less_than_15_characters": "less than 15 characters",
+  "edit": "edit",
+  "upload_new_photo": "Upload new photo",
+  "enter_new_username": "Enter new username",
+  "sure_to_make_changes": "Are you sure to make changes",
+  "confirm": "confirm",
+  "succesfully_updated": "Succesfully updated",
+  "congratulations_user_is_updated": "Congratulations user is updated",
+  "email_updated_successfully": "Email has been successfully changed",
+  "email_updated_header_text": "Go to profile page",
+  "go_profile": "Go to profile",
+  "confirm_email": "Confirirmation email sent",
+  "please_verify_new_email": "Please verify new email, we sent"
+}

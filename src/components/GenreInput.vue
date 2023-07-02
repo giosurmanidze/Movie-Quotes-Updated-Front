@@ -10,10 +10,10 @@
         @click="toggleGenres"
         class="flex w-full cursor-pointer flex-wrap content-between gap-y-2 rounded-[0.25rem] border border-gray_color py-2 pr-12 text-base"
         :class="[
-          !meta.valid && wasTouched ? 'border-red_border' : '',
+          !meta.valid && wasTouched ? 'border-label_color' : '',
           meta.valid && wasTouched ? 'border-green_border' : '',
           meta.validated && meta.touched && chips.length ? 'border-green_border' : '',
-          meta.validated && meta.touched && !chips.length ? 'border-red_border' : '',
+          meta.validated && meta.touched && !chips.length ? 'border-label_color' : '',
         ]"
       >
         <div

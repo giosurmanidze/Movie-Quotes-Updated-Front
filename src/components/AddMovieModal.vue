@@ -12,10 +12,7 @@
       <Form @submit="submit">
         <section class="flex-col py-5">
           <div class="flex items-center">
-            <img
-              :src="user.profile_picture"
-              class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
-            />
+            <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
             <p class="ml-5">{{ user.username }}</p>
           </div>
           <section class="mt-5">
@@ -87,7 +84,7 @@ import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import GenreInput from "@/components/GenreInput.vue";
 import { useCreateMovie } from "@/services";
 
-const { user } = storeToRefs(useUserStore());
+const { user, userAvatar } = storeToRefs(useUserStore());
 const store = useModalStore();
 
 const { submit, genreArray, imgValue, errorMessage } = useCreateMovie();
