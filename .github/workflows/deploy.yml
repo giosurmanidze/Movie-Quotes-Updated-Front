@@ -20,51 +20,15 @@ jobs:
       - name: Set ssh key
         run: |
           mkdir -p ~/.ssh
-          echo "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" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
       - name: Deploy to Server
         if: ${{ success() }}
         run: |
-          ssh -o StrictHostKeyChecking=no giorgi@$178.128.203.243 << EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << EOF
             cd apps
             cd giorgi-surmanidze-movie-quotes-front
             git pull
             npm ci
             npm run build
-            pm2 restart vue-app
           EOF
