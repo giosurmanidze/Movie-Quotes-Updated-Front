@@ -85,8 +85,8 @@ const props = defineProps({ user: { type: Object, required: true } });
 const disableInput = ref(true);
 const usernameErrors = ref(false);
 const showUserUpdatedAlert = ref(false);
+const sendUserName = ref(false);
 const showSaveChangesButtons = ref(false);
-const showEditPassword = ref(false);
 const { userAvatar } = storeToRefs(useUserStore());
 
 function inputToggleHandler() {
@@ -100,11 +100,16 @@ function hideChangeButtons() {
   disableInput.value = true;
   showSaveChangesButtons.value = false;
 }
-const { submit, sendUserName } = useUpdateUserData(
+const { submit } = useUpdateUserData(
   showUserUpdatedAlert,
+  undefined,
   disableInput,
+  undefined,
   showSaveChangesButtons,
   usernameErrors,
-  showEditPassword
+  undefined,
+  sendUserName,
+  undefined,
+  undefined
 );
 </script>

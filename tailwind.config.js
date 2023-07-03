@@ -18,7 +18,6 @@ export default {
         btn_color: '#E31221',
         navbar_color: '12101A',
         menu_layout_bg: '#181623',
-        comment_input_bg: '#24222F',
         add_quote_btn: '#24222F',
         input_text: '#a1a5a8',
         gold_color: '#DDCCAA',

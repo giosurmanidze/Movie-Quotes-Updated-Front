@@ -380,11 +380,11 @@ export function submitGoogleUserProfile(
   }
 }
 
-export function useSendProfileAvatar(showUserUpdated, showSaveChangesButtons) {
+export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButtons) {
   const { getUser } = useUserStore()
 
   const sendThumbnailData = () => {
-    showUserUpdated.value = false
+    showUserUpdatedAlert.value = false
     const fileInput = document.getElementById('getFile')
     const file = fileInput.files[0]
 
@@ -393,10 +393,10 @@ export function useSendProfileAvatar(showUserUpdated, showSaveChangesButtons) {
     }
 
     axios
-      .post('api/user/profile-avatar', { thumbnail: file }, config)
+      .post('api/user/update', { thumbnail: file }, config)
       .then(() => {
         getUser()
-        showUserUpdated.value = true
+        showUserUpdatedAlert.value = true
         showSaveChangesButtons.value = false
       })
       .catch((error) => {
@@ -413,9 +413,10 @@ export function useSendUsername(showUserUpdated, disableInput, showConfirmModal,
 
   function sendData(values) {
     showUserUpdated.value = false
+    console.log(values.username)
 
     axios
-      .patch('api/user/update-name', { username: values.username })
+      .post('api/user/update', { username: values.username })
       .then(() => {
         getUser()
         disableInput.value = true
@@ -425,6 +426,7 @@ export function useSendUsername(showUserUpdated, disableInput, showConfirmModal,
       .catch((error) => {
         disableInput.value = false
         showConfirmModal.value = false
+        usernameError.value = error.response.data.errors.username[0][locale.value]
       })
   }
 
@@ -443,20 +445,22 @@ export function useUpdateUserData(
   showEditPassword,
   sendUserName,
   sendEmail,
-  emailErrors
+  emailErrors,
 ) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
-  const { setShowValue } = useProfilePageStore();
-
+  const { setShowValue } = useProfilePageStore()
 
   function submit(values) {
     showUserUpdatedAlert.value = false
 
+    const fileInput = document.getElementById('getFile')
+    const file = fileInput.files[0]
+
     const userData = {
       username: sendUserName.value ? values.username : null,
       password: values.password,
-      thumbnail: values.avatar
+      thumbnail: file
     }
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' }
