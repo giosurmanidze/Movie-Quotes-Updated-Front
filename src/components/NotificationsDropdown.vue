@@ -1,13 +1,13 @@
 <template>
-  <div class="flex justify-center text-white">
+  <div class="flex justify-center text-white z-10">
     <div class="md:relative">
       <button @click="toggleDropdown" class="mr-8 inline-flex relative">
-        <notification-icon />
+        <NotificationIcon />
         <div
-          v-if="unreadNotifications"
+          v-if="unreadNotificationCount"
           class="inline-flex absolute -top-2 -right-2 justify-center items-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full"
         >
-          {{ unreadNotifications }}
+          {{ unreadNotificationCount }}
         </div>
       </button>
       <div
@@ -23,74 +23,63 @@
             {{ $t("mark_as_read") }}
           </p>
         </div>
-        <div v-for="notification in notifications" :key="notification.id" class="py-2">
-          <div class="flex justify-between p-5 border border-gray-600 rounded">
-            <section class="flex">
-              <img
-                :src="
-                  notification.thumbnail
-                    ? notification.thumbnail
-                    : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-                "
-                class="md:h-10 h-11 rounded-full border max-w-10"
-                :class="!notification.read ? 'border-green-500' : ''"
-              />
-              <section class="flex flex-col">
-                <p class="ml-4 md:mt-2 md:text-base">
-                  {{ notification.username }}
-                </p>
-                <p
-                  v-if="notification.type === 'comment'"
-                  class="ml-4 md:mt-3 mt-1 md:text-base text-center flex"
-                >
-                  <span class="mr-2 mt-0.5"> <commented-icon /></span>
-                  {{ $t("commented_to_your_movie_quote") }}
-                </p>
-                <p v-else class="ml-4 md:mt-3 mt-1 md:text-base text-center flex">
-                  <span class="mr-2 mt-0.5"> <liked-quote-icon /></span>
-                  {{ $t("reacted_to_your_quote") }}
-                </p>
-              </section>
-            </section>
-            <section class="flex flex-col">
-              <p class="ml-4 md:mt-2 md:text-base">
-                {{ Math.ceil((Date.now() - new Date(notification.created_at)) / 60000) }}
-                {{ $t("min_ago") }}
-              </p>
-              <p
-                v-if="!notification.read"
-                class="ml-4 md:mt-3 mt-1 md:text-base text-end text-green_border"
-              >
-                {{ $t("new") }}
-              </p>
-            </section>
-          </div>
-        </div>
+        <notification-box-content :notifications="notifications" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import CommentedIcon from "@/assets/icons/CommentedIcon.vue";
+import { ref, watch, onMounted, computed } from "vue";
 import NotificationIcon from "@/assets/icons/NotificationIcon.vue";
-import LikedQuoteIcon from "@/assets/icons/LikeIcon.vue";
+import NotificationBoxContent from "@/components/NotificationBoxContent.vue";
+import { useQuotesStore } from "@/stores/useQuotesStore";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
+import axios from "@/config/axios/index";
 
 const dropdownState = ref(false);
-const unreadNotifications = ref(0);
+const notifications = ref([]);
+
+const { getQuotesRefresh } = useQuotesStore();
+const { user } = storeToRefs(useUserStore());
 
 const toggleDropdown = () => {
   dropdownState.value = !dropdownState.value;
 };
 
-const notifications = [
-  {
-    username: "giorgi",
-    thumbnail: "https://avatars.githubusercontent.com/u/91054978?v=4",
-    read: true,
-    type: "comment",
-    created_at: "06/06/2023",
-  },
-];
+watch(
+  () => user.value.id,
+  (state) => {
+    user.value.id = state;
+    window.Echo.private(`comments.${state}`).listen(
+      "CommentedQuote",
+      ({ notification }) => {
+        notifications.value.unshift(notification);
+        getQuotesRefresh();
+      }
+    );
+    window.Echo.private(`likes.${state}`).listen("LikedQuote", ({ notification }) => {
+      notifications.value.unshift(notification);
+      getQuotesRefresh();
+    });
+  }
+);
+
+onMounted(() => {
+  axios.get("api/get-notifications").then((response) => {
+    notifications.value = response.data;
+  });
+});
+
+const unreadNotificationCount = computed(() => {
+  return notifications.value.filter((notification) => !notification.read).length;
+});
+
+function markAllAsReadHandler() {
+  unreadNotificationCount.value = 0;
+  axios.post("api/mark-read").then((response) => {
+    notifications.value = response.data;
+  });
+}
 </script>
