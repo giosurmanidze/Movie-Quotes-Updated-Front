@@ -100,13 +100,6 @@ function hideChangeButtons() {
   disableInput.value = true;
   showSaveChangesButtons.value = false;
 }
-// const { submit, sendUserName } = useUpdateUserData(
-//   showUserUpdatedAlert,
-//   disableInput,
-//   showSaveChangesButtons,
-//   usernameErrors,
-//   showEditPassword
-// );
 const { submit } = useUpdateUserData(
   showUserUpdatedAlert,
   undefined,

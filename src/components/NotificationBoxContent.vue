@@ -8,7 +8,7 @@
               ? backendUrl + notification.sender.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
-          class="md:h-[80px] h-[50px] rounded-full border max-w-[80px]"
+          class="md:h-10 h-11 rounded-full border max-w-10"
           :class="!notification.read ? 'border-green-500' : ''"
         />
         <section class="flex flex-col">
@@ -31,12 +31,12 @@
       </section>
       <section class="flex flex-col">
         <p class="ml-4 md:mt-2 md:text-base">
-          {{ Math.ceil((Date.now() - new Date(notification.created_at)) / 60000) }}
+          {{ getRealTime(notification) }}
           {{ $t("min_ago") }}
         </p>
         <p
           v-if="!notification.read"
-          class="ml-4 md:mt-3 mt-1 md:text-base text-end text-[#198754]"
+          class="ml-4 md:mt-3 mt-1 md:text-base text-end text-green_border"
         >
           {{ $t("new_notification") }}
         </p>
@@ -48,7 +48,7 @@
 <script setup>
 import CommentedIcon from "@/assets/icons/CommentedIcon.vue";
 import LikedQuoteIcon from "@/assets/icons/LikedIcon.vue";
-import { defineProps } from "vue";
+import { defineProps, computed } from "vue";
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
@@ -58,4 +58,9 @@ const props = defineProps({
     required: true,
   },
 });
+const getRealTime = (notification) => {
+  return computed(() => {
+    return Math.ceil((Date.now() - new Date(notification.created_at)) / 60000);
+  });
+};
 </script>
