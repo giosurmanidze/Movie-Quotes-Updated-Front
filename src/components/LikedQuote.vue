@@ -27,6 +27,7 @@ const likeable = ref(false);
 let likeId = ref(null);
 const quote = ref(quotes?.find((quote) => quote.id === props.quoteId));
 
+console.log(quote);
 const getLikesData = () => {
   if (quote.value) {
     const like = quote.value.likes?.find((like) => like.user.id === props.user?.id);
@@ -43,6 +44,6 @@ onMounted(() => {
 });
 
 function handleQuoteLikeWrapper() {
-  handleQuoteLike(props.quoteId, props.user, likeable, likeId);
+  handleQuoteLike(props.quoteId, likeable, likeId);
 }
 </script>
