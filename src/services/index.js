@@ -235,7 +235,6 @@ export function useEditMovie(params) {
       .then((response) => {
         updatedMovie.value = response.data
         genres.value = response.data.genres
-        console.log(genres)
         store.toggleEditModal(false)
       })
       .catch((error) => {

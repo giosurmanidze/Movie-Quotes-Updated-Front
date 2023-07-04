@@ -68,8 +68,6 @@
         >
           Read More
         </button>
-
-        <!-- Show Less Button -->
         <button
           class="flex justify-center mx-auto my-4 font-bold"
           v-if="quote?.comments && quote.comments.length > 3 && showAllComments"
@@ -117,7 +115,7 @@ import LikedQuote from "@/components/LikedQuote.vue";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 
-const { quote, quotes } = storeToRefs(useQuotesStore());
+const { quote } = storeToRefs(useQuotesStore());
 const { getQuotes } = useQuotesStore();
 getQuotes();
 const store = useModalStore();

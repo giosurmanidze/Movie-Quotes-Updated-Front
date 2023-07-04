@@ -13,7 +13,9 @@
           !meta.valid && wasTouched ? 'border-label_color' : '',
           meta.valid && wasTouched ? 'border-green_border' : '',
           meta.validated && meta.touched && chips.length ? 'border-green_border' : '',
-          meta.validated && meta.touched && !chips.length ? 'border-label_color' : '',
+          meta.validated && meta.touched && !chips.length && isRequired
+            ? 'border-label_color'
+            : '',
         ]"
       >
         <div
@@ -66,6 +68,10 @@ const props = defineProps({
     type: Array,
     required: false,
   },
+  isRequired: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 const chips = ref([]);
@@ -95,7 +101,6 @@ const saveChip = (genre) => {
     chips.value.push(genre);
     genres.value = chips.value;
   }
-  console.log(genre);
 };
 
 const removeChip = (index) => {
@@ -109,7 +114,7 @@ const toggleGenres = (e) => {
   }
 };
 const rule = () => {
-  if (chips.value.length === 0) {
+  if (chips.value.length === 0 && props.isRequired) {
     return false;
   } else {
     return true;

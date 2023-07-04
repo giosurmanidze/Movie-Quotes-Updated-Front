@@ -30,7 +30,7 @@
               placeholder="ფილმის სახელი"
               :oldValue="userData?.name.ka"
             />
-            <GenreInput name="genre" :values="genres" />
+            <GenreInput name="genre" :values="genres" :isRequired="false" />
             <CrudInput
               lang="en"
               name="directorEn"
