@@ -45,7 +45,7 @@
           <p>{{ quote?.likes ? quote.likes.length : 0 }}</p>
           <LikedQuote :quoteId="quote?.id" :user="user" v-if="quote" />
         </section>
-        <section class="py-4" v-for="comment in quote?.comments" :key="comment.id">
+        <section class="py-4" v-for="comment in displayedComments" :key="comment.id">
           <div class="flex items-center">
             <img
               :src="
@@ -61,6 +61,22 @@
             <p>{{ comment.body }}</p>
           </div>
         </section>
+        <button
+          class="flex justify-center mx-auto my-4 font-bold"
+          v-if="quote?.comments && quote.comments.length > 3 && !showAllComments"
+          @click="showAllComments = true"
+        >
+          Read More
+        </button>
+
+        <!-- Show Less Button -->
+        <button
+          class="flex justify-center mx-auto my-4 font-bold"
+          v-if="quote?.comments && quote.comments.length > 3 && showAllComments"
+          @click="showAllComments = false"
+        >
+          Show Less
+        </button>
         <section @click="getQuoteId(quote.id)">
           <Form class="flex items-center py-3 w-full" @submit="submit">
             <img
@@ -138,4 +154,17 @@ function getQuoteId(value) {
 }
 
 const { submit } = useCreateComment(quoteId);
+
+const showAllComments = ref(false);
+
+const displayedComments = computed(() => {
+  if (quote?.value?.comments) {
+    if (showAllComments.value) {
+      return quote.value.comments;
+    } else {
+      return quote.value.comments.slice(0, 2);
+    }
+  }
+  return [];
+});
 </script>

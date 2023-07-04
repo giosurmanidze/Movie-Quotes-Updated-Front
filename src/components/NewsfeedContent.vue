@@ -35,7 +35,11 @@
         <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
         <LikedQuote :quoteId="quote.id" :user="user" />
       </section>
-      <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
+      <section
+        class="py-4 w-full"
+        v-for="comment in getVisibleComments(quote)"
+        :key="comment.id"
+      >
         <div class="flex items-center">
           <img
             :src="
@@ -51,6 +55,13 @@
           <p>{{ comment?.body }}</p>
         </div>
       </section>
+      <button
+        class="flex justify-center mx-auto my-4 font-bold"
+        v-if="shouldShowReadMoreButton(quote)"
+        @click="toggleExpandComments(quote)"
+      >
+        {{ isExpanded(quote) ? $t("show_less") : $t("read_more") }}
+      </button>
       <section @click="getQuoteId(quote.id)">
         <Form class="flex items-center py-3 w-full" @submit="submit">
           <img
@@ -128,4 +139,30 @@ window.onscroll = function () {
 };
 const { getQuotes } = useQuotesStore();
 const { submit } = useCreateComment(quoteId);
+
+const expandedQuotes = ref([]);
+
+function getVisibleComments(quote) {
+  if (isExpanded(quote)) {
+    return quote.comments;
+  } else {
+    return quote.comments.slice(0, 2);
+  }
+}
+
+function shouldShowReadMoreButton(quote) {
+  return quote.comments.length > 2;
+}
+
+function isExpanded(quote) {
+  return expandedQuotes.value.includes(quote.id);
+}
+
+function toggleExpandComments(quote) {
+  if (isExpanded(quote)) {
+    expandedQuotes.value = expandedQuotes.value.filter((id) => id !== quote.id);
+  } else {
+    expandedQuotes.value.push(quote.id);
+  }
+}
 </script>
