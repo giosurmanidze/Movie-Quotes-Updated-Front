@@ -95,6 +95,7 @@ const saveChip = (genre) => {
     chips.value.push(genre);
     genres.value = chips.value;
   }
+  console.log(genre);
 };
 
 const removeChip = (index) => {
