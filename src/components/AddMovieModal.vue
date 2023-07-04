@@ -30,7 +30,7 @@
               rules="required|geo"
               placeholder="ფილმის სახელი"
             />
-            <GenreInput name="genre" :values="genreArray" />
+            <GenreInput name="genre" :values="genreArray" :isRequired="true"/>
             <CrudInput
               lang="en"
               name="directorEn"
