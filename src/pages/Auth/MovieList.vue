@@ -1,7 +1,7 @@
 <template>
   <menu-layout>
     <div class="px-4 md:pr-16 md:ml-10 text-white">
-      <AddMoviesModal />
+      <AddMovieModal />
       <MovieAddedModal />
       <div class="flex justify-between items-center">
         <section class="flex">
@@ -49,7 +49,7 @@ import { storeToRefs } from "pinia";
 import { computed, ref } from "vue";
 import FindIcon from "@/assets/icons/SearchIcon.vue";
 import MovieCard from "@/components/MovieCard.vue";
-import AddMoviesModal from "@/components/AddMovieModal.vue";
+import AddMovieModal from "@/components/AddMovieModal.vue";
 import MovieAddedModal from "@/components/MovieAddedModal.vue";
 import { useModalStore } from "@/stores/useModalStore.js";
 import { useMoviesStore } from "@/stores/useMoviesStore.js";

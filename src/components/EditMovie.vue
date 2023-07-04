@@ -10,7 +10,7 @@
         <section class="flex-col py-5">
           <div class="flex items-center">
             <img
-              :src="user.profile_picture"
+              :src="userAvatar"
               class="h-10 lg:h-[3rem] rounded-full max-w-[3.75rem]"
             />
             <p class="ml-5">{{ user.username }}</p>
@@ -97,18 +97,18 @@ import axios from "@/config/axios/auth-index";
 import GenreInput from "@/components/GenreInput.vue";
 import { useEditMovie } from "@/services";
 
-const { user } = storeToRefs(useUserStore());
+const { user, userAvatar } = storeToRefs(useUserStore());
 const store = useModalStore();
 
 const route = useRoute();
 const params = ref(route.params.id);
 
 const userData = ref();
-const genres = ref();
+const genres = ref([]);
 
 axios.get(`api/movies/${params.value}`).then((response) => {
   userData.value = response.data;
-  genres.value = userData.value.genres;
+  genres.value = JSON.parse(response.data.genres);
 });
 
 const { submit } = useEditMovie(params);

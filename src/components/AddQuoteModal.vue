@@ -16,8 +16,8 @@
             <p class="ml-5">{{ user.username }}</p>
           </div>
           <section class="mt-5">
-            <crud-input lang="en" name="bodyEn" placeholder="Create new quote" />
-            <crud-input lang="ka" name="bodyKa" placeholder="ახალი ციტატა" />
+            <crud-input lang="en" name="bodyEn" rules="required|en" placeholder="Create new quote" />
+            <crud-input lang="ka" name="bodyKa" rules="required|geo" placeholder="ახალი ციტატა" />
             <drag-and-drop name="thumbnail" rules="required" :imgValue="imgValue" />
             <div class="text-white items-center text-center relative cursor-default">
               <div v-if="showSelectPlaceholder" class="absolute top-5 px-3">

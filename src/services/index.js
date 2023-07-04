@@ -208,6 +208,8 @@ export function useSubmitRegister() {
 export function useEditMovie(params) {
   const { updatedMovie } = useMoviesStore()
   const store = useModalStore()
+  const genres = ref([])
+
 
   function submit(values) {
     let genreIds = values.genre.map((genre) => genre.id)
@@ -224,7 +226,6 @@ export function useEditMovie(params) {
       thumbnail: values.thumbnail1
     }
 
-    console.log(values.genre)
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
@@ -233,6 +234,8 @@ export function useEditMovie(params) {
       .post(`api/movies/${params.value}`, data, config)
       .then((response) => {
         updatedMovie.value = response.data
+        genres.value = response.data.genres
+        console.log(genres)
         store.toggleEditModal(false)
       })
       .catch((error) => {
@@ -241,7 +244,7 @@ export function useEditMovie(params) {
   }
 
   return {
-    submit
+    submit,genres
   }
 }
 export function useEditQuote(quote) {
@@ -493,7 +496,7 @@ export function useUpdateUserData(
           : null
       })
 
-    if (sendEmail.value) {
+    if (sendEmail?.value) {
       axios
         .post('api/user/add-email', { email: values.email })
         .then(() => {
