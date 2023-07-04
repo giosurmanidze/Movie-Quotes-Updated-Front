@@ -117,7 +117,9 @@ import LikedQuote from "@/components/LikedQuote.vue";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 
-const { quote } = storeToRefs(useQuotesStore());
+const { quote, quotes } = storeToRefs(useQuotesStore());
+const { getQuotes } = useQuotesStore();
+getQuotes();
 const store = useModalStore();
 
 const quoteEn = computed(() => {

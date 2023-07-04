@@ -304,13 +304,14 @@ export function useCreateComment(quoteId) {
   }
 }
 
-export function handleQuoteLike(quoteId, like, likeable, likeId) {
+export function handleQuoteLike(quoteId, likeable, likeId) {
   likeable.value = !likeable.value
   const { getQuote, getQuotesRefresh } = useQuotesStore()
 
   let data = {
     quote_id: quoteId
   }
+  console.log(likeable)
 
   if (likeable.value) {
     axios
