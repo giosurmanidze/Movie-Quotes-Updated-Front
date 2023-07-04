@@ -136,7 +136,7 @@ export function useCreateQuote() {
     }
 
     axios
-      .post('api/quotes', data, config)
+      .post('api/store-quotes', data, config)
       .then((response) => {
         store.toggleAddQuotesModal()
         store.toggleQuoteAddedModal()
@@ -445,7 +445,7 @@ export function useUpdateUserData(
   showEditPassword,
   sendUserName,
   sendEmail,
-  emailErrors,
+  emailErrors
 ) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
