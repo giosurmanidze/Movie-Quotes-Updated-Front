@@ -12,11 +12,12 @@
     <section class="ml-5 text-input_text hidden md:block">
       <section class="flex p-2 border-b border-input_text">
         <Form @submit="searchSubmit" class="flex">
-          <button><search-icon /></button>
+          <button type="submit"><search-icon /></button>
           <search-input
             :placeholder="placeholderText"
             name="search"
             classes="ml-2 text-base bg-transparent lg:w-[25rem]"
+            @keyup.enter="store2.searchPosts()"
           />
         </Form>
       </section>
@@ -33,11 +34,12 @@ import SearchInput from "@/components/SearchInput.vue";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useModalStore } from "@/stores/useModalStore";
-import { useQuotesStore } from "@/stores/useQuotesStore";
+import { usePostStore } from "@/stores/posts";
 
 const { t } = useI18n({ useScope: "global" });
 
 const store = useModalStore();
+const storeSearch = usePostStore();
 
 const placeholderText = computed(() => {
   return (
@@ -51,7 +53,8 @@ const placeholderText = computed(() => {
 });
 
 function searchSubmit(values) {
-  const quotesStore = useQuotesStore();
-  quotesStore.searchQuery = values.search;
+  const quotesStore = usePostStore();
+  quotesStore.searchValue = values.search;
+  storeSearch.searchPosts();
 }
 </script>

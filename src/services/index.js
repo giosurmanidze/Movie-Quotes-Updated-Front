@@ -1,10 +1,11 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { recoverPassword, createUser, sendForgotPassword } from './requests/sendRequest'
 import { useI18n } from 'vue-i18n'
 import { useModalStore } from '@/stores/useModalStore'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useQuotesStore } from '@/stores/useQuotesStore'
+import { usePostStore } from '@/stores/post'
 import { useProfilePageStore } from '@/stores/useProfilePageStore'
 import { useUserStore } from '@/stores/useUserStore'
 import axios from '@/config/axios/auth-index'
@@ -136,7 +137,7 @@ export function useCreateQuote() {
     }
 
     axios
-      .post('api/store-quotes', data, config)
+      .post('api/quotes', data, config)
       .then((response) => {
         store.toggleAddQuotesModal()
         store.toggleQuoteAddedModal()
@@ -210,7 +211,6 @@ export function useEditMovie(params) {
   const store = useModalStore()
   const genres = ref([])
 
-
   function submit(values) {
     let genreIds = values.genre.map((genre) => genre.id)
     let data = {
@@ -243,7 +243,8 @@ export function useEditMovie(params) {
   }
 
   return {
-    submit,genres
+    submit,
+    genres
   }
 }
 export function useEditQuote(quote) {
@@ -276,8 +277,8 @@ export function useEditQuote(quote) {
 }
 export function useCreateComment(quoteId) {
   const store = useModalStore()
-  const { getQuotesRefresh } = useQuotesStore()
-  const { getQuote } = useQuotesStore()
+  const { getQuotesRefresh, getQuote } = useQuotesStore()
+  const { refreshPosts } = usePostStore()
 
   function submit(values, actions) {
     let data = {
@@ -292,6 +293,7 @@ export function useCreateComment(quoteId) {
           store.toggleCommentAddedModal()
           getQuote(response.data.quote_id)
           getQuotesRefresh()
+          refreshPosts()
         }
       })
       .catch((error) => {
@@ -306,6 +308,7 @@ export function useCreateComment(quoteId) {
 export function handleQuoteLike(quoteId, likeable, likeId) {
   likeable.value = !likeable.value
   const { getQuote, getQuotesRefresh } = useQuotesStore()
+  const { refreshPosts } = usePostStore()
 
   let data = {
     quote_id: quoteId
@@ -319,6 +322,7 @@ export function handleQuoteLike(quoteId, likeable, likeId) {
         likeId.value = null
         getQuote(quoteId)
         getQuotesRefresh()
+        refreshPosts()
       })
       .catch((error) => {
         console.log(error)
@@ -330,6 +334,7 @@ export function handleQuoteLike(quoteId, likeable, likeId) {
         likeId.value = response.data.like_id
         getQuote(quoteId)
         getQuotesRefresh()
+        refreshPosts()
       })
       .catch((error) => {
         console.log(error)
