@@ -137,7 +137,7 @@ function submit(values, { resetForm }) {
   };
 
   axios
-    .post("api/store-quotes", data, config)
+    .post("api/quotes", data, config)
     .then((response) => {
       store.toggleQuoteAddedModal();
       moviesStore.quotes.unshift(response.data);

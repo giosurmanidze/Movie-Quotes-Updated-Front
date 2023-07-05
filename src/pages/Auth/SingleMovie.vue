@@ -109,6 +109,7 @@ import QuoteAddedModal from "@/components/QuoteAddModal.vue";
 import EditQuoteModalFromMovie from "@/components/EditQuoteModalFromMovie.vue";
 import QuoteDeletedModal from "@/components/QuoteDeletedModal.vue";
 import ViewQuoteModal from "@/components/ViewQuoteModal.vue";
+
 const { getUser } = useUserStore();
 getUser();
 

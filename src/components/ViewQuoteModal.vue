@@ -43,7 +43,7 @@
           <p>{{ quote?.comments ? quote.comments.length : 0 }}</p>
           <comment-icon />
           <p>{{ quote?.likes ? quote.likes.length : 0 }}</p>
-          <LikedQuote :quoteId="quote?.id" :user="user" v-if="quote" />
+          <LikedQuote :quoteId="quote?.id" :quotes="quotes" :user="user" v-if="quote" />
         </section>
         <section class="py-4" v-for="comment in displayedComments" :key="comment.id">
           <div class="flex items-center">
@@ -114,10 +114,10 @@ import { useCreateComment } from "@/services";
 import LikedQuote from "@/components/LikedQuote.vue";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
-
-const { quote } = storeToRefs(useQuotesStore());
+const { quote, quotes } = storeToRefs(useQuotesStore());
 const { getQuotes } = useQuotesStore();
 getQuotes();
+
 const store = useModalStore();
 
 const quoteEn = computed(() => {

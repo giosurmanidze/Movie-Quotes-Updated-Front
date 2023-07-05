@@ -2,7 +2,7 @@
   <div class="px-4 md:ml-5 mt-10 text-white">
     <QuoteAddedModal />
     <div
-      v-for="quote in resultQuery"
+      v-for="quote in store.posts"
       :key="quote.id"
       class="p-3 mb-5 bg-modal_bg rounded-lg"
     >
@@ -33,8 +33,9 @@
         <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
         <comment-icon />
         <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
-        <LikedQuote :quoteId="quote.id" :user="user" />
+        <LikedQuote :quoteId="quote.id" :quotes="store.posts" :user="user" />
       </section>
+
       <section
         class="py-4 w-full"
         v-for="comment in getVisibleComments(quote)"
@@ -85,46 +86,24 @@ import CommentIcon from "@/assets/icons/CommentIcon.vue";
 import LikedQuote from "@/components/LikedQuote.vue";
 import CommentInput from "./CommentInput.vue";
 import { storeToRefs } from "pinia";
-import { useQuotesStore } from "@/stores/useQuotesStore";
+import { usePostStore } from "@/stores/posts";
 import { useI18n } from "vue-i18n";
 import { useUserStore } from "@/stores/useUserStore";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { Form } from "vee-validate";
 import { useCreateComment } from "@/services";
 
 const { locale } = useI18n();
 
-const { quotes } = storeToRefs(useQuotesStore());
 const { user, userAvatar } = storeToRefs(useUserStore());
+const store = usePostStore();
+onMounted(() => store.getPosts());
+window.addEventListener("scroll", store.handleScroll);
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
 const lang = computed(() => {
   return locale.value;
-});
-const quotesStore = useQuotesStore();
-
-const resultQuery = computed(() => {
-  if (quotesStore.searchQuery && quotesStore.searchQuery.startsWith("#")) {
-    let cleanString = ref(quotesStore.searchQuery.slice(1));
-    return quotes.value.filter((item) => {
-      return cleanString.value
-        .toLowerCase()
-        .split(" ")
-        .every((v) => item.quote[locale.value].toLowerCase().startsWith(v));
-    });
-  } else if (quotesStore.searchQuery && quotesStore.searchQuery.startsWith("@")) {
-    let cleanString = ref(quotesStore.searchQuery.slice(1));
-
-    return quotes.value.filter((item) => {
-      return cleanString.value
-        .toLowerCase()
-        .split(" ")
-        .every((v) => item.movie?.[locale.value].toLowerCase().startsWith(v));
-    });
-  } else {
-    return quotes.value;
-  }
 });
 
 const quoteId = ref(null);
@@ -132,12 +111,6 @@ function getQuoteId(value) {
   quoteId.value = value;
 }
 
-window.onscroll = function () {
-  if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-    getQuotes();
-  }
-};
-const { getQuotes } = useQuotesStore();
 const { submit } = useCreateComment(quoteId);
 
 const expandedQuotes = ref([]);
