@@ -61,10 +61,8 @@ getUser();
 
 const store = useModalStore();
 
-const { getMovies, searchMovie, movies } = useMoviesStore();
+const { getMovies, searchMovie } = useMoviesStore();
 getMovies();
-
-const { movies: moviesRef } = storeToRefs(useMoviesStore());
 
 const searchValue = ref(null);
 const movieStore = useMoviesStore();

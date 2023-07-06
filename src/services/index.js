@@ -1,11 +1,11 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { recoverPassword, createUser, sendForgotPassword } from './requests/sendRequest'
 import { useI18n } from 'vue-i18n'
 import { useModalStore } from '@/stores/useModalStore'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useQuotesStore } from '@/stores/useQuotesStore'
-import { usePostStore } from '@/stores/post'
+import { usePostStore } from '@/stores/posts'
 import { useProfilePageStore } from '@/stores/useProfilePageStore'
 import { useUserStore } from '@/stores/useUserStore'
 import axios from '@/config/axios/auth-index'
@@ -66,9 +66,8 @@ export function useSubmitForgotPassword() {
   }
 }
 
-export function useCreateMovie() {
+export function useCreateMovie(genres) {
   const store = useModalStore()
-  const genreArray = ref([])
   const moviesStore = useMoviesStore()
   const imgValue = ref(true)
   const errorMessage = ref('')
@@ -76,7 +75,7 @@ export function useCreateMovie() {
   function submit(values, { resetForm }) {
     errorMessage.value = ''
     imgValue.value = true
-    let genreIds = values.genre.map((genre) => genre.id)
+    let genreIds = genres.value.map((genre) => genre.id)
 
     let data = {
       name_en: values.nameEn,
@@ -101,7 +100,6 @@ export function useCreateMovie() {
         store.toggleMovieAddedModal()
         moviesStore.movies.unshift(response.data)
         resetForm()
-        genreArray.value = []
         imgValue.value = false
       })
       .catch((error) => {
@@ -111,7 +109,6 @@ export function useCreateMovie() {
 
   return {
     submit,
-    genreArray,
     imgValue,
     errorMessage
   }
@@ -122,6 +119,7 @@ export function useCreateQuote() {
   const imgValue = ref(true)
   const store = useModalStore()
   const { getQuotesRefresh } = useQuotesStore()
+  const { refreshPosts } = usePostStore()
 
   function submit(values, { resetForm }) {
     imgValue.value = true
@@ -143,6 +141,7 @@ export function useCreateQuote() {
         store.toggleQuoteAddedModal()
         quotesStore.quotes.unshift(response.data)
         getQuotesRefresh()
+        refreshPosts()
         resetForm()
         imgValue.value = false
       })
@@ -206,13 +205,13 @@ export function useSubmitRegister() {
   }
 }
 
-export function useEditMovie(params) {
+export function useEditMovie(params,genres) {
   const { updatedMovie } = useMoviesStore()
   const store = useModalStore()
-  const genres = ref([])
 
   function submit(values) {
-    let genreIds = values.genre.map((genre) => genre.id)
+    let genreIds = genres.value.map((genre) => genre.id)
+    console.log(values)
     let data = {
       name_en: values.nameEn,
       name_ka: values.nameKa,
@@ -234,7 +233,6 @@ export function useEditMovie(params) {
       .post(`api/movies/${params.value}`, data, config)
       .then((response) => {
         updatedMovie.value = response.data
-        genres.value = response.data.genres
         store.toggleEditModal(false)
       })
       .catch((error) => {
@@ -244,7 +242,6 @@ export function useEditMovie(params) {
 
   return {
     submit,
-    genres
   }
 }
 export function useEditQuote(quote) {
@@ -313,7 +310,6 @@ export function handleQuoteLike(quoteId, likeable, likeId) {
   let data = {
     quote_id: quoteId
   }
-  console.log(likeable)
 
   if (likeable.value) {
     axios
@@ -342,51 +338,6 @@ export function handleQuoteLike(quoteId, likeable, likeId) {
   }
 }
 
-export function submitGoogleUserProfile(
-  showUserUpdatedAlert,
-  disableInput,
-  showSaveChangesButtons,
-  usernameErrors,
-  sendUserName
-) {
-  const submit = (values) => {
-    showUserUpdatedAlert.value = false
-
-    if (sendUserName.value) {
-      axios
-        .patch('api/user/update-name', { username: values.username })
-        .then(() => {
-          getUser()
-          showUserUpdatedAlert.value = true
-          disableInput.value = true
-          showSaveChangesButtons.value = false
-          usernameErrors.value = null
-        })
-        .catch((error) => {
-          usernameErrors.value = error.response.data.errors.username[0]
-          console.log(error)
-        })
-    }
-
-    if (values.avatar) {
-      const config = {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      }
-      axios
-        .post('api/user/profile-avatar', { thumbnail: values.avatar }, config)
-        .then(() => {
-          getUser()
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
-  }
-  return {
-    submit,
-    showUserUpdatedAlert
-  }
-}
 
 export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButtons) {
   const { getUser } = useUserStore()

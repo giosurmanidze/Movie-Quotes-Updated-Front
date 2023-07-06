@@ -4,7 +4,6 @@ import axios from '@/config/axios/auth-index'
 export const useQuotesStore = defineStore('useQuotesStore', {
   state: () => ({
     quotes: [],
-    resultQueryy: [],
     quote: null,
     page: 1,
     searchQuery: null,
@@ -24,11 +23,6 @@ export const useQuotesStore = defineStore('useQuotesStore', {
     getQuotesRefresh() {
       axios.post('api/quotes-refresh', this.quotes.length).then((response) => {
         this.quotes = response.data
-      })
-    },
-    getSearchedData() {
-      axios.post('api/quote-search', { search: this.searchQuery }).then((response) => {
-        this.resultQueryy = response.data
       })
     },
     getQuote(id) {

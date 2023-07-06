@@ -1,11 +1,7 @@
 <template>
   <div class="px-4 md:ml-5 mt-10 text-white">
     <QuoteAddedModal />
-    <div
-      v-for="quote in store.posts"
-      :key="quote.id"
-      class="p-3 mb-5 bg-modal_bg rounded-lg"
-    >
+    <div v-for="quote in posts" :key="quote.id" class="p-3 mb-5 bg-modal_bg rounded-lg">
       <section class="flex items-center">
         <img
           :src="
@@ -33,7 +29,7 @@
         <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
         <comment-icon />
         <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
-        <LikedQuote :quoteId="quote.id" :quotes="store.posts" :user="user" />
+        <LikedQuote :quoteId="quote.id" :quotes="posts" :user="user" />
       </section>
 
       <section
@@ -96,9 +92,10 @@ import { useCreateComment } from "@/services";
 const { locale } = useI18n();
 
 const { user, userAvatar } = storeToRefs(useUserStore());
-const store = usePostStore();
-onMounted(() => store.getPosts());
-window.addEventListener("scroll", store.handleScroll);
+const { posts } = storeToRefs(usePostStore());
+const { getPosts, handleScroll } = usePostStore();
+onMounted(() => getPosts());
+window.addEventListener("scroll", handleScroll);
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
