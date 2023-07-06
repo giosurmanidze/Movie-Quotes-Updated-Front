@@ -30,7 +30,8 @@
               rules="required|geo"
               placeholder="ფილმის სახელი"
             />
-            <GenreInput name="genre" :values="genreArray" :isRequired="true"/>
+            <GenreInput :categories="categories" />
+
             <CrudInput
               lang="en"
               name="directorEn"
@@ -82,10 +83,18 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/useUserStore";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import GenreInput from "@/components/GenreInput.vue";
+import { ref } from "vue";
 import { useCreateMovie } from "@/services";
+import { useMoviesStore } from "@/stores/useMoviesStore";
+import { onMounted } from "vue";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 const store = useModalStore();
+const { getCategories } = useMoviesStore();
 
-const { submit, genreArray, imgValue, errorMessage } = useCreateMovie();
+const categories = ref([]);
+onMounted(async () => {
+  getCategories();
+});
+const { submit, imgValue, errorMessage } = useCreateMovie(categories);
 </script>

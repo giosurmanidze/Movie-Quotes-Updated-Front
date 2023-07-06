@@ -15,16 +15,14 @@ export const usePostStore = defineStore('post', {
           params: {
             search: this.searchValue
           }
-        })
-        this.posts.push(...response.data)
+        });
+        this.posts = response.data; 
       } else {
         try {
-          const response = await axios.get(`api/quotes`)
-          if (response.data.length) {
-          }
-          this.posts.push(...response.data)
+          const response = await axios.get(`api/quotes`);
+          this.posts = response.data; 
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       }
     },

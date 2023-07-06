@@ -5,7 +5,9 @@ import axiosInstance from '@/config/axios/index'
 export const useMoviesStore = defineStore('useMoviesStore', {
   state: () => ({
     movies: [],
+    movie: [],
     quotes: [],
+    allCategories: [],
     edited: false,
     updatedMovie: [],
     searchValue: ''
@@ -14,6 +16,11 @@ export const useMoviesStore = defineStore('useMoviesStore', {
     getMovies() {
       axios.get('api/movies').then((response) => {
         this.movies = response.data
+      })
+    },
+    getCategories() {
+      axios.get('api/genres').then((response) => {
+        this.allCategories = [...response.data]
       })
     },
     searchMovie() {

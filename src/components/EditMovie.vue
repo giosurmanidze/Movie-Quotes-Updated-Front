@@ -30,7 +30,7 @@
               placeholder="ფილმის სახელი"
               :oldValue="userData?.name.ka"
             />
-            <GenreInput name="genre" :values="genres" :isRequired="false" />
+            <GenreInput :categories="categories" />
             <CrudInput
               lang="en"
               name="directorEn"
@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import CrudModal from "@/components/CrudModal.vue";
 import CrudInput from "@/components/CrudInput.vue";
@@ -96,20 +96,24 @@ import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import axios from "@/config/axios/auth-index";
 import GenreInput from "@/components/GenreInput.vue";
 import { useEditMovie } from "@/services";
+import { useMoviesStore } from "@/stores/useMoviesStore";
 
-const { user, userAvatar } = storeToRefs(useUserStore());
 const store = useModalStore();
-
 const route = useRoute();
 const params = ref(route.params.id);
-
 const userData = ref();
-const genres = ref([]);
 
+const categories = ref([]);
+const { user, userAvatar } = storeToRefs(useUserStore());
+const { getCategories } = useMoviesStore();
+
+onMounted(async () => {
+  getCategories();
+});
 axios.get(`api/movies/${params.value}`).then((response) => {
   userData.value = response.data;
-  genres.value = JSON.parse(response.data.genres);
+  categories.value = response?.data?.genres;
 });
 
-const { submit } = useEditMovie(params);
+const { submit } = useEditMovie(params, categories);
 </script>

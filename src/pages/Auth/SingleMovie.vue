@@ -140,6 +140,7 @@ watch(
   () => updatedMovie.value,
   (state) => {
     movie.value = state;
+    genres.value = state.genres;
   }
 );
 
