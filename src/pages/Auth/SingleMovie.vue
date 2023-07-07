@@ -48,7 +48,7 @@
               :key="genre"
               class="bg-genre_text py-1 px-2 rounded font-bold"
             >
-              {{ genre.genre["en"] }}
+              {{ genre.genre?.[$i18n.locale] }}
             </p>
           </section>
           <section class="my-4">
