@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:block">
+  <div class="lg:block bg-banner_gradient">
     <div class="h-[80vh] bg-banner_gradient pt-8 px-8 lg:px-16">
       <Header />
       <div

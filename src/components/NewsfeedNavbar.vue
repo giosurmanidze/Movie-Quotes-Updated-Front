@@ -20,10 +20,10 @@
       </div>
       <div
         v-if="navbarState"
-        class="text-sm text-gray-400 items-center flex hover:text-gray-500"
+        class="text-sm text-gray-400 items-center flex hover:text-gray-500 gap-2"
       >
         <language-dropdown />
-        <search-icon @click="navbarState = !navbarState" class="mr-5 block md:hidden" />
+        <search-icon @click="navbarState = !navbarState" class="mr-3 block md:hidden" />
         <notifications-dropdown />
         <button
           @click="logout"
@@ -37,11 +37,12 @@
         class="flex items-center text-white w-full h-full border-b border-white p-4 bg-main_bg_color"
       >
         <back-arrow-icon @click="navbarState = !navbarState" class="mr-3" />
-        <Form @submit="submitForm" class="w-full">
+        <Form @submit="searchSubmit" class="w-full">
           <search-input
-            :placeholder="placeholderText"
+            :placeholder="$route.name === 'movieList' ? $t('search') : placeholderText"
             name="search"
             classes="w-full p-2 bg-transparent"
+            @keyup.enter="store2.searchPosts()"
           />
         </Form>
       </div>
@@ -109,12 +110,14 @@ import MoviesListIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import { RouterLink } from "vue-router";
 import BurgerIcon from "@/assets/icons/BurgerIcon.vue";
 import HideBurgerMenuIcon from "@/assets/icons/HideBurgerMenuIcon.vue";
-import { useQuotesStore } from "@/stores/useQuotesStore";
+import { usePostStore } from "@/stores/posts";
+import { useMoviesStore } from "@/stores/useMoviesStore.js";
 
 const { t } = useI18n({ useScope: "global" });
 const showSidebar = ref(false);
 const navbarState = ref(true);
 const router = useRouter();
+const store = usePostStore();
 
 const logout = async () => {
   try {
@@ -136,8 +139,12 @@ const placeholderText = computed(() => {
   );
 });
 
-function submitForm(values) {
-  const quotesStore = useQuotesStore();
-  quotesStore.searchQuery = values.search;
+const movieStore = useMoviesStore();
+
+function searchSubmit(values) {
+  const quotesStore = usePostStore();
+  quotesStore.searchValue = values.search;
+  movieStore.searchValue = values.search;
+  store.searchPosts();
 }
 </script>

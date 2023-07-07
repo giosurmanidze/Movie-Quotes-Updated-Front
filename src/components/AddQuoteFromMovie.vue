@@ -12,10 +12,7 @@
       <Form @submit="submit">
         <section class="flex-col py-5">
           <div class="flex items-center">
-            <img
-              :src="user.profile_picture"
-              class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
-            />
+            <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
             <p class="ml-5">{{ user.username }}</p>
           </div>
           <div class="mt-5 sm:flex gap-4">
@@ -40,7 +37,7 @@
             </section>
           </div>
           <section class="mt-5">
-            <CrudInput
+            <crud-input
               lang="en"
               name="bodyEn"
               rules="required|en"
@@ -48,7 +45,7 @@
             />
             <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
 
-            <CrudInput
+            <crud-input
               lang="ka"
               name="bodyKa"
               rules="required|geo"
@@ -84,10 +81,9 @@ import { useI18n } from "vue-i18n";
 import { useMoviesStore } from "@/stores/useMoviesStore";
 import DragAndDrop from "@/components/DragAndDrop.vue";
 
-const { user } = storeToRefs(useUserStore());
+const { user, userAvatar } = storeToRefs(useUserStore());
 
 const store = useModalStore();
-
 const errorMessage = ref("");
 
 const props = defineProps(["movie"]);

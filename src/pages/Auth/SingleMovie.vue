@@ -48,7 +48,7 @@
               :key="genre"
               class="bg-genre_text py-1 px-2 rounded font-bold"
             >
-              {{ genre.genre["en"] }}
+              {{ genre.genre?.[$i18n.locale] }}
             </p>
           </section>
           <section class="my-4">
@@ -109,6 +109,7 @@ import QuoteAddedModal from "@/components/QuoteAddModal.vue";
 import EditQuoteModalFromMovie from "@/components/EditQuoteModalFromMovie.vue";
 import QuoteDeletedModal from "@/components/QuoteDeletedModal.vue";
 import ViewQuoteModal from "@/components/ViewQuoteModal.vue";
+
 const { getUser } = useUserStore();
 getUser();
 
@@ -139,6 +140,7 @@ watch(
   () => updatedMovie.value,
   (state) => {
     movie.value = state;
+    genres.value = state.genres;
   }
 );
 

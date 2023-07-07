@@ -1,117 +1,62 @@
 <template>
-  <div
-    class="fixed top-0 left-0 z-20 h-screen w-screen"
-    v-if="open"
-    @click="open = false"
-  ></div>
-  <div class="z-[50] mt-4 mb-1">
-    <Field v-slot="{ field, meta }" :name="name" :rules="rule" v-model="chips">
-      <div
-        @click="toggleGenres"
-        class="flex w-full cursor-pointer flex-wrap content-between gap-y-2 rounded-[0.25rem] border border-gray_color py-2 pr-12 text-base"
-        :class="[
-          !meta.valid && wasTouched ? 'border-label_color' : '',
-          meta.valid && wasTouched ? 'border-green_border' : '',
-          meta.validated && meta.touched && chips.length ? 'border-green_border' : '',
-          meta.validated && meta.touched && !chips.length ? 'border-label_color' : '',
-        ]"
-      >
-        <div
-          class="ml-2 flex w-max items-center rounded-sm bg-gray-600 pl-2"
-          v-for="(chip, i) of chips"
-        >
-          <span class="cursor-default"> {{ chip.genre["en"] }} </span>
-          <span @click="removeChip(i)" class="chip-remove cursor-pointer p-2">
-            <img src="@/assets/x-icon.png" alt="x" />
-          </span>
-        </div>
-        <input
-          v-bind="field"
-          :id="name"
-          class="w-16 cursor-pointer placeholder-white bg-transparent px-2"
-          :class="chips?.length !== 0 ? 'invisible ' : ''"
-          :placeholder="chips?.length === 0 ? 'Genre' : ''"
-          autocomplete="off"
-          disabled
-        />
-      </div>
-    </Field>
-    <ul
-      class="mt-2 flex max-h-[8.5rem] w-full flex-col overflow-y-auto rounded-lg bg-black py-1"
-      v-show="open"
+  <div class="relative mt-5">
+    <div
+      class="grid grid-cols-2 md:grid-cols-4 gap-2 border border-genre_text rounded mb-4 px-3 py-3"
+      @click.stop=""
+      @click="openDropdown = !openDropdown"
     >
-      <li
-        :id="item"
-        class="cursor-pointer z-50 py-1 px-3 hover:bg-slate-900"
-        v-for="item in movieGenres"
-        :key="item.genre['en']"
-        @click="saveChip(item)"
+      <p v-if="!categories?.length">{{ $t("category") }}</p>
+      <p
+        v-for="category in categories"
+        v-else
+        class="w-36 text-center bg-genre_text rounded flex justify-between items-center space-x-1 py-1 px-2"
       >
-        {{ item.genre["en"] }}
-      </li>
-    </ul>
+        <span class="text-xs text-center w-full">{{
+          category.genre?.[$i18n.locale]
+        }}</span>
+        <p :height="true" @click.stop="" @click="removeCategory(category)">X</p>
+      </p>
+    </div>
+    <div
+      v-if="openDropdown"
+      class="absolute w-full bg-black z-10 top-[100%] px-2 py-3"
+      @click.stop=""
+    >
+      <p
+        v-for="category in allCategories"
+        class="hover:bg-gray-500 w-full px-1 py-2"
+        @click.once="addCategory(category)"
+      >
+        {{ category.genre?.[$i18n.locale] }}
+      </p>
+    </div>
   </div>
 </template>
+
 <script setup>
-import { Field } from "vee-validate";
-import { ref, watch } from "vue";
-import axios from "@/config/axios/index";
+import { ref } from 'vue'
+import {useMoviesStore} from '@/stores/useMoviesStore'
+import { storeToRefs } from 'pinia';
 
 const props = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  values: {
+  categories: {
     type: Array,
-    required: false,
-  },
+    required: true,
+  }
 });
 
-const chips = ref([]);
-const open = ref(false);
-const genres = ref([]);
-const wasTouched = ref(false);
+const openDropdown = ref(false);
+const { allCategories } = storeToRefs(useMoviesStore())
 
-watch(
-  () => (props.values ? props.values : []),
-  (state) => {
-    wasTouched.value = false;
-    chips.value = state;
-  }
-);
-
-let movieGenres = [];
-
-const getGenres = () => {
-  axios.get("api/genres").then((response) => {
-    movieGenres = response.data;
-  });
-};
-getGenres();
-const saveChip = (genre) => {
-  if (!wasTouched.value) wasTouched.value = true;
-  if (!chips.value.includes(genre)) {
-    chips.value.push(genre);
-    genres.value = chips.value;
+const addCategory = (value) => {
+  if (!props.categories.filter((category) => category.id === value.id).length) {
+    props.categories.push(value);
+    openDropdown.value = false;
   }
 };
 
-const removeChip = (index) => {
-  if (!wasTouched.value) wasTouched.value = true;
-  chips.value.splice(index, 1);
-  genres.value = chips.value;
-};
-const toggleGenres = (e) => {
-  if (!e.target.classList.contains("chip-remove")) {
-    open.value = !open.value;
-  }
-};
-const rule = () => {
-  if (chips.value.length === 0) {
-    return false;
-  } else {
-    return true;
-  }
+const removeCategory = (value) => {
+  const index = props.categories.indexOf(value);
+  props.categories.splice(index, 1);
 };
 </script>
