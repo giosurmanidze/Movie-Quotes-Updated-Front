@@ -15,7 +15,7 @@
             <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
             <p class="ml-5">{{ user.username }}</p>
           </div>
-          <section class="mt-5">
+          <section class="mt-5" :class="font">
             <CrudInput
               lang="en"
               name="nameEn"
@@ -63,10 +63,10 @@
               :placeholder="$t('release_date')"
             />
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />
-            <button class="w-full bg-red-600 py-2" type="submit">
-              {{ $t("add_movie") }}
-            </button>
           </section>
+          <button class="w-full bg-red-600 py-2" type="submit">
+            {{ $t("add_movie") }}
+          </button>
         </section>
       </Form>
     </template>
@@ -87,7 +87,9 @@ import { ref } from "vue";
 import { useCreateMovie } from "@/services";
 import { useMoviesStore } from "@/stores/useMoviesStore";
 import { onMounted } from "vue";
+import useFont from "@/config/font/useFont.js";
 
+const font = useFont();
 const { user, userAvatar } = storeToRefs(useUserStore());
 const store = useModalStore();
 const { getCategories } = useMoviesStore();
