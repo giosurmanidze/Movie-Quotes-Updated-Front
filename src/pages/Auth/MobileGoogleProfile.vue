@@ -22,7 +22,7 @@
             <section class="flex justify-between mt-7">
               <section class="flex flex-col">
                 <p class="pb-2">{{ $t("username") }}</p>
-                <p>{{ user.username }}</p>
+                <p>{{ props.user.username }}</p>
               </section>
               <p
                 class="cursor-pointer mt-7 text-quote_text"
@@ -34,7 +34,7 @@
             <section class="flex justify-between mt-7">
               <section class="flex flex-col mt-5 pb-5">
                 <p class="pb-2">{{ $t("email") }}</p>
-                <p class="text-quote_text">{{ user.email }}</p>
+                <p class="text-quote_text">{{ props.user.email }}</p>
               </section>
             </section>
             <section class="flex justify-between mt-4">

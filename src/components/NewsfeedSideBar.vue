@@ -38,7 +38,7 @@
 <script setup>
 import HomeIcon from "@/assets/icons/HomeIcon.vue";
 import MoviesListIcon from "@/assets/icons/ChooseMovieIcon.vue";
-import { RouterLink, useRouter } from "vue-router";
+import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
 
@@ -47,5 +47,4 @@ const { userAvatar } = storeToRefs(useUserStore());
 const { getUser } = useUserStore();
 getUser();
 const { user } = storeToRefs(useUserStore());
-const router = useRouter();
 </script>

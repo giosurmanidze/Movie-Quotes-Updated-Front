@@ -7,9 +7,9 @@
     >
       <p v-if="!categories?.length">{{ $t("category") }}</p>
       <p
+        v-else
         v-for="category in categories"
         :key="category.id" 
-        v-else
         class="w-36 text-center bg-genre_text rounded flex justify-between items-center space-x-1 py-1 px-2"
       >
         <span class="text-xs text-center w-full">{{
@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, defineProps } from 'vue';
 import { useMoviesStore } from '@/stores/useMoviesStore';
 import { storeToRefs } from 'pinia';
 

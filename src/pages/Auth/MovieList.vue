@@ -45,7 +45,6 @@
 <script setup>
 import { Form } from "vee-validate";
 import SearchInput from "@/components/SearchInput.vue";
-import { storeToRefs } from "pinia";
 import { computed, ref } from "vue";
 import FindIcon from "@/assets/icons/SearchIcon.vue";
 import MovieCard from "@/components/MovieCard.vue";
