@@ -1,6 +1,10 @@
 <template>
-  <button class="text-white px-3 rounded lg:text-xl h-10" type="submit" :class="classes">
-    {{ $t(text) }}
+  <button
+    class="text-white px-3 rounded lg:text-xl h-10"
+    type="submit"
+    :class="props.classes"
+  >
+    {{ $t(props.text) }}
   </button>
 </template>
 

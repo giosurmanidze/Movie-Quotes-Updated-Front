@@ -18,7 +18,11 @@
         <p class="text-center w-full text-lg">
           {{ $t(msg) }}
         </p>
-        <custom-button :text="btnText" :classes="classes" :route="route" />
+        <custom-button
+          :text="props.btnText"
+          :classes="props.classes"
+          :route="props.route"
+        />
       </div>
     </div>
   </div>

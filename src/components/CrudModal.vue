@@ -4,7 +4,7 @@
     aria-labelledby="modal-title"
     role="dialog"
     aria-modal="true"
-    @click="onClick"
+    @click="props.onClick"
   >
     <div
       :class="
