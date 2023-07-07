@@ -89,8 +89,6 @@ import { computed, ref, onMounted } from "vue";
 import { Form } from "vee-validate";
 import { useCreateComment } from "@/services";
 
-const { locale } = useI18n();
-
 const { user, userAvatar } = storeToRefs(useUserStore());
 const { posts } = storeToRefs(usePostStore());
 const { getPosts, handleScroll } = usePostStore();
@@ -98,6 +96,7 @@ onMounted(() => getPosts());
 window.addEventListener("scroll", handleScroll);
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
+const { locale } = useI18n({ useScope: "global" });
 
 const lang = computed(() => {
   return locale.value;

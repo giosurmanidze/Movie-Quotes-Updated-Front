@@ -1,5 +1,5 @@
 <template>
-  <div class="xs:hidden sm:flex items-center gap-3">
+  <div class="sm:flex xs:mr-2 items-center gap-1">
     <select
       v-model="$i18n.locale"
       class="remove-arrow text-white"
@@ -10,7 +10,7 @@
       <option class="text-black" value="en">{{ $t("lang_choose_opt_en") }}</option>
       <option class="text-black" value="ka">{{ $t("lang_choose_opt_ka") }}</option>
     </select>
-    <img src="@/assets/caret-right-fill.svg" class="mt-2" />
+    <img src="@/assets/caret-right-fill.svg" class="xs:mt-1" />
   </div>
 </template>
 

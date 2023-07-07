@@ -20,10 +20,10 @@
       </div>
       <div
         v-if="navbarState"
-        class="text-sm text-gray-400 items-center flex hover:text-gray-500"
+        class="text-sm text-gray-400 items-center flex hover:text-gray-500 gap-2"
       >
         <language-dropdown />
-        <search-icon @click="navbarState = !navbarState" class="mr-5 block md:hidden" />
+        <search-icon @click="navbarState = !navbarState" class="mr-3 block md:hidden" />
         <notifications-dropdown />
         <button
           @click="logout"
