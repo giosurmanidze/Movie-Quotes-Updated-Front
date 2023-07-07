@@ -70,6 +70,7 @@
   </div>
 </template>
 
+<!-- eslint-disable-next-line no-unused-vars -->
 <script setup>
 import { Form } from "vee-validate";
 import { ref } from "vue";

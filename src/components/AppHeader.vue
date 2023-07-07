@@ -3,14 +3,18 @@
     <span class="text-text_color">{{ $t("movie_quotes") }}</span>
     <div class="flex items-center gap-6 text-white">
       <lang-changer />
-      <Button text="sign_up" :route="'/signup'" classes="bg-btn_color" />
-      <Button text="log_in_btn" :route="'/login'" classes="border-2 border-white" />
+      <custom-button text="sign_up" :route="'/signup'" classes="bg-btn_color" />
+      <custom-button
+        text="log_in_btn"
+        :route="'/login'"
+        classes="border-2 border-white"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import Button from "./Button.vue";
+import CustomButton from "./CustomButton.vue";
 import LangChanger from "./LangChanger.vue";
 </script>
 

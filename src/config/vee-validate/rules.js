@@ -1,13 +1,12 @@
 import { defineRule } from 'vee-validate'
-import { required, min, max, alpha_num,confirmed, email } from '@vee-validate/rules'
+import { required, min, max, alpha_num, confirmed, email } from '@vee-validate/rules'
 
 defineRule('required', required)
 defineRule('min', min)
 defineRule('max', max)
 defineRule('alpha_num', alpha_num)
 defineRule('email', email)
-defineRule("confirmed", confirmed);
-
+defineRule('confirmed', confirmed)
 
 defineRule('lower_alpha_num', (value) => {
   if (!value || !value.length) {
@@ -18,6 +17,7 @@ defineRule('lower_alpha_num', (value) => {
   }
   return true
 })
+
 defineRule('lowercase', (value) => {
   const regex = /^[a-z0-9.@]*$/
   if (!regex.test(value)) {

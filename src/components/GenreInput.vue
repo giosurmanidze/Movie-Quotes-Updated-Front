@@ -8,13 +8,14 @@
       <p v-if="!categories?.length">{{ $t("category") }}</p>
       <p
         v-for="category in categories"
+        :key="category.id" 
         v-else
         class="w-36 text-center bg-genre_text rounded flex justify-between items-center space-x-1 py-1 px-2"
       >
         <span class="text-xs text-center w-full">{{
           category.genre?.[$i18n.locale]
         }}</span>
-        <p :height="true" @click.stop="" @click="removeCategory(category)">X</p>
+        <p :height="true" @click.stop="" @click="removeCategory(category)">x</p>
       </p>
     </div>
     <div
@@ -24,6 +25,7 @@
     >
       <p
         v-for="category in allCategories"
+        :key="category.id"  
         class="hover:bg-gray-500 w-full px-1 py-2"
         @click.once="addCategory(category)"
       >
@@ -34,29 +36,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import {useMoviesStore} from '@/stores/useMoviesStore'
+import { ref, watchEffect } from 'vue';
+import { useMoviesStore } from '@/stores/useMoviesStore';
 import { storeToRefs } from 'pinia';
+
+const { allCategories } = storeToRefs(useMoviesStore());
 
 const props = defineProps({
   categories: {
     type: Array,
     required: true,
-  }
+  },
 });
 
 const openDropdown = ref(false);
-const { allCategories } = storeToRefs(useMoviesStore())
+const modifiedCategories = ref([]);
 
 const addCategory = (value) => {
-  if (!props.categories.filter((category) => category.id === value.id).length) {
-    props.categories.push(value);
+  if (!modifiedCategories.value.find((category) => category.id === value.id)) {
+    modifiedCategories.value.push(value);
     openDropdown.value = false;
   }
 };
 
 const removeCategory = (value) => {
-  const index = props.categories.indexOf(value);
-  props.categories.splice(index, 1);
+  const index = modifiedCategories.value.findIndex((category) => category.id === value.id);
+  if (index !== -1) {
+    modifiedCategories.value.splice(index, 1);
+  }
 };
+
+watchEffect(() => {
+  modifiedCategories.value = props.categories;
+});
+
 </script>

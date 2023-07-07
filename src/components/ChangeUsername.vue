@@ -26,6 +26,7 @@
   </div>
 </template>
 
+<!-- eslint-disable-next-line no-unused-vars -->
 <script setup>
 import { ref, defineProps } from "vue";
 import ProfileInput from "./ProfileInput.vue";
