@@ -1,57 +1,66 @@
-# epic-moovie-quotes-front
+<div style="display:flex; align-items: center">
+  <h1 style="position:relative; top: -6px" >Movie Quotes Updated Version</h1>
+</div>
 
-This template should help get you started developing with Vue 3 in Vite.
+---
+In this updated version of Movie Quotes, you can view thousands of different user-uploaded quotes and comment or like them. Many features have been added; you can like someone's quote or a comment, add your own movie and quote, and more. You have your own profile where you can update your data.
 
-## Recommended IDE Setup
+#
+### Table of Contents
+* [Prerequisites](#prerequisites)
+* [Tech Stack](#tech-stack)
+* [Getting Started](#getting-started)
+* [Development](#development)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+#
+### Prerequisites
 
-## Customize configuration
+* <img src="https://github.com/RedberryInternship/example-project-laravel/blob/master/readme/assets/npm.png?raw=true" width="35" style="position: relative; top: 4px" /> *npm@9.5 and up*
+#
+### Tech Stack
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+* <img src="https://www.mattbenton.io/img/logos/vue-9-logo-png-transparent-min.png" height="19" style="position: relative; top: 4px" /> [VueJs@3.x](https://vuejs.org/guide/introduction.html) - front-end framework
+* <img src="https://vee-validate.logaretm.com/v4/logo.png" height="19" style="position: relative; top: 4px" /> [Vee-validate@4.x](https://vee-validate.logaretm.com/v4/) - package for form validations
+* <img src="https://miro.medium.com/max/632/1*5QD8DKhOjRe-gcYjozlLNQ.png" height="19" style="position: relative; top: 4px" /> [Tailwind CSS](https://tailwindcss.com) - CSS library
+* [Pusher](https://pusher.com) - Real time notification package
+* [Laravel Echo](https://yobaji.github.io/vue3-google-login/) - Real time event broadcasting library
 
-## Project Setup
+#
+### Getting Started
+1\. First of all you need to clone repository from github:
+```sh
+git clone https://github.com/RedberryInternship/giorgi-surmanidze-movie-quotes-front.git
+```
 
+2\. Next step requires you to run *npm install* in order to install all the dependencies.
 ```sh
 npm install
 ```
-
-### Compile and Hot-Reload for Development
-
+3\. Now we need to set our env file. 
 ```sh
-npm run dev
+cp .env.example .env
 ```
+And now you should provide **.env** file all the necessary environment variables:
 
-### Compile and Minify for Production
+#
+**App urls:**
+>VITE_BASE_URL=*****
 
-```sh
-npm run build
-```
+>VITE_THUMBNAIL_URL=*****
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+#
+**Pusher:**
+>VITE_PUSHER_APP_KEY=*****
 
-```sh
-npm run test:unit
-```
+>VITE_PUSHER_APP_CLUSTER=*****
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+##### Now, you should be good to go!
 
-```sh
-npm run test:e2e:dev
-```
+#
+### Development
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+You can run Vite built-in development server by executing:
 
 ```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+  npm run dev
 ```
