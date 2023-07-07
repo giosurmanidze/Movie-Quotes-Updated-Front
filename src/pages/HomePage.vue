@@ -63,7 +63,7 @@
           <h1 class="text-text_color text-2xl lg:text-6xl text-center">
             {{ $t("find_quote") }}
           </h1>
-          <Button type="button" text="get_started_btn" classes="bg-btn_color" />
+          <custom-button type="button" text="get_started_btn" classes="bg-btn_color" />
         </div>
       </div>
     </div>
@@ -72,11 +72,11 @@
 </template>
 
 <script setup>
-import Header from "@/components/Header.vue";
+import Header from "@/components/AppHeader.vue";
 import SignupForm from "./SignupForm.vue";
 import LoginForm from "./LoginForm.vue";
 import SuccessVerifiedEmail from "./SuccessVerifiedEmail.vue";
-import Button from "@/components/Button.vue";
+import CustomButton from "@/components/CustomButton.vue";
 import LandingImageCard from "@/components/LandingImageCard.vue";
 import SentEmail from "./SentEmail.vue";
 import ForgotPassword from "./ForgotPassword.vue";

@@ -369,6 +369,8 @@ export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButton
 
 export function useSendUsername(showUserUpdated, disableInput, showConfirmModal, usernameError) {
   const { getUser } = useUserStore()
+  const { locale } = useI18n({ useScope: 'global' })
+
 
   function sendData(values) {
     showUserUpdated.value = false
