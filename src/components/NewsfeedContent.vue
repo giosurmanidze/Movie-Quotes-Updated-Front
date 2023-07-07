@@ -1,11 +1,7 @@
 <template>
   <div class="px-4 md:ml-5 mt-10 text-white">
     <QuoteAddedModal />
-    <div
-      v-for="quote in resultQuery"
-      :key="quote.id"
-      class="p-3 mb-5 bg-modal_bg rounded-lg"
-    >
+    <div v-for="quote in posts" :key="quote.id" class="p-3 mb-5 bg-modal_bg rounded-lg">
       <section class="flex items-center">
         <img
           :src="
@@ -33,9 +29,14 @@
         <p>{{ quote.comments ? quote.comments.length : 0 }}</p>
         <comment-icon />
         <p>{{ quote.likes ? quote.likes.length : 0 }}</p>
-        <LikedQuote :quoteId="quote.id" :user="user" />
+        <LikedQuote :quoteId="quote.id" :quotes="posts" :user="user" />
       </section>
-      <section class="py-4" v-for="comment in quote.comments" :key="comment.id">
+
+      <section
+        class="py-4 w-full"
+        v-for="comment in getVisibleComments(quote)"
+        :key="comment.id"
+      >
         <div class="flex items-center">
           <img
             :src="
@@ -51,6 +52,13 @@
           <p>{{ comment?.body }}</p>
         </div>
       </section>
+      <button
+        class="flex justify-center mx-auto my-4 font-bold"
+        v-if="shouldShowReadMoreButton(quote)"
+        @click="toggleExpandComments(quote)"
+      >
+        {{ isExpanded(quote) ? $t("show_less") : $t("read_more") }}
+      </button>
       <section @click="getQuoteId(quote.id)">
         <Form class="flex items-center py-3 w-full" @submit="submit">
           <img
@@ -74,46 +82,24 @@ import CommentIcon from "@/assets/icons/CommentIcon.vue";
 import LikedQuote from "@/components/LikedQuote.vue";
 import CommentInput from "./CommentInput.vue";
 import { storeToRefs } from "pinia";
-import { useQuotesStore } from "@/stores/useQuotesStore";
+import { usePostStore } from "@/stores/posts";
 import { useI18n } from "vue-i18n";
 import { useUserStore } from "@/stores/useUserStore";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { Form } from "vee-validate";
 import { useCreateComment } from "@/services";
 
-const { locale } = useI18n();
-
-const { quotes } = storeToRefs(useQuotesStore());
 const { user, userAvatar } = storeToRefs(useUserStore());
+const { posts } = storeToRefs(usePostStore());
+const { getPosts, handleScroll } = usePostStore();
+onMounted(() => getPosts());
+window.addEventListener("scroll", handleScroll);
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
+const { locale } = useI18n({ useScope: "global" });
 
 const lang = computed(() => {
   return locale.value;
-});
-const quotesStore = useQuotesStore();
-
-const resultQuery = computed(() => {
-  if (quotesStore.searchQuery && quotesStore.searchQuery.startsWith("#")) {
-    let cleanString = ref(quotesStore.searchQuery.slice(1));
-    return quotes.value.filter((item) => {
-      return cleanString.value
-        .toLowerCase()
-        .split(" ")
-        .every((v) => item.quote[locale.value].toLowerCase().startsWith(v));
-    });
-  } else if (quotesStore.searchQuery && quotesStore.searchQuery.startsWith("@")) {
-    let cleanString = ref(quotesStore.searchQuery.slice(1));
-
-    return quotes.value.filter((item) => {
-      return cleanString.value
-        .toLowerCase()
-        .split(" ")
-        .every((v) => item.movie?.[locale.value].toLowerCase().startsWith(v));
-    });
-  } else {
-    return quotes.value;
-  }
 });
 
 const quoteId = ref(null);
@@ -121,11 +107,31 @@ function getQuoteId(value) {
   quoteId.value = value;
 }
 
-window.onscroll = function () {
-  if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-    getQuotes();
-  }
-};
-const { getQuotes } = useQuotesStore();
 const { submit } = useCreateComment(quoteId);
+
+const expandedQuotes = ref([]);
+
+function getVisibleComments(quote) {
+  if (isExpanded(quote)) {
+    return quote.comments;
+  } else {
+    return quote.comments.slice(0, 2);
+  }
+}
+
+function shouldShowReadMoreButton(quote) {
+  return quote.comments.length > 2;
+}
+
+function isExpanded(quote) {
+  return expandedQuotes.value.includes(quote.id);
+}
+
+function toggleExpandComments(quote) {
+  if (isExpanded(quote)) {
+    expandedQuotes.value = expandedQuotes.value.filter((id) => id !== quote.id);
+  } else {
+    expandedQuotes.value.push(quote.id);
+  }
+}
 </script>

@@ -15,7 +15,7 @@
             <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
             <p class="ml-5">{{ user.username }}</p>
           </div>
-          <section class="mt-5">
+          <section class="mt-5" :class="font">
             <CrudInput
               lang="en"
               name="nameEn"
@@ -30,7 +30,8 @@
               rules="required|geo"
               placeholder="ფილმის სახელი"
             />
-            <GenreInput name="genre" :values="genreArray" />
+            <GenreInput :categories="categories" />
+
             <CrudInput
               lang="en"
               name="directorEn"
@@ -62,10 +63,10 @@
               :placeholder="$t('release_date')"
             />
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />
-            <button class="w-full bg-red-600 py-2" type="submit">
-              {{ $t("add_movie") }}
-            </button>
           </section>
+          <button class="w-full bg-red-600 py-2" type="submit">
+            {{ $t("add_movie") }}
+          </button>
         </section>
       </Form>
     </template>
@@ -82,10 +83,20 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/useUserStore";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import GenreInput from "@/components/GenreInput.vue";
+import { ref } from "vue";
 import { useCreateMovie } from "@/services";
+import { useMoviesStore } from "@/stores/useMoviesStore";
+import { onMounted } from "vue";
+import useFont from "@/config/font/useFont.js";
 
+const font = useFont();
 const { user, userAvatar } = storeToRefs(useUserStore());
 const store = useModalStore();
+const { getCategories } = useMoviesStore();
 
-const { submit, genreArray, imgValue, errorMessage } = useCreateMovie();
+const categories = ref([]);
+onMounted(async () => {
+  getCategories();
+});
+const { submit, imgValue, errorMessage } = useCreateMovie(categories);
 </script>
