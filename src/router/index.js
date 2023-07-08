@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '@/pages/HomePage.vue'
+import LandingPage from '@/pages/LandingPage.vue'
 import SuccessVerifiedEmail from '@/pages/SuccessVerifiedEmail.vue'
 import LoginForm from '@/pages/LoginForm.vue'
 import SignupForm from '@/pages/SignupForm.vue'
@@ -26,7 +26,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'landing',
-      component: HomePage,
+      component: LandingPage,
       children: [
         {
           path: '/login',
@@ -128,18 +128,19 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const authStore = useAuthStore()
+  const authStore = useAuthStore();
   if (authStore.authenticated === null) {
     try {
-      await axios.get(`api/user`)
-      authStore.authenticated = true
+      await axios.get('api/user');
+      authStore.authenticated = true;
     } catch (err) {
-      authStore.authenticated = false
+      authStore.authenticated = false;
     } finally {
-      return next()
+      next();
     }
+  } else {
+    next();
   }
-  return next()
-})
+});
 
 export default router
