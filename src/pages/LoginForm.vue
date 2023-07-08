@@ -72,7 +72,7 @@
             {{ $t("sign_up_with_google") }}
           </a>
         </div>
-        <Loading v-if="loading" />
+        <loading-icon v-if="loading" />
       </Form>
       <span class="text-center text-genre_text"
         >{{ $t("log_in_footer_text")
@@ -92,7 +92,7 @@ import TextField from "@/components/TextField.vue";
 import SubmitButton from "@/components/SubmitButton.vue";
 import { loginUser } from "@/services/requests/sendRequest";
 import axiosInstance from "@/config/axios/index";
-import Loading from "@/components/Loading.vue";
+import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";

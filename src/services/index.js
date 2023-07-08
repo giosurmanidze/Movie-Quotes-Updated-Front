@@ -21,7 +21,6 @@ export function useSubmitCreatePassword() {
     try {
       values.email = route.query.email
       values.token = route.query.token
-      values['password_confirmation'] = values.password_confirmation
       await recoverPassword(values)
       loading.value = false
       router.push({

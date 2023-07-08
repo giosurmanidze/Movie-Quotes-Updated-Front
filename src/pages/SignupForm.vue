@@ -52,7 +52,7 @@
             {{ $t("sign_up_with_google") }}
           </a>
         </div>
-        <Loading v-if="registerLoading" />
+        <loading-icon v-if="registerLoading" />
       </Form>
       <span class="text-center text-genre_text"
         >{{ $t("sign_up_footer_text")
@@ -72,7 +72,7 @@ import { Form } from "vee-validate";
 import TextField from "@/components/TextField.vue";
 import SubmitButton from "@/components/SubmitButton.vue";
 import { RouterLink } from "vue-router";
-import Loading from "@/components/Loading.vue";
+import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
 import { useSubmitRegister } from "@/services/index";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;

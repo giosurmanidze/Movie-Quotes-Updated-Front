@@ -6,17 +6,17 @@
       @click="openDropdown = !openDropdown"
     >
       <p v-if="!categories?.length">{{ $t("category") }}</p>
-      <p
+      <div
         v-else
         v-for="category in categories"
-        :key="category.id" 
+        :key="category.id"
         class="w-36 text-center bg-genre_text rounded flex justify-between items-center space-x-1 py-1 px-2"
       >
         <span class="text-xs text-center w-full">{{
           category.genre?.[$i18n.locale]
         }}</span>
-        <p :height="true" @click.stop="" @click="removeCategory(category)">x</p>
-      </p>
+        <p @click.stop="" @click="removeCategory(category)">x</p>
+      </div>
     </div>
     <div
       v-if="openDropdown"
@@ -25,7 +25,7 @@
     >
       <p
         v-for="category in allCategories"
-        :key="category.id"  
+        :key="category.id"
         class="hover:bg-gray-500 w-full px-1 py-2"
         @click.once="addCategory(category)"
       >
@@ -36,9 +36,9 @@
 </template>
 
 <script setup>
-import { ref, watchEffect, defineProps } from 'vue';
-import { useMoviesStore } from '@/stores/useMoviesStore';
-import { storeToRefs } from 'pinia';
+import { ref, watchEffect, defineProps } from "vue";
+import { useMoviesStore } from "@/stores/useMoviesStore";
+import { storeToRefs } from "pinia";
 
 const { allCategories } = storeToRefs(useMoviesStore());
 
@@ -48,7 +48,6 @@ const props = defineProps({
     required: true,
   },
 });
-
 const openDropdown = ref(false);
 const modifiedCategories = ref([]);
 
@@ -60,7 +59,9 @@ const addCategory = (value) => {
 };
 
 const removeCategory = (value) => {
-  const index = modifiedCategories.value.findIndex((category) => category.id === value.id);
+  const index = modifiedCategories.value.findIndex(
+    (category) => category.id === value.id
+  );
   if (index !== -1) {
     modifiedCategories.value.splice(index, 1);
   }
@@ -69,5 +70,4 @@ const removeCategory = (value) => {
 watchEffect(() => {
   modifiedCategories.value = props.categories;
 });
-
 </script>
