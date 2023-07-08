@@ -33,7 +33,7 @@ const font = computed(() => {
 @font-face {
   font-family: "HelveticaGeorgianLight";
   src: local("HelveticaGeorgian"),
-    url(@/assets/fonts/georgian/Helvetica-Light.ttf.ttf) format("truetype");
+    url(@/assets/fonts/georgian/Helvetica-Light.ttf) format("truetype");
 }
 @font-face {
   font-family: "HelveticaEnglish";
