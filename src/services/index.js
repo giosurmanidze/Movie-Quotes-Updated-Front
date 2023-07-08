@@ -21,7 +21,6 @@ export function useSubmitCreatePassword() {
     try {
       values.email = route.query.email
       values.token = route.query.token
-      values['password_confirmation'] = values.password_confirmation
       await recoverPassword(values)
       loading.value = false
       router.push({
@@ -369,6 +368,8 @@ export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButton
 
 export function useSendUsername(showUserUpdated, disableInput, showConfirmModal, usernameError) {
   const { getUser } = useUserStore()
+  const { locale } = useI18n({ useScope: 'global' })
+
 
   function sendData(values) {
     showUserUpdated.value = false

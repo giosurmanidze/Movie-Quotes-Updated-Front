@@ -4,7 +4,7 @@
     aria-labelledby="modal-title"
     role="dialog"
     aria-modal="true"
-    @click="onClick"
+    @click="props.onClick"
   >
     <div
       :class="
@@ -34,6 +34,7 @@
   </div>
 </template>
 
+<!-- eslint-disable-next-line no-unused-vars -->
 <script setup>
 import { defineProps } from "vue";
 const props = defineProps({

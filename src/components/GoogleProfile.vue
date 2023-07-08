@@ -25,7 +25,7 @@
                 name="username"
                 rules="required"
                 label="username"
-                :currentUser="user.username"
+                :currentUser="props.user.username"
                 :disabled="disableInput"
               />
               <p
@@ -45,7 +45,7 @@
             <div class="flex">
               <div class="lg:w-1/2 w-full h-12">
                 <p class="bg-quote_text py-1.5 pl-1 rounded text-black">
-                  {{ user.email }}
+                  {{ props.user.email }}
                 </p>
               </div>
             </div>

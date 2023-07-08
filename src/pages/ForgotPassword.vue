@@ -25,7 +25,7 @@
             classes="bg-[#E31221] w-full"
             route="/forgot-password-email-sent"
           />
-          <Loading v-if="forgotLoading" />
+          <loading-icon v-if="forgotLoading" />
         </Form>
         <router-link :to="{ name: 'login' }" class="flex gap-2 text-genre_text">
           <img src="@/assets/left-arrow.svg" />
@@ -41,7 +41,7 @@ import { Form } from "vee-validate";
 import { RouterLink } from "vue-router";
 import TextField from "@/components/TextField.vue";
 import SubmitButton from "@/components/SubmitButton.vue";
-import Loading from "@/components/Loading.vue";
+import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
 import { useSubmitForgotPassword } from "@/services/index";
 
 const { submit, loading: forgotLoading } = useSubmitForgotPassword();

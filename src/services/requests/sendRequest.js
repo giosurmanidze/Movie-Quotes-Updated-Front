@@ -3,12 +3,8 @@ import { useAuthStore } from '@/stores/useAuthStore.js'
 
 const sendRequest = async (url, data) => {
   await axios.get('/sanctum/csrf-cookie')
-  try {
-    const response = await axios.post(url, data)
-    return response
-  } catch (error) {
-    throw error
-  }
+  const response = await axios.post(url, data)
+  return response
 }
 
 export const createUser = async (data) => {

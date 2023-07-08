@@ -18,14 +18,18 @@
         <p class="text-center w-full text-lg">
           {{ $t(msg) }}
         </p>
-        <Button :text="btnText" :classes="classes" :route="route" />
+        <custom-button
+          :text="props.btnText"
+          :classes="props.classes"
+          :route="props.route"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import Button from "@/components/Button.vue";
+import CustomButton from "@/components/CustomButton.vue";
 import { defineProps } from "vue";
 
 const props = defineProps({

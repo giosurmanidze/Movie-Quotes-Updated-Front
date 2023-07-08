@@ -6,12 +6,12 @@
       <p class="md:text-lg text-base py-4 text-center px-4">
         {{ $t("error_page_text") }}
       </p>
-      <Button type="button" text="return_home" classes="bg-btn_color" />
+      <custom-button type="button" text="return_home" classes="bg-btn_color" />
     </section>
   </div>
 </template>
 
 <script setup>
 import NotFoundPageIcon from "@/assets/icons/NotFoundPageIcon.vue";
-import Button from "@/components/Button.vue";
+import CustomButton from "@/components/CustomButton.vue";
 </script>

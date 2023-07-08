@@ -1,6 +1,7 @@
 <template>
   <div class="flex-col">
     <label for="name" class="text-white">{{ $t(label) }}</label>
+    <!-- eslint-disable vue/no-mutating-props -->
     <Field
       :name="name"
       v-slot="{ field }"

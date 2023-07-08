@@ -2,7 +2,7 @@
   <section v-if="!showConfirmModal">
     <section>
       <ProfileInput name="email" rules="required" label="email" />
-      <p class="text-red-500" v-if="emailErrors">{{ emailErrors }}</p>
+      <p class="text-red-500" v-if="props.emailErrors">{{ emailErrors }}</p>
     </section>
     <section class="flex justify-between pt-5">
       <div @click="setShowValue(true)" class="py-2 px-1">{{ $t("cancel") }}</div>

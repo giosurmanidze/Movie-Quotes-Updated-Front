@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Landing from '@/pages/Landing.vue'
+import LandingPage from '@/pages/LandingPage.vue'
 import SuccessVerifiedEmail from '@/pages/SuccessVerifiedEmail.vue'
 import LoginForm from '@/pages/LoginForm.vue'
 import SignupForm from '@/pages/SignupForm.vue'
@@ -15,7 +15,7 @@ import SingleMovie from '@/pages/Auth/SingleMovie.vue'
 import { useAuthStore } from '@/stores/useAuthStore.js'
 import isAuthenticated from '@/router/auth-guard.js'
 import isNotAuthenticated from '@/router/unauth-guard.js'
-import Forbidden from '@/pages/ErrorPages/Forbidden.vue'
+import ForbiddenPage from '@/pages/ErrorPages/ForbiddenPage.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
 import axios from '@/config/axios/index.js'
 import SuccessUpdatedVerifiedEmail from '@/pages/Auth/SuccessUpdatedVerifiedEmail.vue'
@@ -26,7 +26,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'landing',
-      component: Landing,
+      component: LandingPage,
       children: [
         {
           path: '/login',
@@ -93,7 +93,7 @@ const router = createRouter({
     {
       path: '/forbidden',
       name: 'forbidden',
-      component: Forbidden
+      component: ForbiddenPage
     },
     {
       path: '/:pathMatch(.*)*',
@@ -128,18 +128,19 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const authStore = useAuthStore()
+  const authStore = useAuthStore();
   if (authStore.authenticated === null) {
     try {
-      await axios.get(`api/user`)
-      authStore.authenticated = true
+      await axios.get('api/user');
+      authStore.authenticated = true;
     } catch (err) {
-      authStore.authenticated = false
+      authStore.authenticated = false;
     } finally {
-      return next()
+      next();
     }
+  } else {
+    next();
   }
-  return next()
-})
+});
 
 export default router

@@ -19,7 +19,7 @@
       @blur="hasInteracted = true"
       @input="updateInput ? updateInput(name, $event.target.value) : null"
     />
-    <ErrorMessage :name="name" class="text-red_border" />
+    <ErrorMessage :name="name" class="text-label_color" />
     <span
       v-if="!hasError && type !== 'password' && hasInteracted"
       class="absolute right-2 top-9"
