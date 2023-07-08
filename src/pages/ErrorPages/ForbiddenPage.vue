@@ -8,7 +8,7 @@
       <p class="md:text-lg text-base py-4 text-center px-4">
         {{ $t("forbidden_footer_text") }}
       </p>
-      <Button
+      <custom-button
         type="button"
         text="return_home"
         classes="bg-btn_color"
@@ -21,6 +21,6 @@
 <script setup>
 import { useAuthStore } from "@/stores/useAuthStore.js";
 import ForbiddenPageIcon from "@/assets/icons/ForbiddenPageIcon.vue";
-import Button from "@/components/Button.vue";
+import CustomButton from "@/components/CustomButton.vue";
 const authStore = useAuthStore();
 </script>

@@ -47,8 +47,10 @@
 <script setup>
 import ProfileInput from "./ProfileInput.vue";
 import { useProfilePageStore } from "@/stores/useProfilePageStore";
+import { ref } from "vue";
 
 const { setShowValue } = useProfilePageStore();
+const showConfirmModal = ref(false);
 
 function cancelHandler() {
   showConfirmModal.value = !showConfirmModal.value;

@@ -34,7 +34,7 @@
             route="/login"
           />
 
-          <Loading v-if="createPasswordLoading" />
+          <loading-icon v-if="createPasswordLoading" />
         </Form>
         <router-link :to="{ name: 'login' }" class="flex gap-2 text-genre_text">
           <img src="@/assets/left-arrow.svg" />
@@ -49,7 +49,7 @@
 import { Form } from "vee-validate";
 import SubmitButton from "@/components/SubmitButton.vue";
 import TextField from "@/components/TextField.vue";
-import Loading from "@/components/Loading.vue";
+import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
 import { useSubmitCreatePassword } from "@/services/index";
 
 const { submit, loading: createPasswordLoading } = useSubmitCreatePassword();

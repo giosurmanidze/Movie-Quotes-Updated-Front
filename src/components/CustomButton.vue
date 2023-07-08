@@ -2,7 +2,7 @@
   <button
     class="text-white px-3 rounded-[0.25rem] lg:text-xl h-10"
     type="button"
-    :class="classes"
+    :class="props.classes"
   >
     <router-link :to="route ? route : '/'" class="flex items-center gap-2 justify-center">
       {{ $t(text) }}

@@ -1,13 +1,13 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import dotenv from 'dotenv'
-import { fileURLToPath } from 'node:url'
-import path from 'path'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'node:url';
+import path from 'path';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.join(__dirname, '.env') })
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +18,6 @@ export default defineConfig({
     }
   },
   define: {
-    'process.env': process.env
+    'import.meta.env': dotenv.parsed
   }
-})
+});

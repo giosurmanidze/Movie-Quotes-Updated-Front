@@ -1,5 +1,5 @@
 <template>
-  <div v-for="notification in notifications" :key="notification.id" class="py-2">
+  <div v-for="notification in props.notifications" :key="notification.id" class="py-2">
     <div class="flex justify-between p-5 border border-gray-600 rounded">
       <section class="flex">
         <img
