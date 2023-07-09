@@ -41,7 +41,7 @@
           <search-input
             :placeholder="$route.name === 'movieList' ? $t('search') : placeholderText"
             name="search"
-            classes="w-full p-2 bg-transparent"
+            :classes="`w-full p-2 text-sm bg-transparent`"
             @keyup.enter="store2.searchPosts()"
           />
         </Form>
@@ -61,17 +61,31 @@
         </div>
         <div></div>
         <div class="mt-auto flex flex-col justify-between h-full">
-          <section class="mt-8 ml-2">
+          <section class="mt-8 ml-2 flex flex-col gap-4">
+            <router-link :to="{ name: 'userProfile' }">
+              <div class="flex items-center" @click="showSidebar = !showSidebar">
+                <img
+                  :src="userAvatar"
+                  class="xs:h-16 xs:w-[4rem] rounded-full"
+                  :class="$route.name === 'userProfile' ? 'border-2 border-red-600' : ''"
+                />
+                <div class="flex-col ml-3 lg:mt-1">
+                  <p class="text-base text-white">{{ user.username }}</p>
+                </div>
+              </div>
+            </router-link>
             <router-link
               :to="{ name: 'newsFeed' }"
-              class="flex items-center cursor-pointer"
+              class="flex items-center cursor-pointer mt-10"
+              @click="showSidebar = !showSidebar"
             >
-              <home-icon />
-              <p class="ml-4 md:text-sm lg:text-lg text-white">{{ $t("news_feed") }}</p>
+              <home-icon class="mr-5" />
+              <p class="md:text-sm lg:text-lg text-white">{{ $t("news_feed") }}</p>
             </router-link>
             <router-link
               :to="{ name: 'movieList' }"
-              class="flex items-center mt-8 cursor-pointer"
+              class="flex items-center ursor-pointer"
+              @click="showSidebar = !showSidebar"
             >
               <movies-list-icon />
               <p class="ml-4 truncate md:text-sm lg:text-lg text-white">
@@ -112,8 +126,14 @@ import BurgerIcon from "@/assets/icons/BurgerIcon.vue";
 import HideBurgerMenuIcon from "@/assets/icons/HideBurgerMenuIcon.vue";
 import { usePostStore } from "@/stores/posts";
 import { useMoviesStore } from "@/stores/useMoviesStore.js";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
 
 const { t } = useI18n({ useScope: "global" });
+const { userAvatar } = storeToRefs(useUserStore());
+const { getUser } = useUserStore();
+getUser();
+const { user } = storeToRefs(useUserStore());
 const showSidebar = ref(false);
 const navbarState = ref(true);
 const router = useRouter();

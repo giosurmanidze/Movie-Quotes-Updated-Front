@@ -16,5 +16,6 @@
   "email_updated_header_text": "Go to profile page",
   "go_profile": "Go to profile",
   "confirm_email": "Confirirmation email sent",
-  "please_verify_new_email": "Please verify new email, we sent"
+  "please_verify_new_email": "Please verify new email, we sent",
+  "user_profile": "Profile"
 }
