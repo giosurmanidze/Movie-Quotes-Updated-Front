@@ -7,16 +7,16 @@
 </template>
 
 <script setup>
-import { Field } from 'vee-validate'
+import { Field } from "vee-validate";
 
 defineProps({
   name: { type: String, required: true },
   rules: {
     type: String,
-    required: false
+    required: false,
   },
   type: { type: String, required: false },
   placeholder: { type: String, required: false },
-  classes: { type: String, required: false }
-})
+  classes: { type: String, required: false },
+});
 </script>

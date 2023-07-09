@@ -21,7 +21,10 @@
     <template v-slot:body>
       <div class="bg-[#11101A] rounded-lg">
         <section class="flex items-center">
-          <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
+          <img
+            :src="userAvatar"
+            class="xs:h-14 xs:w-[3.7rem] h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
+          />
           <p class="ml-5">{{ user.username }}</p>
         </section>
         <section class="my-5">
@@ -53,11 +56,11 @@
                   ? backendUrl + quote.user.profile_picture
                   : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
               "
-              class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
+              class="xs:h-14 xs:w-[3.7rem] h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
             />
-            <p>{{ comment.user.name }}</p>
+            <p class="ml-3">{{ comment.user.name }}</p>
           </div>
-          <div class="lg:ml-[70px] pb-4 mt-3 border-b border-[#EFEFEF]">
+          <div class="lg:ml-[4.375rem] pb-4 mt-3 border-b border-white">
             <p>{{ comment.body }}</p>
           </div>
         </section>
@@ -83,7 +86,7 @@
                   ? backendUrl + quote.user.profile_picture
                   : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
               "
-              class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
+              class="xs:h-14 xs:w-[3.7rem] h-10 lg:h-[3.5rem] rounded-full max-w-[4rem] mr-2"
             />
             <CommentInput
               name="comment"
@@ -162,7 +165,7 @@ const displayedComments = computed(() => {
     if (showAllComments.value) {
       return quote.value.comments;
     } else {
-      return quote.value.comments.slice(0, 2);
+      return quote.value.comments.slice(0, 1);
     }
   }
   return [];

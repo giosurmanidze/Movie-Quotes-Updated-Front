@@ -4,7 +4,7 @@
     :showModal="store.showAddQuotesModal"
   >
     <template v-slot:header
-      >{{ $t("write_new_quote") }}
+      ><div :class="`xs:text-base ${font}`">{{ $t("write_new_quote") }}</div>
       <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10 top-7">
         <close-icon /></div
     ></template>
@@ -12,12 +12,25 @@
       <Form @submit="submit" v-if="movies.length !== 0">
         <section class="flex-col py-5">
           <div class="flex items-center">
-            <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
+            <img
+              :src="userAvatar"
+              class="xs:h-16 xs:w-[4rem] h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
+            />
             <p class="ml-5">{{ user.username }}</p>
           </div>
           <section class="mt-5">
-            <crud-input lang="en" name="bodyEn" rules="required|en" placeholder="Create new quote" />
-            <crud-input lang="ka" name="bodyKa" rules="required|geo" placeholder="ახალი ციტატა" />
+            <crud-input
+              lang="en"
+              name="bodyEn"
+              rules="required|en"
+              placeholder="Create new quote"
+            />
+            <crud-input
+              lang="ka"
+              name="bodyKa"
+              rules="required|geo"
+              placeholder="ახალი ციტატა"
+            />
             <drag-and-drop name="thumbnail" rules="required" :imgValue="imgValue" />
             <div class="text-white items-center text-center relative cursor-default">
               <div v-if="showSelectPlaceholder" class="absolute top-5 px-3">
@@ -70,7 +83,9 @@ import { useMoviesStore } from "@/stores/useMoviesStore";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
+import useFont from "@/config/font/useFont.js";
 
+const font = useFont();
 const store = useModalStore();
 const { locale } = useI18n();
 const showSelectPlaceholder = ref(true);

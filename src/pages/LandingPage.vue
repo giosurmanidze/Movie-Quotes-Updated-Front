@@ -63,7 +63,12 @@
           <h1 class="text-text_color text-2xl lg:text-6xl text-center">
             {{ $t("find_quote") }}
           </h1>
-          <custom-button type="button" text="get_started_btn" classes="bg-btn_color" />
+          <custom-button
+            type="button"
+            text="get_started_btn"
+            classes="bg-btn_color"
+            :route="'/signup'"
+          />
         </div>
       </div>
     </div>

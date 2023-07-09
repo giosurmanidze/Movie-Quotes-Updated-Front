@@ -16,8 +16,7 @@
           <search-input
             :placeholder="placeholderText"
             name="search"
-            classes="ml-2 text-base bg-transparent lg:w-[25rem]"
-            @keyup.enter="store2.searchPosts()"
+            :classes="`ml-2 text-base bg-transparent lg:w-[25rem]`"
           />
         </Form>
       </section>

@@ -1,6 +1,6 @@
 <template>
   <button
-    class="text-white px-3 rounded-[0.25rem] lg:text-xl h-10"
+    class="text-white px-3 rounded-[0.25rem] xs:text-sm lg:text-xl h-10"
     type="button"
     :class="props.classes"
   >
