@@ -36,9 +36,8 @@ export const usePostStore = defineStore('post', {
     },
     async refreshPosts() {
       try {
-        axios.post('api/quotes-refresh', { number: this.posts.length }).then((response) => {
-          this.posts = response.data
-        })
+        const response = await axios.get(`api/quotes`)
+        this.posts = response.data
       } catch (error) {
         console.log(error)
       }
