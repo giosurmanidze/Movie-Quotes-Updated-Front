@@ -15,29 +15,30 @@ export const usePostStore = defineStore('post', {
           params: {
             search: this.searchValue
           }
-        });
-        this.posts = response.data; 
+        })
+        this.posts = response.data
       } else {
         try {
-          const response = await axios.get(`api/quotes`);
-          this.posts = response.data; 
+          const response = await axios.get(`api/quotes`)
+          this.posts = response.data
         } catch (error) {
-          console.log(error);
+          console.log(error)
         }
       }
     },
     handleScroll() {
       if (
         window.scrollY + window.innerHeight >= document.body.scrollHeight &&
-        this.posts.length < this.totalPosts 
+        this.posts.length < this.totalPosts
       ) {
         this.getPosts()
       }
     },
     async refreshPosts() {
       try {
-        const response = await axios.get(`api/quotes`)
-        this.posts = response.data
+        axios.post('api/quotes-refresh', { number: this.posts.length }).then((response) => {
+          this.posts = response.data
+        })
       } catch (error) {
         console.log(error)
       }

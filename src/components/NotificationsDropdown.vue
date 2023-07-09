@@ -35,6 +35,7 @@ import NotificationIcon from "@/assets/icons/NotificationIcon.vue";
 import NotificationBoxContent from "@/components/NotificationBoxContent.vue";
 import { useQuotesStore } from "@/stores/useQuotesStore";
 import { useUserStore } from "@/stores/useUserStore";
+import { usePostStore } from "@/stores/posts";
 import { storeToRefs } from "pinia";
 import axios from "@/config/axios/index";
 
@@ -42,6 +43,7 @@ const dropdownState = ref(false);
 const notifications = ref([]);
 
 const { getQuotesRefresh } = useQuotesStore();
+const { refreshPosts } = usePostStore();
 const { user } = storeToRefs(useUserStore());
 
 const toggleDropdown = () => {
@@ -57,11 +59,13 @@ watch(
       ({ notification }) => {
         notifications.value.unshift(notification);
         getQuotesRefresh();
+        refreshPosts();
       }
     );
     window.Echo.private(`likes.${state}`).listen("LikedQuote", ({ notification }) => {
       notifications.value.unshift(notification);
       getQuotesRefresh();
+      refreshPosts();
     });
   }
 );
