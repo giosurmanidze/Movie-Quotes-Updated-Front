@@ -21,5 +21,9 @@
   "no_quotes_yet": "ციტატები არ მოიძებნა, გთხოვთ დაამატოთ ფილმი",
   "new_notification": "ახალი",
   "show_less": "ნაკლების ნახვა",
-  "read_more": "მეტის ნახვა"
+  "read_more": "მეტის ნახვა",
+  "to_search_movies": "ფილმებისთვის",
+  "to_search_quotes": "ციტატებისთვის",
+  "enter": "შეიყვანეთ",
+  "search": "ძებნა"
 }

@@ -1,6 +1,6 @@
 <template>
   <LikeIcon
-    :class="likeable ? 'fill-white' : 'fill-red-500'"
+    :class="`${likeable ? 'fill-white' : 'fill-red-500'} cursor-pointer`"
     @click="handleQuoteLikeWrapper"
   />
 </template>

@@ -8,15 +8,17 @@
   >
     <div
       :class="
-        showModal ? 'fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' : ''
+        showModal
+          ? 'fixed inset-0 xs:bg-modal_bg bg-gray-900 sm:bg-opacity-75 transition-opacity'
+          : ''
       "
     ></div>
     <div :class="showModal ? 'fixed inset-0 z-10 overflow-y-auto' : ''">
       <div class="flex min-h-full items-end justify-center text-center">
         <div
           @click.stop
-          :class="showModal ? 'absolute top-14' : 'hidden'"
-          class="transform max-w-3xl overflow-hidden rounded-lg bg-modal_bg text-left shadow-xl transition-all sm:my-8 sm:w-full md:w-2/3"
+          :class="showModal ? 'absolute xs:top-0 sm:top-8' : 'hidden'"
+          class="transform max-w-3xl overflow-hidden bg-modal_bg text-left shadow-xl transition-all sm:my-8 sm:w-full md:w-2/3"
         >
           <section>
             <div
