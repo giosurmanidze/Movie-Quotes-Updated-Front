@@ -115,8 +115,8 @@ const showUserUpdated = ref(false);
 const showSaveChangesButtons = ref(false);
 
 function hideInputHandler() {
-  if (disableInput.value === true) {
-    router.back();
+  if (disableInput.value) {
+    router.push({ name: "newsFeed" });
   } else {
     disableInput.value = true;
   }

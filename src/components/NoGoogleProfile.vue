@@ -79,12 +79,28 @@
               </p>
             </section>
           </section>
-          <section v-if="!showEditPassword" class="flex flex-col">
-            <div class="border border-gray-500 w-1/2 p-5">
-              <h2>{{ $t("passwords_should_contain") }} :</h2>
-              <p class="mt-4 text-[#9C9A9A]">* {{ $t("eight_or_more_characters") }}</p>
-              <p>* {{ $t("less_than_15_characters") }}</p>
-            </div>
+          <section class="bg-modal_bg px-4 py-3" v-if="!showEditPassword">
+            <p>{{ $t("passwords_should_contain") }}:</p>
+            <ul class="px-4 py-3 list-disc">
+              <li
+                :class="{
+                  'text-white': eightOrMoreCharacters,
+                  'text-genre_text': !eightOrMoreCharacters,
+                }"
+                class="text-sm"
+              >
+                {{ $t("eight_or_more_characters") }}
+              </li>
+              <li
+                :class="{
+                  'text-white': lessThan15Characters,
+                  'text-genre_text': !lessThan15Characters,
+                }"
+                class="text-sm"
+              >
+                {{ $t("less_than_15_characters") }}
+              </li>
+            </ul>
           </section>
           <section v-if="!showEditPassword">
             <ProfileInput
@@ -93,6 +109,7 @@
               label="password"
               type="password"
               rules="required|lower_alpha_num|min:8|max:15|lowercase"
+              @input="password = $event.target.value"
             />
             <br />
             <ProfileInput
@@ -119,7 +136,7 @@
 </template>
 <script setup>
 import { Form } from "vee-validate";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import ProfileFileInput from "./ProfileFIleInput.vue";
 import ProfileInput from "./ProfileInput.vue";
 import AlertModal from "./AlertModal.vue";
@@ -141,6 +158,15 @@ const showEditPassword = ref(true);
 const sendUserName = ref(false);
 const sendEmail = ref(false);
 const sendAvatar = ref(false);
+
+const password = ref("");
+const eightOrMoreCharacters = ref(false);
+const lessThan15Characters = ref(false);
+
+watch(password, (newValue) => {
+  eightOrMoreCharacters.value = newValue.length >= 8;
+  lessThan15Characters.value = newValue.length < 15 && newValue.length > 1;
+});
 
 const { userAvatar } = storeToRefs(useUserStore());
 

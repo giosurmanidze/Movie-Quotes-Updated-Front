@@ -63,7 +63,7 @@
           v-if="!profileStore.showForm && sendEmail"
           :emailErrors="emailErrors"
         />
-        <ChangePassword v-if="!profileStore.showForm && showEditPassword" />
+        <ChangePassword v-if="!profileStore.showForm && showEditPassword"  />
         <section v-if="showSaveChangesButtons" class="flex justify-between mt-8">
           <button type="button" class="p-2 pr-8 cursor-pointer" @click="cancelHandler()">
             {{ $t("cancel") }}
@@ -131,17 +131,11 @@ function editEmailHandler() {
 }
 
 function goBackHandler() {
-  if (
-    sendUserName.value === false &&
-    showEditPassword.value === false &&
-    profileStore.showForm === true
-  ) {
-    router.back();
-  } else {
-    toggleShowForm(true);
-    sendUserName.value = false;
-    showEditPassword.value = false;
-  }
+  router.push({ name: "newsFeed" });
+  sendUserName.value === false;
+  showEditPassword.value === false;
+  profileStore.showForm === false;
+  sendUserName.value = false;
 }
 
 const showUserUpdatedAlert = ref(false);
