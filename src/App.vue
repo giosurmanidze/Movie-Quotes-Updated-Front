@@ -15,7 +15,9 @@ import { computed } from "vue";
 const authStore = useAuthStore();
 const { locale } = useI18n({ useScope: "global" });
 const font = computed(() => {
-  return locale.value === "en" ? "font-[HelveticaEnglish]" : "font-[HelveticaGeorgian]";
+  return locale.value === "en"
+    ? "font-[HelveticaEnglish]"
+    : "font-[HelveticaGeorgianLight]";
 });
 </script>
 

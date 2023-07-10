@@ -5,7 +5,7 @@
       @click.stop=""
       @click="openDropdown = !openDropdown"
     >
-      <p v-if="!categories?.length">{{ $t("category") }}</p>
+      <p v-if="!categories?.length" class="text-gray-300">{{ $t("category") }}</p>
       <div
         v-else
         v-for="category in categories"

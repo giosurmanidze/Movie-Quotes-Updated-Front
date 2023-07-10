@@ -12,7 +12,10 @@
       <Form @submit="submit">
         <section class="flex-col py-5">
           <div class="flex items-center">
-            <img :src="userAvatar" class="h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]" />
+            <img
+              :src="userAvatar"
+              class="xs:h-14 xs:w-[3.7rem] h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
+            />
             <p class="ml-5">{{ user.username }}</p>
           </div>
           <div class="mt-5 sm:flex gap-4">

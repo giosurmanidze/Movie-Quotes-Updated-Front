@@ -15,7 +15,7 @@
           height="90"
         />
         <h1 class="text-3xl text-center">{{ $t(headerText) }}</h1>
-        <p class="text-center w-full text-lg">
+        <p class="text-center w-full xs:text-base text-lg">
           {{ $t(msg) }}
         </p>
         <custom-button

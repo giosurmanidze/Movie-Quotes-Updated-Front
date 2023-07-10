@@ -7,8 +7,8 @@
       @click.stop
     >
       <div class="flex flex-col justify-center items-center text-white gap-1">
-        <h1 class="text-3xl">{{ $t("sign_up_form_title") }}</h1>
-        <span class="text-md text-genre_text">{{ $t("sign_up_form_header_text") }}</span>
+        <h1 class="xs:text-2xl sm:text-3xl">{{ $t("sign_up_form_title") }}</h1>
+        <span class="text-sm text-genre_text">{{ $t("sign_up_form_header_text") }}</span>
       </div>
       <Form @submit="submit" v-slot="{ errors }">
         <div class="flex flex-col justify-between h-[55vh]">
@@ -44,21 +44,24 @@
             :placeholder="$t('conf_password')"
             :hasError="errors.password_confirmation"
           />
-          <submit-button text="sign_up_btn_in_form" classes="bg-[#E31221]" />
+          <submit-button
+            text="sign_up_btn_in_form"
+            classes="bg-[#E31221] text-sm lg:text-base"
+          />
           <a
             :href="`${BASE_URL}/api/auth/google/redirect`"
-            class="text-white text-center px-3 rounded lg:text-xl h-10 flex justify-center items-center gap-2 border-2 pb-1 border-white"
+            class="text-white text-center px-3 rounded text-sm lg:text-base h-10 flex justify-center items-center gap-2 border-2 pb-1 border-white"
             ><img src="../assets/Google.svg" />
             {{ $t("sign_up_with_google") }}
           </a>
         </div>
         <loading-icon v-if="registerLoading" />
       </Form>
-      <span class="text-center text-genre_text"
+      <span class="text-center text-genre_text text-sm sm:text-base"
         >{{ $t("sign_up_footer_text")
         }}<router-link
           :to="{ name: 'login' }"
-          class="text-forgot_pass_text underline ml-1"
+          class="text-forgot_pass_text underline ml-1 text-sm sm:text-base"
         >
           {{ $t("log_in_btn") }}
         </router-link></span
