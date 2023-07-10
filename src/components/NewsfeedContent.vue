@@ -88,7 +88,6 @@ import { useUserStore } from "@/stores/useUserStore";
 import { computed, ref, onMounted } from "vue";
 import { Form } from "vee-validate";
 import { useCreateComment } from "@/services";
-import NewsfeedNavbar from "./NewsfeedNavbar.vue";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 const { posts } = storeToRefs(usePostStore());

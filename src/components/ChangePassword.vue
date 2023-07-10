@@ -3,9 +3,25 @@
     <div v-if="!showConfirmModal">
       <section class="bg-modal_bg px-4 py-3">
         <p>{{ $t("passwords_should_contain") }}:</p>
-        <ul style="list-style-type: disc" class="px-4 py-3">
-          <li class="text-sm">{{ $t("eight_or_more_characters") }}</li>
-          <li class="text-sm">{{ $t("less_than_15_characters") }}</li>
+        <ul class="px-4 py-3 list-disc">
+          <li
+            :class="{
+              'text-white': eightOrMoreCharacters,
+              'text-genre_text': !eightOrMoreCharacters,
+            }"
+            class="text-sm"
+          >
+            {{ $t("eight_or_more_characters") }}
+          </li>
+          <li
+            :class="{
+              'text-white': lessThan15Characters,
+              'text-genre_text': !lessThan15Characters,
+            }"
+            class="text-sm"
+          >
+            {{ $t("less_than_15_characters") }}
+          </li>
         </ul>
       </section>
       <section class="text-black flex flex-col relative mt-4">
@@ -14,6 +30,7 @@
           rules="required|alpha_num|min:8|max:15"
           type="password"
           label="password"
+          @input="password = $event.target.value"
         />
         <br />
         <ProfileInput
@@ -47,11 +64,19 @@
 <script setup>
 import ProfileInput from "./ProfileInput.vue";
 import { useProfilePageStore } from "@/stores/useProfilePageStore";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const { setShowValue } = useProfilePageStore();
 const showConfirmModal = ref(false);
 
+const password = ref("");
+const eightOrMoreCharacters = ref(false);
+const lessThan15Characters = ref(false);
+
+watch(password, (newValue) => {
+  eightOrMoreCharacters.value = newValue.length >= 8;
+  lessThan15Characters.value = newValue.length < 15 && newValue.length > 1;
+});
 function cancelHandler() {
   showConfirmModal.value = !showConfirmModal.value;
 }
