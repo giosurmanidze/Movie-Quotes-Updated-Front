@@ -7,7 +7,9 @@
       @click.stop
     >
       <div class="flex flex-col justify-center items-center gap-7 h-[40vh] w-full">
-        <h1 class="text-4xl text-white">{{ $t("forgot_password_header_title") }}</h1>
+        <h1 class="xs:text-2xl sm:text-3xl text-white">
+          {{ $t("forgot_password_header_title") }}
+        </h1>
         <p class="text-center w-full text-md text-genre_text">
           {{ $t("forgot_password_header_text") }}
         </p>
