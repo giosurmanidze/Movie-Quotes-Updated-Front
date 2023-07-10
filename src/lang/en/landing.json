@@ -14,5 +14,6 @@
   "whoops_text": "Whoops!",
   "error_page_text": "We can't see the page you are looking for",
   "forbidden_header_text": "You shall not pass!",
-  "forbidden_footer_text": "Sorry, but you don’t have permission to access this page"
+  "forbidden_footer_text": "Sorry, but you don’t have permission to access this page",
+  "sign_up": "Sign up"
 }

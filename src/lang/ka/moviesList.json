@@ -18,5 +18,7 @@
   "delete_quote": "წაშლა",
   "view_quote": "ციტატის ნახვა",
   "quote_edited_successfully": "ციტატა წარმატებით განახლდა",
-  "display_quote": "ციტატის ნახვა"
+  "display_quote": "ციტატის ნახვა",
+  "category":"კატეგორია"
+
 }

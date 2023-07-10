@@ -20,7 +20,7 @@
             </Form>
             <button
               @click="store.toggleAddMoviesModal()"
-              class="text-white bg-red-600 px-3 rounded-[0.25rem] lg:text-xl h-10"
+              class="text-white bg-red-600 px-3 rounded-[0.25rem] xs:text-sm lg:text-xl h-10"
             >
               {{ $t("add_movie") }}
             </button>

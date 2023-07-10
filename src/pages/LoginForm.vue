@@ -7,13 +7,13 @@
       @click.stop
     >
       <div class="flex flex-col justify-center items-center text-white">
-        <h1 class="text-3xl">{{ $t("log_in_form_title") }}</h1>
-        <span class="text-md text-genre_text mt-1">{{
+        <h1 class="xs:text-2xl sm:text-3xl">{{ $t("log_in_form_title") }}</h1>
+        <span class="text-sm text-genre_text mt-1 text-center">{{
           $t("log_in_form_header_text")
         }}</span>
       </div>
       <Form @submit="submit" v-slot="{ errors }">
-        <div class="flex flex-col justify-between h-[40vh]">
+        <div class="flex flex-col justify-between lg:h-[35vh] xs:h-[40vh]">
           <text-field
             label="username"
             type="text"
@@ -53,32 +53,32 @@
                 v-model="loginForm.remember"
                 class="w-4 h-4"
               />
-              <label for="remember" class="text-white text-base">{{
+              <label for="remember" class="text-white xs:text-sm sm:text-md">{{
                 $t("remember_me")
               }}</label>
             </div>
 
             <router-link
               :to="{ name: 'forgotPassword' }"
-              class="text-forgot_pass_text underline"
+              class="text-forgot_pass_text underline xs:text-sm sm:text-md"
               >{{ $t("forgot_password") }}
             </router-link>
           </div>
-          <submit-button text="log_in_btn" classes="bg-[#E31221]" />
+          <submit-button text="log_in_btn" classes="bg-[#E31221] text-sm lg:text-base" />
           <a
             :href="`${BASE_URL}/api/auth/google/redirect`"
-            class="text-white px-3 rounded lg:text-xl h-10 flex justify-center items-center gap-3 border-2 pb-1 border-white"
+            class="text-white px-3 rounded text-sm lg:text-base h-10 flex justify-center items-center gap-3 border-2 pb-1 border-white"
             ><img src="../assets/Google.svg" />
             {{ $t("sign_up_with_google") }}
           </a>
         </div>
         <loading-icon v-if="loading" />
       </Form>
-      <span class="text-center text-genre_text"
+      <span class="text-center text-genre_text text-sm sm:text-base"
         >{{ $t("log_in_footer_text")
         }}<router-link
           :to="{ name: 'signup' }"
-          class="text-forgot_pass_text underline ml-1"
+          class="text-forgot_pass_text underline ml-1 text-sm sm:text-base"
           >{{ $t("sign_up") }}</router-link
         ></span
       >
