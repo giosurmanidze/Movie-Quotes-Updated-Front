@@ -9,7 +9,7 @@
               ? backendUrl + quote.user.profile_picture
               : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
           "
-          class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
+          class="xs:h-14 xs:w-[3.7rem] h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
         />
         <p class="ml-5">{{ quote.user?.name }}</p>
       </section>
@@ -44,16 +44,16 @@
                 ? backendUrl + comment.user.profile_picture
                 : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
             "
-            class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full"
+            class="xs:h-14 xs:w-[3.7rem] h-10 lg:h-[3.5rem] rounded-full max-w-[4rem]"
           />
-          <p class="ml-5">{{ comment.user.name }}</p>
+          <p class="ml-5 font-semibold">{{ comment.user.name }}</p>
         </div>
         <div class="lg:ml-[4.375rem] pb-4 mt-3 border-b border-white">
           <p>{{ comment?.body }}</p>
         </div>
       </section>
       <button
-        class="flex justify-center mx-auto my-4 font-bold"
+        class="flex justify-center mx-auto my-4"
         v-if="shouldShowReadMoreButton(quote)"
         @click="toggleExpandComments(quote)"
       >
@@ -63,7 +63,7 @@
         <Form class="flex items-center py-3 w-full" @submit="submit">
           <img
             :src="userAvatar"
-            class="h-10 lg:h-[3.125rem] max-w-[3.75rem] rounded-full mr-5"
+            class="xs:h-14 xs:w-[3.7rem] h-10 lg:h-[3.5rem] rounded-full max-w-[4rem] mr-2"
           />
           <CommentInput
             name="comment"
@@ -132,6 +132,7 @@ function toggleExpandComments(quote) {
     expandedQuotes.value = expandedQuotes.value.filter((id) => id !== quote.id);
   } else {
     expandedQuotes.value.push(quote.id);
+    expandedQuotes.value.push(quote.comments.map((comment) => comment.userId));
   }
 }
 </script>

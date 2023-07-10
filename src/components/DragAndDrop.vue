@@ -16,7 +16,7 @@
         <p v-else class="mt-1">{{ $t("drag_and_drop") }}</p>
       </div>
       <span
-        class="cursor-pointer rounded-[0.24rem] bg-choose_img_btn p-[0.4rem]"
+        class="cursor-pointer rounded-[0.24rem] bg-choose_img_btn p-[0.4rem] text-center"
         @click="getImage"
       >
         {{ $t("choose_file") }}
