@@ -132,6 +132,7 @@ function toggleExpandComments(quote) {
     expandedQuotes.value = expandedQuotes.value.filter((id) => id !== quote.id);
   } else {
     expandedQuotes.value.push(quote.id);
+    expandedQuotes.value.push(quote.comments.map((comment) => comment.userId));
   }
 }
 </script>
