@@ -43,7 +43,7 @@ const dropdownState = ref(false);
 const notifications = ref([]);
 
 const { getQuotesRefresh } = useQuotesStore();
-const { refreshPosts } = useQuotesStore();
+const { refreshPosts } = usePostStore();
 const { user } = storeToRefs(useUserStore());
 
 const toggleDropdown = () => {
