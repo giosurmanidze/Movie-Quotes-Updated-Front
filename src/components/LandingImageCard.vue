@@ -2,10 +2,10 @@
   <div>
     <div v-for="(item, index) in quotes" :key="index">
       <div
-        class="xs:h-[50vh] paralax-scroll fit md:h-screen bg-size pt-[30%] pl-[10%] lg:pt-[200px] lg:pl-44"
+        class="xs:h-[50vh] paralax-scroll fit md:h-screen bg-size pt-[30%] pl-[10%] lg:pt-[12.5rem] lg:pl-44"
         :style="{ backgroundImage: `url(${item.img})` }"
       >
-        <div class="max-w-[200px] md:max-w-[500px] lg:max-w-[900px] flex space-x-1">
+        <div class="max-w-[12.5rem] md:max-w-[31.25] lg:max-w-[56.25] flex space-x-1">
           <div class="flex items-center h-4 lg:h-12">
             <div class="w-3 lg:w-14 xs:h-[1px] md:h-1 bg-white"></div>
           </div>

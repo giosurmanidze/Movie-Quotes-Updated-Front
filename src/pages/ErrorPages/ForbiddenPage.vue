@@ -12,7 +12,7 @@
         type="button"
         text="return_home"
         classes="bg-btn_color"
-        :route="authStore.authenticated ? 'news-feed' : ''"
+        :route="authStore.authenticated && 'newsFeed'"
       />
     </section>
   </div>

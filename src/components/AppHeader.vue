@@ -3,12 +3,8 @@
     <span class="text-text_color xs:text-sm sm:text-lg">{{ $t("movie_quotes") }}</span>
     <div class="flex items-center gap-6 text-white">
       <lang-changer class="xs:hidden" />
-      <custom-button text="sign_up" :route="'/signup'" classes="bg-btn_color" />
-      <custom-button
-        text="log_in_btn"
-        :route="'/login'"
-        classes="border-2 border-white"
-      />
+      <custom-button text="sign_up" route="signup" classes="bg-btn_color" />
+      <custom-button text="log_in_btn" route="login" classes="border-2 border-white" />
     </div>
   </div>
 </template>

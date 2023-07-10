@@ -4,7 +4,10 @@
     type="button"
     :class="props.classes"
   >
-    <router-link :to="route ? route : '/'" class="flex items-center gap-2 justify-center">
+    <router-link
+      :to="{ name: route ? route : 'landing' }"
+      class="flex items-center gap-2 justify-center"
+    >
       {{ $t(text) }}
     </router-link>
   </button>
