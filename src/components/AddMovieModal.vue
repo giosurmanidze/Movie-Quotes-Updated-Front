@@ -58,10 +58,14 @@
               rules="required|geo"
               placeholder="ფილმის აღწერა"
             />
-            <CrudInput name="budget" rules="required" :placeholder="$t('budget')" />
+            <CrudInput
+              name="budget"
+              rules="required|numeric"
+              :placeholder="$t('budget')"
+            />
             <CrudInput
               name="releaseDate"
-              rules="required"
+              rules="required|numeric"
               :placeholder="$t('release_date')"
             />
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />

@@ -59,8 +59,7 @@ const { deleteQuote } = useQuotesStore();
 const { quote } = storeToRefs(useQuotesStore());
 
 function deleteQuoteById() {
-  const quoteId = ref(quote.value.id);
-  deleteQuote(quoteId.value);
+  deleteQuote(quote.value.id);
   store.toggleQuoteDeletedModal();
 }
 </script>
