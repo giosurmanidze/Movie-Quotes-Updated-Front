@@ -55,7 +55,9 @@ configure({
         genreKa: 'ჟანრის ველი',
         descriptionEn: 'description field',
         descriptionKa: 'აღწერის ველი',
-        name: 'მომხმარებლის სახელი'
+        name: 'მომხმარებლის სახელი',
+        budget:"ბიუჯეტი",
+        releaseDate:'გამოშვების წელი'
       }
     }
   })
