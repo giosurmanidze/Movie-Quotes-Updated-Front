@@ -25,7 +25,7 @@
       for="file"
       class="cursor-pointer bg-black opacity-[0.6] w-[8.5rem] h-[5.25rem] flex flex-col items-center justify-center rounded-xl absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]"
     >
-      <img src="@/assets/photocamera-icon.png" alt="" class="z-10 w-[1.125rem] h-auto" />
+      <camera-icon />
       <p class="text-white text-[1rem] whitespace-nowrap">Change photo</p>
     </label>
   </div>
@@ -34,7 +34,7 @@
 <script setup>
 import { Field } from "vee-validate";
 import { ref } from "vue";
-
+import CameraIcon from "@/assets/icons/CameraIcon.vue";
 const fileModel = ref(null);
 
 defineProps(["src"]);
