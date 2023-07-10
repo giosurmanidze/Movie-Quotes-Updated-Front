@@ -4,7 +4,7 @@
     msg="success_header_text"
     btnText="success_submit_btn"
     classes="bg-btn_color w-full h-[5vh]"
-    route="/login"
+    route="login"
     img="success"
   />
 </template>

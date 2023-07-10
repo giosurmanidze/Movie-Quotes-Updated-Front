@@ -17,8 +17,8 @@
         <section @click="showSaveChangesButtons = true" class="text-center">
           <ProfileFileInput />
         </section>
-        <div class="grid grid-cols-1 gap-10 mt-16">
-          <section class="flex w-full flex-col">
+        <div class="grid grid-cols-1 gap-5 mt-16">
+          <section class="flex w-full flex-col lg:ml-48 md:ml-17">
             <div class="flex w-full">
               <ProfileInput
                 class="lg:w-1/2 w-full"
@@ -40,8 +40,7 @@
               <p class="text-red-500">{{ usernameErrors }}</p>
             </div>
           </section>
-
-          <section class="grid w-full border-y border-gray-600 py-10 grid-cols-1 gap-5">
+          <section class="grid w-full py-10 grid-cols-1 gap-12 lg:ml-48 md:ml-17">
             <div class="flex">
               <div class="lg:w-1/2 w-full h-12">
                 <p class="bg-quote_text py-1.5 pl-1 rounded text-black">
@@ -49,12 +48,12 @@
                 </p>
               </div>
             </div>
-          </section>
-          <div class="flex">
-            <div class="lg:w-1/2 w-full h-12">
-              <p class="bg-quote_text py-1.5 pl-1 rounded text-black">**********</p>
+            <div class="flex">
+              <div class="lg:w-1/2 w-full h-12">
+                <p class="bg-quote_text py-1.5 pl-1 rounded text-black">**********</p>
+              </div>
             </div>
-          </div>
+          </section>
         </div>
         <br />
       </div>

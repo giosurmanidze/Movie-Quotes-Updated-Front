@@ -4,7 +4,7 @@
     msg="sent_email_header_text"
     btnText="sent_email_submit_btn"
     classes="bg-btn_color w-full h-[5vh]"
-    route="/login"
+    route="login"
     img="emailSent"
   />
 </template>

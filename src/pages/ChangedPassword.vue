@@ -4,7 +4,7 @@
     msg="changed_password_header_text"
     btnText="log_in_btn"
     classes="bg-btn_color w-full h-[5vh]"
-    route="/login"
+    route="login"
     img="success"
   />
 </template>
