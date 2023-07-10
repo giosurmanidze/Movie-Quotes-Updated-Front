@@ -5,7 +5,7 @@
   >
     <template v-slot:header
       ><div :class="`xs:text-base ${font}`">{{ $t("write_new_quote") }}</div>
-      <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10 top-7">
+      <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10">
         <close-icon /></div
     ></template>
     <template v-slot:body>

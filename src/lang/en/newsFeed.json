@@ -21,5 +21,9 @@
   "no_quotes_yet": "No quotes found,please add to movie",
   "new_notification": "new",
   "show_less": "Show less",
-  "read_more": "Read more"
+  "read_more": "Read more",
+  "to_search_movies": "to search movies",
+  "to_search_quotes": "to search quotes",
+  "enter": "Enter",
+  "search": "Search"
 }

@@ -1,52 +1,69 @@
 <template>
-  <body class="bg-blue-500">
-    <nav
-      :class="
-        navbarState
-          ? 'flex md:px-16 px-5 py-4 h-20 justify-between items-center bg-main_bg_color'
-          : 'flex h-20 justify-between items-center bg-main_bg_color'
-      "
+  <body class="bg-main_bg_color">
+    <div>
+      <nav
+        :class="
+          navbarState
+            ? 'flex  md:px-16 px-5 py-4 h-20 justify-between items-center bg-main_bg_color'
+            : 'flex h-20 justify-between items-center bg-main_bg_color'
+        "
+      >
+        <section class="hidden md:flex">
+          <h1 class="text-gold_color text-base font-medium">{{ $t("movie_quotes") }}</h1>
+        </section>
+        <div v-if="navbarState" class="md:hidden flex text-start">
+          <button
+            @click="showSidebar = !showSidebar"
+            class="flex items-center text-blue-600 p-3"
+          >
+            <burger-icon />
+          </button>
+        </div>
+        <div
+          v-if="navbarState"
+          class="text-sm text-gray-400 items-center flex hover:text-gray-500 gap-2"
+        >
+          <language-dropdown />
+          <search-icon @click="navbarState = !navbarState" class="mr-3 block md:hidden" />
+          <notifications-dropdown />
+          <button
+            @click="logout"
+            class="hidden md:block bg-transparent text-center text-white py-1.5 px-4 items-center border-white border rounded"
+          >
+            {{ $t("logout_btn") }}
+          </button>
+        </div>
+        <div
+          v-else
+          class="flex items-center text-white w-full h-full border-b border-white p-4 bg-main_bg_color"
+        >
+          <back-arrow-icon @click="navbarState = !navbarState" class="mr-3" />
+          <Form @submit="searchSubmit" class="w-full">
+            <search-input
+              :placeholder="$t('search')"
+              name="search"
+              :classes="`w-full p-2 text-base bg-transparent`"
+              @keyup.enter="store2.searchPosts()"
+            />
+          </Form>
+        </div>
+      </nav>
+    </div>
+    <div
+      class="h-[70vh] mt-5 ml-16 text-base text-genre_text sm:hidden z-[-1]"
+      v-if="!shouldShowSearchInfo && !navbarState && $route.name === 'newsFeed'"
     >
-      <section class="hidden md:flex">
-        <h1 class="text-gold_color text-base font-medium">{{ $t("movie_quotes") }}</h1>
-      </section>
-      <div v-if="navbarState" class="md:hidden flex text-start">
-        <button
-          @click="showSidebar = !showSidebar"
-          class="flex items-center text-blue-600 p-3"
-        >
-          <burger-icon />
-        </button>
+      <div class="flex gap-2">
+        <span>{{ t("enter") }}</span>
+        <span class="text-white">@</span>
+        <span>{{ t("to_search_movies") }}</span>
       </div>
-      <div
-        v-if="navbarState"
-        class="text-sm text-gray-400 items-center flex hover:text-gray-500 gap-2"
-      >
-        <language-dropdown />
-        <search-icon @click="navbarState = !navbarState" class="mr-3 block md:hidden" />
-        <notifications-dropdown />
-        <button
-          @click="logout"
-          class="hidden md:block bg-transparent text-center text-white py-1.5 px-4 items-center border-white border rounded"
-        >
-          {{ $t("logout_btn") }}
-        </button>
+      <div class="flex gap-2 mt-2">
+        <span>{{ t("enter") }}</span>
+        <span class="text-white">#</span>
+        <span>{{ t("to_search_quotes") }}</span>
       </div>
-      <div
-        v-else
-        class="flex items-center text-white w-full h-full border-b border-white p-4 bg-main_bg_color"
-      >
-        <back-arrow-icon @click="navbarState = !navbarState" class="mr-3" />
-        <Form @submit="searchSubmit" class="w-full">
-          <search-input
-            :placeholder="$route.name === 'movieList' ? $t('search') : placeholderText"
-            name="search"
-            :classes="`w-full p-2 text-sm bg-transparent`"
-            @keyup.enter="store2.searchPosts()"
-          />
-        </Form>
-      </div>
-    </nav>
+    </div>
     <div v-if="showSidebar" class="relative z-50">
       <nav
         class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-modal_bg border-r rounded-xl overflow-y-auto"
@@ -136,6 +153,7 @@ getUser();
 const { user } = storeToRefs(useUserStore());
 const showSidebar = ref(false);
 const navbarState = ref(true);
+const searchValue = ref("");
 const router = useRouter();
 const store = usePostStore();
 
@@ -148,23 +166,16 @@ const logout = async () => {
   }
 };
 
-const placeholderText = computed(() => {
-  return (
-    t("enter_to_search") +
-    " @ " +
-    t("enter_to_search_two") +
-    " , " +
-    " # - " +
-    t("enter_to_search_three")
-  );
-});
-
 const movieStore = useMoviesStore();
 
 function searchSubmit(values) {
+  searchValue.value = values.search;
   const quotesStore = usePostStore();
   quotesStore.searchValue = values.search;
   movieStore.searchValue = values.search;
   store.searchPosts();
 }
+const shouldShowSearchInfo = computed(() => {
+  return searchValue.value.startsWith("@") || searchValue.value.startsWith("#");
+});
 </script>
