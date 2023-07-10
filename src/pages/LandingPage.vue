@@ -67,7 +67,7 @@
             type="button"
             text="get_started_btn"
             classes="bg-btn_color"
-            :route="'/signup'"
+            route="signup"
           />
         </div>
       </div>
