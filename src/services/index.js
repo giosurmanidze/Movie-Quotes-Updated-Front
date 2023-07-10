@@ -301,39 +301,30 @@ export function useCreateComment(quoteId) {
   }
 }
 
-export function handleQuoteLike(quoteId, likeable, likeId) {
-  likeable.value = !likeable.value
-  const { getQuote, getQuotesRefresh } = useQuotesStore()
-  const { refreshPosts } = usePostStore()
+export async function handleQuoteLike(quoteId, likeable, likeId) {
+  const previousValue = likeable.value;
+  likeable.value = !likeable.value;
+  const { getQuote, getQuotesRefresh } = useQuotesStore();
+  const { refreshPosts } = usePostStore();
 
   let data = {
-    quote_id: quoteId
-  }
+    quote_id: quoteId,
+  };
 
-  if (likeable.value) {
-    axios
-      .delete(`api/likes/${likeId.value}`)
-      .then(() => {
-        likeId.value = null
-        getQuote(quoteId)
-        getQuotesRefresh()
-        refreshPosts()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  } else {
-    axios
-      .post('api/likes', data)
-      .then((response) => {
-        likeId.value = response.data.like_id
-        getQuote(quoteId)
-        getQuotesRefresh()
-        refreshPosts()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  try {
+    if (likeable.value) {
+      await axios.delete(`api/likes/${likeId.value}`);
+      likeId.value = null;
+    } else {
+      const response = await axios.post("api/likes", data);
+      likeId.value = response.data.like_id;
+    }
+    getQuote(quoteId);
+    getQuotesRefresh();
+    refreshPosts();
+  } catch (error) {
+    console.log(error);
+    likeable.value = previousValue;
   }
 }
 

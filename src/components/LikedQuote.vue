@@ -1,6 +1,6 @@
 <template>
   <LikeIcon
-    :class="`${likeable ? 'fill-white' : 'fill-red-500'} cursor-pointer`"
+    :class="likeable ? 'fill-white' : 'fill-red-500'"
     @click="handleQuoteLikeWrapper"
   />
 </template>
@@ -9,7 +9,9 @@
 import LikeIcon from "@/assets/icons/LikeIcon.vue";
 import { ref, onMounted } from "vue";
 import { useQuotesStore } from "@/stores/useQuotesStore";
+import { usePostStore } from "@/stores/posts";
 import { handleQuoteLike } from "@/services";
+
 const props = defineProps({
   quoteId: {
     type: Number,
@@ -22,9 +24,11 @@ const props = defineProps({
 });
 
 const { getQuotesRefresh } = useQuotesStore();
+const { refreshPosts } = usePostStore();
 
 const likeable = ref(false);
 let likeId = ref(null);
+let isRequestInProgress = false;
 const quote = ref(props.quotes?.find((quote) => quote.id === props.quoteId));
 
 const getLikesData = () => {
@@ -40,9 +44,15 @@ const getLikesData = () => {
 
 onMounted(() => {
   getLikesData();
+  refreshPosts();
 });
 
 function handleQuoteLikeWrapper() {
-  handleQuoteLike(props.quoteId, likeable, likeId);
+  if (!isRequestInProgress) {
+    isRequestInProgress = true;
+    handleQuoteLike(props.quoteId, likeable, likeId).finally(() => {
+      isRequestInProgress = false;
+    });
+  }
 }
 </script>

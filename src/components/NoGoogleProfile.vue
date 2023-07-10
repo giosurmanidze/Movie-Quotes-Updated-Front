@@ -53,6 +53,14 @@
               :currentUser="user.email"
               :disabled="disableInputForEmail"
             />
+            <ProfileInput
+              v-if="disableInputForEmail"
+              class="lg:w-1/2 w-full"
+              name="newEmail"
+              label="new_email"
+              rules="required"
+              :disabled="disableInputForEmail"
+            />
             <p
               v-if="disableInputForEmail"
               @click="inputToggleHandlerFromEmail()"
