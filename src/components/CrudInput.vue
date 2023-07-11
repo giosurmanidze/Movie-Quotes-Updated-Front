@@ -21,7 +21,7 @@
         <textarea
           v-bind="field"
           :placeholder="placeholder"
-          class="mt-4 mb-1 py-2 px-2 xs:text-base sm:text-xl border-gray-600 border rounded focus:outline-none w-full bg-transparent text-white placeholder-white"
+          class="mt-4 mb-1 py-2 px-2 border-gray-600 border rounded focus:outline-none w-full bg-transparent text-white placeholder-white"
           :class="classes"
         ></textarea>
       </template>

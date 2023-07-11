@@ -1,6 +1,6 @@
 <template>
   <Field :name="name" :rules="rules" v-slot="{ field }" class="flex">
-    <div class="flex">
+    <div class="flex w-full">
       <input
         v-bind="field"
         :placeholder="placeholder"

@@ -64,7 +64,7 @@
         <span>{{ t("to_search_quotes") }}</span>
       </div>
     </div>
-    <div v-if="showSidebar" class="relative z-50">
+    <div v-if="showSidebar" class="relative z-50 xs:block md:hidden">
       <nav
         class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-modal_bg border-r rounded-xl overflow-y-auto"
       >

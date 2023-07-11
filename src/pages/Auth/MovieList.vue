@@ -9,12 +9,13 @@
         </section>
         <section>
           <div class="flex items-center justify-between md:justify-end">
-            <button @click="toggleSearchBar" class="mr-7">
-              <FindIcon />
+            <button @click="toggleSearchBar" class="items-center gap-3 xs:hidden md:flex">
+              <FindIcon class="mr-3" />
+              <p v-if="!isSearchBarVisible" class="text-quote_text">Search</p>
             </button>
             <Form
               @submit="submitSearch"
-              class="flex mr-10"
+              class="flex mr-10 xs:hidden md:flex"
               :class="{ hidden: !isSearchBarVisible }"
             >
               <div
@@ -58,7 +59,7 @@
 <script setup>
 import { Form } from "vee-validate";
 import SearchInput from "@/components/SearchInput.vue";
-import { computed, ref, reactive } from "vue";
+import { computed, ref } from "vue";
 import FindIcon from "@/assets/icons/SearchIcon.vue";
 import MovieCard from "@/components/MovieCard.vue";
 import AddMovieModal from "@/components/AddMovieModal.vue";

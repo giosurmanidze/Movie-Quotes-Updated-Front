@@ -22,7 +22,7 @@
         <img
           :src="backendUrl + quote.thumbnail"
           alt="quote img"
-          class="xl:w-[55.625rem] xl:h-[31.25rem]"
+          class="mx-auto w-full rounded-md"
         />
       </section>
       <section class="flex gap-4 py-4 border-b border-white">

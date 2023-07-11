@@ -4,7 +4,7 @@
     :showModal="store.showAddMoviesModal"
   >
     <template v-slot:header
-      >{{ $t("add_movie") }}
+      ><p class="xs:text-md md:text-xl">{{ $t("add_movie") }}</p>
       <div @click="store.toggleAddMoviesModal(false)" class="absolute right-10 top-7">
         <CloseIcon /></div
     ></template>
@@ -46,17 +46,20 @@
               rules="required|geo"
               placeholder="რეჟისორი"
             />
-            <CrudInput
-              lang="en"
-              name="descriptionEn"
-              rules="required|en"
-              placeholder="Description"
-            />
-            <CrudInput
+            <crud-input
               lang="ka"
               name="descriptionKa"
               rules="required|geo"
               placeholder="ფილმის აღწერა"
+              inputType="textarea"
+              classes="xs:text-md sm:text-base"
+            />
+            <crud-input
+              lang="en"
+              name="descriptionEn"
+              rules="required|en"
+              placeholder="Description"
+              inputType="textarea"
             />
             <CrudInput
               name="budget"
