@@ -63,7 +63,7 @@
 
 <script setup>
 import ProfileInput from "./ProfileInput.vue";
-import { useProfilePageStore } from "@/stores/useProfilePageStore";
+import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 import { ref, watch } from "vue";
 
 const { setShowValue } = useProfilePageStore();

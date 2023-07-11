@@ -86,15 +86,15 @@
 import CrudModal from "@/components/CrudModal.vue";
 import CrudInput from "@/components/CrudInput.vue";
 import DragAndDrop from "@/components/DragAndDrop.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
 import { Form } from "vee-validate";
 import { storeToRefs } from "pinia";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import GenreInput from "@/components/GenreInput.vue";
 import { ref } from "vue";
 import { useCreateMovie } from "@/services";
-import { useMoviesStore } from "@/stores/useMoviesStore";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
 import { onMounted } from "vue";
 import useFont from "@/config/font/useFont.js";
 

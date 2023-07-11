@@ -2,12 +2,12 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { recoverPassword, createUser, sendForgotPassword } from './requests/sendRequest'
 import { useI18n } from 'vue-i18n'
-import { useModalStore } from '@/stores/useModalStore'
-import { useMoviesStore } from '@/stores/useMoviesStore'
-import { useQuotesStore } from '@/stores/useQuotesStore'
-import { usePostStore } from '@/stores/posts'
-import { useProfilePageStore } from '@/stores/useProfilePageStore'
-import { useUserStore } from '@/stores/useUserStore'
+import { useModalStore } from "@/stores/modal/useModalStore.js";
+import { useMoviesStore } from '@/stores/movies/useMoviesStore'
+import { useQuotesStore } from '@/stores/quotes/useQuotesStore'
+import { usePostStore } from '@/stores/posts/posts'
+import { useProfilePageStore } from '@/stores/profile/useProfilePageStore'
+import { useUserStore } from '@/stores/user/useUserStore'
 import axios from '@/config/axios/auth-index'
 
 export function useSubmitCreatePassword() {

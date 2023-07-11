@@ -33,9 +33,9 @@
 import { ref, watch, onMounted, computed } from "vue";
 import NotificationIcon from "@/assets/icons/NotificationIcon.vue";
 import NotificationBoxContent from "@/components/NotificationBoxContent.vue";
-import { useQuotesStore } from "@/stores/useQuotesStore";
-import { useUserStore } from "@/stores/useUserStore";
-import { usePostStore } from "@/stores/posts";
+import { useQuotesStore } from "@/stores/quotes/useQuotesStore";
+import { useUserStore } from "@/stores/user/useUserStore";
+import { usePostStore } from "@/stores/posts/posts";
 import { storeToRefs } from "pinia";
 import axios from "@/config/axios/index";
 

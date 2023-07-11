@@ -141,9 +141,9 @@ import MoviesListIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import { RouterLink } from "vue-router";
 import BurgerIcon from "@/assets/icons/BurgerIcon.vue";
 import HideBurgerMenuIcon from "@/assets/icons/HideBurgerMenuIcon.vue";
-import { usePostStore } from "@/stores/posts";
-import { useMoviesStore } from "@/stores/useMoviesStore.js";
-import { useUserStore } from "@/stores/useUserStore";
+import { usePostStore } from "@/stores/posts/posts";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore.js";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 
 const { t } = useI18n({ useScope: "global" });

@@ -37,7 +37,7 @@
 
 <script setup>
 import { ref, watchEffect, defineProps } from "vue";
-import { useMoviesStore } from "@/stores/useMoviesStore";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
 import { storeToRefs } from "pinia";
 
 const { allCategories } = storeToRefs(useMoviesStore());

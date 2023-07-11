@@ -8,8 +8,8 @@
 <script setup>
 import LikeIcon from "@/assets/icons/LikeIcon.vue";
 import { ref, onMounted } from "vue";
-import { useQuotesStore } from "@/stores/useQuotesStore";
-import { usePostStore } from "@/stores/posts";
+import { useQuotesStore } from "@/stores/quotes/useQuotesStore";
+import { usePostStore } from "@/stores/posts/posts";
 import { handleQuoteLike } from "@/services";
 
 const props = defineProps({

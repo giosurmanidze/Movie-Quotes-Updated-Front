@@ -99,7 +99,7 @@ import { useRouter } from "vue-router";
 import ProfileFileInput from "@/components/ProfileFIleInput.vue";
 import ProfileInput from "@/components/ProfileInput.vue";
 import AlertModal from "@/components/AlertModal.vue";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 import { useSendProfileAvatar } from "@/services";
 import { useSendUsername } from "@/services";

@@ -8,7 +8,7 @@
 <script setup>
 import { RouterView } from "vue-router";
 import NewsfeedNavbar from "./NewsfeedNavbar.vue";
-import { useAuthStore } from "@/stores/useAuthStore.js";
+import { useAuthStore } from "@/stores/auth/useAuthStore.js";
 import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 

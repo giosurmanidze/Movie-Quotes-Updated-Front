@@ -66,10 +66,10 @@ import FindIcon from "@/assets/icons/SearchIcon.vue";
 import MovieCard from "@/components/MovieCard.vue";
 import AddMovieModal from "@/components/AddMovieModal.vue";
 import MovieAddedModal from "@/components/MovieAddedModal.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
-import { useMoviesStore } from "@/stores/useMoviesStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore.js";
 import MenuLayout from "@/components/MenuLayout.vue";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 
 const { getUser } = useUserStore();
 getUser();
