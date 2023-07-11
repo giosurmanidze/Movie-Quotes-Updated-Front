@@ -34,8 +34,20 @@
         </section>
         <Form @submit="submit">
           <section class="my-5">
-            <CrudInput lang="en" name="bodyEn" rules="required|en" :oldValue="quoteEn" />
-            <CrudInput lang="ka" name="bodyKa" rules="required|geo" :oldValue="quoteKa" />
+            <crud-input
+              lang="en"
+              name="bodyEn"
+              rules="required|en"
+              placeholder='"Quote in English."'
+              inputType="textarea"
+            />
+            <crud-input
+              lang="ka"
+              name="bodyKa"
+              rules="required|geo"
+              placeholder='"ციტატა ქართულ ენაზე"'
+              inputType="textarea"
+            />
           </section>
           <section>
             <ImageFileInput :src="imagePath" />
