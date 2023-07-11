@@ -5,7 +5,7 @@
       msg="email_updated_header_text"
       btnText="go_profile"
       classes="bg-btn_color w-full h-[5vh]"
-      route="/user-profile"
+      route="userProfile"
       img="success"
     />
   </div>

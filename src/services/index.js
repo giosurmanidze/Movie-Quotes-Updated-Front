@@ -446,7 +446,7 @@ export function useUpdateUserData(
 
     if (sendEmail?.value) {
       axios
-        .post('api/user/add-email', { email: values.email })
+        .post('api/user/add-email', { email: values.new_email })
         .then(() => {
           getUser()
           ShowEmailSentAlert.value = true

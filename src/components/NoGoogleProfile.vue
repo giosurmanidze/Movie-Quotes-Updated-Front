@@ -23,7 +23,7 @@
         <section @click="showSaveChangesButtons = true" class="text-center">
           <ProfileFileInput />
         </section>
-        <div class="grid grid-cols-1 gap-10 mt-16">
+        <div class="grid grid-cols-1 gap-7 mt-16">
           <section class="flex w-full">
             <ProfileInput
               class="lg:w-1/2 w-full"
@@ -44,27 +44,36 @@
           <section v-if="usernameErrors">
             <p class="text-red-500">{{ usernameErrors }}</p>
           </section>
-          <section class="flex w-full">
+          <section class="flex w-full flex-col">
+            <div class="flex w-full">
+              <ProfileInput
+                class="lg:w-1/2 w-full"
+                name="email"
+                label="email"
+                :currentUser="user.email"
+                :disabled="true"
+              />
+              <p
+                v-if="disableInputForEmail"
+                @click="inputToggleHandlerFromEmail()"
+                class="mt-9 ml-7 cursor-pointer"
+              >
+                {{ $t("edit") }}
+              </p>
+            </div>
+          </section>
+          <div>
             <ProfileInput
               class="lg:w-1/2 w-full"
-              name="email"
-              label="email"
+              v-if="!disableInputForEmail"
+              name="new_email"
+              label="new_email"
               rules="required"
-              :currentUser="user.email"
-              :disabled="disableInputForEmail"
             />
-
-            <p
-              v-if="disableInputForEmail"
-              @click="inputToggleHandlerFromEmail()"
-              class="mt-9 ml-7 cursor-pointer"
-            >
-              {{ $t("edit") }}
-            </p>
-          </section>
-          <section v-if="emailErrors">
-            <p class="text-red-500">{{ emailErrors }}</p>
-          </section>
+            <section v-if="emailErrors">
+              <p class="text-red-500">{{ emailErrors }}</p>
+            </section>
+          </div>
 
           <section class="flex w-full">
             <section class="flex w-full">
@@ -161,6 +170,7 @@ const sendEmail = ref(false);
 const sendAvatar = ref(false);
 
 const password = ref("");
+const newEmail = ref("");
 const eightOrMoreCharacters = ref(false);
 const lessThan15Characters = ref(false);
 
@@ -194,6 +204,7 @@ function toggleEditPassword() {
 function cancelHandler() {
   showSaveChangesButtons.value = false;
   showEditPassword.value = true;
+  disableInputForEmail.value = true;
   inputs.value ? inputs.value-- : "";
 }
 

@@ -15,6 +15,7 @@ configure({
       },
       names: {
         bodyEn: 'quote',
+        new_email:'New email',
         bodyKa: 'quote',
         nameKa: 'name field',
         nameEn: 'name field',
@@ -42,6 +43,7 @@ configure({
         username: 'სახელი',
         movie: 'ფილმის არჩევა',
         email: 'ელ-ფოსტა',
+        new_email:'ახაილი მეილი',
         password: 'პაროლი',
         password_confirmation: 'პაროლის გამეორება',
         confirm_password: 'განმეორებით პაროლი',
