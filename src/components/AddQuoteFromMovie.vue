@@ -44,17 +44,16 @@
               lang="en"
               name="bodyEn"
               rules="required|en"
-              placeholder="Create new quote"
+              placeholder='"Quote in English."'
+              inputType="textarea"
             />
-            <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
-
             <crud-input
               lang="ka"
               name="bodyKa"
               rules="required|geo"
-              placeholder="ახალი ციტატა"
+              placeholder='"ციტატა ქართულ ენაზე"'
+              inputType="textarea"
             />
-
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />
             <button
               type="submit"
@@ -87,8 +86,6 @@ import DragAndDrop from "@/components/DragAndDrop.vue";
 const { user, userAvatar } = storeToRefs(useUserStore());
 
 const store = useModalStore();
-const errorMessage = ref("");
-
 const props = defineProps(["movie"]);
 
 const movie = ref();

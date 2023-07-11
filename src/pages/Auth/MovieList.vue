@@ -9,14 +9,27 @@
         </section>
         <section>
           <div class="flex items-center justify-between md:justify-end">
-            <Form @submit="submitSearch" class="flex mr-10">
-              <FindIcon class="mr-2 hidden md:block" />
-              <SearchInput
-                :placeholder="$t('search')"
-                name="search"
-                classes="bg-transparent px-2 w-[9.5rem] hidden md:block"
-                v-model="searchValue"
-              />
+            <button @click="toggleSearchBar" class="mr-7">
+              <FindIcon />
+            </button>
+            <Form
+              @submit="submitSearch"
+              class="flex mr-10"
+              :class="{ hidden: !isSearchBarVisible }"
+            >
+              <div
+                :class="{
+                  hidden: !isSearchBarVisible,
+                  'animate-fade-in': isSearchBarVisible,
+                }"
+              >
+                <SearchInput
+                  :placeholder="$t('search')"
+                  name="search"
+                  classes="bg-transparent px-2 w-[11.5rem]"
+                  v-model="searchValue"
+                />
+              </div>
             </Form>
             <button
               @click="store.toggleAddMoviesModal()"
@@ -45,7 +58,7 @@
 <script setup>
 import { Form } from "vee-validate";
 import SearchInput from "@/components/SearchInput.vue";
-import { computed, ref } from "vue";
+import { computed, ref, reactive } from "vue";
 import FindIcon from "@/assets/icons/SearchIcon.vue";
 import MovieCard from "@/components/MovieCard.vue";
 import AddMovieModal from "@/components/AddMovieModal.vue";
@@ -77,4 +90,25 @@ const filteredMovies = computed(() => {
 const moviesTotal = computed(() => {
   return filteredMovies.value.length;
 });
+
+const isSearchBarVisible = ref(false);
+
+function toggleSearchBar() {
+  isSearchBarVisible.value = !isSearchBarVisible.value;
+}
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fade-in 0.5s ease forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+</style>

@@ -23,13 +23,17 @@
               lang="en"
               name="bodyEn"
               rules="required|en"
-              placeholder="Create new quote"
+              placeholder="Start create new quote"
+              inputType="textarea"
+              classes="placeholder-genre_text text-white"
             />
             <crud-input
               lang="ka"
               name="bodyKa"
               rules="required|geo"
               placeholder="ახალი ციტატა"
+              inputType="textarea"
+              classes="placeholder-genre_text text-white"
             />
             <drag-and-drop name="thumbnail" rules="required" :imgValue="imgValue" />
             <div class="text-white items-center text-center relative cursor-default">

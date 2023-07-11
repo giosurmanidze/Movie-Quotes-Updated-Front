@@ -9,8 +9,8 @@ configure({
       messages: {
         ...en.messages,
         lower_alpha_num: 'The {field} must contain only lowercase Latin characters and numbers',
-        en: '{field} must contain english letters',
-        geo: '{field} must contain georgian letters',
+        en: 'The {field} must contain english letters',
+        geo: 'The {field} must contain georgian letters',
         confirm_password: 'passwords must match'
       },
       names: {
@@ -50,12 +50,12 @@ configure({
         bodyEn: 'ველი',
         bodyKa: 'ველი',
         nameKa: 'სახელის ველი',
-        nameEn: 'name field',
-        directorEn: 'director field',
+        nameEn: 'სახელის ველი',
+        directorEn: 'რეჟისორის ველი',
         directorKa: 'რეჟისორის ველი',
-        genreEn: 'genre field',
+        genreEn: 'ჟანრის ველი',
         genreKa: 'ჟანრის ველი',
-        descriptionEn: 'description field',
+        descriptionEn: 'აღწერის ველი',
         descriptionKa: 'აღწერის ველი',
         name: 'მომხმარებლის სახელი',
         budget:"ბიუჯეტი",
