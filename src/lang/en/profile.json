@@ -17,5 +17,6 @@
   "go_profile": "Go to profile",
   "confirm_email": "Confirirmation email sent",
   "please_verify_new_email": "Please verify new email, we sent",
-  "user_profile": "Profile"
+  "user_profile": "Profile",
+  "new_email":"New email"
 }
