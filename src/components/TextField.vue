@@ -20,18 +20,17 @@
       @input="updateInput ? updateInput(name, $event.target.value) : null"
     />
     <ErrorMessage :name="name" class="text-label_color xs:text-sm sm:text-base" />
-    <span
-      v-if="!hasError && type !== 'password' && hasInteracted"
-      class="absolute right-2 top-9"
-    >
+    <span v-if="!hasError && hasInteracted" class="absolute right-2 top-9">
       <img src="../assets/done-icon.svg" />
     </span>
-    <span v-if="hasError && type !== 'password'" class="absolute right-2 top-9">
+    <span v-if="hasError" class="absolute right-2 top-9">
       <img src="../assets/error-icon.svg" />
     </span>
     <span
       v-if="type === 'password'"
-      class="absolute right-2 top-[2.375rem]"
+      :class="`absolute right-2 top-[2.3rem] ${
+        ((!hasError && hasInteracted) || hasError) && 'right-8'
+      }`"
       @click="togglePasswordVisibility"
     >
       <hide-eye v-if="!showPassword" />

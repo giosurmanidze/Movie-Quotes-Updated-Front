@@ -9,7 +9,7 @@
         <close-icon /></div
     ></template>
     <template v-slot:body>
-      <Form @submit="submit" v-if="movies.length !== 0">
+      <Form @submit="submit" v-if="movies.length">
         <section class="flex-col py-5">
           <div class="flex items-center">
             <img
@@ -66,7 +66,7 @@
         </section>
       </Form>
       <p class="my-3 text-red-500 text-center" v-else>
-        {{ $t("no_quotes_yet") }}
+        {{ $t("no_movies_yet") }}
       </p>
     </template>
   </crud-modal>
