@@ -5,8 +5,9 @@
         <add-quote-modal />
         <div
           @click="store.toggleAddQuotesModal()"
-          class="flex md:w-[15rem] xl:w-[35rem]"
-          :class="isSearchBarVisible && 'xl:w-[15rem]'"
+          :class="`flex md:w-[15rem] xl:w-[45rem] ${
+            isSearchBarVisible && 'xl:w-[20rem]'
+          }`"
         >
           <add-quote-icon />
           <p class="ml-2 text-base font-normal">{{ $t("write_new_quote") }}</p>
