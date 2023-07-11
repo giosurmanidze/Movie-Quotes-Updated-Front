@@ -96,7 +96,7 @@
               class="flex items-center cursor-pointer mt-10"
               @click="showSidebar = !showSidebar"
             >
-              <home-icon class="mr-5" />
+              <home-icon class="mr-5" :path="$route.name" />
               <p class="md:text-sm lg:text-lg text-white">{{ $t("news_feed") }}</p>
             </router-link>
             <router-link
@@ -104,7 +104,7 @@
               class="flex items-center ursor-pointer"
               @click="showSidebar = !showSidebar"
             >
-              <movies-list-icon />
+              <movies-list-icon :path="$route.name" />
               <p class="ml-4 truncate md:text-sm lg:text-lg text-white">
                 {{ $t("list_of_movies") }}
               </p>
