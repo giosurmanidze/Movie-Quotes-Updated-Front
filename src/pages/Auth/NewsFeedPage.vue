@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-menu_layout_bg pb-20">
+  <div class="bg-menu_layout_bg pb-20 md:pr-20 sm:pr-0">
     <div class="flex xl:gap-x-24 md:pt-8 h-full">
       <section class="pl-16 hidden md:flex">
         <newsfeed-side-bar />

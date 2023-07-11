@@ -3,8 +3,8 @@
     @click="store.toggleAddQuoteFromMovie(false)"
     :showModal="store.showAddQuoteFromMoviesModal"
   >
-    <template v-slot:header
-      >{{ $t("write_new_quote") }}
+    <template v-slot:header>
+      <p class="xs:text-md md:text-xl">{{ $t("write_new_quote") }}</p>
       <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10 top-7">
         <CloseIcon @click="store.toggleAddQuoteFromMovie(false)" /></div
     ></template>
@@ -20,7 +20,7 @@
           </div>
           <div class="mt-5 sm:flex gap-4">
             <img
-              class="w-full sm:w-[300px] h-[160px] rounded-md"
+              class="w-full sm:w-[250px] h-[130px] rounded-xl mt-3"
               alt="movie img"
               :src="imagePath"
             />
@@ -46,6 +46,7 @@
               rules="required|en"
               placeholder='"Quote in English."'
               inputType="textarea"
+              classes="xs:text-base sm:text-xl"
             />
             <crud-input
               lang="ka"
@@ -53,6 +54,7 @@
               rules="required|geo"
               placeholder='"ციტატა ქართულ ენაზე"'
               inputType="textarea"
+              classes="xs:text-base sm:text-xl"
             />
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />
             <button

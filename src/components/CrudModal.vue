@@ -36,7 +36,6 @@
   </div>
 </template>
 
-<!-- eslint-disable-next-line no-unused-vars -->
 <script setup>
 import { defineProps } from "vue";
 const props = defineProps({

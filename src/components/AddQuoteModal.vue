@@ -4,7 +4,7 @@
     :showModal="store.showAddQuotesModal"
   >
     <template v-slot:header
-      ><div :class="`xs:text-base ${font}`">{{ $t("write_new_quote") }}</div>
+      ><div :class="`xs:text-md md:text-xl ${font}`">{{ $t("write_new_quote") }}</div>
       <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10">
         <close-icon /></div
     ></template>
@@ -25,7 +25,7 @@
               rules="required|en"
               placeholder="Start create new quote"
               inputType="textarea"
-              classes="placeholder-genre_text text-white"
+              classes="placeholder-genre_text text-white xs:text-base sm:text-xl"
             />
             <crud-input
               lang="ka"
@@ -33,7 +33,7 @@
               rules="required|geo"
               placeholder="ახალი ციტატა"
               inputType="textarea"
-              classes="placeholder-genre_text text-white"
+              classes="placeholder-genre_text text-white xs:text-base sm:text-xl"
             />
             <drag-and-drop name="thumbnail" rules="required" :imgValue="imgValue" />
             <div class="text-white items-center text-center relative cursor-default">
