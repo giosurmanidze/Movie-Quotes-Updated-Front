@@ -41,6 +41,7 @@
               placeholder='"Quote in English."'
               inputType="textarea"
               classes="placeholder-genre_text text-white xs:text-base sm:text-xl"
+              :oldValue="quoteEn"
             />
             <crud-input
               lang="ka"
@@ -49,6 +50,7 @@
               placeholder='"ციტატა ქართულ ენაზე"'
               inputType="textarea"
               classes="placeholder-genre_text text-white xs:text-base sm:text-xl"
+              :oldValue="quoteKa"
             />
           </section>
           <section>
