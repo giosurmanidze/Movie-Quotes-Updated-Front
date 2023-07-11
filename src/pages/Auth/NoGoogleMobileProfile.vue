@@ -63,7 +63,7 @@
           v-if="!profileStore.showForm && sendEmail"
           :emailErrors="emailErrors"
         />
-        <ChangePassword v-if="!profileStore.showForm && showEditPassword"  />
+        <ChangePassword v-if="!profileStore.showForm && showEditPassword" />
         <section v-if="showSaveChangesButtons" class="flex justify-between mt-8">
           <button type="button" class="p-2 pr-8 cursor-pointer" @click="cancelHandler()">
             {{ $t("cancel") }}
@@ -86,9 +86,9 @@ import ChangePassword from "@/components/ChangePassword.vue";
 import ChangeEmail from "@/components/ChangeEmail.vue";
 import MobileFileInput from "@/components/MobileFileInput.vue";
 import ChangeUsername from "@/components/ChangeUsername.vue";
-import { useProfilePageStore } from "@/stores/useProfilePageStore";
+import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 import AlertModal from "@/components/AlertModal.vue";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 import { useUpdateUserData } from "@/services/index";
 

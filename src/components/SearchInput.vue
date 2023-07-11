@@ -17,8 +17,8 @@
 import { Field } from "vee-validate";
 import { useRouter, useRoute } from "vue-router";
 import { ref, watch } from "vue";
-import { usePostStore } from "@/stores/posts";
-import { useMoviesStore } from "@/stores/useMoviesStore";
+import { usePostStore } from "@/stores/posts/posts";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
 
 defineProps({
   name: { type: String, required: true },

@@ -150,7 +150,7 @@ import { ref, watch } from "vue";
 import ProfileFileInput from "./ProfileFIleInput.vue";
 import ProfileInput from "./ProfileInput.vue";
 import AlertModal from "./AlertModal.vue";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 import { useUpdateUserData } from "@/services";
 

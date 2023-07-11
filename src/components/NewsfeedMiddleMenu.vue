@@ -48,8 +48,8 @@ import AddQuoteModal from "@/components/AddQuoteModal.vue";
 import SearchInput from "@/components/SearchInput.vue";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useModalStore } from "@/stores/useModalStore";
-import { usePostStore } from "@/stores/posts";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
+import { usePostStore } from "@/stores/posts/posts";
 
 const { t } = useI18n({ useScope: "global" });
 

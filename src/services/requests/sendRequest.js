@@ -1,5 +1,5 @@
 import axios from '@/config/axios/index'
-import { useAuthStore } from '@/stores/useAuthStore.js'
+import { useAuthStore } from '@/stores/auth/useAuthStore.js'
 
 const sendRequest = async (url, data) => {
   await axios.get('/sanctum/csrf-cookie')

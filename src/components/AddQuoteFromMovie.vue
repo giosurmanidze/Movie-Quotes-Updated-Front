@@ -20,7 +20,7 @@
           </div>
           <div class="mt-5 sm:flex gap-4">
             <img
-              class="w-full sm:w-[250px] h-[130px] rounded-xl mt-3"
+              class="w-full sm:w-[15.625rem] h-[8.125rem] rounded-xl mt-3"
               alt="movie img"
               :src="imagePath"
             />
@@ -76,13 +76,13 @@ import { ref, watch, computed } from "vue";
 import CrudModal from "@/components/CrudModal.vue";
 import axios from "@/config/axios/auth-index";
 import CrudInput from "@/components/CrudInput.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
 import { Form } from "vee-validate";
 import { storeToRefs } from "pinia";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import { useI18n } from "vue-i18n";
-import { useMoviesStore } from "@/stores/useMoviesStore";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
 import DragAndDrop from "@/components/DragAndDrop.vue";
 
 const { user, userAvatar } = storeToRefs(useUserStore());

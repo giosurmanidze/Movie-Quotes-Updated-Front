@@ -54,7 +54,7 @@
                   {{ movie?.name[locale] }}
                 </option>
               </Field>
-              <div class="text-left mt-[-2px] mb-2">
+              <div class="text-left mt-[-0.125rem] mb-2">
                 <error-message class="text-red-300" name="movie" />
               </div>
             </div>
@@ -76,15 +76,15 @@
 import { ref } from "vue";
 import CrudModal from "@/components/CrudModal.vue";
 import CrudInput from "@/components/CrudInput.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
 import { Form } from "vee-validate";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import { Field, ErrorMessage } from "vee-validate";
 import ChooseMovieIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import DragAndDrop from "@/components/DragAndDrop.vue";
 import { useCreateQuote } from "@/services/index";
-import { useMoviesStore } from "@/stores/useMoviesStore";
-import { useUserStore } from "@/stores/useUserStore";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import useFont from "@/config/font/useFont.js";

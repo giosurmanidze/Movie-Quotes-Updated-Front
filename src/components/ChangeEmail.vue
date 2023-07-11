@@ -27,7 +27,7 @@
 <script setup>
 import { ref } from "vue";
 import ProfileInput from "./ProfileInput.vue";
-import { useProfilePageStore } from "@/stores/useProfilePageStore";
+import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 
 const { setShowValue } = useProfilePageStore();
 

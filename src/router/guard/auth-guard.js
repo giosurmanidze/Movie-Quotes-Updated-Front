@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores/useAuthStore'
+import { useAuthStore } from '@/stores/auth/useAuthStore'
 
 export const isAuthenticated = () => {
   const authStore = useAuthStore()
