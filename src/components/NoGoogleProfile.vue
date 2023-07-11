@@ -170,7 +170,6 @@ const sendEmail = ref(false);
 const sendAvatar = ref(false);
 
 const password = ref("");
-const newEmail = ref("");
 const eightOrMoreCharacters = ref(false);
 const lessThan15Characters = ref(false);
 
