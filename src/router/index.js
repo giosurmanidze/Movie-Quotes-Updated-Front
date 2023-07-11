@@ -13,8 +13,7 @@ import MovieList from '@/pages/Auth/MovieList.vue'
 import UserProfile from '@/pages/Auth/UserProfile.vue'
 import SingleMovie from '@/pages/Auth/SingleMovie.vue'
 import { useAuthStore } from '@/stores/useAuthStore.js'
-import isAuthenticated from '@/router/auth-guard.js'
-import isNotAuthenticated from '@/router/unauth-guard.js'
+import { isAuthenticated, isNotAuthenticated } from '@/router/auth-guard.js'
 import ForbiddenPage from '@/pages/ErrorPages/ForbiddenPage.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
 import axios from '@/config/axios/index.js'
@@ -128,19 +127,19 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const authStore = useAuthStore();
+  const authStore = useAuthStore()
   if (authStore.authenticated === null) {
     try {
-      await axios.get('api/user');
-      authStore.authenticated = true;
+      await axios.get('api/user')
+      authStore.authenticated = true
     } catch (err) {
-      authStore.authenticated = false;
+      authStore.authenticated = false
     } finally {
-      next();
+      next()
     }
   } else {
-    next();
+    next()
   }
-});
+})
 
 export default router

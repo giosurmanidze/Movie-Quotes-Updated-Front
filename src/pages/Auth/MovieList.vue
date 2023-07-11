@@ -34,8 +34,9 @@
             </Form>
             <button
               @click="store.toggleAddMoviesModal()"
-              class="text-white bg-red-600 px-3 rounded-[0.25rem] xs:text-sm lg:text-xl h-10"
+              class="text-white bg-red-600 px-3 rounded-[0.25rem] xs:text-sm lg:text-xl h-10 flex items-center gap-2"
             >
+              <add-movie-plus-icon />
               {{ $t("add_movie") }}
             </button>
           </div>
@@ -60,6 +61,7 @@
 import { Form } from "vee-validate";
 import SearchInput from "@/components/SearchInput.vue";
 import { computed, ref } from "vue";
+import AddMoviePlusIcon from "@/assets/icons/AddMoviePlusIcon.vue";
 import FindIcon from "@/assets/icons/SearchIcon.vue";
 import MovieCard from "@/components/MovieCard.vue";
 import AddMovieModal from "@/components/AddMovieModal.vue";
