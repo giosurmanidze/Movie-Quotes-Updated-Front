@@ -22,7 +22,7 @@
         <img
           :src="backendUrl + quote.thumbnail"
           alt="quote img"
-          class="mx-auto w-full rounded-md"
+          class="xl:w-[55.625rem] xl:h-[31.25rem]"
         />
       </section>
       <section class="flex gap-4 py-4 border-b border-white">
@@ -88,10 +88,13 @@ import { useUserStore } from "@/stores/user/useUserStore";
 import { computed, ref, onMounted } from "vue";
 import { Form } from "vee-validate";
 import { useCreateComment } from "@/services";
+import { useNotifications } from "@/stores/notifications/notifications";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 const { posts } = storeToRefs(usePostStore());
 const { getPosts, handleScroll } = usePostStore();
+const { getNotifications } = useNotifications();
+
 onMounted(() => getPosts());
 window.addEventListener("scroll", handleScroll);
 
@@ -135,4 +138,16 @@ function toggleExpandComments(quote) {
     expandedQuotes.value.push(quote.comments.map((comment) => comment.userId));
   }
 }
+
+onMounted(() => {
+  getPosts();
+});
+window.Echo.channel("like-channel").listen(".new-like", () => {
+  getPosts();
+  getNotifications();
+});
+window.Echo.channel("comment-channel").listen(".new-comment", () => {
+  getPosts();
+  getNotifications();
+});
 </script>
