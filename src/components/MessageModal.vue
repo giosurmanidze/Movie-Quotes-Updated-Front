@@ -3,7 +3,8 @@
     class="fixed inset-0 flex items-start pt-28 justify-center xs:bg-message_modal_back_screen sm:bg-black sm:bg-opacity-60 backdrop-filter backdrop-blur-sm"
   >
     <div
-      class="modal-content py-8 max-w-[31.25rem] sm:px-16 xs:px-10 rounded-md shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh overflow-auto bg-gradient_dark sm:bg-main_bg_color"
+      class="modal-content py-8 max-w-[31.25rem] sm:px-16 xs:px-10 rounded-md sm:shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh overflow-auto xs:bg-message_bg_modal sm:bg-main_bg_color"
+      :claas="modal_class"
       @click.stop
     >
       <div class="flex flex-col justify-center items-center gap-7 text-white h-[45vh]">

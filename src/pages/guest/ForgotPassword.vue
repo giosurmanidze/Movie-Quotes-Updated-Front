@@ -1,13 +1,13 @@
 <template>
   <div
-    class="fixed inset-0 flex xs:items-start justify-center pt-20 xs:bg-message_modal_back_screen sm:bg-black sm:bg-opacity-60 backdrop-filter backdrop-blur-sm"
+    class="fixed inset-0 flex xs:items-start sm:pt-28 justify-center sm:bg-black sm:bg-opacity-60 backdrop-filter backdrop-blur-sm"
   >
     <div
-      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[34.375rem] rounded sm:shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh xs:h-[55vh] overflow-auto sm:bg-main_bg_color"
+      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[34.375rem] rounded sm:shadow-lg flex flex-col gap-2 pt-20 xs:w-full xs:h-screen sm:h-full sm:bg-main_bg_color xs:bg-message_modal_back_screen sm:max-h-[60vh] overflow-auto"
       @click.stop
     >
       <div class="flex flex-col justify-center items-center gap-7 h-[40vh] w-full">
-        <h1 class="xs:text-2xl sm:text-3xl text-white">
+        <h1 class="xs:text-2xl sm:text-4xl text-white">
           {{ $t("forgot_password_header_title") }}
         </h1>
         <p class="text-center w-full text-md text-genre_text">
@@ -24,7 +24,7 @@
           />
           <submit-button
             text="forgot_password_submit_btn"
-            classes="bg-[#E31221] w-full"
+            classes="bg-btn_color w-full mt-2"
             route="/forgot-password-email-sent"
           />
           <loading-icon v-if="forgotLoading" />
