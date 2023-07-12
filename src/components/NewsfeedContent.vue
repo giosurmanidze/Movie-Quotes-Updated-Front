@@ -88,10 +88,14 @@ import { useUserStore } from "@/stores/useUserStore";
 import { computed, ref, onMounted } from "vue";
 import { Form } from "vee-validate";
 import { useCreateComment } from "@/services";
+import axios from "@/config/axios/index";
+import { useNotifications } from "@/stores/notifications";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 const { posts } = storeToRefs(usePostStore());
 const { getPosts, handleScroll } = usePostStore();
+const { getNotifications } = useNotifications();
+
 onMounted(() => getPosts());
 window.addEventListener("scroll", handleScroll);
 
@@ -135,4 +139,16 @@ function toggleExpandComments(quote) {
     expandedQuotes.value.push(quote.comments.map((comment) => comment.userId));
   }
 }
+
+onMounted(() => {
+  getPosts();
+});
+window.Echo.channel("like-channel").listen(".new-like", () => {
+  getPosts();
+  getNotifications();
+});
+window.Echo.channel("comment-channel").listen(".new-comment", () => {
+  getPosts();
+  getNotifications();
+});
 </script>

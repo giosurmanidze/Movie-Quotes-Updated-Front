@@ -204,7 +204,7 @@ export function useSubmitRegister() {
   }
 }
 
-export function useEditMovie(params,genres) {
+export function useEditMovie(params, genres) {
   const { updatedMovie } = useMoviesStore()
   const store = useModalStore()
 
@@ -240,7 +240,7 @@ export function useEditMovie(params,genres) {
   }
 
   return {
-    submit,
+    submit
   }
 }
 export function useEditQuote(quote) {
@@ -283,14 +283,11 @@ export function useCreateComment(quoteId) {
     }
     axios
       .post('api/comments', data)
-      .then((response) => {
-        if (response.status === 200) {
-          actions.resetForm()
-          store.toggleCommentAddedModal()
-          getQuote(response.data.quote_id)
-          getQuotesRefresh()
-          refreshPosts()
-        }
+      .then(() => {
+        actions.resetForm()
+        store.toggleCommentAddedModal()
+        getQuotesRefresh()
+        refreshPosts()
       })
       .catch((error) => {
         console.log(error)
@@ -337,7 +334,6 @@ export function handleQuoteLike(quoteId, likeable, likeId) {
   }
 }
 
-
 export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButtons) {
   const { getUser } = useUserStore()
 
@@ -369,7 +365,6 @@ export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButton
 export function useSendUsername(showUserUpdated, disableInput, showConfirmModal, usernameError) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
-
 
   function sendData(values) {
     showUserUpdated.value = false
