@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { recoverPassword, createUser, sendForgotPassword } from './requests/sendRequest'
 import { useI18n } from 'vue-i18n'
-import { useModalStore } from "@/stores/modal/useModalStore.js";
+import { useModalStore } from '@/stores/modal/useModalStore.js'
 import { useMoviesStore } from '@/stores/movies/useMoviesStore'
 import { useQuotesStore } from '@/stores/quotes/useQuotesStore'
 import { usePostStore } from '@/stores/posts/posts'
@@ -204,7 +204,7 @@ export function useSubmitRegister() {
   }
 }
 
-export function useEditMovie(params,genres) {
+export function useEditMovie(params, genres) {
   const { updatedMovie } = useMoviesStore()
   const store = useModalStore()
 
@@ -240,7 +240,7 @@ export function useEditMovie(params,genres) {
   }
 
   return {
-    submit,
+    submit
   }
 }
 export function useEditQuote(quote) {
@@ -271,9 +271,10 @@ export function useEditQuote(quote) {
     successMessage
   }
 }
+
 export function useCreateComment(quoteId) {
   const store = useModalStore()
-  const { getQuotesRefresh, getQuote } = useQuotesStore()
+  const { getQuotesRefresh } = useQuotesStore()
   const { refreshPosts } = usePostStore()
 
   function submit(values, actions) {
@@ -283,14 +284,11 @@ export function useCreateComment(quoteId) {
     }
     axios
       .post('api/comments', data)
-      .then((response) => {
-        if (response.status === 200) {
-          actions.resetForm()
-          store.toggleCommentAddedModal()
-          getQuote(response.data.quote_id)
-          getQuotesRefresh()
-          refreshPosts()
-        }
+      .then(() => {
+        actions.resetForm()
+        store.toggleCommentAddedModal()
+        getQuotesRefresh()
+        refreshPosts()
       })
       .catch((error) => {
         console.log(error)
@@ -302,32 +300,31 @@ export function useCreateComment(quoteId) {
 }
 
 export async function handleQuoteLike(quoteId, likeable, likeId) {
-  const previousValue = likeable.value;
-  likeable.value = !likeable.value;
-  const { getQuote, getQuotesRefresh } = useQuotesStore();
-  const { refreshPosts } = usePostStore();
+  const previousValue = likeable.value
+  likeable.value = !likeable.value
+  const { getQuote, getQuotesRefresh } = useQuotesStore()
+  const { refreshPosts } = usePostStore()
 
   let data = {
-    quote_id: quoteId,
-  };
+    quote_id: quoteId
+  }
 
   try {
     if (likeable.value) {
-      await axios.delete(`api/likes/${likeId.value}`);
-      likeId.value = null;
+      await axios.delete(`api/likes/${likeId.value}`)
+      likeId.value = null
     } else {
-      const response = await axios.post("api/likes", data);
-      likeId.value = response.data.like_id;
+      const response = await axios.post('api/likes', data)
+      likeId.value = response.data.like_id
     }
-    getQuote(quoteId);
-    getQuotesRefresh();
-    refreshPosts();
+    getQuote(quoteId)
+    getQuotesRefresh()
+    refreshPosts()
   } catch (error) {
-    console.log(error);
-    likeable.value = previousValue;
+    console.log(error)
+    likeable.value = previousValue
   }
 }
-
 
 export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButtons) {
   const { getUser } = useUserStore()
@@ -360,7 +357,6 @@ export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButton
 export function useSendUsername(showUserUpdated, disableInput, showConfirmModal, usernameError) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
-
 
   function sendData(values) {
     showUserUpdated.value = false
