@@ -4,7 +4,13 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        banner_gradient: 'linear-gradient(187.16deg, #181623 0.07%, #191725 51.65%, #0D0B14 98.75%)'
+        banner_gradient:
+          'linear-gradient(187.16deg, #181623 0.07%, #191725 51.65%, #0D0B14 98.75%)',
+        message_modal_back_screen:
+          'linear-gradient(225deg, #181623 0.07%, #191725 50.66%, #0D0B14 96.88%)',
+        gradient_dark: 'linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))',
+        message_modal_bg:
+          'linear-gradient(134deg, rgba(239, 239, 239, 0.30) 0%, rgba(239, 239, 239, 0.01) 99.98%, rgba(1, 1, 1, 0.00) 99.99%, rgba(239, 239, 239, 0.05) 100%)'
       },
       screens: {
         xs: '310px'
