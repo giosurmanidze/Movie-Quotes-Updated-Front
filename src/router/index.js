@@ -75,12 +75,6 @@ const router = createRouter({
           component: ChangedPassword,
           beforeEnter: isNotAuthenticated
         },
-        {
-          path: '/changed-password',
-          name: 'changedPassword',
-          component: ChangedPassword,
-          beforeEnter: isNotAuthenticated
-        }
       ]
     },
     {

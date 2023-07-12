@@ -4,7 +4,7 @@
     msg="recover_instrc_header_text"
     btnText="recover_instrc_submit_btn"
     classes="bg-btn_color w-full h-[5vh]"
-    route="/login"
+    route="login"
     img="emailSent"
   />
 </template>
