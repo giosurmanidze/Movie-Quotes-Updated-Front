@@ -18,6 +18,7 @@ import ForbiddenPage from '@/pages/ErrorPages/ForbiddenPage.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
 import axios from '@/config/axios/index.js'
 import SuccessUpdatedVerifiedEmail from '@/pages/Auth/SuccessUpdatedVerifiedEmail.vue'
+import { getUserData } from '@/services/requests/sendRequest'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -124,7 +125,7 @@ router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
   if (authStore.authenticated === null) {
     try {
-      await axios.get('api/user')
+      await getUserData()
       authStore.authenticated = true
     } catch (err) {
       authStore.authenticated = false

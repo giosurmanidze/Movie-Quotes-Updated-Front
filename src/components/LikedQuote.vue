@@ -9,7 +9,6 @@
 import LikeIcon from "@/assets/icons/LikeIcon.vue";
 import { ref, onMounted } from "vue";
 import { useQuotesStore } from "@/stores/quotes/useQuotesStore";
-import { usePostStore } from "@/stores/posts/posts";
 import { handleQuoteLike } from "@/services";
 
 const props = defineProps({
@@ -24,7 +23,6 @@ const props = defineProps({
 });
 
 const { getQuotesRefresh } = useQuotesStore();
-const { refreshPosts } = usePostStore();
 
 const likeable = ref(false);
 let likeId = ref(null);
@@ -44,7 +42,6 @@ const getLikesData = () => {
 
 onMounted(() => {
   getLikesData();
-  refreshPosts();
 });
 
 function handleQuoteLikeWrapper() {

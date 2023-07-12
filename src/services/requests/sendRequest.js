@@ -33,3 +33,7 @@ export const logoutUser = async () => {
     console.error('Error logging out:', error)
   }
 }
+
+export const getUserData = () => {
+  return axios.get('api/user')
+}
