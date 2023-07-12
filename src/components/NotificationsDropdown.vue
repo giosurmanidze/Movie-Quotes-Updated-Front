@@ -1,8 +1,8 @@
 <template>
-  <div class="flex justify-center text-white z-10">
+  <div class="flex justify-center text-white z-1">
     <div class="md:relative">
       <button @click="toggleDropdown" class="mr-6 inline-flex relative">
-        <NotificationIcon />
+        <notification-icon />
         <div
           v-if="unreadNotificationCount"
           class="inline-flex absolute -top-2 -right-2 justify-center items-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full"

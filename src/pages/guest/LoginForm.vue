@@ -3,7 +3,7 @@
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-filter backdrop-blur-sm"
   >
     <div
-      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[37.5rem] rounded shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh overflow-auto bg-main_bg_color"
+      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[37.5rem] rounded shadow-lg flex flex-col gap-2 xs:w-full xs:h-screen xs:pt-28 sm:max-h-[70vh] sm:h-full overflow-auto bg-main_bg_color"
       @click.stop
     >
       <div class="flex flex-col justify-center items-center text-white">
@@ -12,7 +12,7 @@
           $t("log_in_form_header_text")
         }}</span>
       </div>
-      <Form @submit="submit" v-slot="{ errors }">
+      <Form @submit="submit" v-slot="{ errors }" class="xs:mt-5">
         <div class="flex flex-col justify-between lg:h-[35vh] xs:h-[40vh]">
           <text-field
             label="username"
@@ -68,13 +68,14 @@
           <a
             :href="`${BASE_URL}/api/auth/google/redirect`"
             class="text-white px-3 rounded text-sm lg:text-base h-10 flex justify-center items-center gap-3 border-2 pb-1 border-white"
-            ><img src="../assets/Google.svg" />
-            {{ $t("sign_up_with_google") }}
+          >
+            <google-icon />
+            {{ $t("log_in_with_google") }}
           </a>
         </div>
         <loading-icon v-if="loading" />
       </Form>
-      <span class="text-center text-genre_text text-sm sm:text-base"
+      <span class="text-center text-genre_text text-sm sm:text-base xs:mt-3"
         >{{ $t("log_in_footer_text")
         }}<router-link
           :to="{ name: 'signup' }"
@@ -93,6 +94,7 @@ import SubmitButton from "@/components/SubmitButton.vue";
 import { loginUser } from "@/services/requests/sendRequest";
 import axiosInstance from "@/config/axios/index";
 import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
+import GoogleIcon from "@/assets/icons/GoogleIcon.vue";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
