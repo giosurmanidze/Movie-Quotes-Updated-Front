@@ -19,7 +19,13 @@
       @change="setImage"
     />
   </Field>
-  <div class="relative w-full border border-white-1 min-h-20 rounded-lg">
+  <div
+    class="relative w-full border border-white-1 min-h-20 rounded-lg"
+    id="container"
+    @dragover.prevent="dragOver"
+    @dragleave.prevent="dragLeave"
+    @drop.prevent="dropFile"
+  >
     <img :src="src" alt="" class="w-auto h-auto" id="image" />
     <label
       for="file"
@@ -35,9 +41,33 @@
 import { Field } from "vee-validate";
 import { ref } from "vue";
 import CameraIcon from "@/assets/icons/CameraIcon.vue";
-const fileModel = ref(null);
 
+const fileModel = ref(null);
+const wasTouched = ref(false);
+const img = ref("");
 defineProps(["src"]);
+const dragging = ref(false);
+
+const dragOver = (e) => {
+  e.preventDefault();
+  dragging.value = true;
+};
+
+const dragLeave = (e) => {
+  e.preventDefault();
+  dragging.value = false;
+};
+
+const dropFile = (e) => {
+  e.preventDefault();
+  dragging.value = false;
+  if (!wasTouched.value) {
+    wasTouched.value = true;
+  }
+  fileModel.value = e.dataTransfer.files[0];
+  img.value = e.dataTransfer.files[0].name;
+};
+document.addEventListener("drop", dropFile);
 
 const setImage = function (event) {
   let output = document.getElementById("image");

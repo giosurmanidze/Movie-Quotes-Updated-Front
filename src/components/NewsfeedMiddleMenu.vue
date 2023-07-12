@@ -5,7 +5,7 @@
         <add-quote-modal />
         <div
           @click="store.toggleAddQuotesModal()"
-          :class="`flex md:w-[15rem] xl:w-[30rem] ${
+          :class="`flex md:w-[10rem] xl:w-[30rem] ${
             isSearchBarVisible && 'xl:w-[20rem]'
           }`"
         >

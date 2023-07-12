@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="xs:h-[50vh] paralax-scroll fit md:h-screen pt-[30%] pl-[10%] lg:pt-[12.5rem] lg:pl-44"
+      class="xs:h-screen paralax-scroll fit md:h-screen pt-[30%] pl-[10%] lg:pt-[12.5rem] lg:pl-44"
       :style="{ backgroundImage: `url(${props.img})` }"
     >
       <div class="md:max-w-[31.25] lg:max-w-[56.25] flex space-x-1">
