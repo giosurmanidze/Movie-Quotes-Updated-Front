@@ -360,7 +360,6 @@ export function useSendUsername(showUserUpdated, disableInput, showConfirmModal,
 
   function sendData(values) {
     showUserUpdated.value = false
-    console.log(values.username)
 
     axios
       .post('api/user/update', { username: values.username })

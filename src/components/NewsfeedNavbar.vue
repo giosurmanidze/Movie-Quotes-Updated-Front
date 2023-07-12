@@ -51,7 +51,7 @@
     </div>
     <div
       class="h-[70vh] mt-5 ml-16 text-base text-genre_text sm:hidden z-[-1]"
-      v-if="!shouldShowSearchInfo && !navbarState && $route.name === 'newsFeed'"
+      v-if="!searchValue && !navbarState && $route.name === 'newsFeed'"
     >
       <div class="flex gap-2">
         <span>{{ t("enter") }}</span>
@@ -129,7 +129,7 @@
 import { Form } from "vee-validate";
 import { logoutUser } from "@/services/requests/sendRequest";
 import SearchInput from "@/components/SearchInput.vue";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import LanguageDropdown from "@/components/LangChanger.vue";
 import NotificationsDropdown from "@/components/NotificationsDropdown.vue";
@@ -175,7 +175,4 @@ function searchSubmit(values) {
   movieStore.searchValue = values.search;
   store.searchPosts();
 }
-const shouldShowSearchInfo = computed(() => {
-  return searchValue.value.startsWith("@") || searchValue.value.startsWith("#");
-});
 </script>
