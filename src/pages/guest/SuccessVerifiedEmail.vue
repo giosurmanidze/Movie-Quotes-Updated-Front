@@ -11,4 +11,12 @@
 
 <script setup>
 import MessageModal from "@/components/MessageModal.vue";
+import { useRoute } from "vue-router";
+import { onMounted } from "vue";
+import axios from "@/config/axios/index";
+
+const route = useRoute();
+onMounted(async () => {
+  await axios.post("api/email/verify", { email: route.query.email });
+});
 </script>
