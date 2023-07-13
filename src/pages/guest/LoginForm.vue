@@ -7,9 +7,9 @@
       @click.stop
     >
       <div class="flex flex-col justify-center items-center text-white">
-        <h1 class="xs:text-2xl sm:text-3xl">{{ $t("log_in_form_title") }}</h1>
+        <h1 class="xs:text-2xl sm:text-3xl">{{ $t('log_in_form_title') }}</h1>
         <span class="text-sm text-genre_text mt-1 text-center">{{
-          $t("log_in_form_header_text")
+          $t('log_in_form_header_text')
         }}</span>
       </div>
       <Form @submit="submit" v-slot="{ errors }" class="xs:mt-5">
@@ -54,14 +54,14 @@
                 class="w-4 h-4"
               />
               <label for="remember" class="text-white xs:text-sm sm:text-md">{{
-                $t("remember_me")
+                $t('remember_me')
               }}</label>
             </div>
 
             <router-link
               :to="{ name: 'forgotPassword' }"
               class="text-forgot_pass_text underline xs:text-sm sm:text-md"
-              >{{ $t("forgot_password") }}
+              >{{ $t('forgot_password') }}
             </router-link>
           </div>
           <submit-button text="log_in_btn" classes="bg-[#E31221] text-sm lg:text-base" />
@@ -70,17 +70,17 @@
             class="text-white px-3 rounded text-sm lg:text-base h-10 flex justify-center items-center gap-3 border-2 pb-1 border-white"
           >
             <google-icon />
-            {{ $t("log_in_with_google") }}
+            {{ $t('log_in_with_google') }}
           </a>
         </div>
         <loading-icon v-if="loading" />
       </Form>
       <span class="text-center text-genre_text text-sm sm:text-base xs:mt-3"
-        >{{ $t("log_in_footer_text")
+        >{{ $t('log_in_footer_text')
         }}<router-link
           :to="{ name: 'signup' }"
           class="text-forgot_pass_text underline ml-1 text-sm sm:text-base"
-          >{{ $t("sign_up") }}</router-link
+          >{{ $t('sign_up') }}</router-link
         ></span
       >
     </div>
@@ -88,55 +88,58 @@
 </template>
 
 <script setup>
-import { Form } from "vee-validate";
-import TextField from "@/components/TextField.vue";
-import SubmitButton from "@/components/SubmitButton.vue";
-import { loginUser } from "@/services/requests/sendRequest";
-import axiosInstance from "@/config/axios/index";
-import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
-import GoogleIcon from "@/assets/icons/GoogleIcon.vue";
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
+import { Form } from 'vee-validate'
+import TextField from '@/components/TextField.vue'
+import SubmitButton from '@/components/SubmitButton.vue'
+import { loginUser } from '@/services/requests/sendRequest'
+import axiosInstance from '@/config/axios/index'
+import LoadingIcon from '@/assets/icons/LoadingIcon.vue'
+import GoogleIcon from '@/assets/icons/GoogleIcon.vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { useAuthStore } from '@/stores/auth/useAuthStore.js'
 
-const user = ref();
-const loading = ref(false);
-const router = useRouter();
-const { t } = useI18n();
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const user = ref()
+const loading = ref(false)
+const router = useRouter()
+const { t } = useI18n()
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
-let storedLoginForm = localStorage.getItem("remember_me");
+let storedLoginForm = localStorage.getItem('remember_me')
 let loginForm = storedLoginForm
   ? JSON.parse(storedLoginForm)
-  : { remember: false, password: "", username: "" };
+  : { remember: false, password: '', username: '' }
 
 const updateInput = (key, value) => {
-  loginForm[key] = value;
-};
+  loginForm[key] = value
+}
 
 const submit = async (values, actions) => {
-  loading.value = true;
+  loading.value = true
 
   try {
-    await loginUser(values);
-    const { data } = await axiosInstance.get("/api/user");
-    user.value = data;
-    loading.value = false;
-    router.push({ name: "newsFeed" });
+    await loginUser(values)
+    const authStore = useAuthStore()
+    authStore.authenticated = true
+    const { data } = await axiosInstance.get('/api/user')
+    user.value = data
+    loading.value = false
+    router.push({ name: 'newsFeed' })
 
     return loginForm.remember
-      ? localStorage.setItem("remember_me", JSON.stringify(loginForm))
-      : localStorage.removeItem("remember_me");
+      ? localStorage.setItem('remember_me', JSON.stringify(loginForm))
+      : localStorage.removeItem('remember_me')
   } catch (error) {
-    loading.value = false;
-    actions.setFieldError("username", t("incorrect_credentials"));
+    loading.value = false
+    actions.setFieldError('username', t('incorrect_credentials'))
   }
-};
+}
 
 onMounted(() => {
-  const storedLoginForm = localStorage.getItem("remember_me");
+  const storedLoginForm = localStorage.getItem('remember_me')
   if (storedLoginForm) {
-    loginForm = JSON.parse(storedLoginForm);
+    loginForm = JSON.parse(storedLoginForm)
   }
-});
+})
 </script>

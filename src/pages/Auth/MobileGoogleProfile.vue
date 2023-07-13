@@ -58,14 +58,19 @@
       <Form @submit="sendData">
         <section v-if="!disableInput && !showConfirmModal" class="mx-7 mt-5">
           <section class="pt-10">
-            <ProfileInput name="username" rules="required" label="enter_new_username" />
+            <ProfileInput
+              name="username"
+              rules="required"
+              label="enter_new_username"
+              v-model="username"
+            />
             <p v-if="usernameError" class="mt-3 text-red-500">
               {{ usernameError }}
             </p>
           </section>
           <section class="py-5 flex justify-between">
             <p @click="hideInputHandler()" class="py-3">{{ $t("cancel") }}</p>
-            <button class="bg-red-600 p-3 rounded">
+            <button class="bg-red-600 p-3 rounded" @click="are_you_sure()">
               {{ $t("edit") }}
             </button>
           </section>
@@ -113,6 +118,7 @@ const showConfirmModal = ref(false);
 const usernameError = ref(false);
 const showUserUpdated = ref(false);
 const showSaveChangesButtons = ref(false);
+const username = ref("");
 
 function hideInputHandler() {
   if (disableInput.value) {
@@ -121,6 +127,10 @@ function hideInputHandler() {
     disableInput.value = true;
   }
 }
+
+const are_you_sure = () => {
+  console.log(username.value);
+};
 
 function backToInputHandler() {
   showConfirmModal.value = false;

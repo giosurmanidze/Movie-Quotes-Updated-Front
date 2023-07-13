@@ -45,6 +45,7 @@ onMounted(() => {
 });
 
 function handleQuoteLikeWrapper() {
+  getQuotesRefresh();
   if (!isRequestInProgress) {
     isRequestInProgress = true;
     handleQuoteLike(props.quoteId, likeable, likeId).finally(() => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center text-white z-10">
+  <div class="flex justify-center text-white z-1">
     <div class="md:relative">
       <button @click="toggleDropdown" class="mr-6 inline-flex relative">
         <NotificationIcon />

@@ -16,7 +16,6 @@ import { useAuthStore } from '@/stores/auth/useAuthStore.js'
 import { isAuthenticated, isNotAuthenticated } from '@/router/guard/auth-guard.js'
 import ForbiddenPage from '@/pages/ErrorPages/ForbiddenPage.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
-import axios from '@/config/axios/index.js'
 import SuccessUpdatedVerifiedEmail from '@/pages/Auth/SuccessUpdatedVerifiedEmail.vue'
 import { getUserData } from '@/services/requests/sendRequest'
 
