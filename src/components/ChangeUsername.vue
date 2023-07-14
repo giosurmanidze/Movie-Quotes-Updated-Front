@@ -29,41 +29,24 @@
 <script setup>
 import { Form } from "vee-validate";
 import { ref } from "vue";
-import { useI18n } from "vue-i18n";
-import axios from "@/config/axios/index.js";
 import ProfileInput from "@/components/ProfileInput.vue";
 import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
-import { useUserStore } from "@/stores/user/useUserStore";
+import { userPassowrdUsernameUpdate } from "@/services/index";
 
 const showConfirmModal = ref(false);
-const { locale } = useI18n({ useScope: "global" });
-
 const changedUsername = ref(null);
 
 function submitHandler(values) {
   showConfirmModal.value = !showConfirmModal.value;
   changedUsername.value = values.username;
 }
-
-const errorMessage = ref(null);
 const { toggleShowUsernameAlert } = useProfilePageStore();
 const profileStore = useProfilePageStore();
 
-const { getUser } = useUserStore();
-
-function sendData() {
-  axios
-    .post("api/user/update", { username: changedUsername.value })
-    .then(() => {
-      profileStore.toggleShowForm(true);
-      profileStore.toggleShowModal(true);
-      profileStore.toggleUsernameEdited(true);
-      toggleShowUsernameAlert(true);
-      getUser();
-    })
-    .catch((error) => {
-      showConfirmModal.value = false;
-      errorMessage.value = error.response.data.errors.username[0][locale.value];
-    });
-}
+const { sendData, errorMessage } = userPassowrdUsernameUpdate(
+  "username",
+  changedUsername,
+  toggleShowUsernameAlert,
+  showConfirmModal
+);
 </script>

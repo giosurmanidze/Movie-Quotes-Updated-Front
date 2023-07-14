@@ -72,7 +72,7 @@
           </section>
         </div>
         <ChangeUsername v-if="!profileStore.showForm && sendUserName" />
-        <ChangeEmail :email="user.email" v-if="!profileStore.showForm && sendEmail" />
+        <ChangeEmail v-if="!profileStore.showForm && sendEmail" />
         <ChangePassword
           :email="user.email"
           :username="user.username"
@@ -107,10 +107,6 @@ import { storeToRefs } from "pinia";
 import { useSendProfileAvatar } from "@/services/index";
 
 const props = defineProps({ user: { type: Object, required: true } });
-
-const usernameValue = ref("");
-const emailValue = ref("");
-
 const {
   toggleShowUsernameAlert,
   toggleShowEmailAlert,
@@ -161,15 +157,10 @@ function goBackHandler() {
   profileStore.showForm === true;
 }
 
-const showUserUpdatedAlert = ref(false);
-const ShowEmailSentAlert = ref(false);
-const disableInput = ref(false);
 const showSaveChangesButtons = ref(false);
-const disableInputForEmail = ref(true);
 const showEditPassword = ref(true);
 const sendUserName = ref(false);
 const sendEmail = ref(false);
 
-
-const { sendThumbnailData } = useSendProfileAvatar(undefined, showSaveChangesButtons);
+const { sendThumbnailData } = useSendProfileAvatar(showSaveChangesButtons);
 </script>

@@ -32,19 +32,10 @@
 import { ref } from "vue";
 import { Form } from "vee-validate";
 import ProfileInput from "./ProfileInput.vue";
-import axios from "@/config/axios";
 import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
-import { useUserStore } from "@/stores/user/useUserStore";
-import { useI18n } from "vue-i18n";
+import { sendEmail } from "@/services/index";
 
-const { locale } = useI18n({ useScope: "global" });
-const props = defineProps({
-  email: { type: String, required: false },
-});
 const showConfirmModal = ref(false);
-const errorMessage = ref(null);
-const { getUser } = useUserStore();
-const { toggleShowEmailAlert } = useProfilePageStore();
 const profileStore = useProfilePageStore();
 
 const changedEmail = ref(null);
@@ -53,20 +44,5 @@ function submitHandler(values) {
   showConfirmModal.value = !showConfirmModal.value;
   changedEmail.value = values.email;
 }
-
-function sendData() {
-  axios
-    .post("api/user/add-email", { email: changedEmail.value })
-    .then(() => {
-      toggleShowEmailAlert(true);
-      profileStore.toggleShowForm(true);
-      profileStore.toggleShowModal(true);
-      errorMessage.value = "";
-      getUser();
-    })
-    .catch((error) => {
-      showConfirmModal.value = false;
-      errorMessage.value = error.response.data.errors.email[0][locale.value];
-    });
-}
+const { sendData, errorMessage } = sendEmail(changedEmail, showConfirmModal);
 </script>
