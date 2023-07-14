@@ -1,10 +1,18 @@
 <template>
   <div class="2xl:w-5/6 mt-20 px-16 bg-modal_bg">
     <alert-modal
-      classes="absolute right-20 w-1/3"
-      v-if="showUserUpdatedAlert"
+      classes="right-12 top-16 absolute"
+      v-if="profileStore.showUsernameAlert"
+      :alertUpdate="toggleShowUsernameAlert"
       top_locale_text="succesfully_updated"
       bottom_locale_text="congratulations_user_is_updated"
+    />
+    <alert-modal
+      classes="right-12 top-16 absolute"
+      v-if="profileStore.showAvatarAlert"
+      :alertUpdate="toggleShowAvatarAlert"
+      top_locale_text="succesfully_updated"
+      bottom_locale_text="congratulations_user_avatar_updated"
     />
     <section class="flex justify-center text-white">
       <img
@@ -14,7 +22,7 @@
     </section>
     <Form @submit="submit">
       <div class="text-white">
-        <section @click="showSaveChangesButtons = true" class="text-center">
+        <section @click="sendAvatarData()" class="text-center">
           <ProfileFileInput />
         </section>
         <div class="grid grid-cols-1 gap-5 mt-16">
@@ -78,15 +86,26 @@ import AlertModal from "./AlertModal.vue";
 import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 import { useUpdateUserData } from "@/services";
+import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 
 const props = defineProps({ user: { type: Object, required: true } });
+
+const { toggleShowUsernameAlert, toggleShowAvatarAlert } = useProfilePageStore();
+const profileStore = useProfilePageStore();
 
 const disableInput = ref(true);
 const usernameErrors = ref(false);
 const showUserUpdatedAlert = ref(false);
 const sendUserName = ref(false);
 const showSaveChangesButtons = ref(false);
+const sendAvatar = ref(false);
+
 const { userAvatar } = storeToRefs(useUserStore());
+
+const sendAvatarData = () => {
+  sendAvatar.value = true;
+  showSaveChangesButtons.value = true;
+};
 
 function inputToggleHandler() {
   disableInput.value = false;
@@ -109,6 +128,7 @@ const { submit } = useUpdateUserData(
   undefined,
   sendUserName,
   undefined,
-  undefined
+  undefined,
+  sendAvatar
 );
 </script>

@@ -36,7 +36,7 @@
     </section>
     <Form @submit="submit">
       <div>
-        <section @click="showSaveChangesButtons = true" class="text-center">
+        <section @click="sendAvatarData()" class="text-center">
           <ProfileFileInput />
         </section>
         <div class="grid grid-cols-1 gap-7 mt-16">
@@ -178,11 +178,10 @@ const {
   toggleShowPassowrdAlert,
   toggleShowAvatarAlert,
 } = useProfilePageStore();
+const profileStore = useProfilePageStore();
 
 const emailErrors = ref(null);
 const usernameErrors = ref(null);
-const showUserUpdatedAlert = ref(false);
-const ShowEmailSentAlert = ref(false);
 const inputs = ref(0);
 const showSaveChangesButtons = ref(false);
 const disableInput = ref(true);
@@ -191,8 +190,6 @@ const showEditPassword = ref(true);
 const sendUserName = ref(false);
 const sendEmail = ref(false);
 const sendAvatar = ref(false);
-
-const profileStore = useProfilePageStore();
 
 const password = ref("");
 const eightOrMoreCharacters = ref(false);
@@ -219,6 +216,10 @@ function inputToggleHandlerFromEmail() {
     sendEmail.value = true;
   }
 }
+const sendAvatarData = () => {
+  sendAvatar.value = true;
+  showSaveChangesButtons.value = true;
+};
 
 function toggleEditPassword() {
   showEditPassword.value = false;
@@ -233,8 +234,6 @@ function cancelHandler() {
 }
 
 const { submit } = useUpdateUserData(
-  showUserUpdatedAlert,
-  ShowEmailSentAlert,
   disableInput,
   disableInputForEmail,
   showSaveChangesButtons,

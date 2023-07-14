@@ -326,7 +326,7 @@ export async function handleQuoteLike(quoteId, likeable, likeId) {
   }
 }
 
-export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButtons) {
+export function useSendProfileAvatar(showSaveChangesButtons) {
   const { getUser } = useUserStore()
 
   const { toggleShowAvatarAlert } = useProfilePageStore()
@@ -394,7 +394,8 @@ export function useUpdateUserData(
   showEditPassword,
   sendUserName,
   sendEmail,
-  emailErrors
+  emailErrors,
+  sendAvatar
 ) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
@@ -411,9 +412,8 @@ export function useUpdateUserData(
     toggleShowPassowrdAlert(false)
     toggleShowAvatarAlert(false)
 
-    const fileInput = document.getElementById('getFile')
-    const file = fileInput.files[0]
-    console.log(values)
+    let fileInput = document.getElementById('getFile')
+    const file = fileInput?.files[0]
 
     const userData = {
       username: sendUserName.value ? values.username : null,
@@ -423,6 +423,7 @@ export function useUpdateUserData(
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
+    console.log(sendAvatar)
     axios
       .post('api/user/update', userData, config)
       .then(() => {
@@ -435,9 +436,10 @@ export function useUpdateUserData(
           showSaveChangesButtons.value = false
           usernameErrors.value = null
         }
-        if (userData.thumbnail) {
+        if (sendAvatar.value) {
           showSaveChangesButtons.value = false
           toggleShowAvatarAlert(true)
+          sendAvatar.value = false
         }
         if (userData.password) {
           showSaveChangesButtons.value = false
@@ -455,19 +457,18 @@ export function useUpdateUserData(
       axios
         .post('api/user/add-email', { email: values.new_email })
         .then(() => {
-          getUser()
           disableInputForEmail.value = true
           toggleShowEmailAlert(true)
           sendEmail.value = false
           showSaveChangesButtons.value = false
           emailErrors.value = null
+          getUser()
         })
         .catch((error) => {
           emailErrors.value = error.response.data.errors.email[0][locale.value]
         })
     }
   }
-
   return {
     submit
   }
@@ -481,5 +482,64 @@ export async function UpdateUserEmail(newEmail, userId) {
     return response
   } catch (error) {
     console.error(error)
+  }
+}
+
+export function userPassowrdUsernameUpdate(fieldName, data, updatedModal, showConfirmModal) {
+  const errorMessage = ref(null)
+  const profileStore = useProfilePageStore()
+  const { getUser } = useUserStore()
+  const { locale } = useI18n({ useScope: 'global' })
+
+
+  function sendData() {
+    axios
+      .post('api/user/update', { [fieldName]: data.value })
+      .then(() => {
+        profileStore.toggleShowForm(true)
+        profileStore.toggleShowModal(true)
+        profileStore.toggleUsernameEdited(true)
+        showConfirmModal.value = true
+        updatedModal(true)
+        errorMessage.value = ''
+        getUser()
+      })
+      .catch((error) => {
+        showConfirmModal.value = false
+        errorMessage.value = error.response.data.errors?.username[0][locale.value]
+      })
+  }
+
+  return {
+    sendData,
+    errorMessage
+  }
+}
+
+export function sendEmail(changedEmail, showConfirmModal) {
+  const { locale } = useI18n({ useScope: 'global' })
+  const errorMessage = ref(null)
+  const { toggleShowEmailAlert } = useProfilePageStore()
+  const profileStore = useProfilePageStore()
+  const { getUser } = useUserStore()
+  function sendData() {
+    axios
+      .post('api/user/add-email', { email: changedEmail.value })
+      .then(() => {
+        toggleShowEmailAlert(true)
+        profileStore.toggleShowForm(true)
+        profileStore.toggleShowModal(true)
+        errorMessage.value = null
+        getUser()
+      })
+      .catch((error) => {
+        showConfirmModal.value = false
+        errorMessage.value = error.response.data.errors.email[0][locale.value]
+      })
+  }
+
+  return {
+    sendData,
+    errorMessage
   }
 }

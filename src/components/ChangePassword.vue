@@ -68,10 +68,9 @@
 <script setup>
 import ProfileInput from "./ProfileInput.vue";
 import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
-import { useUserStore } from "@/stores/user/useUserStore";
 import { ref, watch } from "vue";
-import axios from "@/config/axios/index";
 import { Form } from "vee-validate";
+import { userPassowrdUsernameUpdate } from "@/services/index";
 
 const showConfirmModal = ref(false);
 
@@ -87,24 +86,15 @@ watch(password, (newValue) => {
 const changedPassowrd = ref(null);
 const { toggleShowPassowrdAlert } = useProfilePageStore();
 const profileStore = useProfilePageStore();
+
 function submitHandler(values) {
   showConfirmModal.value = !showConfirmModal.value;
   changedPassowrd.value = values.username;
 }
-const { getUser } = useUserStore();
-
-function sendData() {
-  axios
-    .post("api/user/update", { password: changedPassowrd.value })
-    .then(() => {
-      profileStore.toggleShowForm(true);
-      profileStore.toggleShowModal(true);
-      profileStore.toggleUsernameEdited(true);
-      toggleShowPassowrdAlert(true);
-      getUser();
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+const { sendData } = userPassowrdUsernameUpdate(
+  "password",
+  changedPassowrd,
+  toggleShowPassowrdAlert,
+  showConfirmModal
+);
 </script>
