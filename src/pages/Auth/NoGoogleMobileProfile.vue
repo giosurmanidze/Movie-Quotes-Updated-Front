@@ -2,15 +2,31 @@
   <div class="w-full -mx-7">
     <alert-modal
       classes="right-12 top-16 absolute"
-      v-if="showUserUpdatedAlert"
+      v-if="profileStore.showUsernameAlert"
+      :alertUpdate="toggleShowUsernameAlert"
       top_locale_text="succesfully_updated"
       bottom_locale_text="congratulations_user_is_updated"
     />
     <alert-modal
       classes="right-12 top-16 absolute"
-      v-if="ShowEmailSentAlert"
+      v-if="profileStore.showEmailAlert"
+      :alertUpdate="toggleShowEmailAlert"
       top_locale_text="confirm_email"
       bottom_locale_text="please_verify_new_email"
+    />
+    <alert-modal
+      classes="right-12 top-16 absolute"
+      v-if="profileStore.showPassowrdAlert"
+      :alertUpdate="toggleShowPassowrdAlert"
+      top_locale_text="succesfully_updated"
+      bottom_locale_text="congratulations_user_password_updated"
+    />
+    <alert-modal
+      classes="right-12 top-16 absolute"
+      v-if="profileStore.showAvatarAlert"
+      :alertUpdate="toggleShowAvatarAlert"
+      top_locale_text="succesfully_updated"
+      bottom_locale_text="congratulations_user_avatar_updated"
     />
     <section class="mb-4 mt-1 pl-7">
       <LeftArrowIcon @click="goBackHandler()" />
@@ -19,7 +35,7 @@
       <section v-if="profileStore.showForm" class="flex justify-center">
         <img :src="userAvatar" class="h-[8.75rem] max-w-[8.75rem] rounded-full" />
       </section>
-      <Form @submit="submit">
+      <Form @submit="sendThumbnailData">
         <div v-if="profileStore.showForm">
           <section class="text-center" @click="showSaveChangesButtons = true">
             <MobileFileInput />
@@ -55,15 +71,13 @@
             <div></div>
           </section>
         </div>
-        <ChangeUsername
-          v-if="!profileStore.showForm && sendUserName"
-          :usernameErrors="usernameErrors"
+        <ChangeUsername v-if="!profileStore.showForm && sendUserName" />
+        <ChangeEmail :email="user.email" v-if="!profileStore.showForm && sendEmail" />
+        <ChangePassword
+          :email="user.email"
+          :username="user.username"
+          v-if="!profileStore.showForm && showEditPassword"
         />
-        <ChangeEmail
-          v-if="!profileStore.showForm && sendEmail"
-          :emailErrors="emailErrors"
-        />
-        <ChangePassword v-if="!profileStore.showForm && showEditPassword" />
         <section v-if="showSaveChangesButtons" class="flex justify-between mt-8">
           <button type="button" class="p-2 pr-8 cursor-pointer" @click="cancelHandler()">
             {{ $t("cancel") }}
@@ -90,9 +104,19 @@ import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 import AlertModal from "@/components/AlertModal.vue";
 import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
-import { useUpdateUserData } from "@/services/index";
+import { useSendProfileAvatar } from "@/services/index";
 
 const props = defineProps({ user: { type: Object, required: true } });
+
+const usernameValue = ref("");
+const emailValue = ref("");
+
+const {
+  toggleShowUsernameAlert,
+  toggleShowEmailAlert,
+  toggleShowPassowrdAlert,
+  toggleShowAvatarAlert,
+} = useProfilePageStore();
 
 const userName = computed(() => {
   return props.user.username;
@@ -134,31 +158,18 @@ function goBackHandler() {
   router.push({ name: "newsFeed" });
   sendUserName.value === false;
   showEditPassword.value === false;
-  profileStore.showForm === false;
-  sendUserName.value = false;
+  profileStore.showForm === true;
 }
 
 const showUserUpdatedAlert = ref(false);
 const ShowEmailSentAlert = ref(false);
 const disableInput = ref(false);
 const showSaveChangesButtons = ref(false);
-const usernameErrors = ref("");
-const emailErrors = ref("");
 const disableInputForEmail = ref(true);
 const showEditPassword = ref(true);
 const sendUserName = ref(false);
 const sendEmail = ref(false);
 
-const { submit } = useUpdateUserData(
-  showUserUpdatedAlert,
-  ShowEmailSentAlert,
-  disableInput,
-  disableInputForEmail,
-  showSaveChangesButtons,
-  usernameErrors,
-  showEditPassword,
-  sendUserName,
-  sendEmail,
-  emailErrors
-);
+
+const { sendThumbnailData } = useSendProfileAvatar(undefined, showSaveChangesButtons);
 </script>

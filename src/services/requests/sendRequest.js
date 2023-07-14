@@ -32,6 +32,7 @@ export const logoutUser = async () => {
   }
 }
 
-export const getUserData = () => {
-  return axios.get('api/user')
+export const getUserData = async () => {
+  await axios.get('/sanctum/csrf-cookie')
+  return await axios.get('api/user')
 }

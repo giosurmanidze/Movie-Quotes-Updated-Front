@@ -2,16 +2,32 @@
   <div class="2xl:w-5/6 mt-20 px-16 bg-modal_bg">
     <section class="flex justify-center">
       <alert-modal
-        classes="absolute right-12 top-40 w-[25rem]"
-        v-if="showUserUpdatedAlert"
+        classes="right-12 top-16 absolute"
+        v-if="profileStore.showUsernameAlert"
+        :alertUpdate="toggleShowUsernameAlert"
         top_locale_text="succesfully_updated"
         bottom_locale_text="congratulations_user_is_updated"
       />
       <alert-modal
-        classes="absolute right-12 top-40 w-[25rem]"
-        v-if="ShowEmailSentAlert"
+        classes="right-12 top-16 absolute"
+        v-if="profileStore.showEmailAlert"
+        :alertUpdate="toggleShowEmailAlert"
         top_locale_text="confirm_email"
         bottom_locale_text="please_verify_new_email"
+      />
+      <alert-modal
+        classes="right-12 top-16 absolute"
+        v-if="profileStore.showPassowrdAlert"
+        :alertUpdate="toggleShowPassowrdAlert"
+        top_locale_text="succesfully_updated"
+        bottom_locale_text="congratulations_user_password_updated"
+      />
+      <alert-modal
+        classes="right-12 top-16 absolute"
+        v-if="profileStore.showAvatarAlert"
+        :alertUpdate="toggleShowAvatarAlert"
+        top_locale_text="succesfully_updated"
+        bottom_locale_text="congratulations_user_avatar_updated"
       />
       <img
         :src="userAvatar"
@@ -151,10 +167,17 @@ import ProfileFileInput from "./ProfileFIleInput.vue";
 import ProfileInput from "./ProfileInput.vue";
 import AlertModal from "./AlertModal.vue";
 import { useUserStore } from "@/stores/user/useUserStore";
+import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 import { storeToRefs } from "pinia";
 import { useUpdateUserData } from "@/services";
 
 defineProps({ user: { type: Object, required: true } });
+const {
+  toggleShowUsernameAlert,
+  toggleShowEmailAlert,
+  toggleShowPassowrdAlert,
+  toggleShowAvatarAlert,
+} = useProfilePageStore();
 
 const emailErrors = ref(null);
 const usernameErrors = ref(null);
@@ -168,6 +191,8 @@ const showEditPassword = ref(true);
 const sendUserName = ref(false);
 const sendEmail = ref(false);
 const sendAvatar = ref(false);
+
+const profileStore = useProfilePageStore();
 
 const password = ref("");
 const eightOrMoreCharacters = ref(false);
