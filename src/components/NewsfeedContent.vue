@@ -95,8 +95,6 @@ const { posts } = storeToRefs(usePostStore());
 const { getPosts, handleScroll } = usePostStore();
 const { getNotifications } = useNotifications();
 
-console.log(posts);
-
 onMounted(() => getPosts());
 window.addEventListener("scroll", handleScroll);
 

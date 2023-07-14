@@ -329,20 +329,23 @@ export async function handleQuoteLike(quoteId, likeable, likeId) {
 export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButtons) {
   const { getUser } = useUserStore()
 
-  const sendThumbnailData = () => {
-    showUserUpdatedAlert.value = false
+  const { toggleShowAvatarAlert } = useProfilePageStore()
+
+  const sendThumbnailData = (values) => {
     const fileInput = document.getElementById('getFile')
     const file = fileInput.files[0]
 
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
-
+    const data = {
+      thumbnail: file ? file : values.avatar
+    }
     axios
-      .post('api/user/update', { thumbnail: file }, config)
+      .post('api/user/update', data, config)
       .then(() => {
         getUser()
-        showUserUpdatedAlert.value = true
+        toggleShowAvatarAlert(true)
         showSaveChangesButtons.value = false
       })
       .catch((error) => {
@@ -395,13 +398,22 @@ export function useUpdateUserData(
 ) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
-  const { setShowValue } = useProfilePageStore()
+  const {
+    toggleShowUsernameAlert,
+    toggleShowEmailAlert,
+    toggleShowPassowrdAlert,
+    toggleShowAvatarAlert
+  } = useProfilePageStore()
 
   function submit(values) {
-    showUserUpdatedAlert.value = false
+    toggleShowUsernameAlert(false)
+    toggleShowEmailAlert(false)
+    toggleShowPassowrdAlert(false)
+    toggleShowAvatarAlert(false)
 
     const fileInput = document.getElementById('getFile')
     const file = fileInput.files[0]
+    console.log(values)
 
     const userData = {
       username: sendUserName.value ? values.username : null,
@@ -415,9 +427,9 @@ export function useUpdateUserData(
       .post('api/user/update', userData, config)
       .then(() => {
         getUser()
-        setShowValue(true)
         if (sendUserName.value) {
           showUserUpdatedAlert.value = true
+          toggleShowUsernameAlert(true)
           sendUserName.value = false
           disableInput.value = true
           showSaveChangesButtons.value = false
@@ -425,12 +437,12 @@ export function useUpdateUserData(
         }
         if (userData.thumbnail) {
           showSaveChangesButtons.value = false
-          showUserUpdatedAlert.value = true
+          toggleShowAvatarAlert(true)
         }
         if (userData.password) {
           showSaveChangesButtons.value = false
-          showUserUpdatedAlert.value = true
           showEditPassword.value = true
+          toggleShowPassowrdAlert(true)
         }
       })
       .catch((error) => {
@@ -444,8 +456,8 @@ export function useUpdateUserData(
         .post('api/user/add-email', { email: values.new_email })
         .then(() => {
           getUser()
-          ShowEmailSentAlert.value = true
           disableInputForEmail.value = true
+          toggleShowEmailAlert(true)
           sendEmail.value = false
           showSaveChangesButtons.value = false
           emailErrors.value = null
