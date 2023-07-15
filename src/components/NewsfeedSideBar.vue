@@ -39,7 +39,7 @@
 import HomeIcon from "@/assets/icons/HomeIcon.vue";
 import MoviesListIcon from "@/assets/icons/ChooseMovieIcon.vue";
 import { RouterLink } from "vue-router";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 
 const { userAvatar } = storeToRefs(useUserStore());

@@ -1,20 +1,28 @@
 <template>
   <div class="text-white">
     <alert-modal
-      classes="absolute right-6 left-6"
-      v-if="showUserUpdated"
+      classes="right-12 top-16 absolute"
+      v-if="profileStore.showUsernameAlert"
+      :alertUpdate="toggleShowUsernameAlert"
       top_locale_text="succesfully_updated"
       bottom_locale_text="congratulations_user_is_updated"
     />
+    <alert-modal
+      classes="right-12 top-16 absolute"
+      v-if="profileStore.showAvatarAlert"
+      :alertUpdate="toggleShowAvatarAlert"
+      top_locale_text="succesfully_updated"
+      bottom_locale_text="congratulations_user_avatar_updated"
+    />
     <section class="mb-5">
-      <LeftArrowIcon @click="hideInputHandler()" />
+      <LeftArrowIcon @click="$router.push({ name: 'newsFeed' })" />
     </section>
-    <section class="bg-add_quote_btn -mx-7 h-[80vh]">
-      <section v-if="disableInput" class="flex justify-center">
+    <section class="bg-add_quote_btn -mx-7 h-[80vh] px-7 py-10">
+      <section v-if="profileStore.showForm" class="flex justify-center">
         <img :src="userAvatar" class="h-32 mt-5 max-w-[8.75rem] rounded-full" />
       </section>
       <Form @submit="sendThumbnailData">
-        <div v-if="disableInput" class="text-white px-7">
+        <div v-if="profileStore.showForm" class="text-white px-7">
           <section class="text-center" @click="showSaveChangesButtons = true">
             <ProfileFileInput />
           </section>
@@ -26,7 +34,7 @@
               </section>
               <p
                 class="cursor-pointer mt-7 text-quote_text"
-                @click="disableInput = false"
+                @click="editUsernameHandler()"
               >
                 {{ $t("edit") }}
               </p>
@@ -55,38 +63,7 @@
           </section>
         </div>
       </Form>
-      <Form @submit="sendData">
-        <section v-if="!disableInput && !showConfirmModal" class="mx-7 mt-5">
-          <section class="pt-10">
-            <ProfileInput name="username" rules="required" label="enter_new_username" />
-            <p v-if="usernameError" class="mt-3 text-red-500">
-              {{ usernameError }}
-            </p>
-          </section>
-          <section class="py-5 flex justify-between">
-            <p @click="hideInputHandler()" class="py-3">{{ $t("cancel") }}</p>
-            <button class="bg-red-600 p-3 rounded">
-              {{ $t("edit") }}
-            </button>
-          </section>
-        </section>
-        <div
-          v-if="showConfirmModal"
-          class="grid grid-cols-1 divide-y divide-gray-500 mx-7 py-5"
-        >
-          <section class="text-center py-6">
-            <p>{{ $t("sure_to_make_changes") }} ?</p>
-          </section>
-          <section class="pt-5 flex justify-between">
-            <p @click="backToInputHandler()" class="py-3">
-              {{ $t("cancel") }}
-            </p>
-            <button @click="sendData" type="submit" class="bg-red-600 p-3 rounded">
-              {{ $t("confirm") }}
-            </button>
-          </section>
-        </div>
-      </Form>
+      <ChangeUsername v-if="!profileStore.showForm" />
     </section>
   </div>
 </template>
@@ -95,45 +72,28 @@
 import { Form } from "vee-validate";
 import LeftArrowIcon from "@/assets/icons/LeftArrowIcon.vue";
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import ProfileFileInput from "@/components/ProfileFIleInput.vue";
-import ProfileInput from "@/components/ProfileInput.vue";
 import AlertModal from "@/components/AlertModal.vue";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 import { useSendProfileAvatar } from "@/services";
-import { useSendUsername } from "@/services";
+import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
+import ChangeUsername from "@/components/ChangeUsername.vue";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
-const router = useRouter();
 const { userAvatar } = storeToRefs(useUserStore());
-const disableInput = ref(true);
-const showConfirmModal = ref(false);
-const usernameError = ref(false);
-const showUserUpdated = ref(false);
 const showSaveChangesButtons = ref(false);
+const sendUserName = ref(false);
+const { toggleShowForm } = useProfilePageStore();
 
-function hideInputHandler() {
-  if (disableInput.value === true) {
-    router.back();
-  } else {
-    disableInput.value = true;
-  }
+function editUsernameHandler() {
+  toggleShowForm();
+  sendUserName.value = true;
 }
 
-function backToInputHandler() {
-  showConfirmModal.value = false;
-  disableInput.value = false;
-}
-const { sendData } = useSendUsername(
-  showUserUpdated,
-  disableInput,
-  showConfirmModal,
-  usernameError
-);
-const { sendThumbnailData } = useSendProfileAvatar(
-  showUserUpdated,
-  showSaveChangesButtons
-);
+const { toggleShowUsernameAlert, toggleShowAvatarAlert } = useProfilePageStore();
+const profileStore = useProfilePageStore();
+
+const { sendThumbnailData } = useSendProfileAvatar(showSaveChangesButtons);
 </script>

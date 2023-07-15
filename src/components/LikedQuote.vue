@@ -8,8 +8,9 @@
 <script setup>
 import LikeIcon from "@/assets/icons/LikeIcon.vue";
 import { ref, onMounted } from "vue";
-import { useQuotesStore } from "@/stores/useQuotesStore";
+import { useQuotesStore } from "@/stores/quotes/useQuotesStore";
 import { handleQuoteLike } from "@/services";
+
 const props = defineProps({
   quoteId: {
     type: Number,
@@ -25,6 +26,7 @@ const { getQuotesRefresh } = useQuotesStore();
 
 const likeable = ref(false);
 let likeId = ref(null);
+let isRequestInProgress = false;
 const quote = ref(props.quotes?.find((quote) => quote.id === props.quoteId));
 
 const getLikesData = () => {
@@ -43,6 +45,12 @@ onMounted(() => {
 });
 
 function handleQuoteLikeWrapper() {
-  handleQuoteLike(props.quoteId, likeable, likeId);
+  getQuotesRefresh();
+  if (!isRequestInProgress) {
+    isRequestInProgress = true;
+    handleQuoteLike(props.quoteId, likeable, likeId).finally(() => {
+      isRequestInProgress = false;
+    });
+  }
 }
 </script>

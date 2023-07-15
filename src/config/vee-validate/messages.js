@@ -9,12 +9,13 @@ configure({
       messages: {
         ...en.messages,
         lower_alpha_num: 'The {field} must contain only lowercase Latin characters and numbers',
-        en: '{field} must contain english letters',
-        geo: '{field} must contain georgian letters',
+        en: 'The {field} must contain english letters',
+        geo: 'The {field} must contain georgian letters',
         confirm_password: 'passwords must match'
       },
       names: {
         bodyEn: 'quote',
+        new_email:'New email',
         bodyKa: 'quote',
         nameKa: 'name field',
         nameEn: 'name field',
@@ -42,20 +43,23 @@ configure({
         username: 'სახელი',
         movie: 'ფილმის არჩევა',
         email: 'ელ-ფოსტა',
+        new_email:'ახაილი მეილი',
         password: 'პაროლი',
         password_confirmation: 'პაროლის გამეორება',
         confirm_password: 'განმეორებით პაროლი',
         bodyEn: 'ველი',
         bodyKa: 'ველი',
         nameKa: 'სახელის ველი',
-        nameEn: 'name field',
-        directorEn: 'director field',
+        nameEn: 'სახელის ველი',
+        directorEn: 'რეჟისორის ველი',
         directorKa: 'რეჟისორის ველი',
-        genreEn: 'genre field',
+        genreEn: 'ჟანრის ველი',
         genreKa: 'ჟანრის ველი',
-        descriptionEn: 'description field',
+        descriptionEn: 'აღწერის ველი',
         descriptionKa: 'აღწერის ველი',
-        name: 'მომხმარებლის სახელი'
+        name: 'მომხმარებლის სახელი',
+        budget:"ბიუჯეტი",
+        releaseDate:'გამოშვების წელი'
       }
     }
   })

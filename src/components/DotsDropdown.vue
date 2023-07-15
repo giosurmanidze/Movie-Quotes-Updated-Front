@@ -37,8 +37,8 @@ import DotsIcon from "@/assets/icons/DotsIcon.vue";
 import ViewIcon from "@/assets/icons/ViewIcon.vue";
 import EditIcon from "@/assets/icons/EditIcon.vue";
 import DeleteIcon from "@/assets/icons/DeleteIcon.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
-import { useQuotesStore } from "@/stores/useQuotesStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
+import { useQuotesStore } from "@/stores/quotes/useQuotesStore.js";
 
 const store = useModalStore();
 
@@ -59,8 +59,7 @@ const { deleteQuote } = useQuotesStore();
 const { quote } = storeToRefs(useQuotesStore());
 
 function deleteQuoteById() {
-  const quoteId = ref(quote.value.id);
-  deleteQuote(quoteId.value);
+  deleteQuote(quote.value.id);
   store.toggleQuoteDeletedModal();
 }
 </script>

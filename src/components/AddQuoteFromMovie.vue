@@ -3,8 +3,8 @@
     @click="store.toggleAddQuoteFromMovie(false)"
     :showModal="store.showAddQuoteFromMoviesModal"
   >
-    <template v-slot:header
-      >{{ $t("write_new_quote") }}
+    <template v-slot:header>
+      <p class="xs:text-md md:text-xl">{{ $t("write_new_quote") }}</p>
       <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10 top-7">
         <CloseIcon @click="store.toggleAddQuoteFromMovie(false)" /></div
     ></template>
@@ -20,7 +20,7 @@
           </div>
           <div class="mt-5 sm:flex gap-4">
             <img
-              class="w-full sm:w-[300px] h-[160px] rounded-md"
+              class="w-full sm:w-[15.625rem] h-[8.125rem] rounded-xl mt-3"
               alt="movie img"
               :src="imagePath"
             />
@@ -44,17 +44,18 @@
               lang="en"
               name="bodyEn"
               rules="required|en"
-              placeholder="Create new quote"
+              placeholder='"Quote in English."'
+              inputType="textarea"
+              classes="xs:text-base sm:text-xl"
             />
-            <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
-
             <crud-input
               lang="ka"
               name="bodyKa"
               rules="required|geo"
-              placeholder="ახალი ციტატა"
+              placeholder='"ციტატა ქართულ ენაზე"'
+              inputType="textarea"
+              classes="xs:text-base sm:text-xl"
             />
-
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />
             <button
               type="submit"
@@ -75,20 +76,18 @@ import { ref, watch, computed } from "vue";
 import CrudModal from "@/components/CrudModal.vue";
 import axios from "@/config/axios/auth-index";
 import CrudInput from "@/components/CrudInput.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
 import { Form } from "vee-validate";
 import { storeToRefs } from "pinia";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import { useI18n } from "vue-i18n";
-import { useMoviesStore } from "@/stores/useMoviesStore";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
 import DragAndDrop from "@/components/DragAndDrop.vue";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 
 const store = useModalStore();
-const errorMessage = ref("");
-
 const props = defineProps(["movie"]);
 
 const movie = ref();

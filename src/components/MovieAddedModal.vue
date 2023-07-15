@@ -28,6 +28,6 @@
 <script setup>
 import CrudModal from "@/components/CrudModal.vue";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
 const store = useModalStore();
 </script>

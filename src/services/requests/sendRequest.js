@@ -1,5 +1,5 @@
 import axios from '@/config/axios/index'
-import { useAuthStore } from '@/stores/useAuthStore.js'
+import { useAuthStore } from '@/stores/auth/useAuthStore.js'
 
 const sendRequest = async (url, data) => {
   await axios.get('/sanctum/csrf-cookie')
@@ -11,8 +11,6 @@ export const createUser = async (data) => {
   return sendRequest('api/register', data)
 }
 export const loginUser = async (data) => {
-  const authStore = useAuthStore()
-  authStore.authenticated = true
   return sendRequest('api/login', data)
 }
 export const sendForgotPassword = async (data) => {
@@ -32,4 +30,9 @@ export const logoutUser = async () => {
   } catch (error) {
     console.error('Error logging out:', error)
   }
+}
+
+export const getUserData = async () => {
+  await axios.get('/sanctum/csrf-cookie')
+  return await axios.get('api/user')
 }

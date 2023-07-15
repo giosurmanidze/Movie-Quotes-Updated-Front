@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        banner_gradient: 'linear-gradient(187.16deg, #181623 0.07%, #191725 51.65%, #0D0B14 98.75%)'
+        banner_gradient:
+          'linear-gradient(187.16deg, #181623 0.07%, #191725 51.65%, #0D0B14 98.75%)',
+        gradient_dark: 'linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))'
       },
       screens: {
         xs: '310px'
@@ -30,7 +32,9 @@ export default {
         alert_bg_color: '#BADBCC',
         alert_text_color: '#0F5132',
         edit_modal_bg_color: '#D1E7DD',
-        no_page_bg_color: '#181623'
+        no_page_bg_color: '#181623',
+        message_modal_back_screen: '#15131d',
+        message_bg_modal: '#1b1926'
       }
     }
   },

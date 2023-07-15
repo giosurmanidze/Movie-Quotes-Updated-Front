@@ -1,24 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LandingPage from '@/pages/LandingPage.vue'
-import SuccessVerifiedEmail from '@/pages/SuccessVerifiedEmail.vue'
-import LoginForm from '@/pages/LoginForm.vue'
-import SignupForm from '@/pages/SignupForm.vue'
-import SentEmail from '@/pages/SentEmail.vue'
+import LandingPage from '@/pages/guest/LandingPage.vue'
+import SuccessVerifiedEmail from '@/pages/guest/SuccessVerifiedEmail.vue'
+import LoginForm from '@/pages/guest/LoginForm.vue'
+import SignupForm from '@/pages/guest/SignupForm.vue'
+import SentEmail from '@/pages/guest/SentEmail.vue'
 import NewsFeedPage from '@/pages/Auth/NewsFeedPage.vue'
-import ForgotPassword from '@/pages/ForgotPassword.vue'
-import RecoverInstructions from '@/pages/RecoverInstructions.vue'
-import CreatePassword from '@/pages/CreatePassword.vue'
-import ChangedPassword from '@/pages/CreatePassword.vue'
+import ForgotPassword from '@/pages/guest/ForgotPassword.vue'
+import RecoverInstructions from '@/pages/guest/RecoverInstructions.vue'
+import CreatePassword from '@/pages/guest/CreatePassword.vue'
+import ChangedPassword from '@/pages/guest/CreatePassword.vue'
 import MovieList from '@/pages/Auth/MovieList.vue'
 import UserProfile from '@/pages/Auth/UserProfile.vue'
 import SingleMovie from '@/pages/Auth/SingleMovie.vue'
-import { useAuthStore } from '@/stores/useAuthStore.js'
-import isAuthenticated from '@/router/auth-guard.js'
-import isNotAuthenticated from '@/router/unauth-guard.js'
+import { useAuthStore } from '@/stores/auth/useAuthStore.js'
+import { isAuthenticated, isNotAuthenticated } from '@/router/guard/auth-guard.js'
 import ForbiddenPage from '@/pages/ErrorPages/ForbiddenPage.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
-import axios from '@/config/axios/index.js'
 import SuccessUpdatedVerifiedEmail from '@/pages/Auth/SuccessUpdatedVerifiedEmail.vue'
+import { getUserData } from '@/services/requests/sendRequest'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -76,12 +75,6 @@ const router = createRouter({
           component: ChangedPassword,
           beforeEnter: isNotAuthenticated
         },
-        {
-          path: '/changed-password',
-          name: 'changedPassword',
-          component: ChangedPassword,
-          beforeEnter: isNotAuthenticated
-        }
       ]
     },
     {
@@ -128,19 +121,19 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const authStore = useAuthStore();
+  const authStore = useAuthStore()
   if (authStore.authenticated === null) {
     try {
-      await axios.get('api/user');
-      authStore.authenticated = true;
+      await getUserData()
+      authStore.authenticated = true
     } catch (err) {
-      authStore.authenticated = false;
+      authStore.authenticated = false
     } finally {
-      next();
+      next()
     }
   } else {
-    next();
+    next()
   }
-});
+})
 
 export default router

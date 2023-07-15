@@ -34,8 +34,24 @@
         </section>
         <Form @submit="submit">
           <section class="my-5">
-            <CrudInput lang="en" name="bodyEn" rules="required|en" :oldValue="quoteEn" />
-            <CrudInput lang="ka" name="bodyKa" rules="required|geo" :oldValue="quoteKa" />
+            <crud-input
+              lang="en"
+              name="bodyEn"
+              rules="required|en"
+              placeholder='"Quote in English."'
+              inputType="textarea"
+              classes="placeholder-genre_text text-white xs:text-base sm:text-xl"
+              :oldValue="quoteEn"
+            />
+            <crud-input
+              lang="ka"
+              name="bodyKa"
+              rules="required|geo"
+              placeholder='"ციტატა ქართულ ენაზე"'
+              inputType="textarea"
+              classes="placeholder-genre_text text-white xs:text-base sm:text-xl"
+              :oldValue="quoteKa"
+            />
           </section>
           <section>
             <ImageFileInput :src="imagePath" />
@@ -67,10 +83,10 @@ import CrudInput from "@/components/CrudInput.vue";
 import ImageFileInput from "@/components/ImageFileInput.vue";
 import CrudModal from "@/components/CrudModal.vue";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
 import DeleteIcon from "@/assets/icons/DeleteIcon.vue";
-import { useUserStore } from "@/stores/useUserStore.js";
-import { useQuotesStore } from "@/stores/useQuotesStore.js";
+import { useUserStore } from "@/stores/user/useUserStore.js";
+import { useQuotesStore } from "@/stores/quotes/useQuotesStore.js";
 import { storeToRefs } from "pinia";
 import { computed, ref } from "vue";
 import { useEditQuote } from "@/services";
