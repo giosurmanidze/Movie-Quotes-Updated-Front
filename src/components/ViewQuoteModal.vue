@@ -153,7 +153,6 @@ function deleteQuoteById() {
 const quoteId = ref(null);
 function getQuoteId(value) {
   quoteId.value = value;
-  console.log(quoteId);
 }
 
 const { submit } = useCreateComment(quoteId);
