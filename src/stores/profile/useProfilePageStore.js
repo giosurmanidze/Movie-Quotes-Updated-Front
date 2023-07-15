@@ -1,4 +1,14 @@
 import { defineStore } from 'pinia'
+import {
+  toggleShowForm,
+  toggleShowModal,
+  toggleUsernameEdited,
+  togglePasswordEdited,
+  toggleShowUsernameAlert,
+  toggleShowEmailAlert,
+  toggleShowPassowrdAlert,
+  toggleShowAvatarAlert
+} from './actions'
 
 export const useProfilePageStore = defineStore('useProfilePageStore', {
   state: () => ({
@@ -12,29 +22,13 @@ export const useProfilePageStore = defineStore('useProfilePageStore', {
     showAvatarAlert: false
   }),
   actions: {
-    toggleShowForm() {
-      this.showForm = !this.showForm
-    },
-    toggleShowModal(value) {
-      this.showSuccessfullEditModal = value
-    },
-    toggleUsernameEdited(value) {
-      this.usernameEdited = value
-    },
-    togglePasswordEdited(value) {
-      this.passwordEdited = value
-    },
-    toggleShowUsernameAlert(value) {
-      this.showUsernameAlert = value
-    },
-    toggleShowEmailAlert(value) {
-      this.showEmailAlert = value
-    },
-    toggleShowPassowrdAlert(value) {
-      this.showPassowrdAlert = value
-    },
-    toggleShowAvatarAlert(value) {
-      this.showAvatarAlert = value
-    }
+    toggleShowForm,
+    toggleShowModal,
+    toggleUsernameEdited,
+    togglePasswordEdited,
+    toggleShowUsernameAlert,
+    toggleShowEmailAlert,
+    toggleShowPassowrdAlert,
+    toggleShowAvatarAlert
   }
 })

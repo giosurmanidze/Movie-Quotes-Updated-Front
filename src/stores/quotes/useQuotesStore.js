@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import axios from '@/config/axios/auth-index'
+import { getQuotes, getQuotesRefresh, getQuote, deleteQuote } from './actions'
 
 export const useQuotesStore = defineStore('useQuotesStore', {
   state: () => ({
@@ -9,40 +9,5 @@ export const useQuotesStore = defineStore('useQuotesStore', {
     searchQuery: null,
     loading: false
   }),
-  actions: {
-    getQuotes() {
-      if (this.loading || this.quotes.length > 0) {
-        return
-      }
-      this.loading = true
-      axios.get('api/quotes?page=' + this.page++).then((response) => {
-        this.quotes.push(...response.data)
-        this.loading = false
-      })
-    },
-    getQuotesRefresh() {
-      axios.post('api/quotes-refresh').then((response) => {
-        this.quotes = response.data
-      })
-    },
-    getQuote(id) {
-      axios
-        .get(`api/quotes/${id}`)
-        .then((response) => {
-          this.quote = response.data
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    },
-    deleteQuote(id) {
-      axios
-        .delete(`api/quotes/${id}`)
-        .then(() => {
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
-  }
+  actions: { getQuotes, getQuotesRefresh, getQuote, deleteQuote }
 })
