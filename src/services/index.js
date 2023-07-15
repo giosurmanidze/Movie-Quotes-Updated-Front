@@ -45,8 +45,6 @@ export function useSubmitForgotPassword() {
 
   const submit = async (values, actions) => {
     loading.value = true
-    console.log(values)
-
     try {
       await sendForgotPassword(values)
       loading.value = false
@@ -210,7 +208,6 @@ export function useEditMovie(params, genres) {
 
   function submit(values) {
     let genreIds = genres.value.map((genre) => genre.id)
-    console.log(values)
     let data = {
       name_en: values.nameEn,
       name_ka: values.nameKa,
@@ -423,7 +420,6 @@ export function useUpdateUserData(
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
-    console.log(sendAvatar)
     axios
       .post('api/user/update', userData, config)
       .then(() => {
