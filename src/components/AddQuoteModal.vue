@@ -93,11 +93,11 @@ const font = useFont();
 const store = useModalStore();
 const { locale } = useI18n();
 const showSelectPlaceholder = ref(true);
+
 const { userAvatar, user } = storeToRefs(useUserStore());
-const { getMovies } = useMoviesStore();
-getMovies();
-
-const { movies } = storeToRefs(useMoviesStore());
-
 const { submit, imgValue } = useCreateQuote();
+
+const { getMovies } = useMoviesStore();
+const { movies } = storeToRefs(useMoviesStore());
+getMovies();
 </script>

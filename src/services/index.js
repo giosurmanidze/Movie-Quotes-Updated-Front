@@ -100,7 +100,7 @@ export function useCreateMovie(genres) {
         imgValue.value = false
       })
       .catch((error) => {
-        errorMessage.value = error.response.data.message
+        errorMessage.value = error.response.data?.message
       })
   }
 
