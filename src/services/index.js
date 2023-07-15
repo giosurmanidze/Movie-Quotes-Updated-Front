@@ -2,12 +2,12 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { recoverPassword, createUser, sendForgotPassword } from './requests/sendRequest'
 import { useI18n } from 'vue-i18n'
-import { useModalStore } from '@/stores/useModalStore'
-import { useMoviesStore } from '@/stores/useMoviesStore'
-import { useQuotesStore } from '@/stores/useQuotesStore'
-import { usePostStore } from '@/stores/posts'
-import { useProfilePageStore } from '@/stores/useProfilePageStore'
-import { useUserStore } from '@/stores/useUserStore'
+import { useModalStore } from '@/stores/modal/useModalStore.js'
+import { useMoviesStore } from '@/stores/movies/useMoviesStore'
+import { useQuotesStore } from '@/stores/quotes/useQuotesStore'
+import { usePostStore } from '@/stores/posts/posts'
+import { useProfilePageStore } from '@/stores/profile/useProfilePageStore'
+import { useUserStore } from '@/stores/user/useUserStore'
 import axios from '@/config/axios/auth-index'
 
 export function useSubmitCreatePassword() {
@@ -45,8 +45,6 @@ export function useSubmitForgotPassword() {
 
   const submit = async (values, actions) => {
     loading.value = true
-    console.log(values)
-
     try {
       await sendForgotPassword(values)
       loading.value = false
@@ -102,7 +100,7 @@ export function useCreateMovie(genres) {
         imgValue.value = false
       })
       .catch((error) => {
-        errorMessage.value = error.response.data.message
+        errorMessage.value = error.response.data?.message
       })
   }
 
@@ -204,13 +202,12 @@ export function useSubmitRegister() {
   }
 }
 
-export function useEditMovie(params,genres) {
+export function useEditMovie(params, genres) {
   const { updatedMovie } = useMoviesStore()
   const store = useModalStore()
 
   function submit(values) {
     let genreIds = genres.value.map((genre) => genre.id)
-    console.log(values)
     let data = {
       name_en: values.nameEn,
       name_ka: values.nameKa,
@@ -240,7 +237,7 @@ export function useEditMovie(params,genres) {
   }
 
   return {
-    submit,
+    submit
   }
 }
 export function useEditQuote(quote) {
@@ -271,9 +268,10 @@ export function useEditQuote(quote) {
     successMessage
   }
 }
+
 export function useCreateComment(quoteId) {
   const store = useModalStore()
-  const { getQuotesRefresh, getQuote } = useQuotesStore()
+  const { getQuotesRefresh } = useQuotesStore()
   const { refreshPosts } = usePostStore()
 
   function submit(values, actions) {
@@ -283,14 +281,11 @@ export function useCreateComment(quoteId) {
     }
     axios
       .post('api/comments', data)
-      .then((response) => {
-        if (response.status === 200) {
-          actions.resetForm()
-          store.toggleCommentAddedModal()
-          getQuote(response.data.quote_id)
-          getQuotesRefresh()
-          refreshPosts()
-        }
+      .then(() => {
+        actions.resetForm()
+        store.toggleCommentAddedModal()
+        getQuotesRefresh()
+        refreshPosts()
       })
       .catch((error) => {
         console.log(error)
@@ -301,7 +296,8 @@ export function useCreateComment(quoteId) {
   }
 }
 
-export function handleQuoteLike(quoteId, likeable, likeId) {
+export async function handleQuoteLike(quoteId, likeable, likeId) {
+  const previousValue = likeable.value
   likeable.value = !likeable.value
   const { getQuote, getQuotesRefresh } = useQuotesStore()
   const { refreshPosts } = usePostStore()
@@ -310,51 +306,43 @@ export function handleQuoteLike(quoteId, likeable, likeId) {
     quote_id: quoteId
   }
 
-  if (likeable.value) {
-    axios
-      .delete(`api/likes/${likeId.value}`)
-      .then(() => {
-        likeId.value = null
-        getQuote(quoteId)
-        getQuotesRefresh()
-        refreshPosts()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  } else {
-    axios
-      .post('api/likes', data)
-      .then((response) => {
-        likeId.value = response.data.like_id
-        getQuote(quoteId)
-        getQuotesRefresh()
-        refreshPosts()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  try {
+    if (likeable.value) {
+      await axios.delete(`api/likes/${likeId.value}`)
+      likeId.value = null
+    } else {
+      const response = await axios.post('api/likes', data)
+      likeId.value = response.data.like_id
+    }
+    getQuote(quoteId)
+    getQuotesRefresh()
+    refreshPosts()
+  } catch (error) {
+    console.log(error)
+    likeable.value = previousValue
   }
 }
 
-
-export function useSendProfileAvatar(showUserUpdatedAlert, showSaveChangesButtons) {
+export function useSendProfileAvatar(showSaveChangesButtons) {
   const { getUser } = useUserStore()
 
-  const sendThumbnailData = () => {
-    showUserUpdatedAlert.value = false
+  const { toggleShowAvatarAlert } = useProfilePageStore()
+
+  const sendThumbnailData = (values) => {
     const fileInput = document.getElementById('getFile')
     const file = fileInput.files[0]
 
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
-
+    const data = {
+      thumbnail: file ? file : values.avatar
+    }
     axios
-      .post('api/user/update', { thumbnail: file }, config)
+      .post('api/user/update', data, config)
       .then(() => {
         getUser()
-        showUserUpdatedAlert.value = true
+        toggleShowAvatarAlert(true)
         showSaveChangesButtons.value = false
       })
       .catch((error) => {
@@ -370,10 +358,8 @@ export function useSendUsername(showUserUpdated, disableInput, showConfirmModal,
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
 
-
   function sendData(values) {
     showUserUpdated.value = false
-    console.log(values.username)
 
     axios
       .post('api/user/update', { username: values.username })
@@ -405,17 +391,26 @@ export function useUpdateUserData(
   showEditPassword,
   sendUserName,
   sendEmail,
-  emailErrors
+  emailErrors,
+  sendAvatar
 ) {
   const { getUser } = useUserStore()
   const { locale } = useI18n({ useScope: 'global' })
-  const { setShowValue } = useProfilePageStore()
+  const {
+    toggleShowUsernameAlert,
+    toggleShowEmailAlert,
+    toggleShowPassowrdAlert,
+    toggleShowAvatarAlert
+  } = useProfilePageStore()
 
   function submit(values) {
-    showUserUpdatedAlert.value = false
+    toggleShowUsernameAlert(false)
+    toggleShowEmailAlert(false)
+    toggleShowPassowrdAlert(false)
+    toggleShowAvatarAlert(false)
 
-    const fileInput = document.getElementById('getFile')
-    const file = fileInput.files[0]
+    let fileInput = document.getElementById('getFile')
+    const file = fileInput?.files[0]
 
     const userData = {
       username: sendUserName.value ? values.username : null,
@@ -429,22 +424,23 @@ export function useUpdateUserData(
       .post('api/user/update', userData, config)
       .then(() => {
         getUser()
-        setShowValue(true)
         if (sendUserName.value) {
           showUserUpdatedAlert.value = true
+          toggleShowUsernameAlert(true)
           sendUserName.value = false
           disableInput.value = true
           showSaveChangesButtons.value = false
           usernameErrors.value = null
         }
-        if (userData.thumbnail) {
+        if (sendAvatar.value) {
           showSaveChangesButtons.value = false
-          showUserUpdatedAlert.value = true
+          toggleShowAvatarAlert(true)
+          sendAvatar.value = false
         }
         if (userData.password) {
           showSaveChangesButtons.value = false
-          showUserUpdatedAlert.value = true
           showEditPassword.value = true
+          toggleShowPassowrdAlert(true)
         }
       })
       .catch((error) => {
@@ -455,21 +451,20 @@ export function useUpdateUserData(
 
     if (sendEmail?.value) {
       axios
-        .post('api/user/add-email', { email: values.email })
+        .post('api/user/add-email', { email: values.new_email })
         .then(() => {
-          getUser()
-          ShowEmailSentAlert.value = true
           disableInputForEmail.value = true
+          toggleShowEmailAlert(true)
           sendEmail.value = false
           showSaveChangesButtons.value = false
           emailErrors.value = null
+          getUser()
         })
         .catch((error) => {
           emailErrors.value = error.response.data.errors.email[0][locale.value]
         })
     }
   }
-
   return {
     submit
   }
@@ -483,5 +478,64 @@ export async function UpdateUserEmail(newEmail, userId) {
     return response
   } catch (error) {
     console.error(error)
+  }
+}
+
+export function userPassowrdUsernameUpdate(fieldName, data, updatedModal, showConfirmModal) {
+  const errorMessage = ref(null)
+  const profileStore = useProfilePageStore()
+  const { getUser } = useUserStore()
+  const { locale } = useI18n({ useScope: 'global' })
+
+
+  function sendData() {
+    axios
+      .post('api/user/update', { [fieldName]: data.value })
+      .then(() => {
+        profileStore.toggleShowForm(true)
+        profileStore.toggleShowModal(true)
+        profileStore.toggleUsernameEdited(true)
+        showConfirmModal.value = true
+        updatedModal(true)
+        errorMessage.value = ''
+        getUser()
+      })
+      .catch((error) => {
+        showConfirmModal.value = false
+        errorMessage.value = error.response.data.errors?.username[0][locale.value]
+      })
+  }
+
+  return {
+    sendData,
+    errorMessage
+  }
+}
+
+export function sendEmail(changedEmail, showConfirmModal) {
+  const { locale } = useI18n({ useScope: 'global' })
+  const errorMessage = ref(null)
+  const { toggleShowEmailAlert } = useProfilePageStore()
+  const profileStore = useProfilePageStore()
+  const { getUser } = useUserStore()
+  function sendData() {
+    axios
+      .post('api/user/add-email', { email: changedEmail.value })
+      .then(() => {
+        toggleShowEmailAlert(true)
+        profileStore.toggleShowForm(true)
+        profileStore.toggleShowModal(true)
+        errorMessage.value = null
+        getUser()
+      })
+      .catch((error) => {
+        showConfirmModal.value = false
+        errorMessage.value = error.response.data.errors.email[0][locale.value]
+      })
+  }
+
+  return {
+    sendData,
+    errorMessage
   }
 }

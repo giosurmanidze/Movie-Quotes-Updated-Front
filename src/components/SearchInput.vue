@@ -1,6 +1,6 @@
 <template>
   <Field :name="name" :rules="rules" v-slot="{ field }" class="flex">
-    <div class="flex">
+    <div class="flex w-full">
       <input
         v-bind="field"
         :placeholder="placeholder"
@@ -17,8 +17,8 @@
 import { Field } from "vee-validate";
 import { useRouter, useRoute } from "vue-router";
 import { ref, watch } from "vue";
-import { usePostStore } from "@/stores/posts";
-import { useMoviesStore } from "@/stores/useMoviesStore";
+import { usePostStore } from "@/stores/posts/posts";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
 
 defineProps({
   name: { type: String, required: true },

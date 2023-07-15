@@ -82,16 +82,19 @@ import CommentIcon from "@/assets/icons/CommentIcon.vue";
 import LikedQuote from "@/components/LikedQuote.vue";
 import CommentInput from "./CommentInput.vue";
 import { storeToRefs } from "pinia";
-import { usePostStore } from "@/stores/posts";
+import { usePostStore } from "@/stores/posts/posts";
 import { useI18n } from "vue-i18n";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { computed, ref, onMounted } from "vue";
 import { Form } from "vee-validate";
 import { useCreateComment } from "@/services";
+import { useNotifications } from "@/stores/notifications/notifications";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 const { posts } = storeToRefs(usePostStore());
 const { getPosts, handleScroll } = usePostStore();
+const { getNotifications } = useNotifications();
+
 onMounted(() => getPosts());
 window.addEventListener("scroll", handleScroll);
 
@@ -135,4 +138,28 @@ function toggleExpandComments(quote) {
     expandedQuotes.value.push(quote.comments.map((comment) => comment.userId));
   }
 }
+
+onMounted(() => {
+  getPosts();
+});
+window.Echo.channel("like-channel").listen(".new-like", () => {
+  getPosts();
+  getNotifications();
+});
+window.Echo.channel("comment-channel").listen(".new-comment", () => {
+  getPosts();
+  getNotifications();
+});
+
+onMounted(() => {
+  getPosts();
+});
+window.Echo.channel("like-channel").listen(".new-like", () => {
+  getPosts();
+  getNotifications();
+});
+window.Echo.channel("comment-channel").listen(".new-comment", () => {
+  getPosts();
+  getNotifications();
+});
 </script>

@@ -1,7 +1,7 @@
 <template>
   <crud-modal @click="store.toggleEditModal(false)" :showModal="store.showEditMovieModal">
     <template v-slot:header
-      >{{ $t("edit_movie") }}
+      ><p class="xs:text-md md:text-xl">{{ $t("edit_movie") }}</p>
       <div @click="store.toggleEditModal(false)" class="absolute right-10 top-7">
         <CloseIcon /></div
     ></template>
@@ -16,14 +16,14 @@
             <p class="ml-5">{{ user.username }}</p>
           </div>
           <section class="mt-5">
-            <CrudInput
+            <crud-input
               lang="en"
               name="nameEn"
               rules="required|en"
               placeholder="Movie name"
               :oldValue="userData?.name.en"
             />
-            <CrudInput
+            <crud-input
               lang="ka"
               name="nameKa"
               rules="required|geo"
@@ -31,41 +31,45 @@
               :oldValue="userData?.name.ka"
             />
             <GenreInput :categories="categories" />
-            <CrudInput
+            <crud-input
               lang="en"
               name="directorEn"
               rules="required|en"
               placeholder="Director"
               :oldValue="userData?.director.en"
             />
-            <CrudInput
+            <crud-input
               lang="ka"
               name="directorKa"
               rules="required|geo"
               placeholder="რეჟისორი"
+              classes="xs:text-md sm:text-base"
               :oldValue="userData?.director.ka"
             />
-            <CrudInput
-              lang="en"
-              name="descriptionEn"
-              rules="required|en"
-              placeholder="Description"
-              :oldValue="userData?.description.en"
-            />
-            <CrudInput
+            <crud-input
               lang="ka"
               name="descriptionKa"
               rules="required|geo"
               placeholder="ფილმის აღწერა"
+              inputType="textarea"
+              classes="xs:text-md sm:text-base"
               :oldValue="userData?.description.ka"
             />
-            <CrudInput
+            <crud-input
+              lang="en"
+              name="descriptionEn"
+              rules="required|en"
+              placeholder="Description"
+              inputType="textarea"
+              :oldValue="userData?.description.en"
+            />
+            <crud-input
               name="budget"
               rules="required"
               :placeholder="$t('budget')"
               :oldValue="userData?.budget"
             />
-            <CrudInput
+            <crud-input
               name="releaseDate"
               rules="required"
               :placeholder="$t('release_date')"
@@ -87,16 +91,16 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import CrudModal from "@/components/CrudModal.vue";
 import CrudInput from "@/components/CrudInput.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
 import DragAndDrop from "@/components/DragAndDrop.vue";
 import { Form } from "vee-validate";
 import { storeToRefs } from "pinia";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import axios from "@/config/axios/auth-index";
 import GenreInput from "@/components/GenreInput.vue";
 import { useEditMovie } from "@/services";
-import { useMoviesStore } from "@/stores/useMoviesStore";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
 
 const store = useModalStore();
 const route = useRoute();

@@ -1,5 +1,5 @@
 import { defineRule } from 'vee-validate';
-import { required, min, max, alpha_num, confirmed, email } from '@vee-validate/rules';
+import { required, min, max, alpha_num, confirmed, email, numeric } from '@vee-validate/rules';
 
 defineRule('required', required);
 defineRule('min', min);
@@ -7,6 +7,7 @@ defineRule('max', max);
 defineRule('alpha_num', alpha_num);
 defineRule('email', email);
 defineRule('confirmed', confirmed);
+defineRule('numeric', numeric);
 
 defineRule('lower_alpha_num', (value) => {
   if (!value || !value.length) {

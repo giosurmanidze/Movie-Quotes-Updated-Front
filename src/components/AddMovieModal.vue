@@ -4,7 +4,7 @@
     :showModal="store.showAddMoviesModal"
   >
     <template v-slot:header
-      >{{ $t("add_movie") }}
+      ><p class="xs:text-md md:text-xl">{{ $t("add_movie") }}</p>
       <div @click="store.toggleAddMoviesModal(false)" class="absolute right-10 top-7">
         <CloseIcon /></div
     ></template>
@@ -46,22 +46,29 @@
               rules="required|geo"
               placeholder="რეჟისორი"
             />
-            <CrudInput
-              lang="en"
-              name="descriptionEn"
-              rules="required|en"
-              placeholder="Description"
-            />
-            <CrudInput
+            <crud-input
               lang="ka"
               name="descriptionKa"
               rules="required|geo"
               placeholder="ფილმის აღწერა"
+              inputType="textarea"
+              classes="xs:text-md sm:text-base"
             />
-            <CrudInput name="budget" rules="required" :placeholder="$t('budget')" />
+            <crud-input
+              lang="en"
+              name="descriptionEn"
+              rules="required|en"
+              placeholder="Description"
+              inputType="textarea"
+            />
+            <CrudInput
+              name="budget"
+              rules="required|numeric"
+              :placeholder="$t('budget')"
+            />
             <CrudInput
               name="releaseDate"
-              rules="required"
+              rules="required|numeric"
               :placeholder="$t('release_date')"
             />
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />
@@ -79,15 +86,15 @@
 import CrudModal from "@/components/CrudModal.vue";
 import CrudInput from "@/components/CrudInput.vue";
 import DragAndDrop from "@/components/DragAndDrop.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
 import { Form } from "vee-validate";
 import { storeToRefs } from "pinia";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
 import GenreInput from "@/components/GenreInput.vue";
 import { ref } from "vue";
 import { useCreateMovie } from "@/services";
-import { useMoviesStore } from "@/stores/useMoviesStore";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore";
 import { onMounted } from "vue";
 import useFont from "@/config/font/useFont.js";
 

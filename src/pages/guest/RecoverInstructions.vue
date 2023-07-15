@@ -1,11 +1,11 @@
 <template>
   <message-modal
-    headerText="success_header_title"
-    msg="success_header_text"
-    btnText="success_submit_btn"
+    headerText="recover_instrc_header_title"
+    msg="recover_instrc_header_text"
+    btnText="recover_instrc_submit_btn"
     classes="bg-btn_color w-full h-[5vh]"
-    route="/login"
-    img="success"
+    route="login"
+    img="emailSent"
   />
 </template>
 

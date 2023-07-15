@@ -26,8 +26,7 @@ import NoGoogleProfile from "@/components/NoGoogleProfile.vue";
 import GoogleProfile from "@/components/GoogleProfile.vue";
 import NoGoogleMobileProfile from "./NoGoogleMobileProfile.vue";
 import MobileGoogleProfile from "./MobileGoogleProfile.vue";
-
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 
 const { getUser } = useUserStore();

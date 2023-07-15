@@ -9,19 +9,34 @@
         </section>
         <section>
           <div class="flex items-center justify-between md:justify-end">
-            <Form @submit="submitSearch" class="flex mr-10">
-              <FindIcon class="mr-2 hidden md:block" />
-              <SearchInput
-                :placeholder="$t('search')"
-                name="search"
-                classes="bg-transparent px-2 w-[9.5rem] hidden md:block"
-                v-model="searchValue"
-              />
+            <button @click="toggleSearchBar" class="items-center gap-3 xs:hidden md:flex">
+              <FindIcon class="mr-3" />
+              <p v-if="!isSearchBarVisible" class="text-quote_text">Search</p>
+            </button>
+            <Form
+              @submit="submitSearch"
+              class="flex mr-10 xs:hidden md:flex"
+              :class="{ hidden: !isSearchBarVisible }"
+            >
+              <div
+                :class="{
+                  hidden: !isSearchBarVisible,
+                  'animate-fade-in': isSearchBarVisible,
+                }"
+              >
+                <SearchInput
+                  :placeholder="$t('search')"
+                  name="search"
+                  classes="bg-transparent px-2 w-[11.5rem]"
+                  v-model="searchValue"
+                />
+              </div>
             </Form>
             <button
               @click="store.toggleAddMoviesModal()"
-              class="text-white bg-red-600 px-3 rounded-[0.25rem] xs:text-sm lg:text-xl h-10"
+              class="text-white bg-red-600 px-3 rounded-[0.25rem] xs:text-sm lg:text-xl h-10 flex items-center gap-2"
             >
+              <add-movie-plus-icon />
               {{ $t("add_movie") }}
             </button>
           </div>
@@ -46,14 +61,15 @@
 import { Form } from "vee-validate";
 import SearchInput from "@/components/SearchInput.vue";
 import { computed, ref } from "vue";
+import AddMoviePlusIcon from "@/assets/icons/AddMoviePlusIcon.vue";
 import FindIcon from "@/assets/icons/SearchIcon.vue";
 import MovieCard from "@/components/MovieCard.vue";
 import AddMovieModal from "@/components/AddMovieModal.vue";
 import MovieAddedModal from "@/components/MovieAddedModal.vue";
-import { useModalStore } from "@/stores/useModalStore.js";
-import { useMoviesStore } from "@/stores/useMoviesStore.js";
+import { useModalStore } from "@/stores/modal/useModalStore.js";
+import { useMoviesStore } from "@/stores/movies/useMoviesStore.js";
 import MenuLayout from "@/components/MenuLayout.vue";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 
 const { getUser } = useUserStore();
 getUser();
@@ -77,4 +93,25 @@ const filteredMovies = computed(() => {
 const moviesTotal = computed(() => {
   return filteredMovies.value.length;
 });
+
+const isSearchBarVisible = ref(false);
+
+function toggleSearchBar() {
+  isSearchBarVisible.value = !isSearchBarVisible.value;
+}
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fade-in 0.5s ease forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+</style>

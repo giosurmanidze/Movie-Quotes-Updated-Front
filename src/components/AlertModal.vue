@@ -10,7 +10,7 @@
         <p class="ml-4">{{ $t(top_locale_text) }}</p>
       </div>
       <div class="cursor-pointer">
-        <CrossIcon @click="showAlert = false" />
+        <CrossIcon @click="alertUpdate(false)" />
       </div>
     </section>
     <section>
@@ -31,6 +31,9 @@ defineProps({
   },
   bottom_locale_text: {
     type: String,
+  },
+  alertUpdate: {
+    type: Function,
   },
 });
 const showAlert = ref(true);

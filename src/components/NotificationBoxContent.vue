@@ -1,6 +1,9 @@
 <template>
   <div v-for="notification in props.notifications" :key="notification.id" class="py-2">
-    <div class="flex justify-between p-5 border border-gray-600 rounded">
+    <div
+      @click="markNotificationAsSeen(notification)"
+      class="flex justify-between p-5 border border-gray-600 rounded"
+    >
       <section class="flex">
         <img
           :src="
@@ -49,6 +52,7 @@
 import CommentedIcon from "@/assets/icons/CommentedIcon.vue";
 import LikedQuoteIcon from "@/assets/icons/LikedIcon.vue";
 import { defineProps, computed } from "vue";
+import axios from "@/config/axios/auth-index";
 
 const backendUrl = import.meta.env.VITE_THUMBNAIL_URL;
 
@@ -58,6 +62,12 @@ const props = defineProps({
     required: true,
   },
 });
+const markNotificationAsSeen = (notification) => {
+  axios.post("api/mark-read", { id: notification.id }).then(() => {
+    notification.read = true;
+  });
+};
+
 const getRealTime = (notification) => {
   return computed(() => {
     return Math.ceil((Date.now() - new Date(notification.created_at)) / 60000);

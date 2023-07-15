@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { useAuthStore } from "@/stores/useAuthStore.js";
+import { useAuthStore } from "@/stores/auth/useAuthStore.js";
 import ForbiddenPageIcon from "@/assets/icons/ForbiddenPageIcon.vue";
 import CustomButton from "@/components/CustomButton.vue";
 const authStore = useAuthStore();

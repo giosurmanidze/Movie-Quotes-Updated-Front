@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center text-white z-10">
+  <div class="flex justify-center text-white z-1">
     <div class="md:relative">
       <button @click="toggleDropdown" class="mr-6 inline-flex relative">
         <NotificationIcon />
@@ -30,50 +30,40 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import NotificationIcon from "@/assets/icons/NotificationIcon.vue";
 import NotificationBoxContent from "@/components/NotificationBoxContent.vue";
-import { useQuotesStore } from "@/stores/useQuotesStore";
-import { useUserStore } from "@/stores/useUserStore";
-import { usePostStore } from "@/stores/posts";
+import { useQuotesStore } from "@/stores/quotes/useQuotesStore";
+import { useUserStore } from "@/stores/user/useUserStore";
+import { useNotifications } from "@/stores/notifications/notifications";
+import { usePostStore } from "@/stores/posts/posts";
 import { storeToRefs } from "pinia";
 import axios from "@/config/axios/index";
 
 const dropdownState = ref(false);
-const notifications = ref([]);
 
 const { getQuotesRefresh } = useQuotesStore();
 const { refreshPosts } = usePostStore();
 const { user } = storeToRefs(useUserStore());
+const { getNotifications } = useNotifications();
+const { notifications } = storeToRefs(useNotifications());
 
 const toggleDropdown = () => {
   dropdownState.value = !dropdownState.value;
 };
 
-watch(
-  () => user.value.id,
-  (state) => {
-    user.value.id = state;
-    window.Echo.private(`comments.${state}`).listen(
-      "CommentedQuote",
-      ({ notification }) => {
-        notifications.value.unshift(notification);
-        getQuotesRefresh();
-        refreshPosts();
-      }
-    );
-    window.Echo.private(`likes.${state}`).listen("LikedQuote", ({ notification }) => {
-      notifications.value.unshift(notification);
+setTimeout(() => {
+  window.Echo.private("notification-channel." + user.value).listen(
+    ".new-notification",
+    () => {
+      getNotifications();
       getQuotesRefresh();
       refreshPosts();
-    });
-  }
-);
-
+    }
+  );
+}, 3000);
 onMounted(() => {
-  axios.get("api/get-notifications").then((response) => {
-    notifications.value = response.data;
-  });
+  getNotifications();
 });
 
 const unreadNotificationCount = computed(() => {

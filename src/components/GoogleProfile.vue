@@ -1,10 +1,18 @@
 <template>
   <div class="2xl:w-5/6 mt-20 px-16 bg-modal_bg">
     <alert-modal
-      classes="absolute right-20 w-1/3"
-      v-if="showUserUpdatedAlert"
+      classes="right-12 top-16 absolute"
+      v-if="profileStore.showUsernameAlert"
+      :alertUpdate="toggleShowUsernameAlert"
       top_locale_text="succesfully_updated"
       bottom_locale_text="congratulations_user_is_updated"
+    />
+    <alert-modal
+      classes="right-12 top-16 absolute"
+      v-if="profileStore.showAvatarAlert"
+      :alertUpdate="toggleShowAvatarAlert"
+      top_locale_text="succesfully_updated"
+      bottom_locale_text="congratulations_user_avatar_updated"
     />
     <section class="flex justify-center text-white">
       <img
@@ -14,11 +22,11 @@
     </section>
     <Form @submit="submit">
       <div class="text-white">
-        <section @click="showSaveChangesButtons = true" class="text-center">
+        <section @click="sendAvatarData()" class="text-center">
           <ProfileFileInput />
         </section>
-        <div class="grid grid-cols-1 gap-10 mt-16">
-          <section class="flex w-full flex-col">
+        <div class="grid grid-cols-1 gap-5 mt-16">
+          <section class="flex w-full flex-col lg:ml-48 md:ml-17">
             <div class="flex w-full">
               <ProfileInput
                 class="lg:w-1/2 w-full"
@@ -40,8 +48,7 @@
               <p class="text-red-500">{{ usernameErrors }}</p>
             </div>
           </section>
-
-          <section class="grid w-full border-y border-gray-600 py-10 grid-cols-1 gap-5">
+          <section class="grid w-full py-10 grid-cols-1 gap-12 lg:ml-48 md:ml-17">
             <div class="flex">
               <div class="lg:w-1/2 w-full h-12">
                 <p class="bg-quote_text py-1.5 pl-1 rounded text-black">
@@ -49,12 +56,12 @@
                 </p>
               </div>
             </div>
-          </section>
-          <div class="flex">
-            <div class="lg:w-1/2 w-full h-12">
-              <p class="bg-quote_text py-1.5 pl-1 rounded text-black">**********</p>
+            <div class="flex">
+              <div class="lg:w-1/2 w-full h-12">
+                <p class="bg-quote_text py-1.5 pl-1 rounded text-black">**********</p>
+              </div>
             </div>
-          </div>
+          </section>
         </div>
         <br />
       </div>
@@ -76,18 +83,29 @@ import { ref } from "vue";
 import ProfileFileInput from "./ProfileFIleInput.vue";
 import ProfileInput from "./ProfileInput.vue";
 import AlertModal from "./AlertModal.vue";
-import { useUserStore } from "@/stores/useUserStore";
+import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 import { useUpdateUserData } from "@/services";
+import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 
 const props = defineProps({ user: { type: Object, required: true } });
+
+const { toggleShowUsernameAlert, toggleShowAvatarAlert } = useProfilePageStore();
+const profileStore = useProfilePageStore();
 
 const disableInput = ref(true);
 const usernameErrors = ref(false);
 const showUserUpdatedAlert = ref(false);
 const sendUserName = ref(false);
 const showSaveChangesButtons = ref(false);
+const sendAvatar = ref(false);
+
 const { userAvatar } = storeToRefs(useUserStore());
+
+const sendAvatarData = () => {
+  sendAvatar.value = true;
+  showSaveChangesButtons.value = true;
+};
 
 function inputToggleHandler() {
   disableInput.value = false;
@@ -110,6 +128,7 @@ const { submit } = useUpdateUserData(
   undefined,
   sendUserName,
   undefined,
-  undefined
+  undefined,
+  sendAvatar
 );
 </script>

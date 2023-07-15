@@ -17,5 +17,8 @@
   "go_profile": "პროფილზე გადასვლა",
   "confirm_email": "დადასტურების იმეილი გაიგზავნა",
   "please_verify_new_email": "გთხოვთ, გადაამოწმოთ ახალი ელფოსტა, რომელიც ჩვენ გამოგვიგზავნეთ",
-  "user_profile":"პროფილი"
+  "user_profile": "პროფილი",
+  "new_email": "ახალი მეილი",
+  "congratulations_user_password_updated": "გილოცავთ მომხმარებელის პაროლი განახლებულია",
+  "congratulations_user_avatar_updated": "გილოცავთ მომხმარებელის ფოტო განახლებულია"
 }

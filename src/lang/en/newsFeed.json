@@ -15,11 +15,15 @@
   "reacted_to_your_quote": "Reacted to your quote",
   "min_ago": "min ago",
   "comment_added_successfully": "Comment added succesfully",
-  "notifications": "notifications",
+  "notifications": "Notifications",
   "drag_and_drop": "Drag & drop your image here or",
   "choose_file": "Choose file",
-  "no_quotes_yet": "No quotes found,please add to movie",
+  "no_movies_yet": "No movies found,please add to movie",
   "new_notification": "new",
   "show_less": "Show less",
-  "read_more": "Read more"
+  "read_more": "Read more",
+  "to_search_movies": "to search movies",
+  "to_search_quotes": "to search quotes",
+  "enter": "Enter",
+  "search": "Search"
 }

@@ -1,9 +1,9 @@
 <template>
   <div
-    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-filter backdrop-blur-sm"
+    class="fixed inset-0 flex xs:items-start sm:pt-28 justify-center sm:bg-black sm:bg-opacity-60 backdrop-filter backdrop-blur-sm"
   >
     <div
-      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[34.375rem] rounded shadow-lg flex flex-col gap-2 xs:w-[95%] max-h-90vh overflow-auto bg-main_bg_color"
+      class="modal-content py-8 sm:px-16 xs:px-10 max-w-[34.375rem] rounded shadow-lg flex flex-col gap-2 max-h-90vh overflow-auto pt-20 xs:w-full xs:h-screen sm:h-full sm:bg-main_bg_color xs:bg-message_modal_back_screen sm:max-h-[60vh]"
       @click.stop
     >
       <div class="flex flex-col justify-center items-center gap-7 h-[50vh] w-full">
