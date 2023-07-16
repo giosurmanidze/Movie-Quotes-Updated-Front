@@ -67,7 +67,7 @@
               :placeholder="$t('budget')"
             />
             <CrudInput
-              name="releaseDate"
+              name="year"
               rules="required|numeric"
               :placeholder="$t('release_date')"
             />

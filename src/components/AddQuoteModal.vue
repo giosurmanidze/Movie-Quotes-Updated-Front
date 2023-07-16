@@ -44,7 +44,7 @@
                 </section>
               </div>
               <Field
-                class="w-full p-6 mb-5 bg-[#000000] cursor-pointer"
+                class="w-full p-6 mb-5 bg-black cursor-pointer"
                 name="movie"
                 as="select"
                 @click="showSelectPlaceholder = false"

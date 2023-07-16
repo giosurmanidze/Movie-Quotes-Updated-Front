@@ -83,7 +83,7 @@ export function useCreateMovie(genres) {
       description_en: values.descriptionEn,
       description_ka: values.descriptionKa,
       budget: values.budget,
-      release_date: values.releaseDate,
+      release_date: values.year,
       thumbnail: values.thumbnail
     }
 
@@ -217,7 +217,7 @@ export function useEditMovie(params, genres) {
       description_en: values.descriptionEn,
       description_ka: values.descriptionKa,
       budget: values.budget,
-      release_date: values.releaseDate,
+      release_date: values.year,
       thumbnail: values.thumbnail1
     }
 
