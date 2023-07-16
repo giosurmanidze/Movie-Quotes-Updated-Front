@@ -382,8 +382,6 @@ export function useSendUsername(showUserUpdated, disableInput, showConfirmModal,
 }
 
 export function useUpdateUserData(
-  showUserUpdatedAlert,
-  ShowEmailSentAlert,
   disableInput,
   disableInputForEmail,
   showSaveChangesButtons,
@@ -409,6 +407,7 @@ export function useUpdateUserData(
     toggleShowPassowrdAlert(false)
     toggleShowAvatarAlert(false)
 
+
     let fileInput = document.getElementById('getFile')
     const file = fileInput?.files[0]
 
@@ -425,7 +424,6 @@ export function useUpdateUserData(
       .then(() => {
         getUser()
         if (sendUserName.value) {
-          showUserUpdatedAlert.value = true
           toggleShowUsernameAlert(true)
           sendUserName.value = false
           disableInput.value = true
@@ -450,6 +448,7 @@ export function useUpdateUserData(
       })
 
     if (sendEmail?.value) {
+      console.log(values)
       axios
         .post('api/user/add-email', { email: values.new_email })
         .then(() => {
