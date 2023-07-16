@@ -20,7 +20,7 @@
     />
   </Field>
   <div
-    class="relative w-full border border-white-1 min-h-20 rounded-lg"
+    class="relative border border-white-1 rounded-lg w-auto h-auto"
     id="container"
     @dragover.prevent="dragOver"
     @dragleave.prevent="dragLeave"
@@ -32,7 +32,7 @@
       class="cursor-pointer bg-black opacity-[0.6] w-[8.5rem] h-[5.25rem] flex flex-col items-center justify-center rounded-xl absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]"
     >
       <camera-icon />
-      <p class="text-white text-[1rem] whitespace-nowrap">Change photo</p>
+      <p class="text-white text-[1rem] whitespace-nowrap">{{ $t("change_photo") }}</p>
     </label>
   </div>
 </template>
