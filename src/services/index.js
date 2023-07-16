@@ -240,14 +240,14 @@ export function useEditMovie(params, genres) {
     submit
   }
 }
-export function useEditQuote(quote) {
+export function useEditQuote(quote, newImage) {
   const successMessage = ref(null)
   const moviesStore = useMoviesStore()
   function submit(values) {
     let data = {
       body_en: values.bodyEn,
       body_ka: values.bodyKa,
-      thumbnail: values.thumbnail
+      thumbnail: newImage.value
     }
     const quoteId = ref(quote.value.id)
     const config = {
