@@ -94,7 +94,6 @@ import { useEditQuote } from "@/services";
 const { user, userAvatar } = storeToRefs(useUserStore());
 
 const store = useModalStore();
-
 const { quote } = storeToRefs(useQuotesStore());
 
 const quoteSuccessfullyDeleted = ref(null);
@@ -123,8 +122,9 @@ function goBack() {
 const { deleteQuote } = useQuotesStore();
 
 function deleteQuoteById() {
-  const quoteId = ref(quote.id);
-  deleteQuote(quoteId.value);
+  console.log(quote);
+  deleteQuote(quote?.value.id);
   quoteSuccessfullyDeleted.value = true;
+  store.toggleQuoteDeletedModal();
 }
 </script>
