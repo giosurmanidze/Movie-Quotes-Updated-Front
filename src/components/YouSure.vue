@@ -30,8 +30,8 @@ const newEmail = ref(route.query.email);
 
 const { toggleShowUsernameAlert } = useProfilePageStore();
 const { sendUserData } = userPassowrdUsernameUpdate(
-  newUsername ? "username" : "passowrd",
-  newUsername ? newUsername : newPassowrd,
+  newUsername.value ? "username" : "passowrd",
+  newUsername.value ? newUsername : newPassowrd,
   toggleShowUsernameAlert
 );
 

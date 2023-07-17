@@ -9,7 +9,6 @@ import { usePostStore } from '@/stores/posts/posts'
 import { useProfilePageStore } from '@/stores/profile/useProfilePageStore'
 import { useUserStore } from '@/stores/user/useUserStore'
 import axios from '@/config/axios/auth-index'
-import router from '../router'
 
 export function useSubmitCreatePassword() {
   const route = useRoute()
