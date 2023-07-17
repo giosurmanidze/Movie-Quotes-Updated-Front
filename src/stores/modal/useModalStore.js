@@ -1,52 +1,43 @@
 import { defineStore } from 'pinia'
+import {
+  toggleQuoteAddedModal,
+  toggleEditModal,
+  toggleMovieDeletedModal,
+  toggleAddQuoteFromMovie,
+  toggleAddQuotesModal,
+  toggleEditQuoteModal,
+  toggleQuoteDeletedModal,
+  toggleMovieAddedModal,
+  toggleAddMoviesModal,
+  toggleViewQuoteModal,
+  toggleCommentAddedModal
+} from './actions.js'
 
 export const useModalStore = defineStore('useModalStore', {
   state: () => ({
     showQuoteAddedModal: false,
-    showAddQuoteFromMoviesModal: false,
-    showAddQuotesModal: false,
+    showAddQuoteFromMoviesModal: JSON.parse(localStorage.getItem('showAddQuoteFromMoviesModal')),
+    showAddQuotesModal: JSON.parse(localStorage.getItem('showQuoteAddModal')),
     showMovieAddedModal: false,
-    showAddMoviesModal: false,
-    showEditQuoteModal: false,
-    showViewQuoteModal: false,
-    showEditMovieModal: false,
+    showAddMoviesModal: JSON.parse(localStorage.getItem('showMovieAddModal')),
+    showEditQuoteModal: JSON.parse(localStorage.getItem('showEditQuoteModal')),
+    showViewQuoteModal: JSON.parse(localStorage.getItem('showViewQuoteModal')),
+    showEditMovieModal: JSON.parse(localStorage.getItem('showEditMovieModal')),
     showMovieDeletedModal: false,
     showQuoteDeletedModal: false,
     showCommentAddedModal: false
   }),
   actions: {
-    toggleQuoteAddedModal() {
-      this.showQuoteAddedModal = !this.showQuoteAddedModal
-    },
-    toggleEditModal() {
-      this.showEditMovieModal = !this.showEditMovieModal
-    },
-    toggleMovieDeletedModal() {
-      this.showMovieDeletedModal = !this.showMovieDeletedModal
-    },
-    toggleAddQuoteFromMovie() {
-      this.showAddQuoteFromMoviesModal = !this.showAddQuoteFromMoviesModal
-    },
-    toggleAddQuotesModal() {
-      this.showAddQuotesModal = !this.showAddQuotesModal
-    },
-    toggleEditQuoteModal() {
-      this.showEditQuoteModal = !this.showEditQuoteModal
-    },
-    toggleQuoteDeletedModal() {
-      this.showQuoteDeletedModal = !this.showQuoteDeletedModal
-    },
-    toggleMovieAddedModal() {
-      this.showMovieAddedModal = !this.showMovieAddedModal
-    },
-    toggleAddMoviesModal() {
-      this.showAddMoviesModal = !this.showAddMoviesModal
-    },
-    toggleViewQuoteModal() {
-      this.showViewQuoteModal = !this.showViewQuoteModal
-    },
-    toggleCommentAddedModal() {
-      this.showCommentAddedModal = !this.showCommentAddedModal
-    }
+    toggleQuoteAddedModal,
+    toggleEditModal,
+    toggleMovieDeletedModal,
+    toggleAddQuoteFromMovie,
+    toggleAddQuotesModal,
+    toggleEditQuoteModal,
+    toggleQuoteDeletedModal,
+    toggleMovieAddedModal,
+    toggleAddMoviesModal,
+    toggleViewQuoteModal,
+    toggleCommentAddedModal
   }
 })

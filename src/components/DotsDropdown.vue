@@ -41,11 +41,12 @@ import { useModalStore } from "@/stores/modal/useModalStore.js";
 import { useQuotesStore } from "@/stores/quotes/useQuotesStore.js";
 
 const store = useModalStore();
-
+const { quote } = storeToRefs(useQuotesStore());
 const dropdownState = ref(false);
 
 function showViewQuotesModal() {
   store.toggleViewQuoteModal();
+  localStorage.setItem("quoteId", JSON.stringify(quote.value?.id));
   dropdownState.value = false;
 }
 
@@ -55,8 +56,6 @@ function showEditQuoteModal() {
 }
 
 const { deleteQuote } = useQuotesStore();
-
-const { quote } = storeToRefs(useQuotesStore());
 
 function deleteQuoteById() {
   deleteQuote(quote.value.id);

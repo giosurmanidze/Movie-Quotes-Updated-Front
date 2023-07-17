@@ -1,12 +1,12 @@
 <template>
   <crud-modal
-    @click="store.toggleAddQuoteFromMovie(false)"
+    @click="store.toggleAddQuoteFromMovie()"
     :showModal="store.showAddQuoteFromMoviesModal"
   >
     <template v-slot:header>
       <p class="xs:text-md md:text-xl">{{ $t("write_new_quote") }}</p>
-      <div @click="store.toggleAddQuotesModal(false)" class="absolute right-10 top-7">
-        <CloseIcon @click="store.toggleAddQuoteFromMovie(false)" /></div
+      <div @click="store.toggleAddQuotesModal()" class="absolute right-10 top-7">
+        <CloseIcon @click="store.toggleAddQuoteFromMovie()" /></div
     ></template>
     <template v-slot:body>
       <Form @submit="submit">
@@ -60,7 +60,7 @@
             <button
               type="submit"
               class="w-full bg-red-600 py-2"
-              @click="store.toggleAddQuoteFromMovie(false)"
+              @click="store.toggleAddQuoteFromMovie()"
             >
               {{ $t("add_quote") }}
             </button>

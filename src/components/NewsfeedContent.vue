@@ -150,16 +150,4 @@ window.Echo.channel("comment-channel").listen(".new-comment", () => {
   getPosts();
   getNotifications();
 });
-
-onMounted(() => {
-  getPosts();
-});
-window.Echo.channel("like-channel").listen(".new-like", () => {
-  getPosts();
-  getNotifications();
-});
-window.Echo.channel("comment-channel").listen(".new-comment", () => {
-  getPosts();
-  getNotifications();
-});
 </script>

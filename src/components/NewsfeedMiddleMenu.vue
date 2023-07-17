@@ -18,9 +18,7 @@
       </button>
     </section>
     <section
-      :class="`ml-5 text-input_text hidden md:block w-full ${
-        !isSearchBarVisible && 'w-[15rem]'
-      }`"
+      :class="`ml-5 text-input_text hidden md:block  ${isSearchBarVisible && 'w-full'}`"
     >
       <section
         class="flex p-2"
@@ -34,7 +32,7 @@
             :class="`${!isSearchBarVisible && 'xl:w-[10rem] lg:w-[15rem]'}`"
           >
             <find-icon class="mr-3" />
-            <p v-if="!isSearchBarVisible" class="text-quote_text text-xl">Search by</p>
+            <p v-if="!isSearchBarVisible" class="text-quote_text text-md">Search by</p>
           </button>
           <search-input
             :placeholder="placeholderText"
