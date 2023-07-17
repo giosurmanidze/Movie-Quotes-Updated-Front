@@ -15,14 +15,14 @@
       bottom_locale_text="congratulations_user_avatar_updated"
     />
     <section class="mb-5">
-      <LeftArrowIcon @click="goBackHandler()" />
+      <LeftArrowIcon @click="$router.back()" />
     </section>
     <section class="bg-add_quote_btn -mx-7 h-[80vh] px-7 py-10">
-      <section v-if="profileStore.showForm" class="flex justify-center">
+      <section v-if="$route.name === 'userProfile'" class="flex justify-center">
         <img :src="userAvatar" class="h-32 mt-5 max-w-[8.75rem] rounded-full" />
       </section>
       <Form @submit="sendThumbnailData">
-        <div v-if="profileStore.showForm" class="text-white px-7">
+        <div v-if="$route.name === 'userProfile'" class="text-white px-7">
           <section class="text-center" @click="showSaveChangesButtons = true">
             <ProfileFileInput />
           </section>
@@ -63,7 +63,8 @@
           </section>
         </div>
       </Form>
-      <ChangeUsername v-if="!profileStore.showForm" />
+      <ChangeUsername v-if="$route.name === 'changeName' || 'youSure'" />
+      <YouSure v-if="$route.name === 'youSure'" />
     </section>
   </div>
 </template>
@@ -80,6 +81,7 @@ import { useSendProfileAvatar } from "@/services";
 import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 import ChangeUsername from "@/components/ChangeUsername.vue";
 import { useRouter } from "vue-router";
+import YouSure from "@/components/YouSure.vue";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
@@ -90,19 +92,10 @@ const { toggleShowForm } = useProfilePageStore();
 const router = useRouter();
 
 function editUsernameHandler() {
-  toggleShowForm();
+  toggleShowForm(false);
+  router.push({ name: "changeName" });
   sendUserName.value = true;
 }
-
-function goBackHandler() {
-  if (profileStore.showForm) {
-    router.push({ name: "newsFeed" });
-  } else {
-    profileStore.showForm = true;
-    sendUserName.value = false;
-  }
-}
-
 const { toggleShowUsernameAlert, toggleShowAvatarAlert } = useProfilePageStore();
 const profileStore = useProfilePageStore();
 

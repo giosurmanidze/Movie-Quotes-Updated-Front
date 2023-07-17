@@ -7,7 +7,8 @@ import {
   toggleShowUsernameAlert,
   toggleShowEmailAlert,
   toggleShowPassowrdAlert,
-  toggleShowAvatarAlert
+  toggleShowAvatarAlert,
+  checkErrorMessage
 } from './actions'
 
 export const useProfilePageStore = defineStore('useProfilePageStore', {
@@ -19,7 +20,8 @@ export const useProfilePageStore = defineStore('useProfilePageStore', {
     showUsernameAlert: false,
     showEmailAlert: false,
     showPassowrdAlert: false,
-    showAvatarAlert: false
+    showAvatarAlert: false,
+    errorMessage: ''
   }),
   actions: {
     toggleShowForm,
@@ -29,6 +31,7 @@ export const useProfilePageStore = defineStore('useProfilePageStore', {
     toggleShowUsernameAlert,
     toggleShowEmailAlert,
     toggleShowPassowrdAlert,
-    toggleShowAvatarAlert
+    toggleShowAvatarAlert,
+    checkErrorMessage
   }
 })

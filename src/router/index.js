@@ -6,18 +6,23 @@ import SignupForm from '@/pages/guest/SignupForm.vue'
 import SentEmail from '@/pages/guest/SentEmail.vue'
 import NewsFeedPage from '@/pages/Auth/NewsFeedPage.vue'
 import ForgotPassword from '@/pages/guest/ForgotPassword.vue'
+import ChangedPassword from '@/pages/guest/ChangedPassword.vue'
 import RecoverInstructions from '@/pages/guest/RecoverInstructions.vue'
 import CreatePassword from '@/pages/guest/CreatePassword.vue'
-import ChangedPassword from '@/pages/guest/CreatePassword.vue'
 import MovieList from '@/pages/Auth/MovieList.vue'
 import UserProfile from '@/pages/Auth/UserProfile.vue'
 import SingleMovie from '@/pages/Auth/SingleMovie.vue'
 import { useAuthStore } from '@/stores/auth/useAuthStore.js'
 import { isAuthenticated, isNotAuthenticated } from '@/router/guard/auth-guard.js'
+import { getUserData } from '@/services/requests/sendRequest'
 import ForbiddenPage from '@/pages/ErrorPages/ForbiddenPage.vue'
 import NotFound from '@/pages/ErrorPages/NotFound.vue'
 import SuccessUpdatedVerifiedEmail from '@/pages/Auth/SuccessUpdatedVerifiedEmail.vue'
-import { getUserData } from '@/services/requests/sendRequest'
+import ChangeUsername from '@/components/ChangeUsername.vue'
+import YouSure from '@/components/YouSure.vue'
+import ChangePassword from '@/components/ChangePassword.vue'
+
+import ChangeEmail from '@/components/ChangeEmail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,7 +79,7 @@ const router = createRouter({
           name: 'changedPassword',
           component: ChangedPassword,
           beforeEnter: isNotAuthenticated
-        },
+        }
       ]
     },
     {
@@ -106,16 +111,38 @@ const router = createRouter({
       beforeEnter: isAuthenticated
     },
     {
-      path: '/user-profile',
-      name: 'userProfile',
-      component: UserProfile,
-      beforeEnter: isAuthenticated
-    },
-    {
       path: '/email-verified',
       name: 'emailVerified',
       component: SuccessUpdatedVerifiedEmail,
       beforeEnter: isAuthenticated
+    },
+    {
+      path: '/user-profile',
+      name: 'userProfile',
+      component: UserProfile,
+      beforeEnter: isAuthenticated,
+      children: [
+        {
+          path: '/change-name',
+          name: 'changeName',
+          component: ChangeUsername,
+        },
+        {
+          path: '/you-sure',
+          name: 'youSure',
+          component: YouSure
+        },
+        {
+          path: '/change-password',
+          name: 'changePassword',
+          component: ChangePassword
+        },
+        {
+          path: '/change-email',
+          name: 'changeEmail',
+          component: ChangeEmail
+        }
+      ]
     }
   ]
 })
