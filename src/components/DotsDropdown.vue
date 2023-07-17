@@ -52,6 +52,7 @@ function showViewQuotesModal() {
 
 function showEditQuoteModal() {
   store.toggleEditQuoteModal();
+  localStorage.setItem("quoteId", JSON.stringify(quote.value?.id));
   dropdownState.value = false;
 }
 
