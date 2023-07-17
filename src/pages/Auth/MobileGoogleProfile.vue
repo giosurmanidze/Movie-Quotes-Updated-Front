@@ -15,7 +15,7 @@
       bottom_locale_text="congratulations_user_avatar_updated"
     />
     <section class="mb-5">
-      <LeftArrowIcon @click="$router.push({ name: 'newsFeed' })" />
+      <LeftArrowIcon @click="goBackHandler()" />
     </section>
     <section class="bg-add_quote_btn -mx-7 h-[80vh] px-7 py-10">
       <section v-if="profileStore.showForm" class="flex justify-center">
@@ -79,6 +79,7 @@ import { storeToRefs } from "pinia";
 import { useSendProfileAvatar } from "@/services";
 import { useProfilePageStore } from "@/stores/profile/useProfilePageStore";
 import ChangeUsername from "@/components/ChangeUsername.vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps({ user: { type: Object, required: true } });
 
@@ -86,10 +87,20 @@ const { userAvatar } = storeToRefs(useUserStore());
 const showSaveChangesButtons = ref(false);
 const sendUserName = ref(false);
 const { toggleShowForm } = useProfilePageStore();
+const router = useRouter();
 
 function editUsernameHandler() {
   toggleShowForm();
   sendUserName.value = true;
+}
+
+function goBackHandler() {
+  if (profileStore.showForm) {
+    router.push({ name: "newsFeed" });
+  } else {
+    profileStore.showForm = true;
+    sendUserName.value = false;
+  }
 }
 
 const { toggleShowUsernameAlert, toggleShowAvatarAlert } = useProfilePageStore();
