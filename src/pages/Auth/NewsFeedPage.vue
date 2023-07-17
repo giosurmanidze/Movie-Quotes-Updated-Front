@@ -4,7 +4,7 @@
       <section class="pl-16 hidden md:flex">
         <newsfeed-side-bar />
       </section>
-      <section class="mt-5 md:mt-0 h-full min-h-screen">
+      <section class="mt-5 md:mt-0 h-full min-h-screen w-full">
         <newsfeed-middle-menu />
         <newsfeed-content />
       </section>

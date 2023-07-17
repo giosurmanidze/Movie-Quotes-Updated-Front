@@ -45,7 +45,7 @@
               class="lg:w-1/2 w-full"
               name="username"
               label="username"
-              rules="required"
+              rules="required|min:3|max:15|lower_alpha_num"
               :currentUser="user.username"
               :disabled="disableInput"
             />
@@ -84,7 +84,7 @@
               v-if="!disableInputForEmail"
               name="new_email"
               label="new_email"
-              rules="required"
+              rules="required|email"
             />
             <section v-if="emailErrors">
               <p class="text-red-500">{{ emailErrors }}</p>
@@ -205,9 +205,7 @@ const { userAvatar } = storeToRefs(useUserStore());
 function inputToggleHandler() {
   disableInput.value = false;
   showSaveChangesButtons.value = true;
-  if (!disableInput.value) {
-    sendUserName.value = true;
-  }
+  sendUserName.value = true;
 }
 function inputToggleHandlerFromEmail() {
   disableInputForEmail.value = false;
@@ -228,6 +226,7 @@ function toggleEditPassword() {
 
 function cancelHandler() {
   showSaveChangesButtons.value = false;
+  emailErrors.value = "";
   showEditPassword.value = true;
   disableInputForEmail.value = true;
   inputs.value ? inputs.value-- : "";

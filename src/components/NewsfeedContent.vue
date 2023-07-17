@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 md:ml-5 mt-10 text-white">
+  <div class="px-4 md:ml-5 mt-5 text-white">
     <QuoteAddedModal />
     <div v-for="quote in posts" :key="quote.id" class="p-3 mb-5 bg-modal_bg rounded-lg">
       <section class="flex items-center">
@@ -22,7 +22,7 @@
         <img
           :src="backendUrl + quote.thumbnail"
           alt="quote img"
-          class="xl:w-[55.625rem] xl:h-[31.25rem]"
+          class="xl:w-[55.625rem] xl:h-[31.25rem] mx-auto"
         />
       </section>
       <section class="flex gap-4 py-4 border-b border-white">
@@ -138,18 +138,6 @@ function toggleExpandComments(quote) {
     expandedQuotes.value.push(quote.comments.map((comment) => comment.userId));
   }
 }
-
-onMounted(() => {
-  getPosts();
-});
-window.Echo.channel("like-channel").listen(".new-like", () => {
-  getPosts();
-  getNotifications();
-});
-window.Echo.channel("comment-channel").listen(".new-comment", () => {
-  getPosts();
-  getNotifications();
-});
 
 onMounted(() => {
   getPosts();

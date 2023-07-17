@@ -1,8 +1,5 @@
 <template>
-  <crud-modal
-    @click="store.toggleViewQuoteModal(false)"
-    :showModal="store.showViewQuoteModal"
-  >
+  <crud-modal @click="store.toggleViewQuoteModal()" :showModal="store.showViewQuoteModal">
     <template v-slot:header>
       <div
         class="absolute left-3 grid grid-cols-2 divide-x items-center bg-transparent py-2 px-5 rounded"
@@ -15,7 +12,7 @@
         </section>
       </div>
       {{ $t("display_quote") }}
-      <div @click="store.toggleViewQuoteModal(false)" class="absolute right-10 top-7">
+      <div @click="store.toggleViewQuoteModal()" class="absolute right-10 top-7">
         <CloseIcon /></div
     ></template>
     <template v-slot:body>
@@ -112,17 +109,22 @@ import EditIcon from "@/assets/icons/EditIcon.vue";
 import { useUserStore } from "@/stores/user/useUserStore.js";
 import { useQuotesStore } from "@/stores/quotes/useQuotesStore.js";
 import { storeToRefs } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useCreateComment } from "@/services";
 import LikedQuote from "@/components/LikedQuote.vue";
 
 const { user, userAvatar } = storeToRefs(useUserStore());
 const { quote, quotes } = storeToRefs(useQuotesStore());
-const { getQuotes } = useQuotesStore();
+const { getQuotes, getQuote } = useQuotesStore();
 getQuotes();
 
-const store = useModalStore();
+const quote_id = ref(JSON.parse(localStorage.getItem("quoteId")));
 
+onMounted(() => {
+  getQuote(quote_id?.value);
+});
+
+const store = useModalStore();
 const quoteEn = computed(() => {
   return quote.value?.quote.en;
 });

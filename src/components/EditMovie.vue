@@ -65,13 +65,13 @@
             />
             <crud-input
               name="budget"
-              rules="required"
+              rules="required|numeric"
               :placeholder="$t('budget')"
               :oldValue="userData?.budget"
             />
             <crud-input
-              name="releaseDate"
-              rules="required"
+              name="year"
+              rules="required|numeric"
               :placeholder="$t('release_date')"
               :oldValue="userData?.release_date"
             />

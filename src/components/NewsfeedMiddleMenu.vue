@@ -1,20 +1,25 @@
 <template>
   <div class="flex">
-    <section class="flex text-white pl-6 md:pl-10">
-      <button class="flex md:bg-add_quote_btn p-2 rounded-md">
+    <section
+      class="flex text-white md:pl-10 w-full"
+      :class="isSearchBarVisible && 'xl:w-[30rem] md:w-[20rem]'"
+    >
+      <button
+        class="flex md:bg-add_quote_btn p-2 rounded-md xs:justify-center w-full sm:justify-start"
+      >
         <add-quote-modal />
         <div
           @click="store.toggleAddQuotesModal()"
-          :class="`flex md:w-[10rem] xl:w-[30rem] ${
-            isSearchBarVisible && 'xl:w-[20rem]'
-          }`"
+          :class="`flex w-full xs:justify-center md:justify-start`"
         >
           <add-quote-icon />
           <p class="ml-2 text-base font-normal">{{ $t("write_new_quote") }}</p>
         </div>
       </button>
     </section>
-    <section class="ml-5 text-input_text hidden md:block w-full">
+    <section
+      :class="`ml-5 text-input_text hidden md:block  ${isSearchBarVisible && 'w-full'}`"
+    >
       <section
         class="flex p-2"
         :class="isSearchBarVisible && 'border-b border-input_text w-[95%]'"
@@ -24,16 +29,16 @@
             type="button"
             @click="toggleSearchBar"
             class="items-center gap-3 xs:hidden md:flex"
+            :class="`${!isSearchBarVisible && 'xl:w-[10rem] lg:w-[15rem]'}`"
           >
             <find-icon class="mr-3" />
-            <p v-if="!isSearchBarVisible" class="text-quote_text">Search by</p>
+            <p v-if="!isSearchBarVisible" class="text-quote_text text-md">Search by</p>
           </button>
           <search-input
             :placeholder="placeholderText"
             name="search"
             v-if="isSearchBarVisible"
-            :classes="`ml-2 text-base bg-transparent w-full outline-none`"
-            :class="isSearchBarVisible && 'w-[30rem]'"
+            :classes="`ml-2 text-base bg-transparent w-full outline-none pr-10`"
           />
         </Form>
       </section>

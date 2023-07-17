@@ -151,10 +151,14 @@ function editEmailHandler() {
 }
 
 function goBackHandler() {
-  router.push({ name: "newsFeed" });
-  sendUserName.value === false;
-  showEditPassword.value === false;
-  profileStore.showForm === true;
+  if (profileStore.showForm) {
+    router.push({ name: "newsFeed" });
+  } else {
+    profileStore.showForm = true;
+    showEditPassword.value = false;
+    sendUserName.value = false;
+    sendEmail.value = false;
+  }
 }
 
 const showSaveChangesButtons = ref(false);

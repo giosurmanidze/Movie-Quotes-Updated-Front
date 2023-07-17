@@ -59,7 +59,7 @@ configure({
         descriptionKa: 'აღწერის ველი',
         name: 'მომხმარებლის სახელი',
         budget:"ბიუჯეტი",
-        releaseDate:'გამოშვების წელი'
+        year:'გამოშვების წელი'
       }
     }
   })
