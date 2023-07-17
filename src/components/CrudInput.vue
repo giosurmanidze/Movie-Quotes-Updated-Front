@@ -9,7 +9,7 @@
     :validate-on-input="true"
   >
     <div class="flex">
-      <template v-if="inputType === 'text'">
+      <template v-if="inputType === 'text' || 'number'">
         <input
           v-bind="field"
           :type="type"

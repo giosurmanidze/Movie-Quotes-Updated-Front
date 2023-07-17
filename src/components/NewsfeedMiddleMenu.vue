@@ -1,8 +1,8 @@
 <template>
   <div class="flex">
     <section
-      class="flex text-white md:pl-10 w-full"
-      :class="isSearchBarVisible && 'xl:w-[30rem] md:w-[20rem]'"
+      class="flex text-white md:pl-10 w-full xl:pr-36"
+      :class="isSearchBarVisible && 'xl:w-[40rem] xl:pr-5 md:w-[20rem]'"
     >
       <button
         class="flex md:bg-add_quote_btn p-2 rounded-md xs:justify-center w-full sm:justify-start"
