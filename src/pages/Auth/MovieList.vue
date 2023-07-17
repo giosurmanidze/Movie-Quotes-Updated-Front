@@ -60,7 +60,7 @@
 <script setup>
 import { Form } from "vee-validate";
 import SearchInput from "@/components/SearchInput.vue";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import AddMoviePlusIcon from "@/assets/icons/AddMoviePlusIcon.vue";
 import FindIcon from "@/assets/icons/SearchIcon.vue";
 import MovieCard from "@/components/MovieCard.vue";
@@ -77,7 +77,9 @@ getUser();
 const store = useModalStore();
 
 const { getMovies, searchMovie } = useMoviesStore();
-getMovies();
+onMounted(() => {
+  getMovies();
+});
 
 const searchValue = ref(null);
 const movieStore = useMoviesStore();

@@ -54,7 +54,7 @@
             />
           </section>
           <section>
-            <ImageFileInput :src="imagePath" />
+            <ImageFileInput :src="imagePath" :getNewImage="getNewImage" />
           </section>
           <button class="w-full bg-red-600 my-5 py-2">
             {{ $t("save_changes") }}
@@ -94,6 +94,10 @@ import { useEditQuote } from "@/services";
 const { user, userAvatar } = storeToRefs(useUserStore());
 
 const store = useModalStore();
+const newImage = ref(null);
+const getNewImage = (new_image) => {
+  newImage.value = new_image;
+};
 
 const { quote } = storeToRefs(useQuotesStore());
 
@@ -113,7 +117,7 @@ const imagePath = computed(() => {
   return backendUrl + quote.value?.thumbnail;
 });
 
-const { submit, successMessage } = useEditQuote(quote);
+const { submit, successMessage } = useEditQuote(quote, newImage);
 
 function goBack() {
   successMessage.value = false;
@@ -123,8 +127,8 @@ function goBack() {
 const { deleteQuote } = useQuotesStore();
 
 function deleteQuoteById() {
-  const quoteId = ref(quote.id);
-  deleteQuote(quoteId.value);
+  deleteQuote(quote?.value.id);
   quoteSuccessfullyDeleted.value = true;
+  store.toggleQuoteDeletedModal();
 }
 </script>

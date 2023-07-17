@@ -83,7 +83,7 @@ export function useCreateMovie(genres) {
       description_en: values.descriptionEn,
       description_ka: values.descriptionKa,
       budget: values.budget,
-      release_date: values.releaseDate,
+      release_date: values.year,
       thumbnail: values.thumbnail
     }
 
@@ -217,7 +217,7 @@ export function useEditMovie(params, genres) {
       description_en: values.descriptionEn,
       description_ka: values.descriptionKa,
       budget: values.budget,
-      release_date: values.releaseDate,
+      release_date: values.year,
       thumbnail: values.thumbnail1
     }
 
@@ -240,14 +240,14 @@ export function useEditMovie(params, genres) {
     submit
   }
 }
-export function useEditQuote(quote) {
+export function useEditQuote(quote, newImage) {
   const successMessage = ref(null)
   const moviesStore = useMoviesStore()
   function submit(values) {
     let data = {
       body_en: values.bodyEn,
       body_ka: values.bodyKa,
-      thumbnail: values.thumbnail
+      thumbnail: newImage.value
     }
     const quoteId = ref(quote.value.id)
     const config = {
@@ -382,8 +382,6 @@ export function useSendUsername(showUserUpdated, disableInput, showConfirmModal,
 }
 
 export function useUpdateUserData(
-  showUserUpdatedAlert,
-  ShowEmailSentAlert,
   disableInput,
   disableInputForEmail,
   showSaveChangesButtons,
@@ -409,6 +407,7 @@ export function useUpdateUserData(
     toggleShowPassowrdAlert(false)
     toggleShowAvatarAlert(false)
 
+
     let fileInput = document.getElementById('getFile')
     const file = fileInput?.files[0]
 
@@ -425,7 +424,6 @@ export function useUpdateUserData(
       .then(() => {
         getUser()
         if (sendUserName.value) {
-          showUserUpdatedAlert.value = true
           toggleShowUsernameAlert(true)
           sendUserName.value = false
           disableInput.value = true
