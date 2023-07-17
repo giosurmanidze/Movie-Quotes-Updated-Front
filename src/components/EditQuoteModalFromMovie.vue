@@ -127,7 +127,6 @@ function goBack() {
 const { deleteQuote } = useQuotesStore();
 
 function deleteQuoteById() {
-  console.log(quote);
   deleteQuote(quote?.value.id);
   quoteSuccessfullyDeleted.value = true;
   store.toggleQuoteDeletedModal();

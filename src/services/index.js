@@ -448,7 +448,6 @@ export function useUpdateUserData(
       })
 
     if (sendEmail?.value) {
-      console.log(values)
       axios
         .post('api/user/add-email', { email: values.new_email })
         .then(() => {
