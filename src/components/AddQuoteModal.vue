@@ -25,7 +25,7 @@
               rules="required|en"
               placeholder="Start create new quote"
               inputType="textarea"
-              classes="placeholder-genre_text text-white xs:text-base sm:text-xl"
+              classes="placeholder-genre_text text-white xs:text-sm sm:text-xl"
             />
             <crud-input
               lang="ka"
@@ -33,7 +33,7 @@
               rules="required|geo"
               placeholder="ახალი ციტატა"
               inputType="textarea"
-              classes="placeholder-genre_text text-white xs:text-base sm:text-xl"
+              classes="placeholder-genre_text text-white xs:text-sm sm:text-xl"
             />
             <drag-and-drop name="thumbnail" rules="required" :imgValue="imgValue" />
             <div class="text-white items-center text-center relative cursor-default">
