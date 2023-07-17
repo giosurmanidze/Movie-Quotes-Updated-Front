@@ -76,6 +76,22 @@ const dropFile = (e) => {
 
 document.addEventListener("drop", dropFile);
 
+const createObjectURL = (file) => {
+  if (typeof URL !== "undefined" && typeof URL.createObjectURL === "function") {
+    return URL.createObjectURL(file);
+  } else {
+    return "";
+  }
+};
+
+const revokeObjectURL = (url) => {
+  if (typeof URL !== "undefined" && typeof URL.revokeObjectURL === "function") {
+    URL.revokeObjectURL(url);
+  } else {
+    return "";
+  }
+};
+
 const setImage = function (event) {
   const output = document.getElementById("image");
   output.src = createObjectURL(event.target.files[0]);
@@ -84,13 +100,5 @@ const setImage = function (event) {
   };
   selectedImage.value = event.target.files[0];
   props.getNewImage(selectedImage.value);
-};
-
-const createObjectURL = (file) => {
-  return (URL || webkitURL).createObjectURL(file);
-};
-
-const revokeObjectURL = (url) => {
-  (URL || webkitURL).revokeObjectURL(url);
 };
 </script>
