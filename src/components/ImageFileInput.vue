@@ -83,21 +83,9 @@ const createObjectURL = (file) => {
     return "";
   }
 };
-
-const revokeObjectURL = (url) => {
-  if (typeof URL !== "undefined" && typeof URL.revokeObjectURL === "function") {
-    URL.revokeObjectURL(url);
-  } else {
-    return "";
-  }
-};
-
 const setImage = function (event) {
   const output = document.getElementById("image");
   output.src = createObjectURL(event.target.files[0]);
-  output.onload = () => {
-    revokeObjectURL(output.src);
-  };
   selectedImage.value = event.target.files[0];
   props.getNewImage(selectedImage.value);
 };
