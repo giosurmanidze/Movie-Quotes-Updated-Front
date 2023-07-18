@@ -9,7 +9,7 @@
     :validate-on-input="true"
   >
     <div class="flex">
-      <template v-if="inputType === 'text'">
+      <template v-if="inputType === 'text' || 'number'">
         <input
           v-bind="field"
           :type="type"
@@ -26,7 +26,7 @@
         ></textarea>
       </template>
       <p
-        class="text-genre_text absolute right-10 md:right-10 mt-8 mr-5"
+        class="text-genre_text absolute right-10 md:right-10 mt-5 mr-5 "
         :class="{
           'w-[1.125rem]': lang === 'en',
           'w-[1.25rem]': lang === 'ka',

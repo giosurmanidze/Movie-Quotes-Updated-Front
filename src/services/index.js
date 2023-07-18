@@ -407,7 +407,6 @@ export function useUpdateUserData(
     toggleShowPassowrdAlert(false)
     toggleShowAvatarAlert(false)
 
-
     let fileInput = document.getElementById('getFile')
     const file = fileInput?.files[0]
 
@@ -479,61 +478,50 @@ export async function UpdateUserEmail(newEmail, userId) {
   }
 }
 
-export function userPassowrdUsernameUpdate(fieldName, data, updatedModal, showConfirmModal) {
-  const errorMessage = ref(null)
-  const profileStore = useProfilePageStore()
+export function userPassowrdUsernameUpdate(fieldName, data, updatedModal) {
   const { getUser } = useUserStore()
+  const router = useRouter()
   const { locale } = useI18n({ useScope: 'global' })
+  const { checkErrorMessage } = useProfilePageStore()
 
-
-  function sendData() {
+  function sendUserData() {
     axios
       .post('api/user/update', { [fieldName]: data.value })
       .then(() => {
-        profileStore.toggleShowForm(true)
-        profileStore.toggleShowModal(true)
-        profileStore.toggleUsernameEdited(true)
-        showConfirmModal.value = true
+        router.push({ name: 'userProfile' })
         updatedModal(true)
-        errorMessage.value = ''
         getUser()
       })
       .catch((error) => {
-        showConfirmModal.value = false
-        errorMessage.value = error.response.data.errors?.username[0][locale.value]
+        checkErrorMessage(error.response.data.errors?.username[0][locale.value])
+        router.push({ name: 'changeName' })
       })
   }
-
   return {
-    sendData,
-    errorMessage
+    sendUserData
   }
 }
 
-export function sendEmail(changedEmail, showConfirmModal) {
-  const { locale } = useI18n({ useScope: 'global' })
-  const errorMessage = ref(null)
+export function sendEmail(changedEmail) {
+  const router = useRouter()
   const { toggleShowEmailAlert } = useProfilePageStore()
-  const profileStore = useProfilePageStore()
   const { getUser } = useUserStore()
+  const { locale } = useI18n({ useScope: 'global' })
+  const { checkErrorMessage } = useProfilePageStore()
   function sendData() {
     axios
       .post('api/user/add-email', { email: changedEmail.value })
       .then(() => {
+        router.push({ name: 'userProfile' })
         toggleShowEmailAlert(true)
-        profileStore.toggleShowForm(true)
-        profileStore.toggleShowModal(true)
-        errorMessage.value = null
         getUser()
       })
       .catch((error) => {
-        showConfirmModal.value = false
-        errorMessage.value = error.response.data.errors.email[0][locale.value]
+        checkErrorMessage(error.response.data.errors?.email[0][locale.value])
+        router.push({ name: 'changeEmail' })
       })
   }
-
   return {
-    sendData,
-    errorMessage
+    sendData
   }
 }
