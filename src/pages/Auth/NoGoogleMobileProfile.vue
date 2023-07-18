@@ -29,14 +29,14 @@
       bottom_locale_text="congratulations_user_avatar_updated"
     />
     <section class="mb-4 mt-1 pl-7">
-      <LeftArrowIcon @click="goBackHandler()" />
+      <LeftArrowIcon @click="$router.back()" />
     </section>
     <div class="bg-add_quote_btn w-screen h-[80vh] px-7 py-10 text-white">
-      <section v-if="profileStore.showForm" class="flex justify-center">
+      <section class="flex justify-center" v-if="$route.name === 'userProfile'">
         <img :src="userAvatar" class="h-[8.75rem] max-w-[8.75rem] rounded-full" />
       </section>
       <Form @submit="sendThumbnailData">
-        <div v-if="profileStore.showForm">
+        <div v-if="$route.name === 'userProfile'">
           <section class="text-center" @click="showSaveChangesButtons = true">
             <MobileFileInput />
           </section>
@@ -71,13 +71,14 @@
             <div></div>
           </section>
         </div>
-        <ChangeUsername v-if="!profileStore.showForm && sendUserName" />
-        <ChangeEmail v-if="!profileStore.showForm && sendEmail" />
+        <ChangeUsername v-if="$route.name === 'changeName' || 'youSure'" />
+        <ChangeEmail v-if="$route.name === 'changeEmail' || 'youSure'" />
         <ChangePassword
           :email="user.email"
           :username="user.username"
-          v-if="!profileStore.showForm && showEditPassword"
+          v-if="$route.name === 'changePassowrd' || 'youSure'"
         />
+        <YouSure v-if="$route.name === 'youSure'" />
         <section v-if="showSaveChangesButtons" class="flex justify-between mt-8">
           <button type="button" class="p-2 pr-8 cursor-pointer" @click="cancelHandler()">
             {{ $t("cancel") }}
@@ -105,6 +106,7 @@ import AlertModal from "@/components/AlertModal.vue";
 import { useUserStore } from "@/stores/user/useUserStore";
 import { storeToRefs } from "pinia";
 import { useSendProfileAvatar } from "@/services/index";
+import YouSure from "@/components/YouSure.vue";
 
 const props = defineProps({ user: { type: Object, required: true } });
 const {
@@ -117,12 +119,13 @@ const {
 const userName = computed(() => {
   return props.user.username;
 });
+const router = useRouter();
+
 const { userAvatar } = storeToRefs(useUserStore());
 const inputs = ref(0);
 
 const profileStore = useProfilePageStore();
 const { toggleShowForm } = useProfilePageStore();
-const router = useRouter();
 
 function cancelHandler() {
   showSaveChangesButtons.value = false;
@@ -130,37 +133,20 @@ function cancelHandler() {
 }
 
 function editUsernameHandler() {
-  toggleShowForm();
-  showEditPassword.value = false;
+  toggleShowForm(false);
+  router.push({ name: "changeName" });
   sendUserName.value = true;
-  sendEmail.value = false;
 }
-
-function editPasswordHandler() {
-  toggleShowForm();
-  sendUserName.value = false;
-  showEditPassword.value = true;
-  sendEmail.value = false;
-}
-
 function editEmailHandler() {
-  toggleShowForm();
-  showEditPassword.value = false;
-  sendUserName.value = false;
+  toggleShowForm(false);
+  router.push({ name: "changeEmail" });
   sendEmail.value = true;
 }
-
-function goBackHandler() {
-  if (profileStore.showForm) {
-    router.push({ name: "newsFeed" });
-  } else {
-    profileStore.showForm = true;
-    showEditPassword.value = false;
-    sendUserName.value = false;
-    sendEmail.value = false;
-  }
+function editPasswordHandler() {
+  toggleShowForm(false);
+  router.push({ name: "changePassword" });
+  showEditPassword.value = true;
 }
-
 const showSaveChangesButtons = ref(false);
 const showEditPassword = ref(true);
 const sendUserName = ref(false);

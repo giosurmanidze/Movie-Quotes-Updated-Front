@@ -118,10 +118,11 @@ const { quote, quotes } = storeToRefs(useQuotesStore());
 const { getQuotes, getQuote } = useQuotesStore();
 getQuotes();
 
-const quote_id = ref(JSON.parse(localStorage.getItem("quoteId")));
+const quoteIdString = localStorage.getItem("quoteId");
+const quote_id = ref(quoteIdString ? JSON.parse(quoteIdString) : null);
 
 onMounted(() => {
-  getQuote(quote_id?.value);
+  getQuote(quote_id.value);
 });
 
 const store = useModalStore();

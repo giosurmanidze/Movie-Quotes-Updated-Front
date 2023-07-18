@@ -19,17 +19,17 @@
     />
   </Field>
   <div
-    class="relative border border-white-1 rounded-lg w-auto h-auto"
+    class="relative border border-white-1 rounded-lg w-auto h-auto md:flex items-center"
     id="container"
     @dragover.prevent="dragOver"
     @dragleave.prevent="dragLeave"
     @drop.prevent="dropFile"
   >
-    <div class="relative border border-white-1 rounded-lg w-auto h-auto">
+    <div class="relative border border-white-1 rounded-lg w-auto h-auto md:w-full">
       <img
         :src="selectedImage ? createObjectURL(selectedImage) : src"
         alt=""
-        class="w-auto h-auto"
+        class="w-full"
         id="image"
       />
       <label

@@ -62,13 +62,15 @@
               inputType="textarea"
             />
             <CrudInput
+              type="number"
               name="budget"
-              rules="required|numeric"
+              rules="required"
               :placeholder="$t('budget')"
             />
             <CrudInput
               name="year"
-              rules="required|numeric"
+              type="number"
+              rules="required"
               :placeholder="$t('release_date')"
             />
             <DragAndDrop name="thumbnail" rules="required" :imgValue="imgValue" />
